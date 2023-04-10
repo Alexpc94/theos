@@ -1,0 +1,829 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <link href="css/estilo1.css" rel="stylesheet">
+ 
+   <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+   <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+
+  <script src="js/tools_oam.js"></script>
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+  <script>
+      $( function() {
+          $( "#a_fecha" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+          });
+    
+          $( "#m_fecha" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });    
+          
+      });
+  </script>
+    
+           <!-- /. ROW  -->              
+            <div  class="row">
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">GESTION DE PROMOCIONES</p>     
+                                </div>                                
+                                <fieldset class="col-md-12" >        
+	                                    <legend>Parámetros::</legend>
+	                                    #if (${PA}=="A")
+                                       		<a  href="javascript:void(0)" onclick="javascript:adicionarAccion()">                               			
+			                                    <button class="pull-right" data-toggle="modal" id="#myModal">
+			                                        <img src="images/img-sis/add_2.png" style="width:30px; height:30px;">
+			                                    </button>
+		                                    </a>
+	                                    #else
+		                                    <button class="pull-right" data-toggle="modal">
+		                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
+		                                    </button>
+	                                	#end
+	                                    <!-- BOTON TO PRINT -->
+	                                    <button class="pull-right" id="print">
+	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                
+	                                   
+	                                <form id="paramform" action="Tcambiomon.html" method="POST">  
+
+									    <div class="col-md-4 par-activos pull-right">
+	                                    	<label><input type="radio" name="estado" value="1" class="paramsChange" #if($estado== 1) checked #end>Activos</label>
+									      	<label><input type="radio" name="estado" value="0" class="paramsChange" #if($estado== 0) checked #end>Nulos</label>
+									      	<label><input type="radio" name="estado" value="2" class="paramsChange" #if($estado== 2) checked #end>Todos</label>
+									    </div>
+
+									</form>    
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                        <div >
+                            <div class="espacio-small"></div>
+                            <div class="table-responsive">
+ <div id="listacciones-det">
+                                <table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>                                       
+                                            <th class="text-center ancho-icono">#</th>
+                                            <th width="5" > &nbsp; </th>
+                                            <th class="col-sm-0 text-center">Código.</th>
+                                            <th class="col-sm-0">Fecha</th>
+                                            <th class="col-sm-0">SOCIO</th>
+                                            <th class="col-sm-0">DESDE</th>
+                                            <th class="col-sm-0">HASTA</th>
+                                            <th class="col-sm-0" title="CANTIDAD DE MESES CONDONADOS..">Meses</th>
+                                            <th class="col-sm-0" title="MONTO PAGADO..">Monto</th>
+                                            <th class="col-sm-0" title="Responsable de Transacción..">User</th>
+                                            <th class="col-sm-0" title="ESTADO Promoción">EST</th>
+                                            <th class="col-sm-0" title="ELIMINAR Promoción">DEL</th>
+                                            <th class="col-sm-0 text-center">PR</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>     
+                                    	#set($con=1)
+                                    	#foreach($reg in $xPromociones)	                                   
+                                         <tr class="gradeU">
+                                            <td class="text-center">${con}</td>
+        							        <td class="text-center">
+	    							        	<a  href="javascript:void(0)" onclick="javascript:llamarDetalleAccion('${reg.codp}','${reg.getDatosPersona()}','${reg.obser}')">
+	    	                                		<input type="radio" name="beneficiario_sel" />
+	    	                                	</a>
+	    							        </td>
+                                            <td>${reg.codp} </td>
+                                            <td>${reg.getFechaFormat()} </td>
+                                            <td><b>${reg.getDatosPersona()}</b></td>
+                                            <td>${reg.getMesAnioIniFormat()} </td>
+                                            <td>${reg.getMesAnioFinFormat()} </td>
+                                            <td align="right">${reg.mescondonado} </td>
+                                            <td align="right">${reg.getMontoFormat()} </td>
+                                            <td>${reg.login} </td>
+                                            
+                                            <td class="text-center ancho-icono">
+                                            	#if (${reg.estado}==1)
+                                            		<img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
+                                            	#else	
+                                            		<img src="images/img-sis/hand_down.png" style="width:25px;">
+                                            	#end
+                                            </td>                                           		
+                                            <td class="text-center ancho-icono">
+                                            #if (${reg.estado}==1)
+                                            	#if (${PB}=="B")
+		                                            	<a  href="javascript:void(0)" onclick="javascript:eliminarAcciones('${reg.codp}','${reg.getDatosPersona()}','${reg.getMontoFormat()}')">
+		                                            		<img src="images/img-sis/del.png" style="width:25px;" title="Eliminar Acción..">
+		                                            	</a>
+                                            	#else
+		                                			<img src="images/img-sis/nodel.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                		#end
+		                                    #else
+	                                					<img src="images/img-sis/nodel.png" style="width:25px;" >
+	                                		#end     	
+                                            </td>
+	    									<td  class="text-center ancho-icono">
+										        <a href="javascript:void(0);" onclick="window.open('reportePagarBoletas102102.html?opcion=${opReporte}&codpag=${reg.getCodpagEncript()}','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');" >
+				            						<img src="images/img-sis/print.png"
+				            							style="vertical-align: middle; width: 24px; height: 24px"
+				            							alt="Vista previa" title="Imprimir Factura.." /> 
+				    							</a>
+										    </td>
+                                        </tr>                        
+                                        #set($con=$con + 1)
+                                       #end
+                                    </tbody>
+                                </table>
+</div>                                                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+                <input type="HIDDEN" id="mensaje" value="${mensaje}">
+                <input type="HIDDEN" id="menTexto" value="${menTexto}">
+                               
+            </div>
+<div id="detalle-accion">
+
+</div>
+
+ <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+<!--  Modals Adicionar  OAM -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">ADICIONAR PROMOCION</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="tcambioServices.html" method="POST" id="addform">
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">Fecha Registro::</label>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name="a_fecha" id="a_fecha" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-4">Socio:: </label>
+	                        <div class="col-xs-8">
+	                            <div class="input-group">
+	                              	<input type="text" class="form-control" id="a_codper" placeholder="Buscar Socio.." disabled>
+	                                <input type="HIDDEN" name="a_codperVal" id="a_codperVal" >
+	                                <input type="HIDDEN" name="a_costo" id="a_costo" >
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">
+											<a  href="javascript:void(0)"  onclick="javascript:listaSocios('${row}')">
+												<img src="images/img-sis/buscar.png" style="width:20px;display: inline-block;">
+											</a>
+										</button>
+									</span>
+	                            </div><!-- /input-group -->
+	                        </div> 	                        
+	                    </div>	                    
+	                    <div class="form-group">
+	                        <label class="control-label col-xs-4">Estado Socio::</label>
+	                        <div class="col-xs-4">
+	                            <input type="text" class="form-control" name="a_estado" id="a_estado" disabled>
+	                            <input type="HIDDEN" class="form-control" name="a_estadoVal" id="a_estadoVal" >
+	                        </div>	                        
+	                    </div>
+	                    <div class="col-xs-12"><hr></div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Mes INICIO::</label>
+	                           <div class="col-xs-3">
+		                           <select class="form-control" name="a_mesini" id="a_mesini">
+										<option value="1" >ENERO </option>
+										<option value="2" >FEBRERO </option>
+										<option value="3" >MARZO </option>
+										<option value="4" >ABRIL </option>
+										<option value="5" >MAYO </option>
+										<option value="6" >JUNIO </option>
+										<option value="7" >JULIO </option>
+										<option value="8" >AGOSTO </option>
+										<option value="9" >SEPTIEMBRE </option>
+										<option value="10" >OCTUBRE </option>
+										<option value="11" >NOVIEMBRE </option>
+										<option value="12" >DICIEMBRE </option>
+									</select>
+	                           </div>
+
+	                       <label class="control-label col-xs-3">Año INICIO::</label>
+	                         <div class="col-xs-3">                             	
+	                         	<input type="text" class="form-control" name="a_anioini" id="a_anioini" placeholder="Año INICIO">
+	                         </div>
+			            </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Mes FIN::</label>
+	                           <div class="col-xs-3">
+		                           <select class="form-control" name="a_mesfin" id="a_mesfin">
+										<option value="1" >ENERO </option>
+										<option value="2" >FEBRERO </option>
+										<option value="3" >MARZO </option>
+										<option value="4" >ABRIL </option>
+										<option value="5" >MAYO </option>
+										<option value="6" >JUNIO </option>
+										<option value="7" >JULIO </option>
+										<option value="8" >AGOSTO </option>
+										<option value="9" >SEPTIEMBRE </option>
+										<option value="10" >OCTUBRE </option>
+										<option value="11" >NOVIEMBRE </option>
+										<option value="12" >DICIEMBRE </option>
+									</select>
+	                           </div>
+	
+	                       <label class="control-label col-xs-3">Año FIN::</label>
+	                         <div class="col-xs-3">                             	
+	                         	<input type="text" class="form-control" name="a_aniofin" id="a_aniofin" placeholder="Año FIN">
+	                         </div>
+			            </div>
+			            <div class="col-xs-12"><hr></div>
+	                    <div class="form-group">
+	                        <label class="control-label col-xs-3">Meses Condonado::</label>
+	                        <div class="col-xs-3">
+	                            <input type="text" class="form-control" name="a_condonados" id="a_condonados" placeholder="Meses Condonados.." >
+	                        </div>	                        
+
+		                    <label class="control-label col-xs-3">Monto Total::</label>
+		                    <div class="col-xs-3">
+		                        <input type="text" class="form-control" id="a_montotal" placeholder="Monto Promoción.." disabled>
+		                        <input type="HIDDEN"  name="a_monto" id="a_monto" >
+		                    </div>	                        
+		                </div>	
+			            <div class="form-group">		    			            
+			            <label class="control-label col-xs-3"> </label>
+		                    <div class="col-xs-3">                               		                    
+		                    	<button type="button" class="btn btn-warning" id="generar_costos">Calcular Costo</button>
+		                    </div> 
+	                	</div>
+                    	<div class="form-group">
+	                    	<label class="control-label col-xs-3">Observ.::</label>
+	                    	<div class="col-xs-7">
+	                    	 	<textarea class="form-control" rows="2" cols="60" name="a_obser" id="a_obser"></textarea>	                    		                             		
+	                       </div>
+	                	</div>
+                        <input type="HIDDEN" name="opcion" value="${opAdd}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_add">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-->
+
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+<!--  Modals MODIF MODAL-->
+<div class="panel-body">
+    <div class="modal fade" id="modModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Tipo de Cambio</h4>
+                </div>
+                <div class="modal-body">
+                     <form class="form-horizontal" action="tcambioServices.html" method="POST" id="modform">
+                         
+                            	<input type="hidden" name="m_codtc" id="m_codtc">
+                     <div class="form-group">
+                            <label class="control-label col-xs-4">Tipo de Cambio::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_tc" id="m_tc" placeholder="Tipo de Cambio.." required>
+                            </div>
+                            
+                        </div>
+                       
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">Fecha de Adicion.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_fecha" id="m_fecha" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                                <input type="hidden" name="opcion" value="${opMod}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_mod">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MODIFICAR-MODAL-->
+
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+<!--  Modals ELIMINAR-->
+<div class="panel-body">
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">SEGURO DE ELIMINAR LA PROMOCION ?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="tcambioServices.html" method="POST" id="delform">
+		                <div class="form-group">
+		                    <label class="control-label col-xs-4">Nro. Acción::</label>
+		                    <div class="col-xs-3">
+		                        <input type="text" class="form-control" name="b_codp" id="b_codp" disabled>
+		                    </div>	                        
+		                </div>
+		                <div class="form-group">
+		                    <label class="control-label col-xs-4">Socio:: </label>
+		                    <div class="col-xs-8">
+	                          	<input type="text" class="form-control" id="b_codper" disabled>
+	                            <input type="HIDDEN" name="b_codpVal" id="b_codpVal" >	                            
+		                    </div> 	                        
+		                </div>	                    
+		                <div class="form-group">
+		                    <label class="control-label col-xs-4">Monto Acción::</label>
+		                    <div class="col-xs-3">
+		                        <input type="text" class="form-control" name="b_monto" id="b_monto" disabled>
+		                    </div>	                        
+		                </div>
+		                <div class="form-group">
+		                    <label class="control-label col-xs-4" style="color:red">ATENCION::</label>
+		                    <div class="col-xs-7">
+	                    	 <p style="color:red">ESTA OPCION ELIMINARA TODAS LAS BOLETAS QUE INCLUYE LA PROMOCION.</p>
+	                    	 <p style="color:red">SI LA BOLETA TIENE PAGOS, NO SE EJECUTARA LA ELIMINACION.</p>
+	                    	 		                    		                             		
+	                       </div>                        
+		                </div>
+		                
+		                <input type="HIDDEN" name="b_coda" id="b_coda" >
+                        <input type="hidden" name="opcion" value="${opDel}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_del">ELIMINAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR-->
+
+<!--  Modals XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!--  LISTA DE SOCIOS -->
+<div class="panel-body">
+    <div class="modal fade" id="listaSocios-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seleccione un SOCIO</h4>
+                </div>
+                <div class="modal-body">
+ <!-- MODAL-BODY -->
+ <!-- aqui tamaño de tablas  -->               
+ <!-- /. ROW  -->              
+ <div  class="row">
+ 
+     <!-- aqui tamaño de tablas  -->               
+     <div class="col-md-12">
+         <!-- Advanced Tables -->
+         <div  class="panel panel-default">
+             <div >
+                 <div class="espacio-small"></div>
+                 <div class="table-responsive">
+<div id="listaSocios">
+
+</div>                    
+                 </div>                 
+             </div>
+         </div>
+         <!--End Advanced Tables -->
+
+     </div>
+     <input type="HIDDEN" id="selected-row" value="0">
+ </div>
+ <!--End Advanced Tables -->            
+ <!-- MODAL-BODY -->                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals LISTA SOCIOS -->
+
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+<!--  Modals ELIMINAR-->
+<div class="panel-body">
+    <div class="modal fade" id="habModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de Habilitar El Tipo de Cambio?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="tcambioServices.html" method="POST" id="habform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Tipo de Cambio::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="h_codtc" id="h_codtc">
+                                <input type="text" class="form-control" name="h_tc" id="h_tc" disabled>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opHab}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_hab">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR-->
+
+
+<!-- End Modals -->
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->   
+<script>
+
+//DETALLE DE ACCIONES OAM
+function llamarDetalleAccion(xcodp,xnombre,xobser){
+	//alert("llegoo..."+xnombres);
+	$('#detalle-pagos').show();
+	jQuery.post('detalleProgramacion_107.html',{xcodp:xcodp,xnombre:xnombre,xobser:xobser},
+		function(data){$('#detalle-accion').html(data);}
+	);
+}
+
+//LISTA DE SOCIO 
+function listaSocios(xfila){
+//	$("#selected-row").val(xfila);//fila seleccionada
+	$('#listaSocios-Modal').modal('show');	
+
+	jQuery.post('listaSocios_107.html',{},
+			function(data){$('#listaSocios').html(data);}
+	);
+	
+}
+
+//FUNCION CUANDO SE SELECCIONADO UN SOCIO
+//filaSeleccionado_socio('${reg.codper}','${reg.getDatosPersona()}','${reg.estsocio}','${reg.costo}')">
+function filaSeleccionado_socio(xcodper,xsocio,xestsocio,xcosto){	
+		$("#a_codper").val(xsocio);
+		$("#a_codperVal").val(xcodper);
+		$("#a_estado").val(xestsocio);
+		$("#a_estadoVal").val(xestsocio);
+		$("#a_costo").val(xcosto);
+
+		//OCULTA LA VENTANA DE PRODUCTOS, MARCAS
+		$('#listaSocios-Modal').modal('hide');
+}
+
+//ADICIONAR NUEVA ACCION
+function adicionarAccion(){
+	$("#a_codperVal").val("");
+	$("#a_codper").val("");
+	$("#a_nro").val("");
+	$("#a_monto").val("");
+	$("#a_obser").val("");
+	$("#a_anioini").val("");
+	$("#a_aniofin").val("");
+	$("#a_condonados").val("");
+	$("#a_estado").val("");
+	$("#a_estadoVal").val("");
+	
+	$("#a_interes").val("");
+	$("#a_nrocuota").val("");
+	$("#a_cuota").val("");
+	$("#a_montotal").val("");
+	$("#a_montot").val("");
+	
+	$('#myModal-add').modal('show');	
+}
+
+function modificarTcambio(xcodtc, xtc,xfecha){
+	$('#m_codtc').val(xcodtc);
+	$('#m_tc').val(xtc);
+	$('#m_fecha').val(xfecha);
+	
+	$('#modModal').modal('show');	
+}
+
+//
+function eliminarAcciones(xcodp,xsocio,xmonto){
+	//alert(xcoda);
+	$('#b_codp').val(xcodp);
+	$('#b_codpVal').val(xcodp);
+	$('#b_codper').val(xsocio);
+	$('#b_monto').val(xmonto);
+
+	
+	$("#btnAcept_del").prop('disabled', false);//activando boton
+	$('#delModal').modal('show');
+}
+
+function habilitarTcambio(xcodtc, xtc){
+	$('#h_codtc').val(xcodtc);
+	$('#h_tc').val(xtc);
+	$('#habModal').modal('show');
+}    
+
+$(document).ready(function () {
+
+    	$("#a_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
+    	$("#m_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	
+         $('#dataTables-example').dataTable();
+         
+         //Devuelve los mensajes de guardado
+         if ($('#mensaje').val() != '0'){
+        	 if ($('#mensaje').val() == '1'){
+        	 	$.notify($('#menTexto').val(), "success",{ position:"center middle" });
+        	 }
+        	 if ($('#mensaje').val() == '2'){
+         	 	$.notify($('#menTexto').val(), "error",{ position:"center middle" });
+         	 }
+         }
+         
+         //limpia los datos del modal al momento de ingresar
+        $('#myModal').on('hidden.bs.modal', function(){ 
+     		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+     	}); 
+        
+         //SI OCURRE CAMBIO 
+        $(".paramsChange").change( function() {
+			var xestado=$('input[name=estado]:checked').val();
+			jQuery.post('listaPromociones_det_107.html',{xestado:xestado},
+						function(data){	$('#listacciones-det').html(data);
+			});
+			$('#detalle-accion').empty();
+        }); 
+        
+         //ANULA TECLA ENTER PARA LOS INPUTS
+        $("input").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+        
+      //Butons ACEPTAR   
+ 		$("#generar_costos").click(function(){		
+ 			var xsw=validarCalculos();
+        });
+ 		
+        //Butons ACEPTAR   
+ 		$("#btnAcept_add").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+ 			
+ 			$('#detalle-accion').empty();
+ 			
+ 			if (validarCalculos() == 0) {
+		 			if (validarDatos_add() == 0) {
+			 			if(confirm('¿Seguro de Guardar LA PROMOCION ?')){ 				
+				 				$.when(	
+					 	 				jQuery.post('promocionesServices_107.html',$('#addform').serialize(), 	 						
+					 	 						function(data){		 	 					
+					 	 							obj = JSON.parse(data);
+					 								if (obj.error=='0'){							
+					 									menOK('Correcto..!','Los Datos se <b>GUARDARON satisfactoriamente</b>..!');
+					 									$('#myModal-add').modal('hide');				 									
+					 								}else{
+					 									switch (obj.error) {
+					 									  case "2":
+					 											menError('Error..!', 'NO SE GENERO NINGUNA BOLETA..Revisar si ya tiene Boletas Anteriores.!');
+					 											break;
+					 									  case "3":
+					 											menError('Error..!', 'EXISTEN ALGUNAS BOLETAS ANTERIORMENTE GENERADAS..Revisar.!');
+					 											break;
+					 									  default:
+					 									    //console.log("Sorry, we are out of " + expr + ".");
+					 										 menError('Error..!', 'NO SE PUDO GUARDAR LOS DATOS..!');
+					 									}	
+					 							    }
+					 	 				        } //end of function (data)
+					 	 				) //END of first ajax
+									).then(function() {	
+										jQuery.post('listaPromociones_det_107.html',{xestado:xestado},
+												function(data){	$('#listacciones-det').html(data);
+										});
+									});						
+			 			}
+		 			}//validar datos
+ 			}//validar calcular		
+        });	
+       
+ 		//desactivando el doble click
+ 		$('#btnAcept_del').dblclick(function(e){
+ 			    e.preventDefault();
+ 		});
+ 		//Butons ELIMINAR
+ 		$("#btnAcept_del").click(function(){
+ 			$("#btnAcept_del").prop('disabled', true);
+ 			var xestado=$('input[name=estado]:checked').val();
+				$.when(	
+	 	 				jQuery.post('promocionesServices_107.html',$('#delform').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									menOK('Correcto..!','Los Datos se <b>ELIMINARON satisfactoriamente</b>..!');
+	 									$('#delModal').modal('hide');			 									
+	 								}else{
+		 									switch (obj.error) {
+		 									  case "1":
+		 											menError('Error..!', '<B> LA BOLETA TIENES PAGOS Revisar.. </B>!');
+		 											break;
+		 									  default:
+		 									    //console.log("Sorry, we are out of " + expr + ".");
+		 										 menError('Error..!', 'NO SE PUDO ELIMINAR LOS DATOS..!');
+		 									}	 									
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+					if (obj.error=='0'){
+						jQuery.post('listaPromociones_det_107.html',{xestado:xestado},
+								function(data){	$('#listacciones-det').html(data);
+						});
+					}
+				});
+ 		});
+ 		 		
+ 		//VALIDAR BOTON GENERAR
+ 		function validarCalculos(){
+ 			var sw=0;
+ 			
+ 			var xmesini=$('#a_mesini').val();
+ 			var xmesfin=$('#a_mesfin').val();
+ 			var xcondonado=$('#a_condonados').val();
+ 			var xcosto=$('#a_costo').val();
+ 			
+ 			var xanioini=$('#a_anioini').val();
+ 			var xaniofin=$('#a_aniofin').val();
+	 		if ($('#a_codper').val() != ''){	
+	 			if ((!isNaN(xanioini))&&(xanioini != '')){
+	 				if ((parseInt(xanioini)>=2015)&&(parseInt(xanioini)<=2050)){
+	 		 			if ((!isNaN(xaniofin))&&(xaniofin != '')){
+	 		 				if ((parseInt(xaniofin)>=2015)&&(parseInt(xaniofin)<=2050)){
+	 		 					var xanios=parseInt(xaniofin)-parseInt(xanioini);
+	 		 					if ((xanios >= 0)&&(xanios <= 1)){	
+				 		 					if ((!isNaN(xcondonado))&&(xcondonado != '')){
+				 		 		 				if ((parseInt(xcondonado)>0)&&(parseInt(xcondonado)<=5)){
+				 		 		 					//alert(xmesini+"-"+xmesfin+"-"+xcosto+"-"+xanioini+"-"+xaniofin+"-"+xcondonado);
+				 		 		 					var xmes1=(parseInt(xanioini)*12)+parseInt(xmesini);
+				 		 		 					var xmes2=(parseInt(xaniofin)*12)+parseInt(xmesfin);
+				 		 		 					if (xmes1 < xmes2){
+					 		 		 					var xmeses=((xmes2 - xmes1) + 1) - parseInt(xcondonado);					 		 		 					
+					 		 		 					var xmonto=(xmeses * parseFloat(xcosto));
+					 		 		 					$('#a_montotal').val(xmonto);
+					 		 		 					$('#a_monto').val(xmonto);
+					 		 		 					sw=0;
+				 		 		 					}else{
+					 		 		 		 			sw=1;
+					 		 		 		 			menError('Error..!', '<B>LOS MESES Y AÑOS INICIALES NO PUEDEN SER MENOR DE LOS FINALES</B>..!');
+					 		 		 					$('#a_mesini').focus();
+					 		 		 				}
+				 		 		 				}else{
+				 		 		 		 			sw=1;
+				 		 		 		 			menError('Error..!', '<B>LA CANTIDAD DE MESES CONDONADO DEBE ESTAR ENTRE [1..5]</B></B>..!');
+				 		 		 					$('#a_condonados').focus();
+				 		 		 				}
+				 		 		 			}else{
+				 		 			 			sw=1;
+				 		 			 			menError('Error..!', '<B>LA CANTIDAD DE MESES CONDONADO NO ES VALIDO Y NO PUEDE SER VACIO</B>..!');
+				 		 						$('#a_condonados').focus();
+				 		 					}
+	 		 					}else{
+		 		 		 			sw=1;
+		 		 		 			menError('Error..!', '<B>EL AÑO INICIAL DEBE SER MENOR O IGUAL AL AÑO FINAL Y NO PASAR DE 2 AÑOS DE DIFERENCIA</B></B>..!');
+		 		 					$('#a_aniofin').focus();
+		 		 				}
+	 		 				}else{
+	 		 		 			sw=1;
+	 		 		 			menError('Error..!', '<B>EL AÑO FIN DEBE ESTAR ENTRE [2015..2050]</B></B>..!');
+	 		 					$('#a_aniofin').focus();
+	 		 				}
+	 		 			}else{
+	 			 			sw=1;
+	 			 			menError('Error..!', '<B>EL AÑO FIN NO ES VALIDO Y NO PUEDE SER VACIO</B>..!');
+	 						$('#a_aniofin').focus();
+	 					} 					
+	 				}else{
+	 		 			sw=1;
+	 		 			menError('Error..!', '<B>EL AÑO INICIAL DEBE ESTAR ENTRE [2015..2050]</B></B>..!');
+	 					$('#a_anioini').focus();
+	 				}
+	 			}else{
+		 			sw=1;
+		 			menError('Error..!', '<B>EL AÑO INICIAL NO ES VALIDO Y NO PUEDE SER VACIO</B>..!');
+					$('#a_anioini').focus();
+				}
+	 		}else{
+	 			sw=1;
+	 			menError('Error..!', '<B>DEBE SELECCIONAR UN SOCIO</B>..!');
+			}	
+ 			
+ 			return sw;
+ 		}
+ 		
+ 		//VALIDA GUARDAR ADD ACCION 		
+ 		function validarDatos_add(){
+ 			var sw=0;
+ 			var xfecha=$('#a_fecha').val();
+ 			
+ 			if (validaFechaDDMMAAAA(xfecha)){
+ 				sw=0;
+ 			}else{
+				sw=1;
+	 			menError('Error..!', 'La <B>LA FECHA NO ES VALIDO</B> Ejem: dia/mes/año..!');
+				$('#a_fecha').focus();
+			}
+ 				
+ 			return sw;
+ 		}
+		
+		
+ 		//validar solo para opcion modificar
+ 		function validarDatos_mod(){
+ 			var sw=0;
+ 			var tc=$('#m_tc').val();
+ 			
+ 			var xfecha=$('#m_fecha').val();
+ 			
+ 			var xtc=$.trim(tc);
+ 			if (xtc != tc) {
+				$('#m_tc').val(xtc);
+				tc=xtc;
+			}			
+			
+ 					
+					if (tc != ""){
+						if (!isNaN(tc)){
+							if (validaFechaDDMMAAAA(xfecha)){
+								sw=0;	
+							}else{
+								sw=1;
+					 			menError('Error..!', 'La </B>LA FECHA </B> debe ser dia/mes/año..!');
+									$('#m_fecha').focus();
+							}
+						}else{
+							sw=1;
+					 		menError('Error..!', '<B>Tipo de Cambio</B> debe tener un valor NUMERICO..!');
+					 		$('#m_tc').focus();
+						}			
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>Tipo de Cambio</B> no puede ser vacio..!');
+				 		$('#m_tc').focus();
+					}
+ 				
+ 			
+ 			return sw;
+ 		}
+ 		
+ 		//Butons PRINT
+ 		$("#print").click(function(){
+ 			window.open('tcambioReportes01.html','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });
+    });
+</script>

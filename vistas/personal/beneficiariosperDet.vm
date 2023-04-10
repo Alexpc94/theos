@@ -1,0 +1,118 @@
+
+<div class="col-md-2"> </div>
+        <div class="col-md-8">
+            <div class="div-capa">
+                <div class="div-arriba">
+                    <table >
+                    <thead>
+                        <tr>
+                            <th colspan="2" >ASIGNAR BENEFICIARIOS A : ${xnombre} </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CODIGO :<b style="color:blue;">${xcodigoper}</b> </td>
+                            <input type="hidden" id="beneficiario_codper" value="${xcodper}">
+                            <input type="hidden" id="beneficiario_codigoper" value="${xcodigoper}">
+                            <td>NOMBRE : ${xnombre} </td><input type="hidden" id="beneficiario_name" value="${xnombre}">
+                            <td class="right">
+                         	  	<!-- BOTON TO PRINT -->
+	                                    <button class="pull-right" id="print2">
+	                                        <img src="images/img-sis/print.png" style="width:25px; height:25px;">
+	                                    </button>
+	                                              	
+                            </td>
+                            <td align="right">
+                            	<button class="pull-right" data-toggle="modal" onclick="javascript:adicionarNuevoBeneficiario()">
+	                                 <img src="images/img-sis/add_2.png" style="width:25px; height:25px;">
+	                            </button>
+                            </td>
+                        </tr>
+                    <tbody>  
+                    </table>
+                </div>
+                <div class="div-abajo">
+                    <table class="table table-bordered table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th class="text-center ancho-icono">#</th>
+                          <th class="col-sm-0 text-center" title="CODIGO DEL SOCIO">Cod.</th>
+                          <th class="col-sm-0" title="Tipo Beneficiario">Flia.</th>
+                          <th class="col-sm-0">Ci</th>
+                          <th class="col-sm-0">Nombres</th>
+                          <th class="col-sm-0" title="GENERO">Gen</th>
+                          <th class="col-sm-0">F.Nacim.</th>
+                          <th class="col-sm-0" title="ESTADO Beneficiario">EST</th>
+                          <th width="2%" title="Modificar Beneficiario">M</th>
+                          <th class="col-sm-0" title="ELIMINAR Beneficiario">DEL</th>
+                          <th class="col-sm-0" title="Habilitar Beneficiario">HAB</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      	#set($con=1)
+                        #foreach($reg in $xPersonal_beneficiarios)	
+                            <tr>
+                              <th scope="row">${con}</th>
+                              <td>${reg.codigoper}</td>
+                              <td>${reg.getConyugeFormat()}</td>
+                              <td>${reg.getDatosCedula()}</td>
+                              <td>${reg.getDatosPersona()}</td>
+                              <td>${reg.getDatosGenero()}</td>
+                              <td>${reg.getFecharegFormat()}</td>
+                              <td class="text-center ancho-icono">
+                                        #if (${reg.benef}==1)
+                                         <img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
+                                        #else	
+                                         <img src="images/img-sis/hand_down.png" style="width:25px;">
+                                        #end
+                              </td>
+                              
+                              <td>
+                               	#if (${reg.benef}==1)
+                              		<a  href="javascript:void(0)" onclick="javascript:modificarBeneficiario('${reg.codper}','${reg.nombre}','${reg.ap}','${reg.getDatosAm()}','${reg.getDatosEmail()}','${reg.cedula}','${reg.ecivil}','${reg.genero}','${reg.getFecharegFormat()}','${reg.getFechaNregFormat()}','${reg.conyuge}','${reg.codigoper}')">
+                              	       <img src="images/img-sis/mod.png" style="width:25px;" title="Modificar Beneficiario..">
+                              	  </a>
+                              	  #else
+	                               		<img src="images/img-sis/nomod.png" style="width:25px;">
+	                              #end  
+                              </td>
+                               <td class="text-center ancho-icono">
+                                         #if (${reg.benef_estado}==1)
+                                          <a  href="javascript:void(0)" onclick="javascript:eliminarBeneficiario('${reg.codper}','${reg.getDatosPersona()}')">
+                                           <img src="images/img-sis/del.png" style="width:25px;" title="Eliminar Beneficiario..">
+                                          </a>
+		                                 #else
+	                                		<img src="images/img-sis/nodel.png" style="width:25px;" >
+	                                	 #end     	
+                              </td>
+                              <td class="text-center ancho-icono">
+                                         #if ((${reg.benef_estado}==0)&&(${reg.benef}==1))
+                                          <a  href="javascript:void(0)" onclick="javascript:habilitarBeneficiario('${reg.codper}','${reg.getDatosPersona()}')">
+                                           <img src="images/img-sis/undo.png" style="width:25px;" title="Habilitar Beneficiario..">
+                                          </a>
+		                                 #else
+	                                		<img src="images/img-sis/noundo.png" style="width:25px;" >
+	                                	#end     	
+                              </td>
+                              
+                            </tr>
+                            #set($con=$con + 1)
+                        #end    
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<div class="col-md-2"> </div>
+
+<script>
+    $(document).ready(function () {
+    //Butons PRINT
+ 		$("#print2").click(function(){
+ 		//alert("entro");
+ 			var xnombres= $("#beneficiario_name").val();
+ 			var xcodper= $("#beneficiario_codper").val();
+ 			window.open('sociosReportes01.html?xnombres='+xnombres+'&xcodper='+xcodper,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });
+    });
+</script>

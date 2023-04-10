@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html >
+<head>
+  	<meta charset="UTF-8">
+  	<title>Login </title>
+    
+    <script src="js/jquery/jquery.js"></script>
+    
+    
+    <link rel="stylesheet" href="css/csslogin/style.css">
+	<script src="js/jslogin/index.js"></script>
+	    
+	 <style type="text/css">
+	 	.espacio-filas{
+	 		padding-top: 50px;
+	 	}
+	 </style>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>	     
+	     
+</head>
+
+<body>
+  <body>
+<div class="container-fluid espacio-filas">
+	<section id="content">
+		<form action="valida.html" method="POST">
+			<h1>Acceso Tenis Club</h1>
+			<div>
+				<input type="text" name="xuser" placeholder="Nombre del Usuario" required id="username" />
+				<input type="hidden" id="mensaje" value="${mensaje}" />
+			</div>
+			<div>
+				<input type="password" name="xclave" placeholder="Password o Clave" required id="password" />
+			</div>
+			<div class="midiv">
+				<div>
+					<input class="boton-acceso" type="submit" value="Ingresar" />
+				</div>
+			</div>
+		</form><!-- form -->
+		<div class="button">
+			<a href="#">Copyright &copy; Theos - 2017 v.1.01</a>
+
+		</div><!-- button -->
+	</section><!-- content -->
+</div><!-- container -->
+
+</body>
+</html>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		if ($("#mensaje").val()=='1'){
+	       //$(".boton-acceso").notify("ERROR, USUARIO NO AUTORIZADO..!", "error",{ position:"top" });
+			menError('Error..!', 'USUARIO NO AUTORIZADO..!');
+		}    
+	     
+	});
+</script>
+

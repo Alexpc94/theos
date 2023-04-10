@@ -1,0 +1,135 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <link href="css/estilo1.css" rel="stylesheet">
+    
+    <script src="js/notify.js"></script>
+    
+<div class="container-fluid">
+  	<div  class="row">
+  		<div class="col-md-12">
+		<p  class="titulos-pantallas">.:: ASIGNACION DE PRIVILEGIOS - OPCIONES A MENUS  ::.</p>
+		</div>
+	</div>
+</div>	
+		   
+<div class="container-fluid">
+  	<div  class="row">
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-6">
+                    <!-- Advanced Tables -->                    
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Lista de Menus</p>     
+                                </div>                                
+                                                                                               
+                            </div>
+                        </div>
+                            <div class="espacio-small"></div>
+                            <div class="table-responsive">
+ 
+                                <table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center ancho-icono">#</th>
+                                            <th class="text-center ancho-icono">S</th>
+                                            <th class="col-sm-0">Nombre del Menu</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>     
+                                    	#set($con=1)
+                                    	#foreach($reg in $xMenus)	                                   
+                                         <tr class="gradeU">
+                                         	<td class="text-center">
+                                         		${con}.-
+                                         	</td>
+                                            <td class="text-center">
+                                            	<input type="radio" value="${reg.getCodmEncrypt()}"  name="menu_sel" class="menu_sel"/>
+                                            </td>
+                                            <td>${reg.nombre}</td>
+                                        </tr>                        
+                                        #set($con=$con + 1)
+                                       #end               
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+
+	             <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-6">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Lista de Opciones</p>     
+                                </div>                                
+                                <fieldset class="col-md-12 fielset-mio" >        
+	                                    <legend>Parámetros::</legend>
+	                                                        
+	                                <form id="paramform" action="rolesmon.html" method="POST">  
+	                                    <div class="par-activos-1 pull-right">
+	                                    	<label><input type="radio" name="estado" value="1" class="paramsChange" #if($estado== 1) checked #end>Asignados</label>
+									      	<label><input type="radio" name="estado" value="0" class="paramsChange" #if($estado== 0) checked #end>Todos</label>
+									    </div>
+									</form>    
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                            <div class="espacio-small"></div>
+                            <div class="table-responsive" id="listaPer">
+ 
+                          <!-- aqui llamo  -->
+                          </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+                <input type="HIDDEN" id="opcion" value="${opcion}">
+                <input type="HIDDEN" id="opcionPriv" value="${opcionPriv}">
+                                
+    </div> <!-- /. ROW  -->
+</div> 
+                         
+<script>
+
+    $(document).ready(function () {
+	    	 
+	       $('#dataTables-example').dataTable();
+	                 
+	  	   $('input[name=menu_sel]').change(function () {
+		   		//alert($("input[name='menu_sel']:checked").val());
+				var codm=$("input[name='menu_sel']:checked").val();			
+				var estado=$('input:radio[name=estado]:checked').val();
+				//alert(codper+"-"+estado);			
+				jQuery.post('procesosDet16.html',{codm:codm,estado:estado},
+					function(data){$('#listaPer').html(data);
+	            });
+	  	   });
+	  	   
+	       //SI OCURRE CAMBIO en los botones
+	       $(".paramsChange").change( function() {
+	    	   	var codm=$("input[name='menu_sel']:checked").val();			
+				var estado=$('input:radio[name=estado]:checked').val();
+				//alert(codper+"-"+estado);			
+				jQuery.post('procesosDet16.html',{codm:codm,estado:estado},
+					function(data){$('#listaPer').html(data);
+					//$("#submenu").val("");
+	          	});
+	       });
+          
+    });
+</script>

@@ -1,0 +1,52 @@
+
+		<tr id="fila_${row}">
+              <th scope="row">${row}</th>
+              <td>
+              		
+							<div class="form-group">
+								<label class="control-label col-xs-4">Tipo Transacción::</label>
+								<div class="col-xs-8">
+								    <select class="form-control" name="concepto_${row}" id="concepto_${row}">
+									    #foreach($reg in $xConceptos)										
+											<option value="${reg.codc}" > ${reg.nombre} </option>										
+										#end								
+								    </select>
+								</div>
+							</div>
+				    <textarea class="form-control" rows="1" cols="30" name="obser_${row}" id="obser_${row}"></textarea>
+				    <input type="HIDDEN"  name="estadoFila_${row}" id="estadoFila_${row}" value="1" />
+              </td>
+              <td align="center">
+                  <input type="text" class="form-control totalizarChange" style="width:100px; text-align:right" name="imp_${row}" id="imp_${row}" value="" />
+              </td>
+              <td>
+	              <a  href="javascript:void(0)" onclick="javascript:eliminarDetalle('${row}')">
+	          			<img src="images/img-sis/del.png" style="width:25px;">
+	          	  </a>
+              </td>
+        </tr>
+        <tr id="addrow">
+              <td>
+                <img  height="16" border="0" width="16" alt="" src="images/img-sis/list-add.png" style="cursor:pointer;" onclick="javascript:addRow();"/>
+                <input type="HIDDEN" name="filas" id="filas" value="${row}"/>
+              </td>
+        </tr>        
+<script>
+ 
+function eliminarDetalle(xfila){
+	$('#imp_'+xfila).val('0');
+	$('#estadoFila_'+xfila).val('0');
+	$('#fila_'+xfila).hide();
+	calcularTotalMonto();
+}
+
+$(document).ready(function () {
+	
+    //REALIZA LA SUMA Y TOTALIZA EL IMPORTE DE LA VENTA
+    $(".totalizarChange").change( function() {
+    	calcularTotalMonto();
+    });
+    
+});
+
+</script>

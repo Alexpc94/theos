@@ -1,0 +1,121 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <link href="css/estilo1.css" rel="stylesheet">
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+<!--  Modals MODIF MODAL-->
+<div class="panel-body">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Generar Boletas</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="rolesServices.html" method="POST" id="addform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">BOLETA DE::</label>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control" name="a_mes" id="a_mes" value="${xmesTexto}" disabled>
+                                <input type="hidden" name="xmes" value="${xmes}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="control-label col-xs-3">AÑO::</label>
+	                        <div class="col-xs-5">
+	                            <input type="text" class="form-control" name="a_anio" id="a_anio" value="$xanio" disabled>
+	                            <input type="hidden" name="xanio" value="${xanio}" >
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                    <label class="control-label col-xs-3"></label>
+	                        <div class="col-xs-7">
+	                            <p><strong>ANTES DE GENERAR BOLETAS DEBE ESTAR SEGURO DE EJECUTAR ESTA OPERACION.</strong> </p>
+	                        </div>
+	                    </div>
+                        <input type="hidden" name="opcion" value="${opAdd}" >
+                    </form>
+                    <!--
+                    <label class="control-label col-xs-12">ANTES DE GENERAR BOLETAS DEBE ESTAS SEGURO DE EJECUTAR ESTA OPERACION </label>
+                	<label class="control-label col-xs-12"></label>
+                    -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_generar">Generar Boletas</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MODIFICAR-MODAL-->
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    
+<script>
+
+function generarBoletas(){
+	$('#addModal').modal('show');
+}
+
+    $(document).ready(function () {
+    	 
+         
+    	generarBoletas();
+         
+       
+ 		//Butons MODIFICAR
+ 		$("#btnAcept_generar").click(function(){
+ 					if(confirm('¿Seguro de GENERAR BOLETA ?')){ 				
+ 		 				//$("#modform").submit(); //envia los datos a destino FORM.
+ 		 				//$('#modModal').modal('hide'); 		 				
+
+				 	 				jQuery.post('generarBoletasServices.html',$('#addform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 	 							var xmes=$("#a_mes").val();
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!',"SE <b>GENERO BOLETAS DE <strong style='color:red;'>"+xmes+"</strong></b> satisfactoriamente..!");
+				 									//alert("OK");
+				 									$('#addModal').modal('hide');
+				 									
+				 								}else{
+				 									switch(obj.error) {
+					 								    case '2':
+					 								    	menError('Error..!', 'EXISTEN PROBLEMAS EN LOS PRECIOS [Activos,Menor,Joven,Emérito]..Revisar.!');
+					 								        break;
+					 								    case '1':
+					 								    	menError('Error..!', 'NO SE PUDO GENERAR BOLETAS..Revisar.!');
+					 								        break;
+					 								    default:
+					 								    	menError('Error..!', 'NO SE PUDO GENERAR BOLETAS..Revisar.!');
+					 								}
+				 									
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+
+ 					}
+ 		});
+ 		
+    });
+</script>

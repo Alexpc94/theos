@@ -1,0 +1,46 @@
+
+<div class="col-md-3"> </div>
+        <div class="col-md-6">
+            <div class="div-capa">
+                <div class="div-arriba">
+                    <table >
+                    <thead>
+                        <tr>
+                            <th colspan="2" ><B>DETALLE DE ACCION</B></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	#foreach($reg in $xAcciones)
+	                        <tr>
+	                            <td width="50%">NRO.ACCION:: <b style="color:blue;">${reg.nro}</b> </td>
+	                            <td>CODIGO:: <b>${reg.coda} </b></td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2">NOMBRE:: <b>${xnombre} </b></td>
+	                        </tr>
+	                        <tr>
+	                            <td>FECHA:: <b>${reg.getFechaFormat()}</b> </td>
+	                            <td>MONTO:: <b>${reg.getMontoFormat()} </b></td>
+	                        </tr>
+	                        <tr>
+	                            <td>MON.CALC.:: <b>${reg.getMontotalFormat()}</b> </td>
+	                            <td>SALDO:: <b>${reg.getSaldoFormat()} </b></td>
+	                        </tr>	
+	                        <tr>
+	                            <td>INTERES:: <b>${reg.getMontotalFormat()}</b> </td>
+	                            <td>CUOTA:: <b>${reg.getCuotaFormat()} </b></td>
+	                        </tr>	     
+	                        <tr>
+	                            <td>NRO.CUOTA:: <b>${reg.cantcuota}</b> </td>
+	                            <td>USUARIO:: <b>${reg.login} </b></td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2">NOMBRE:: <b>${reg.obs} </b></td>
+	                        </tr>
+	                    #end
+                    <tbody>  
+                    </table>
+                </div>
+            </div>
+        </div>
+<div class="col-md-3"> </div>

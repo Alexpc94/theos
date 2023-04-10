@@ -1,0 +1,1390 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <script src="js/tools_oam.js"></script>
+    
+    <link href="css/estilo1.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+    <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+    <style>
+    	#myModal { overflow-y:scroll }
+    	#myModal-mod { overflow-y:scroll }
+    </style>
+<script>
+    $( function() {
+        $( "#fini" ).datepicker({
+          changeMonth: true,
+          changeYear: true
+        });        
+        $( "#ffin" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+        $( "#a_fecha" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+        $( "#m_fecha" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+        $( "#p_fecha" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+    
+    
+</script>
+        
+<div class="container-fluid">          
+           <!-- /. ROW  -->              
+            <div  class="row">
+            
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-lg-12">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Gestión Plan de Pagos</p>     
+                                </div>                                
+                                <fieldset class="col-md-12" >        
+	                                    <legend>Parámetros::</legend>
+	                                    #if (${PA}=="A")
+		                                    <button class="pull-right" data-toggle="modal" id="btn-addProforma">
+		                                        <img src="images/img-sis/add_2.png" style="width:30px; height:30px;">
+		                                    </button>
+	                                    #else
+		                                    <button class="pull-right" data-toggle="modal">
+		                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
+		                                    </button>
+	                                	#end
+	                                	
+	                                    <!-- BOTON TO PRINT -->
+	                                    <button class="pull-right" id="print">
+	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                <form id="paramform" action="lugarmon.html" method="POST"> 
+		                                <div class="form-group">	                                    	
+			                                <div class="col-md-1">
+			                                	<label class="control-label col-xs-3 ">Fecha Inicio::</label>
+		                                    </div>
+		                                    <div class="col-md-2">
+		                                    	<input type="text" class="form-control paramsChange" name="fini" id="fini" placeholder="dd/mm/aaaa"  required>
+		                                    </div>
+		                                    <div class="col-md-1">
+			                                	<label class="control-label col-xs-3">Fecha Fin::</label>
+		                                    </div>
+		                                    <div class="col-md-2">
+		                                       <input type="text" class="form-control paramsChange" name="ffin" id="ffin" placeholder="dd/mm/aaaa" required>
+		                                    </div>
+<!--		                                    
+		                                    <div class="col-md-2">
+			                                    <select class="form-control paramsChange" name="zroles" id="zroles" >
+			                                    	<option value="100">Proformas</option>
+			                	                    <option value="200">Pedidos</option>
+			                	                    <option value="1000" ${sel}>TODOS</option>
+			                	                </select>
+		                	                </div>
+-->
+		                	                <label><input type="radio" name="estado" value="1" class="paramsChange" #if($estado== 1) checked #end>Activos </label>
+									      	<label><input type="radio" name="estado" value="0" class="paramsChange" #if($estado== 0) checked #end>Nulos</label>
+									      	<label><input type="radio" name="estado" value="2" class="paramsChange" #if($estado== 2) checked #end>Todos</label>
+									    </div>
+									</form>    
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                        <div>	       				    		                        
+<div class="espacio-small"></div>
+<div class="table-responsive" id="detalle_lis">
+									<table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+									<thead>		
+									    <tr>							
+									        <th class="text-center ancho-icono">#</th>
+									        <th class="col-sm-0 text-center">SEL</th>
+									        <th class="col-sm-0 text-center">Código</th>
+									        <th class="col-sm-0 text-center">Fecha</th>
+									        <th class="col-sm-0 text-center">User</th>
+									        <th class="col-sm-0 text-center">Cod.Acción</th>
+									        <th class="col-sm-0 text-center">Socio</th>
+									        <th class="col-sm-0 text-center">Monto</th>
+									        <th class="col-sm-0 text-center">Saldo</th>
+									        <th class="col-sm-0 text-center">EST</th>
+									        <th class="col-sm-0 text-center" title="Eliminar Proforma">B</th>
+<!--									        <th class="col-sm-0 text-center" title="Modificar Proforma..">M</th>   -->							        
+									    </tr>
+									</thead>
+									<tbody>  
+									     	#set($con=1)
+											#foreach($reg in $xlisPlanPagos)
+									          <tr class="gradeU">
+									             <td class="text-center">${con}</td>
+									             <td align="center">
+									             		<a  href="javascript:void(0)" onclick="javascript:detalleVentaSelecciondo('${reg.codmp}')">
+									                		<input type="radio" name="fila_sel" />
+									                	</A>
+									              </td>
+									             <td>${reg.codmp}</td>
+									             <td>${reg.getFechaFormat()}</td>
+									             <td>${reg.login}</td>
+									             <td>${reg.referencia}</td>
+									             <td>${reg.getDatosPersona()}</td>
+									             <td align="right">${reg.getMontoFormat()}</td>
+									             <td align="right">${reg.getSaldoFormat()}</td>
+									             <td class="text-center ancho-icono">
+									             	#if (${reg.sw}==1)
+									             		<img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
+									             	#else	
+									             		<img src="images/img-sis/hand_down.png" style="width:25px;">
+									             	#end
+									             </td>	                                     	
+									             <td class="text-center ancho-icono"> 
+									                     #if (${reg.sw}==1)
+									                         #if (${PB}=="B")						
+									                        	 #if (${reg.getMontoFormat()}==${reg.getSaldoFormat()})
+									                             	<a  href="javascript:void(0)" onclick="javascript:eliminarPlan('${reg.codmp}','${reg.getDatosPersona()}','${reg.referencia}','${reg.obser}','${reg.getMontoFormat()}','${reg.getSaldoFormat()}','${reg.getFechaFormat()}')">
+									                             		<img src="images/img-sis/del.png" style="width:25px;" title="Eliminar Proforma..">
+									                             	</a>
+									                             #else
+						                                            	<img src="images/img-sis/nodel.png" style="width:25px;" title="LA ACCION TIENE PAGOS....">
+						                                         #end	
+									                         #else
+									                             	<img src="images/img-sis/nodel.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+									                         #end
+									                     #else
+									         					<img src="images/img-sis/nodel.png" style="width:25px;">
+									         			 #end    	
+									             </td>
+									          </tr>
+									          #set($con=$con + 1)
+									        #end               
+									</tbody>
+									</table>
+</div>
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+
+            </div>
+            
+</div>
+<!--
+	<input type="hidden" id="opReporte" value="${opReporte}">
+	<input type="hidden" id="xcodpag" value="">
+-->
+
+<input type="hidden" id="listaJson_proveedor" value="">
+<input type="hidden" name="opcion" id="opcion_json_prov" value="${op_json_proveedor}" >
+
+<input type="HIDDEN" id="xtipoAM" value="">
+
+<!--
+<input type="hidden" id="listaJson" value="">
+<input type="hidden" name="opcion" id="opcion_json" value="${op_json}" >
+
+<input type="hidden" id="listaJson_personal" value="">
+<input type="hidden" name="opcion" id="opcion_json_personal" value="${op_json_personal}" >
+
+<input type="hidden" id="listaJson_personal2" value="">
+<input type="hidden" name="opcion" id="opcion_json_personal2" value="${op_json_personal2}" >
+
+<input type="HIDDEN" id="listaJson_personal_comision" value="">
+<input type="HIDDEN" name="opcion" id="opcion_json_personal_comision" value="${op_json_personal_comision}" >
+
+<input type="HIDDEN" id="listaJson_personal_comision2" value="">
+<input type="HIDDEN" name="opcion" id="opcion_json_personal_comision2" value="${op_json_personal_comision2}" >
+
+<input type="HIDDEN" id="listaJson_Productos" value="">
+<input type="HIDDEN" name="opcion" id="op_json_productos" value="${op_json_productos}" >
+									   
+<input type="hidden" id="listaJson_precios" value="">
+<input type="HIDDEN" name="opcion" id="op_json_precios" value="${op_json_precios_prod}" >
+
+-->
+
+<div id="detalle_lista_plan">
+
+</div>
+
+<!--  Modals  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!--OK  Modals Adicionar OAM -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Nuevo Plan de Pagos</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform">
+                        <div class="form-group">                            
+			                <label class="control-label col-xs-2">Socio:: </label>
+			                <div class="col-xs-5">
+			                    <div class="input-group">
+			                      	<input type="text" class="form-control" id="a_codper" placeholder="Buscar Socio.." disabled>
+			                        <input type="HIDDEN" name="a_codperVal" id="a_codperVal" >
+			                        <input type="HIDDEN" name="a_codaVal" id="a_codaVal" >
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">
+											<a  href="javascript:void(0)"  onclick="javascript:listaSocios('${row}')">
+												<img src="images/img-sis/buscar.png" style="width:20px;display: inline-block;">
+											</a>
+										</button>
+									</span>
+			                    </div><!-- /input-group -->
+			                </div>    
+                            <label class="control-label col-xs-2">Fecha::</label>
+		                    <div class="col-xs-2">                               		                    
+		                    	<input type="text" class="form-control" name="a_fecha" id="a_fecha" placeholder="dd/mm/aaaa" required>
+		                    </div>                           
+                        </div>
+                        <div class="form-group">                            
+                            <label class="control-label col-xs-2">Tipo::</label>
+		                    <div class="col-xs-5">                               		                    
+		                    	<input type="text" class="form-control" name="a_tipo" id="a_tipo" placeholder="Tipo Transacción" disabled>
+		                    	<input type="HIDDEN" name="a_tipoVal" id="a_tipoVal" >
+		                    </div>                           
+                        </div>    	                    
+			            <div class="form-group">
+				            <label class="control-label col-xs-2">Observ.::</label>
+	                    	<div class="col-xs-5">
+	                    	 	<textarea class="form-control" rows="2" cols="60" name="a_obser" id="a_obser"></textarea>	                    		                             		
+	                    	</div>
+			            	<label class="control-label col-xs-2">SALDO::</label>
+                        	<div class="col-xs-2" >
+                        		<input type="text" class="form-control text-right" name="xtotal" id="xtotal" disabled>
+                        		<input type="HIDDEN" class="form-control text-right" name="xmontotal" id="xmontotal" >
+                           </div> 
+                    	</div>
+			            
+<!-- DESDE AQUI LISTA  -->                    	
+	                	<hr>
+	                	<div class="container-fluid">
+	                	    <div class="row">
+	                	    	<div class="col-md-6">
+		    			            <div class="form-group">
+			                            <label class="control-label col-xs-4">Fecha Inicial::</label>
+					                    <div class="col-xs-4">                               		                    
+					                    	<input type="text" class="form-control" name="p_fecha" id="p_fecha" placeholder="dd/mm/aaaa" required>
+					                    </div> 
+			                    	</div>
+		    			            <div class="form-group">
+			                            <label class="control-label col-xs-4">Cant. Meses::</label>
+					                    <div class="col-xs-4">                               		                    
+					                    	<input type="text" class="form-control" name="c_meses" id="c_meses" placeholder="Cant. Meses.." required>
+					                    </div> 
+			                    	</div>
+		    			            <div class="form-group">
+			                            <label class="control-label col-xs-4">Cuota::</label>
+					                    <div class="col-xs-4">                               		                    
+					                    	<input type="text" class="form-control" name="c_cuota" id="c_cuota" placeholder="Cuota.." required>
+					                    </div> 
+			                    	</div>
+		    			            <div class="form-group">
+		    			            	<label class="control-label col-xs-4"></label>
+					                    <div class="col-xs-2">                               		                    
+					                    	<button type="button" class="btn btn-default" id="nuevo_plan">Nuevo</button>
+					                    </div> 		    			            
+					                    <div class="col-xs-4">                               		                    
+					                    	<button type="button" class="btn btn-warning" id="generar_plan">Generar</button>
+					                    </div> 
+			                    	</div>
+	                	    	</div>
+	                	    				<input type="HIDDEN"  name="a_fila" id="a_fila" value="0" >
+	                	    	<div class="col-md-6">
+<div id="mitabla">
+	                	            	<table class="table table-bordered table-hover table-striped"  id="tableCamara">
+	                	                      <thead>
+	                	                        <tr>
+	                	                          <th width="1%" style="text-align:center">#</th>
+	                	                          <th style="text-align:center">FECHA</th>
+	                	                          <th style="text-align:center">MONTO</th>
+	                	                        </tr>
+	                	                      </thead>
+	                	                      <tbody id="tableCamara_body">
+
+	                	                      </tbody>
+	                	                </table>
+</div>   
+	                	        </div>
+	                	    </div>
+	                	</div>    	                	
+<!-- DESDE AQUI LISTA  -->	                	
+<input type="hidden" name="opcion" id="opAdd-Proforma" value="${opAdd-Proforma}" >                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal" -->
+                    <button type="button" class="btn btn-default" id="btnCancel_add" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_add">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-->
+
+<!--  Modals XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!--  LISTA DE SOCIOS CON DEUDAS DE ACCION-->
+<div class="panel-body">
+    <div class="modal fade" id="listaSocios-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seleccione un SOCIO CON DEUDAS</h4>
+                </div>
+                <div class="modal-body">
+ <!-- MODAL-BODY -->
+ <!-- aqui tamaño de tablas  -->               
+ <!-- /. ROW  -->              
+ <div  class="row">
+ 
+     <!-- aqui tamaño de tablas  -->               
+     <div class="col-md-12">
+         <!-- Advanced Tables -->
+         <div  class="panel panel-default">
+             <div >
+                 <div class="espacio-small"></div>
+                 <div class="table-responsive">
+<div id="listaSocios">
+
+</div>                    
+                 </div>                 
+             </div>
+         </div>
+         <!--End Advanced Tables -->
+
+     </div>
+     <input type="HIDDEN" id="selected-row" value="0">
+ </div>
+ <!--End Advanced Tables -->            
+ <!-- MODAL-BODY -->                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals LISTA SOCIOS -->
+
+<!--  Modals  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!-- OK  Modals MODIFICAR VENTA -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-mod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Compra</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="m_addform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-2">Proveedor::</label>
+                            <div class="col-xs-5">                               
+                                <input type="text" class="form-control" id="m_xproveedor" placeholder="Buscar por Clientes.." required>
+                                <input type="HIDDEN"  id="m_xproveedor_2" >
+                                <input type="HIDDEN" name="m_xproveedor_val" id="m_xproveedor_val" >
+                                
+                                <input type="hidden" name="m_xcodcom" id="m_xcodcom" >
+                            </div> 
+                            <label class="control-label col-xs-2">Fecha::</label>
+		                    <div class="col-xs-2">                               		                    
+		                    	<input type="text" class="form-control" name="m_fecha" id="m_fecha" placeholder="dd/mm/aaaa" required>
+		                    </div>                           
+                        </div>                    
+			            <div class="form-group">
+				            <label class="control-label col-xs-2">Observ.::</label>
+	                    	<div class="col-xs-5">
+	                    	 	<textarea class="form-control" rows="2" cols="60" name="m_obser" id="m_obser"></textarea>	                    		                             		
+	                    	</div>
+			            	<label class="control-label col-xs-2">Monto Compra::</label>
+                        	<div class="col-xs-2" >
+                        		<input type="text" class="form-control text-right" name="m_xtotal" id="m_xtotal" value="00.00" disabled>                             		
+                           </div>
+                    	</div>
+
+<!-- DESDE AQUI LISTA  -->                    	
+	                	<hr>
+	                	<div class="container-fluid">
+	                	    <div class="row">
+	                	        <div class="col-md-12">
+<div id="m_mitabla">
+	                	            	<table class="table table-bordered table-hover table-striped">
+	                	                      <thead>
+	                	                        <tr>
+	                	                          <th width="1%" style="text-align:center">#</th>
+	                	                          <th style="text-align:center">Productos</th>
+	                	                          <th style="text-align:center">Cant.</th>
+	                	                          <th style="text-align:center">P/unit.</th>
+	                	                          <th style="text-align:center">Importe</th>
+	                	                          <th width="2%" style="text-align:center">B</th>
+	                	                        </tr>
+	                	                      </thead>
+	                	                      <tbody id="m_tableCamara">
+	                	                            <tr id="m_addrow">
+	                	                              <td>
+	                	                                <img  height="16" border="0" width="16" alt="" src="images/img-sis/list-add.png" style="cursor:pointer;" onclick="javascript:m_addRow();"/>
+	                	                                <input type="hidden" name="m_filas" id="m_filas" value="0"/>
+	                	                              </td>
+	                	                            </tr>
+	                	                      </tbody>
+	                	                </table>
+</div>   
+	                	        </div>
+	                	    </div>
+	                	</div>    	                	
+<!-- DESDE AQUI LISTA  -->	                	
+<input type="hidden" name="opcion" id="opMod-Proforma" value="${opMod-Proforma}" >                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal" -->
+                    <button type="button" class="btn btn-default" id="m_btnCancel_add" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="m_btnAcept_add">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL MODIFICAR-->
+
+<!--  Modals  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!--  Modals LISTAR PRODUCTOS  -->
+<div class="panel-body">
+    <div class="modal fade" id="listaProductos-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seleccione un Producto o Servicio?</h4>
+                </div>
+                <div class="modal-body">
+ <!-- MODAL-BODY -->
+ <!-- aqui tamaño de tablas  -->               
+ <!-- /. ROW  -->              
+ <div  class="row">
+ 
+     <!-- aqui tamaño de tablas  -->               
+     <div class="col-md-12">
+         <!-- Advanced Tables -->
+         <div  class="panel panel-default">
+             <div >
+                 <div class="espacio-small"></div>
+                 <div class="table-responsive">
+<div id="listaProductos">
+
+</div>                    
+                 </div>                 
+             </div>
+         </div>
+         <!--End Advanced Tables -->
+
+     </div>
+     <input type="HIDDEN" id="selected-row" value="0">
+ </div>
+ <!--End Advanced Tables -->            
+ <!-- MODAL-BODY -->                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals LISTAR PRODUCTOS-->
+
+<!--  Modals  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!--OK  Modals ELIMINAR   -->
+<div class="panel-body">
+<div class="modal fade" id="myModal-del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <br><br><br>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabl">Seguro de Eliminar EL PLAN DE PAGOS ?</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="lugarServices.html" method="POST" id="d_addform">
+                	<div class="form-group">
+		                <label class="control-label col-xs-2">Socio::</label>
+		                <div class="col-xs-10">                               
+		                    <input type="text" class="form-control" id="d_socio" placeholder="Código.." disabled>
+		                    
+		                    <input type="HIDDEN" name="hd_codmp" id="hd_codmp" >
+		                </div> 
+		                                           
+		            </div>
+		            <div class="form-group">
+                        <label class="control-label col-xs-2">Código::</label>
+                        <div class="col-xs-4">                               
+                            <input type="text" class="form-control" id="d_codmp"  disabled>
+                        </div> 
+                        <label class="control-label col-xs-2">Fecha::</label>
+	                    <div class="col-xs-4">                               		                    
+	                    	<input type="text" class="form-control" name="d_fecha" id="d_fecha" placeholder="dd/mm/aaaa" disabled>
+	                    </div>                           
+                    </div>
+		            <div class="form-group">
+			            <label class="control-label col-xs-2">Observ.::</label>
+                    	<div class="col-xs-10">
+                    	 	<textarea class="form-control" rows="5" cols="60" name="d_obser" id="d_obser" disabled></textarea>	                    		                             		
+                    	</div>
+                	</div>                	
+<input type="hidden" name="opcion" id="opDel-Proforma" value="${opDel-Proforma}" >                        
+                </form>
+            </div>
+            <div class="modal-footer">
+            <!-- data-dismiss="modal" -->
+                <button type="button" class="btn btn-default" id="d_btnCancel_add" >Cancelar</button>
+                <button type="button" class="btn btn-primary boton-add" id="d_btnAcept_add">Eliminar Ahora</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- End Modals ELIMINAR-->
+
+<!--  Modals  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!--  Modals PEDIDO   -->
+<div class="panel-body">
+<div class="modal fade" id="myModal-ped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <br><br><br>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabl">Seguro de Realizar PEDIDO ?</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="lugarServices.html" method="POST" id="p_addform">
+                	<div class="form-group">
+	                		<label class="control-label col-xs-2">Cod.Proforma::</label>
+		                	<div class="col-xs-5">                               
+			                    <input type="text" class="form-control" id="pe_xcodven" placeholder="Buscar por Clientes.." disabled>
+			                    
+			                    <input type="HIDDEN" name="p_xcodven" id="p_xcodven" >
+			                </div> 
+                           
+		            </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Cliente::</label>
+                        <div class="col-xs-5">                               
+                            <input type="text" class="form-control" id="p_xcliente" placeholder="Buscar por Clientes.." disabled>                          
+                        </div> 
+                        <label class="control-label col-xs-2">Fecha::</label>
+	                    <div class="col-xs-2">                               		                    
+	                    	<input type="text" class="form-control" name="p_fecha" id="p_fecha" placeholder="dd/mm/aaaa" disabled>
+	                    </div>                           
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Vendedor 1::</label>
+                        <div class="col-xs-5">                               
+                            <input type="text" class="form-control" id="p_xpersonal" name="p_xpersonal" placeholder="Vendedor Responsable.." disabled>
+                        </div>                            
+                        <label class="control-label col-xs-2">Comisión 1::</label>
+                        <div class="col-xs-2">                               
+	                    	<input type="text" class="form-control" name="p_xcom" id="p_xcom" placeholder="Comisión.." disabled>
+	                    </div>
+                    </div>    
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Vendedor 2::</label>
+                        <div class="col-xs-5">                               
+                            <input type="text" class="form-control" name="p_xpersonal2" id="p_xpersonal2" placeholder="Vendedor Responsable.." disabled>
+                        </div>                            
+                        <label class="control-label col-xs-2">Comisión 2::</label>
+                        <div class="col-xs-2">                               
+	                    	<input type="text" class="form-control" name="p_xcom2" id="p_xcom2" placeholder="Comisión.." disabled>
+	                    </div>
+                    </div> 	                    
+		            <div class="form-group">
+			            <label class="control-label col-xs-2">Observ.::</label>
+                    	<div class="col-xs-5">
+                    	 	<textarea class="form-control" rows="5" cols="60" name="p_obser" id="p_obser" disabled></textarea>	                    		                             		
+                    	</div>
+		            	<label class="control-label col-xs-2">Monto a Pagar::</label>
+                    	<div class="col-xs-2" >
+                    		<input type="text" class="form-control text-right" name="p_xtotal" id="p_xtotal" value="00.00" disabled>                             		
+                       </div>
+                	</div>                	
+<input type="hidden" name="opcion" id="opPed-Proforma" value="${opPed-Proforma}" >                        
+                </form>
+            </div>
+            <div class="modal-footer">
+            <!-- data-dismiss="modal" -->
+                <button type="button" class="btn btn-default" id="p_btnCancel_add" >Cancelar</button>
+                <button type="button" class="btn btn-primary boton-add" id="p_btnAcept_add">Realizar Pedido Ahora</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- End Modals PEDIDO-->
+
+<!--  Modals  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!--  Modals REVERTIR PEDIDO   -->
+<div class="panel-body">
+<div class="modal fade" id="myModal-rev" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <br><br><br>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabl">Seguro de REVERTIR PEDIDO ?</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="lugarServices.html" method="POST" id="r_addform">
+                	<div class="form-group">
+	                		<label class="control-label col-xs-2">Cod.Pedido::</label>
+		                	<div class="col-xs-5">                               
+			                    <input type="text" class="form-control" id="re_xcodven" placeholder="Buscar por Clientes.." disabled>
+			                    
+			                    <input type="HIDDEN" name="r_xcodven" id="r_xcodven" >
+			                </div> 
+                           
+		            </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Cliente::</label>
+                        <div class="col-xs-5">                               
+                            <input type="text" class="form-control" id="r_xcliente" placeholder="Buscar por Clientes.." disabled>                          
+                        </div> 
+                        <label class="control-label col-xs-2">Fecha::</label>
+	                    <div class="col-xs-2">                               		                    
+	                    	<input type="text" class="form-control" name="r_fecha" id="r_fecha" placeholder="dd/mm/aaaa" disabled>
+	                    </div>                           
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Vendedor 1::</label>
+                        <div class="col-xs-5">                               
+                            <input type="text" class="form-control" id="r_xpersonal" name="r_xpersonal" placeholder="Vendedor Responsable.." disabled>
+                        </div>                            
+                        <label class="control-label col-xs-2">Comisión 1::</label>
+                        <div class="col-xs-2">                               
+	                    	<input type="text" class="form-control" name="r_xcom" id="r_xcom" placeholder="Comisión.." disabled>
+	                    </div>
+                    </div>    
+                    <div class="form-group">
+                        <label class="control-label col-xs-2">Vendedor 2::</label>
+                        <div class="col-xs-5">                               
+                            <input type="text" class="form-control" name="r_xpersonal2" id="r_xpersonal2" placeholder="Vendedor Responsable.." disabled>
+                        </div>                            
+                        <label class="control-label col-xs-2">Comisión 2::</label>
+                        <div class="col-xs-2">                               
+	                    	<input type="text" class="form-control" name="r_xcom2" id="r_xcom2" placeholder="Comisión.." disabled>
+	                    </div>
+                    </div> 	                    
+		            <div class="form-group">
+			            <label class="control-label col-xs-2">Observ.::</label>
+                    	<div class="col-xs-5">
+                    	 	<textarea class="form-control" rows="5" cols="60" name="r_obser" id="r_obser" disabled></textarea>	                    		                             		
+                    	</div>
+		            	<label class="control-label col-xs-2">Monto a Pagar::</label>
+                    	<div class="col-xs-2" >
+                    		<input type="text" class="form-control text-right" name="r_xtotal" id="r_xtotal" value="00.00" disabled>                             		
+                       </div>
+                	</div>                	
+<input type="hidden" name="opcion" id="opRev-Proforma" value="${opRev-Proforma}" >                        
+                </form>
+            </div>
+            <div class="modal-footer">
+            <!-- data-dismiss="modal" -->
+                <button type="button" class="btn btn-default" id="r_btnCancel_add" >Cancelar</button>
+                <button type="button" class="btn btn-primary boton-add" id="r_btnAcept_add">Revertir Pedido Ahora</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- End Modals REVERTIR PEDIDO-->
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+<!-- OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO   -->
+    <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+    <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+
+<script>
+
+//LISTA DE SOCIO 
+function listaSocios(xfila){
+	$('#listaSocios-Modal').modal('show');	
+	jQuery.post('listaSociosConDeudas_105.html',{},
+			function(data){$('#listaSocios').html(data);}
+	);	
+}
+
+//FUNCION CUANDO SE SELECCIONADO UN SOCIO 
+function filaSeleccionado_socio(xcoda, xcodper,xsocio,xtipo,xmontotal,xnrocuota,xcuota){	
+		$("#a_codper").val(xsocio);
+		$("#a_codperVal").val(xcodper);
+		$("#a_codaVal").val(xcoda);
+		$("#a_tipo").val(xtipo);
+		$("#a_tipoVal").val(xtipo);
+		
+		$("#xtotal").val(xmontotal);
+		$("#xmontotal").val(xmontotal);
+		$("#c_meses").val(xnrocuota);
+		$("#c_cuota").val(xcuota);
+
+		//OCULTA LA VENTANA DE PRODUCTOS, MARCAS
+		$('#listaSocios-Modal').modal('hide');
+}
+
+function m_eliminarDetalle(xfila){
+	$('#m_cant_'+xfila).val('0');
+	$('#m_pre_'+xfila).val('0');
+	$('#m_imp_'+xfila).val('0');
+	$('#m_estadoFila_'+xfila).val('0');
+	$('#m_fila_'+xfila).hide();
+	m_calcularTotalMonto();
+}
+
+//modificarCompra('${reg.codcom}','${reg.codpv}','${reg.getDatosPersona()}','${reg.getFechaFormat()}','${reg.obser}','${reg.getTotalFormat()}')">
+function modificarCompra(xcodcom,xcodpv,xproveedor,xfecha,xobser,xtotal){  // 
+	
+	cargaListaProveedor();
+
+	$("#m_xcodcom").val(xcodcom);
+	$("#m_xproveedor").val(xproveedor);
+	$("#m_xproveedor_2").val(xproveedor);
+	$("#m_xproveedor_val").val(xcodpv);
+	$("#m_fecha").val(xfecha);
+	$("#m_obser").val(xobser);
+	$("#m_xtotal").val(xtotal);
+	
+	var fila=parseInt($('#m_filas').val());
+    for(i=1;i<=fila;i++)
+    	$("#m_fila_"+i).remove();
+    $('#m_filas').val('0');
+
+   	jQuery.post('m_comprasRecuperaDetalle_45.html',{xcodcom:xcodcom},
+   			function(data){$('#m_tableCamara').html(data);
+   	});
+
+/*    
+        $.when(	
+    			jQuery.post('recuperaDatosVenta_27.html',{xcodven:xcodven},	 						
+    					function(data){		 	 					
+    						obj = JSON.parse(data);
+    						$("#m_xcodven").val(xcodven);
+    						$("#m_xcliente").val(obj.xcliente);
+    						$("#m_xcliente_2").val(obj.xcliente);
+    						$("#m_xcliente_val").val(obj.xcodcli);
+    						$("#m_fecha").val(obj.xfecha);
+    						
+    						$("#m_obser").val(obj.xobs);
+    						$("#m_xtotal").val(obj.xtotal);
+    			        } //end of function (data)
+				}) //END of first ajax        		
+        ).then(function() {
+	            $.when(	
+		        	jQuery.post('m_ventasRecuperaDetalle_27.html',{xcodven:xcodven},
+		          			function(data){$('#m_tableCamara').html(data);
+		          	})
+	        	).then(function(){
+	        		var xfila=$("#m_filas").val();
+	        		for (var i=1;i<=parseInt(xfila);i++){
+	        			
+	        		}
+	        	})
+        }); //then
+ */       		
+
+	$('#myModal-mod').modal('show');
+	
+ 	$('#myModal-mod').modal().on('shown', function(){
+ 	    $('body').css('overflow', 'hidden');
+ 	}).on('hidden', function(){
+ 	    $('body').css('overflow', 'auto');
+ 	})
+ 	
+}
+
+//REALIZAR PEDIDO  realizarPedido
+function realizarPedido(xcodven){
+	jQuery.post('recuperaDatosVenta_27.html',{xcodven:xcodven}, 	 						
+			function(data){		 	 					
+				obj = JSON.parse(data);
+				$("#pe_xcodven").val(xcodven);
+				$("#p_xcodven").val(xcodven);
+				$("#p_xcliente").val(obj.xcliente);
+				$("#p_fecha").val(obj.xfecha);
+				if (obj.xpersonal != '0'){
+					$("#p_xpersonal").val(obj.xpersonal);
+					$("#p_xcom").val(obj.xmon1);
+				}else{
+					$("#p_xpersonal").val("");
+					$("#p_xcom").val("");
+				}
+				if (obj.xpersonal2 != '0'){
+					$("#p_xpersonal2").val(obj.xpersonal2);
+					$("#p_xcom2").val(obj.xmon2);
+				}else{
+					$("#p_xpersonal2").val("");
+					$("#p_xcom2").val("");
+				}				
+				$("#p_obser").val(obj.xobs);
+				$("#p_xtotal").val(obj.xtotal);
+	        } //end of function (data)
+    ) //END of first ajax        		
+  
+	$('#myModal-ped').modal('show');
+}
+
+//REVERTIR PEDIDO A PROFORMA
+function revertirVenta(xcodven){
+	jQuery.post('recuperaDatosVenta_27.html',{xcodven:xcodven}, 	 						
+			function(data){		 	 					
+				obj = JSON.parse(data);
+				$("#re_xcodven").val(xcodven);
+				$("#r_xcodven").val(xcodven);
+				$("#r_xcliente").val(obj.xcliente);
+				$("#r_fecha").val(obj.xfecha);
+				if (obj.xpersonal != '0'){
+					$("#r_xpersonal").val(obj.xpersonal);
+					$("#r_xcom").val(obj.xmon1);
+				}else{
+					$("#r_xpersonal").val("");
+					$("#r_xcom").val("");
+				}
+				if (obj.xpersonal2 != '0'){
+					$("#r_xpersonal2").val(obj.xpersonal2);
+					$("#r_xcom2").val(obj.xmon2);
+				}else{
+					$("#r_xpersonal2").val("");
+					$("#r_xcom2").val("");
+				}				
+				$("#r_obser").val(obj.xobs);
+				$("#r_xtotal").val(obj.xtotal);
+	        } //end of function (data)
+    ) //END of first ajax        		
+  
+	$('#myModal-rev').modal('show');
+}
+
+//ELIMINAR VENTAS 
+function eliminarPlan(xcodmp,xsocio,xref,xobser,xmonto,xsaldo,xfecha){
+		$("#d_socio").val(xsocio);
+		$("#hd_codmp").val(xcodmp);
+		$("#d_codmp").val(xcodmp);		
+		$("#d_fecha").val(xfecha);
+		$("#d_obser").val(xobser);
+		
+		$("#d_btnAcept_add").prop('disabled', false);//activa el boton eliminar
+		$('#myModal-del').modal('show');
+}
+
+//DETALLE DE PLAN DE PAGOS  OAM
+function detalleVentaSelecciondo(xcodmp){
+	//alert("hola");
+//	$('#detalle_lista_plan').show();
+	jQuery.post('detalle_lista_un_planpagos_105.html',{xcodmp:xcodmp},
+				function(data){$('#detalle_lista_plan').html(data);}
+	);
+}	
+
+function addRow(){
+	var r=$('#filas').val();//recoge la fila actual
+	
+	var xfila=$("#filas").val();
+	xfila=parseInt(xfila)+1;
+	
+	for (var i=1;i<=3;i++){
+		 jQuery.post('adicionarFilas_105.html',{action:'addRowCamara',row:r},
+		      function(data){
+		        $("#addrow").remove();
+		        $("#tableCamara").append(data);
+	     });
+	}	 
+}	 
+
+//LLAMADA PRINCIPAL A ADICIONAR NUEVO PLAN OAM
+$("#btn-addProforma").click(function(){	
+	$('#a_codper').val('');
+	$('#a_codperVal').val('');
+	$('#a_codaVal').val('');
+	$('#a_tipo').val('');
+	$('#a_tipoVal').val('');
+	$('#a_obser').val('');
+	$('#xtotal').val('');
+	$('#xmontotal').val('');
+	$('#c_meses').val('');
+	$('#c_cuota').val('');
+   
+	$( "#tableCamara_body" ).empty();
+	$("#a_fila").val("0");
+	
+//	$( "#p_fecha" ).prop( "disabled", false );
+	$( "#c_meses" ).prop( "disabled", false );
+	$( "#c_cuota" ).prop( "disabled", false );
+	
+ 	$('#myModal').modal('show');
+ 	
+});
+
+//LLAMADA PRINCIPAL A MODAR ADD
+function calcularTotalMonto(){
+	var fila=parseInt($('#filas').val());
+	//var xdesc=(parseFloat($('#xdesc').val()) / 100);
+	var xcant=0;
+	var xpre=0;
+	var xtotal=0;
+	var ximporte=0;
+	var xdesc=0;
+	var xdescmon=0;
+
+	//INICIALIZA
+	for(i=1;i<=fila;i++){
+		if ($("#cant_"+i).val()=='') { $("#cant_"+i).val(); }
+		if ($("#pre_"+i).val()=='')  { $("#pre_"+i).val(); }
+		$("#imp_"+i).val('0');
+	}
+	//REALIZA OPERACIONES DE SUMATORIA
+	for(i=1;i<=fila;i++){
+//		xdesc=parseFloat($("#desc_"+i).val()); //porcentaje de descuento
+		xcant=parseFloat($("#cant_"+i).val());
+		xpre=parseFloat($("#pre_"+i).val());
+//		xdescmon=xpre * (parseFloat(xdesc)/100);
+		ximporte=(xcant * xpre);
+		$("#imp_"+i).val(ximporte.toFixed(2));
+//		$("#descmon_"+i).val(xdescmon.toFixed(2));
+//		$("#hdescmon_"+i).val(xdescmon.toFixed(2));
+		xtotal=xtotal + ximporte;
+	}
+	//xdesc=xtotal*xdesc;
+	//xtotal=xtotal - xdesc;
+	$("#xtotal").val(xtotal.toFixed(2)); 
+}
+
+//LLAMADA MODIFICAR IMPORTE MODIFICAR MODAL
+function m_calcularTotalMonto(){
+	var fila=parseInt($('#m_filas').val());
+	var xcant=0;
+	var xpre=0;
+	var xtotal=0;
+	var ximporte=0;
+
+	//INICIALIZA
+	for(i=1;i<=fila;i++){
+		if ($("#m_cant_"+i).val()=='') { $("#m_cant_"+i).val(); }
+		if ($("#m_pre_"+i).val()=='')  { $("#m_pre_"+i).val(); }
+		$("#m_imp_"+i).val('0');
+	}
+		
+	//REALIZA OPERACIONES DE SUMATORIA
+	for(i=1;i<=fila;i++){		
+		xcant=parseFloat($("#m_cant_"+i).val());
+		xpre=parseFloat($("#m_pre_"+i).val());		
+		ximporte=(xcant * xpre );
+		$("#m_imp_"+i).val(ximporte.toFixed(2));
+		xtotal=xtotal + ximporte;
+	}
+	$("#m_xtotal").val(xtotal.toFixed(2)); 	
+}
+		
+function ejecutarDetalleVentas(){	
+	var xfini=$('#fini').val();
+	var xffin=$('#ffin').val();
+	var xestado=$('input[name=estado]:checked').val();
+	jQuery.post('plandepagosDet_105.html',{xestado:xestado,xfini:xfini,xffin:xffin},
+  			function(data){$('#detalle_lis').html(data);
+  	});
+	$('#detalle-ventas').hide();
+}
+
+//LISTA DE PRODUTOS PARA ADICIONAR 
+function llamadaListaProductos(xfila){
+
+	$("#selected-row").val(xfila);//fila seleccionada
+	$('#listaProductos-Modal').modal('show');	
+	//
+	jQuery.post('listaProductos_27.html',{},
+			function(data){$('#listaProductos').html(data);}
+	);
+}
+
+//LISTA DE PRODUTOS PARA MODIFICAR 
+function m_llamadaListaProductos(xfila){
+	$("#selected-row").val(xfila);//fila seleccionada
+	$('#listaProductos-Modal').modal('show');
+	
+	jQuery.post('listaProductos_27.html',{},
+			function(data){$('#listaProductos').html(data);}
+	);
+}
+
+function sumar(xmonto){
+	var xfilas=$('#filas').val();
+	var xmon=0;
+	for (i=1;i<=xfilas;i++){
+		if(document.getElementById('mon_'+i).checked)
+			xmon=xmon + xmonto;
+	}
+	$("#xtotal").val(xmon);
+}
+
+//esta funciona carga lista y llama a autocomplete
+function cargaListaProveedor(){
+
+}
+
+$(function () {
+	var op_json1=$("#opcion_json").val();
+	var op_json2=$("#opcion_json_personal").val();
+	var op_json3=$("#op_json_productos").val();
+//	alert(op_json2);
+	//carga un JSON  LISTA DE CLIENTES
+
+});
+//ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+$(document).ready(function () {
+    	$('#dataTables-example').dataTable();
+    	$('#dataTablesMenus-example_otro').dataTable();
+    	
+    	$("#fini").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfechaini});
+    	$("#ffin").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfechafin});
+    	$("#a_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
+    	$("#m_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
+    	$("#p_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
+		 
+    	//REALIZA LA SUMA Y TOTALIZA EL IMPORTE DE LA VENTA
+        $(".m_totalizarChange").change( function() {
+        	m_calcularTotalMonto();
+        });
+    	
+        //SI OCURRE CAMBIO EN PARAMETROS
+        $(".paramsChange").change( function() {
+        	ejecutarDetalleVentas();
+        	$('#detalle_lista_plan').empty();
+        }); 
+        
+         //ANULA TECLA ENTER PARA LOS INPUTS
+        $("input").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+                            
+      //Butons ACEPTAR OAM
+ 		$("#btnCancel_add").click(function(){
+ 			$('#myModal').modal('hide');
+ 		});
+ 		        
+       //Butons ACEPTAR OAM
+ 		$("#btnAcept_add").click(function(){
+ 			if (validarDatos_add() == 0) {
+	 			if(confirm('¿Seguro de Guardar EL PLAN DE PAGOS ?')){
+	 				$( "#p_fecha" ).prop( "disabled", false );
+	 		  		$( "#c_meses" ).prop( "disabled", false );
+	 		  		$( "#c_cuota" ).prop( "disabled", false );
+	 		  		
+		 			$.when(	
+		 	 				jQuery.post('comprasAdminServices_105.html',$('#addform').serialize(), 	 						
+		 	 						function(data){		 	 					
+		 	 							obj = JSON.parse(data);
+		 								if (obj.error=='0'){
+		 									menOK('Correcto..!','LA <b>PAGO SE GUARDO SATISFACTORIAMENTE</b>..!');
+		 									$('#myModal').modal('hide');	
+
+		 								}else{
+		 										menError('Error..!', 'NO SE PUDO <b>GUARDAR EL PAGO</b>..Revisar.!');
+		 							    }
+		 	 						}//end of function (data)		 	 						
+		 	 				) //END of first ajax
+					).then(function() {
+						if (obj.error == '0') {
+							//INICIALIZA VARIABLES
+							ejecutarDetalleVentas();
+						}
+					});	 
+
+	 			}
+ 			}
+        });	
+ 		
+ 		//Butons GENERAR PLAN DE PAGOS 
+  		$("#nuevo_plan").click(function(){ 
+  			$( "#tableCamara_body" ).empty();
+  			$("#a_fila").val("0");
+  			
+  			$( "#p_fecha" ).prop( "disabled", false );
+  			$( "#c_meses" ).prop( "disabled", false );
+  			$( "#c_cuota" ).prop( "disabled", false );
+  		});
+  		
+        //Butons GENERAR PLAN DE PAGOS OAM
+  		$("#generar_plan").click(function(){ 
+  			var xfila=$("#a_fila").val();
+  			if (xfila == '0'){
+	  			var xfecha=$('#p_fecha').val();
+	  			var xcant=$('#c_meses').val();
+	  			var xcuota=$('#c_cuota').val();
+	  			var sw=0;
+	  	 		if (validaFechaDDMMAAAA(xfecha)){
+	  	 			if (xcant != ''){
+		  	 			if (!isNaN(xcant)){
+		  	 				if ((parseInt(xcant)>0)&&( parseInt(xcant)<250)){
+		  	 					var zfecha=$("#p_fecha").val();
+		  	 					var i=0;
+		  	 					var xmontotal=$("#xmontotal").val();
+		  	 					var res=parseFloat(xmontotal) - ((parseInt(xcant) * parseFloat(xcuota)));
+		  	 					if (Math.abs(parseFloat(res)) < 0.1){		  	 					
+				  	 					for (i=1;i<=parseInt(xcant);i++){			  	 						
+					  	 						$.ajax({
+							 					    url : 'adicionarFilas_105.html',
+							 					    data : {action:'addRowCamara',row:i,xfecha:zfecha,xcuota:xcuota} ,
+							 					    type : 'POST',
+							 					   async : false, //obligando a ser sincronizado
+							 					    success : function(data) {		 						
+							 					    	$("#tableCamara > tbody:last").append(data);
+							 					    } //success end
+							 					});
+				  	 						
+					  	 						var xdia = zfecha.substr(0,2);
+					  	 						var xmes = parseInt(zfecha.substr(3,2));
+					  	 						var xanio = parseInt(zfecha.substr(6,4));
+		
+					  	 						xmes=xmes + 1;
+					  	 						if (xmes > 12){
+					  	 							xmes=1;
+					  	 							xanio=xanio+1;
+					  	 						}
+					  	 						
+					  	 						if (xmes < 10){
+					  	 							xmes="0"+xmes;
+					  	 						}
+					  	 						
+					  	 						zfecha=xdia+"/"+xmes+"/"+xanio;	
+					  	 				}	
+				  	 					$("#a_fila").val(i-1);
+				  	 					
+				  	 		  			$( "#p_fecha" ).prop( "disabled", true );
+				  	 		  			$( "#c_meses" ).prop( "disabled", true );
+				  	 		  			$( "#c_cuota" ).prop( "disabled", true );
+		  	 					}else{
+				  	  				sw=1;
+				  	  		 		menError('Error..!', '<b>EL NRO DE CUOTAS POR LA CUOTA, NO ES IGUAL AL MONTO TOTAL</B>..!');
+				  	  		 		$('#c_meses').focus();
+				  	  			}		
+		  	 				}else{
+			  	  				sw=1;
+			  	  		 		menError('Error..!', '<b>LA CANTIDAD DE MESES DEBE ESTAR [1..250]</B>..!');
+			  	  		 		$('#c_meses').focus();
+			  	  			}	
+		  	 			}else{
+		  	  				sw=1;
+		  	  		 		menError('Error..!', '<b>LA CANTIDAD DE MESES NO ES VALIDO</B>..!');
+		  	  		 		$('#c_meses').focus();
+		  	  			}
+	  	 			}else{
+		  				sw=1;
+		  		 		menError('Error..!', '<b>LA CANTIDAD DE MESES NO PUEDE SER VACIO</B>..!');
+		  		 		$('#c_meses').focus();
+		  			}	
+	  	 		}else{
+	  				sw=1;
+	  		 		menError('Error..!', 'La <b>FECHA DE INICIO PARA GENERAR EL PLAN</B> no es Válido..!');
+	  		 		$('#m_fecha').focus();
+	  			}	
+  			}//si fila es cero	
+         });	
+  		
+        //Butons ACEPTAR OAM
+   		$("#d_btnCancel_add").click(function(){
+   			$('#myModal-del').modal('hide');
+   		});
+  		
+   		
+   		//desactivando el doble click
+ 		$('#d_btnAcept_add').dblclick(function(e){
+ 			    e.preventDefault();
+ 		});
+  		//Butons ELIMINAR
+  		$("#d_btnAcept_add").click(function(){
+  			$("#d_btnAcept_add").prop('disabled', true);
+  					$.when(	
+ 		 	 				jQuery.post('comprasAdminServices_105.html',$('#d_addform').serialize(), 	 						
+ 		 	 						function(data){		 	 					
+ 		 	 							obj = JSON.parse(data);
+ 		 								if (obj.error=='0'){
+ 		 									menOK('Correcto..!','<b>EL PLAN DE PAGO SE ELIMINO SATISFACTORIAMENTE</b>..!');
+ 		 									$('#myModal-del').modal('hide');	
+
+ 		 								}else{
+ 		 										menError('Error..!', 'NO SE PUDO <b>ELIMINAR EL PLAN DE PAGO</b>..Revisar.!');
+ 		 							    }
+ 		 	 						}//end of function (data)		 	 						
+ 		 	 				) //END of first ajax
+ 					).then(function() {
+ 						if (obj.error == '0') {
+	 						ejecutarDetalleVentas();
+ 						}
+ 				   });	  	 			
+         });
+ 		
+ 		//VALIDAR datos para opcion adiciona PLAN DE PAGOS	
+ 		function validarDatos_add(){
+ 			var sw=0;
+ 			var fila=$("#a_fila").val();
+ 			
+ 			var xfecha=$('#a_fecha').val();
+ 			var pfecha=$('#p_fecha').val();
+			
+			var xcodper=$('#a_codperVal').val();
+			var xcodigo=$('#a_codaVal').val();//esta los codigos de ACCIONES o REINGRESOS
+			var xmontotal=$('#xmontotal').val();
+			
+			if (xcodper!=''){
+				if (validaFechaDDMMAAAA(xfecha)){					
+					if ((!isNaN(xmontotal))&&(parseFloat(xmontotal) > 0)&&(xmontotal != '')){
+							sw=0;
+					}else{
+						sw=1;
+						menError('Error..!', '<b>EL MONTO TOTAL NO ES SUFICIENTE</B>..!');
+					 	$('#xmontotal').focus();
+					}
+					
+				}else{
+					sw=1;
+					menError('Error..!', 'La <b>FECHA DE TRANSACCION</B> no es Válido..!');
+				 	$('#a_fecha').focus();
+				}				
+			}else{
+				sw=1;
+			 	menError('Error..!', '<b>DEBE SELECCIONAR UN SOCIO</B>..!');
+			 	$('#a_codper').focus();
+			}
+			//VALIDA LA PARDE DE PARAMETROS PARA GENERAR
+	 		if (sw==0) {
+	 		 		var xfecha=$('#p_fecha').val();
+		  			var xcant=$('#c_meses').val();
+		  			var xcuota=$('#c_cuota').val();
+		  	 		if (validaFechaDDMMAAAA(xfecha)){
+		  	 			if (xcant != ''){
+			  	 			if (!isNaN(xcant)){
+			  	 				if ((parseInt(xcant)>0)&&( parseInt(xcant)<250)){
+			  	 					var xmontotal=$("#xmontotal").val();
+			  	 					var res=parseFloat(xmontotal) - ((parseInt(xcant) * parseFloat(xcuota)));
+			  	 					if (Math.abs(parseFloat(res)) < 0.1){		  	 					
+					  	 					sw=0;
+			  	 					}else{
+					  	  				sw=1;
+					  	  		 		menError('Error..!', '<b>EL NRO DE CUOTAS POR LA CUOTA, NO ES IGUAL AL MONTO TOTAL</B>..!');
+					  	  		 		$('#c_meses').focus();
+					  	  			}		
+			  	 				}else{
+				  	  				sw=1;
+				  	  		 		menError('Error..!', '<b>LA CANTIDAD DE MESES DEBE ESTAR [1..250]</B>..!');
+				  	  		 		$('#c_meses').focus();
+				  	  			}	
+			  	 			}else{
+			  	  				sw=1;
+			  	  		 		menError('Error..!', '<b>LA CANTIDAD DE MESES NO ES VALIDO</B>..!');
+			  	  		 		$('#c_meses').focus();
+			  	  			}
+		  	 			}else{
+			  				sw=1;
+			  		 		menError('Error..!', '<b>LA CANTIDAD DE MESES NO PUEDE SER VACIO</B>..!');
+			  		 		$('#c_meses').focus();
+			  			}	
+		  	 		}else{
+		  				sw=1;
+		  		 		menError('Error..!', 'La <b>FECHA DE INICIO PARA GENERAR EL PLAN</B> no es Válido..!');
+		  		 		$('#m_fecha').focus();
+		  			}
+		  	}//fin sw==0
+	
+			//VALIDA EL DETALLE DE LA PROFORMA
+			if (sw == 0) {
+				if (parseInt(fila) > 0){									
+						var xmontito=0;			
+						var xfor=0;
+						for (var i=1;i<=fila;i++){					
+								var xfechita=$("#fecha_"+i).val();
+								var xmon=$("#mon_"+i).val();								
+								if (validaFechaDDMMAAAA(xfechita)){
+									if (validaMontos(xmon,i)==0) {
+										sw=0;
+										xmontito=parseFloat(xmontito) + parseFloat(xmon);										
+									}else{
+										sw=1;
+										xfor=1;
+										menError('Error..!', '<b>EL MONTO A PAGAR  << '+i+' >>  </B> no es Válido..!');
+									 	$('#mon_'+i).focus();
+										break;
+									}
+								}else{
+									sw=1;
+									xfor=1;
+									menError('Error..!', '<b>LA FECHA A PAGAR  << '+i+' >>  </B> no es Válido..!');
+								 	$('#fecha_'+i).focus();
+									break;
+								}
+						}  //fin for
+						if (xfor == 0){
+							if (Math.abs(parseFloat(xmontotal)-parseFloat(xmontito))>0.05){
+								sw=1;
+						 		menError('Error..!', '<b>LA SUMA DE LOS PAGOS DEBE SER IGUAL AL MONTO TOTAL</B>..!');
+							}
+						}	
+				}else{
+					sw=1;
+				 	menError('Error..!', '<b>DEBE INGRESAR MINIMAMENTE UN PAGO</B>');
+				}
+			}//si es sw==0											
+ 			return sw;	 			
+ 		} 		
+ 		
+ function validaMontos(xmonto,pos){
+	var sw=0;
+	var xmon=xmonto;
+	if (xmon == '') {xmon=0; }
+	if (/^([0-9])*[.]?[0-9]*$/.test(xmon)){	
+		if (parseFloat(xmon)>0){
+			sw=0;
+		}else{
+			sw=1;
+	 		menError('Error..!', 'EL <b>MONTO DE LA FILA << '+pos+' >> </B> no puede ser <B>CERO</B>..!');
+		}
+	}else{
+			sw=1;
+	 		menError('Error..!', 'LA <b>CANTIDAD DE LA FILA << '+pos+' >> </B> no es valido..!');
+	}
+	return sw;
+} 
+ 
+ 
+ 
+ 
+    }); //fin document
+</script>

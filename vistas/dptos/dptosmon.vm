@@ -1,0 +1,523 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <link href="css/estilo1.css" rel="stylesheet">
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+<div class="container-fluid">          
+           <!-- /. ROW  -->              
+            <div  class="row">
+            <div class="col-md-1">
+            </div>
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-10">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Gestión Departamentos</p>     
+                                </div>                                
+                                <fieldset class="col-md-12 fielset-mio" >        
+	                                    <legend>Parámetros::</legend>
+<div class="container-fluid">
+  <div class="row">	              
+  									
+	                               <div class="col-md-4">
+	                                 <form id="paramform" action="dptosmon.html" method="POST">  
+
+	                                    	<label><input type="radio" name="estado" value="1" class="paramsChange" #if($estado== 1) checked #end>Activos</label>
+									      	<label><input type="radio" name="estado" value="0" class="paramsChange" #if($estado== 0) checked #end>Nulos</label>
+									      	<label><input type="radio" name="estado" value="2" class="paramsChange" #if($estado== 2) checked #end>Todos</label>
+									</form>   
+	                               </div>
+									<div class="col-md-8 pull-right">        
+										        #if (${PA}=="A")             
+				                                    <button class="pull-right" data-toggle="modal" data-target="#myModal">
+				                                        <img src="images/img-sis/add_2.png" style="width:30px; height:30px;">
+				                                    </button>
+			                                    #else
+			                                    	<button class="pull-right" data-toggle="modal">
+				                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
+				                                    </button>
+			                                    #end
+			                                    <!-- BOTON TO PRINT -->
+			                                    <button class="pull-right" id="print">
+			                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+			                                    </button>			                                  
+	                               </div>
+  </div>
+</div>									    
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                        <div >
+                            <div class="espacio-small"></div>
+                            <div class="table-responsive">
+ <div id="lisDptos-det">
+                                <table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center ancho-icono">#</th>
+                                            <th class="col-sm-0 text-center">Cod.</th>
+                                            <th class="col-sm-0">Nombre Departamento</th>
+                                            <th class="col-sm-0 text-center">EST</th>
+                                            <th class="col-sm-0">MOD</th>
+                                            <th class="col-sm-0">DEL</th>
+                                            <th class="col-sm-0">HAB</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>     
+                                    	#set($con=1)
+                                    	#foreach($reg in $xDptos)	                                   
+                                         <tr class="gradeU">
+                                            <td class="text-center">${con}</td>
+                                            <td>${reg.codd}</td>
+                                            <td>${reg.nombre}</td>
+                                            <td class="text-center ancho-icono">
+                                            	#if (${reg.estado}==1)
+                                            		<img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
+                                            	#else	
+                                            		<img src="images/img-sis/hand_down.png" style="width:25px;">
+                                            	#end
+                                            </td>
+                                           	<td class="text-center ancho-icono">
+	                                          #if (${reg.estado}==1) 
+	                                           	#if (${PM}=="M")
+	                                           		<a  href="javascript:void(0)" onclick="javascript:modificarDpto('${reg.codd}','${reg.nombre}')">
+	                                           			<img src="images/img-sis/mod.png" style="width:25px;">
+	                                				</a>       
+	                                			#else
+	                                					<img src="images/img-sis/nomod.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+	                                			#end
+	                                		   #else
+                                					<img src="images/img-sis/nomod.png" style="width:25px;" title="NO ES USUARIO ACTIVO..">
+                                			   #end  		     
+                                			</td>	
+                                            <td class="text-center ancho-icono">
+	                                           #if (${reg.estado}==1) 
+	                                            #if (${PB}=="B")
+	                                            	<a  href="javascript:void(0)" onclick="javascript:eliminarDpto('${reg.codd}','${reg.nombre}')">
+	                                            		<img src="images/img-sis/del.png" style="width:25px;" title="Eliminar Departamento..">
+	                                            	</a>
+	                                            #else
+	                                            	<img src="images/img-sis/nodel.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+	                                            #end	
+	                                           #else
+                                					<img src="images/img-sis/nodel.png" style="width:25px;" title="NO ES USUARIO ACTIVO..">
+                                			   #end   
+                                            </td>
+                                              <td class="text-center ancho-icono">
+                                            #if (${reg.estado}==0)
+                                            	#if (${PH}=="H")
+                                            	<a  href="javascript:void(0)" onclick="javascript:habilitarDpto('${reg.codd}','${reg.nombre}')">
+                                            		<img src="images/img-sis/undo.png" style="width:25px;" title="Habilitar Departamento..">
+                                            	</a>
+                                            	#else
+		                                			<img src="images/img-sis/noundo.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                		#end
+		                                    #else
+	                                					<img src="images/img-sis/noundo.png" style="width:25px;" >
+	                                		#end     	
+                                            </td>
+                                        </tr>                        
+                                        #set($con=$con + 1)
+                                       #end               
+                                    </tbody>
+                                </table>
+</div>                                
+                            </div>                            
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+                <input type="HIDDEN" id="mensaje" value="${mensaje}">
+                <input type="HIDDEN" id="menTexto" value="${menTexto}">
+            <div class="col-md-1">
+            </div>
+            
+            </div>
+</div>
+
+<!--  Modals-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Adicionar Departamentos</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="dptosServices.html" method="POST" id="addform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Departamento::</label>
+                            <div class="col-xs-9">
+                                <input type="text" class="form-control" name="dptoname" id="dptoId" placeholder="Ingrese Departamento.." required>
+                            </div>
+                        </div>
+                        <input type="hidden" name="opcion" value="${opAdd}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_add">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-->
+
+<!--  Modals MODIF MODAL-->
+<div class="panel-body">
+    <div class="modal fade" id="modModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Departamentos</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="dptosServices.html" method="POST" id="modform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Departamento::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="m_codd" id="m_codd">
+                                <input type="text" class="form-control" name="m_nombre" id="m_nombre" placeholder="Ingrese Departamento.." required>
+                            </div>
+                        </div>
+                        <input type="hidden" name="opcion" value="${opMod}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_mod">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MODIFICAR-MODAL-->
+
+<!--  Modals ELIMINAR-->
+<div class="panel-body">
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de eliminar Departamento ?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="dptosServices.html" method="POST" id="delform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Departamento::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="d_codd" id="d_codd">
+                                <input type="text" class="form-control" name="d_nombre" id="d_nombre" disabled>
+                            </div>
+                        </div>
+                        <input type="hidden" name="opcion" value="${opDel}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_del">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR-->
+<!--  Modals HABILITAR-->
+<div class="panel-body">
+    <div class="modal fade" id="habModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de Habilitar Departamento?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="dptosServices.html" method="POST" id="habform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Departamento::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="h_codd" id="h_codd">
+                                <input type="text" class="form-control" name="h_nombres" id="h_nombres" disabled>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opHab}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_hab">Habilitar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals HABILITAR>
+
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    
+<script>
+
+function modificarDpto(xcodd, xnombre){
+	$('#m_codd').val(xcodd);
+	$('#m_nombre').val(xnombre);
+	$('#modModal').modal('show');
+}
+
+function eliminarDpto(xcodd, xnombre){
+	$('#d_codd').val(xcodd);
+	$('#d_nombre').val(xnombre);
+	$('#delModal').modal('show');
+}
+function habilitarDpto(xcodd, xnombres){
+	$('#h_codd').val(xcodd);
+	$('#h_nombres').val(xnombres);
+	$('#habModal').modal('show');
+}
+	
+    $(document).ready(function () {
+    	 
+         $('#dataTables-example').dataTable();
+         
+         //Devuelve los mensajes de guardado
+         if ($('#mensaje').val() != '0'){
+        	 if ($('#mensaje').val() == '1'){
+        	 	$.notify($('#menTexto').val(), "success",{ position:"center middle" });
+        	 }
+        	 if ($('#mensaje').val() == '2'){
+         	 	$.notify($('#menTexto').val(), "error",{ position:"center middle" });
+         	 }
+         }
+         
+         //limpia los datos del modal al momento de ingresar
+        $('#myModal').on('hidden.bs.modal', function(){ 
+     		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+     	}); 
+        
+         //SI OCURRE CAMBIO
+        $(".paramsChange").change( function() {
+            $("#paramform").submit();
+        }); 
+        
+         //ANULA TECLA ENTER PARA LOS INPUTS
+        $("input").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+         
+       
+         
+       //Butons ACEPTAR
+ 		$("#btnAcept_add").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+ 			
+ 			if (validarDatos_add() == 0) {
+	 			if(confirm('¿Seguro de Guardar EL Departamento?')){ 				
+		 				//$("#addform").submit(); //envia los datos a destino FORM.
+		 				//$('#myModal').modal('hide');
+		 				$.when(	
+			 	 				jQuery.post('dptosServices.html',$('#addform').serialize(), 	 						
+			 	 						function(data){		 	 					
+			 	 							obj = JSON.parse(data);
+			 								//alert(obj.error);
+			 								if (obj.error=='0'){
+			 									//repetir(xdatos) 									
+			 									menOK('Correcto..!','Los Datos se <b>GUARDARON satisfactoriamente</b>..!');
+			 									//alert("OK");
+			 									$('#myModal').modal('hide');
+			 									
+			 								}else{
+			 									if (obj.error=='1'){
+			 										menError('Error..!', 'EL CODIGO ESTA REPETIDO..Revisar.!');
+			 									}else{
+			 										menError('Error..!', 'NO SE PUDO GUARDAR LOS DATOS..Revisar.!');
+			 									}	
+			 							    }
+			 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+						).then(function() {	
+								jQuery.post('listaDptos_det_12.html',{xestado:xestado},
+				 	 						function(data){	$('#lisDptos-det').html(data);
+				 	 			});
+						});
+	 			}
+ 			}
+        });	
+       
+ 		//Butons MODIFICAR
+ 		$("#btnAcept_mod").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+ 			if (validarDatos_mod() == 0) {
+ 					if(confirm('¿Seguro de Modificar Datos del Departamento?')){ 				
+ 		 				//$("#modform").submit(); //envia los datos a destino FORM.
+ 		 				//$('#modModal').modal('hide'); 		 				
+	 						$.when(	
+				 	 				jQuery.post('dptosServices.html',$('#modform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','El <b>DEPARTAMENTO</b> se MODIFICO satisfactoriamente..!');
+				 									//alert("OK");
+				 									$('#modModal').modal('hide');
+				 									
+				 								}else{
+				 									menError('Error..!', 'NO SE PUDO MODIFICAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+							).then(function() {	
+									jQuery.post('listaDptos_det_12.html',{xestado:xestado},
+					 	 						function(data){	$('#lisMenus-det').html(data);
+					 	 			});
+							});
+ 					}
+ 			}
+ 		});
+ 		
+ 		//Butons ELIMINAR
+ 		$("#btnAcept_del").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+			//$("#delform").submit(); //envia los datos a destino FORM.
+			//$('#delModal').modal('hide');
+			$.when(	
+	 	 				jQuery.post('dptosServices.html',$('#delform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','El <b>DEPARTAMENTO</b> se ELIMINO satisfactoriamente..!');
+				 									//alert("OK");
+				 									$('#delModal').modal('hide');
+				 									
+				 								}else{
+				 									menError('Error..!', 'NO SE PUDO ELIMINAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+						).then(function() {	
+									jQuery.post('listaDptos_det_12.html',{xestado:xestado},
+					 	 						function(data){	$('#lisDptos-det').html(data);
+					 	 			});
+						});
+
+ 		});
+ 		
+ 		//Butons HABILITAR
+ 		$("#btnAcept_hab").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+	 			$.when(	
+	 	 				jQuery.post('dptosServices.html',$('#habform').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','Los Datos se <b>HABILITARON satisfactoriamente</b>..!');
+	 									//alert("OK");
+	 									$('#habModal').modal('hide');			 									
+	 								}else{
+	 										menError('Error..!', 'NO SE PUDO <b>HABILITAR</b> LOS DATOS..Revisar.!');
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+	 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+						jQuery.post('listaDptos_det_12.html',{xestado:xestado},
+		 	 						function(data){	$('#lisDptos-det').html(data);
+		 	 			});
+				});
+ 		});
+ 		
+ 		//Butons PRINT
+ 		$("#print").click(function(){
+ 		var xestado=$('input[name=estado]:checked').val();
+ 			window.open('dptosReportes01.html?xest='+xestado,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });	
+ 		
+ 		//valida datos para opcion adiciona 			
+ 		function validarDatos_add(){
+ 			var sw=0;
+ 			var nombreDpto=$('#dptoId').val();
+ 			var xnom2=$.trim(nombreDpto);
+ 			//en caso de haber diferencia actulizar
+				if (xnom2 != nombreDpto) {
+					$('#dptoId').val(xnom2);
+					nombreDpto=xnom2;
+				}
+ 			if (nombreDpto != ''){
+	 			if ((nombreDpto.length > 20)){
+	 				sw=1;
+	 				$('#dptoId').notify("ERROR, EL DEPARTAMENTO EXCEDE LOS 20 CHAR..!", "error",{ position:"bottom" });
+	 				$('#dptoId').focus();
+	 			}
+ 			}else{
+ 				sw=1;
+ 				$('#dptoId').notify("ERROR, EL DEPARTAMENTO ESTA VACIO..!", "error",{ position:"bottom" });
+ 				$('#dptoId').focus();
+ 			}
+ 			return sw;
+ 		}
+ 		//validar solo para opcion modificar
+ 		function validarDatos_mod(){
+ 			var sw=0;
+ 			var xcodd=$('#m_codd').val();
+ 			var xnombre=$('#m_nombre').val();
+ 			var xnom2=$.trim(xnombre);
+ 			
+ 				//en caso de haber diferencia actulizar
+ 				if (xnom2 != xnombre) {
+ 					$('#m_nombre').val(xnom2);
+ 					xnombre=xnom2;
+ 				}
+
+	 			if (xnombre != ''){
+		 			if ((xnombre.length > 20)){
+		 				sw=1;
+		 				$('#m_nombre').notify("ERROR, EL DEPARTAMENTO EXCEDE LOS 20 CHAR..!", "error",{ position:"bottom" });
+		 				$('#m_nombre').focus();
+		 			}
+	 			}else{
+	 				sw=1;
+	 				$('#m_nombre').notify("ERROR, EL DEPARTAMENTO ESTA VACIO..!", "error",{ position:"bottom" });
+	 				$('#m_nombre').focus();
+	 			}
+ 			return sw;
+ 		}
+
+ 		
+    });
+</script>

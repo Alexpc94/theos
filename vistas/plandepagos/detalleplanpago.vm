@@ -1,0 +1,61 @@
+
+<div class="col-md-2"> </div>
+        <div class="col-md-8">
+            <div class="div-capa">
+                <div class="div-arriba">
+                    <table >
+                    <thead>
+                        <tr>
+                            <th colspan="2" >DETALLE DE PLAN DE PAGOS </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+	                    #set($con=1)
+	                    #foreach($reg in $xlisDetalle)
+		                    #if ($con==1)
+		                    	#if (${reg.sw}==0)
+			                        <tr>
+			                            <td align="center" colspan="2" style="color:red;font-size: 18px;">A N U L A D O</td>		                  
+			                        </tr>
+		                        #end
+		                        <tr>
+		                            <td>CODIGO : ${reg.codmp} </td>
+		                            <td>NOMBRE : ${reg.getDatosPersona()} </td>
+		                        </tr>
+		                        <tr>
+		                        	<td  colspan="2" >OBSER.:<i>${reg.obser}</i></td>
+		                        </tr>		                        
+		                        
+		                    #end  
+		                    #set($con=10)
+	                    #end    
+                    <tbody>  
+                    </table>
+                </div>
+                <div class="div-abajo">
+                    <table class="table table-bordered table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th width="2%" align="right">#</th>
+                          <th align="right">Fecha</th>
+                          <th align="right">Monto Pago</th>
+                          <th align="right">Saldo Pago</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      	#set($con=1)
+                        #foreach($reg in $xlisDetalle)	
+                            <tr>
+                              <th scope="row">${con}</th>
+                              <td>${reg.getFechapagoFormat()}</td>
+                              <td align="right">${reg.getMontopagoFormat()} </td>
+                              <td align="right">${reg.getSaldopagoFormat()} </td>
+                            </tr>
+                            #set($con=$con + 1)
+                        #end    
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<div class="col-md-3"> </div>

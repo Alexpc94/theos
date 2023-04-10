@@ -1,0 +1,23 @@
+
+		<tr id="fila_${row}">
+              <th scope="row">${row}</th>
+              <td align="center">
+                  <input type="text" class="fechita" style="width:100px;text-align:center" name="fecha_${row}" id="fecha_${row}" value="${fecha_generada}" />
+              </td>
+              <td align="center">
+                  <input  type="text" style="width:80px; text-align:right" name="mon_${row}" id="mon_${row}" value="${xcuota}"  /><br>
+              </td>       
+        </tr>
+
+<script>
+	$( function() {
+	    $( ".fechita" ).datepicker({
+	        changeMonth: true,
+	        changeYear: true
+	    });
+	}); 
+	
+	$(document).ready(function () {
+		$(".fechita").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+	});
+</script>

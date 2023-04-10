@@ -1,0 +1,53 @@
+<table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center ancho-icono">#</th>
+                                            <th class="col-sm-0 text-center">Cod.</th>
+                                            <th class="col-sm-0">mes </th>
+                                            <th class="col-sm-0">Año</th>
+                                            <th class="col-sm-0">Gestion</th>
+                                            <th class="col-sm-0">Num boleta</th>
+                                            <th class="col-sm-0">Num Pago</th>
+                                            <th class="col-sm-0">Compra Dolar</th>
+                                            <th class="col-sm-0">Nit</th>
+                                            <th class="col-sm-0">NroAcción</th>
+                                            <th class="col-sm-0" title="MODIFICAR Tipo de Cambio">MOD</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>     
+                                    	#set($con=1)
+                                    	                                  
+                                         <tr class="gradeU">
+                                            <td class="text-center">${con}</td>
+                                            <td>${xcodg} </td>
+                                            <td>${xmesTexto} </td>
+                                            <td>${xanio}</td>
+                                            <td>${xges}</td>
+                                            <td>${xboletaid}</td>
+                                            <td>${xmpagosid}</td>
+                                            <td>${xcompradolarid} </td>
+                                            <td>${xnit} </td>
+                                            <td>${xnroaccion} </td>
+                                            
+                                           
+                                           	<td class="text-center ancho-icono">
+	                                           		#if (${PM}=="M")
+		                                           		<a  href="javascript:void(0)" onclick="javascript:modificarGeneral('${xcodg}','${xmesTexto}','${xanio}','${xges}','${xboletaid}','${xmpagosid}','${xcompradolarid}','${xmes}','${xnit}','${xnroaccion}')">
+		                                           			<img src="images/img-sis/mod.png" style="width:25px;" title="Modificar Tipo de Cambio..">
+		                                				</a>
+	                                				#else
+		                                				<img src="images/img-sis/nomod.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                			#end
+                                			</td>	
+                                           
+                                         
+                                        </tr>                        
+                                        #set($con=$con + 1)
+                                      
+                                    </tbody>
+                                </table>
+<script>
+		$(document).ready(function () {	
+		     $('#dataTables-example').dataTable();
+		});     
+</script>  

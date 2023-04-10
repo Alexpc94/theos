@@ -1,0 +1,33 @@
+
+<div class="col-md-2"> </div>
+        <div class="col-md-8">
+            <div class="div-capa">
+                <div class="div-arriba">
+                    <table >
+                    <thead>
+                        <tr>
+                            <th colspan="2" >DETALLE PAGOS ADICIONALES </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CODIGO : ${xcodpag} </td>
+                            <td>NOMBRE : ${xnombre} </td>
+                        </tr>
+                        #foreach($reg in $xBoletas_pagadas)	
+                            <tr>
+                              <td colspan="2">OBS.:<B>${reg.obs}</B> </td>
+                            </tr>
+                        #end
+                    <tbody>  
+                    </table>
+                </div>
+            </div>
+        </div>
+<div class="col-md-2"> </div>
+
+<script>
+    $(document).ready(function () {
+    
+    });
+</script>

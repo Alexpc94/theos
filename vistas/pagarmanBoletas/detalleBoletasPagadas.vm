@@ -1,0 +1,63 @@
+
+<div class="col-md-3"> </div>
+        <div class="col-md-7">
+            <div class="div-capa">
+                <div class="div-arriba">
+	                #set($con=1)
+	                #foreach($reg in $xBoletas_pagadas)
+	                #if ($con == 1)
+	                    <table >
+	                    <thead>
+	                        <tr>
+	                            <th colspan="2" >DETALLE DE BOLETAS </th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr>
+	                            <td>CODIGO :<b> ${xcodpag} </b></td>
+	                            <td>NOMBRE :<b> ${xnombre} </b></td>
+	                        </tr>
+	                        <tr>
+	                            <td>TOTAL :<b> ${reg.getMontotalFormat()} </b></td>
+	                            <td>ADICIONAL :<b> ${reg.getMonadicionalFormat()} </b></td>
+	                        </tr>
+	                        <tr>
+		                        <td colspan="2">OBS.:<b> ${reg.obser} </b></td>
+		                    </tr>
+	                    <tbody>  
+	                    </table>
+	                    #set($con=10)
+	                #end    
+	                #end    
+                </div>
+                <div class="div-abajo">
+                    <table class="table table-bordered table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th width="2%" align="right">#</th>
+                          <th align="right">Boletas</th>
+                          <th align="right">Monto</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      	#set($con=1)
+                        #foreach($reg in $xBoletas_pagadas)	
+                            <tr>
+                              <th scope="row">${con}</th>
+                              <td>${reg.getMesFormat()} - ${reg.anio}</td>
+                              <td align="right">${reg.getMontoFormat()} </td>
+                            </tr>
+                            #set($con=$con + 1)
+                        #end    
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<div class="col-md-3"> </div>
+
+<script>
+    $(document).ready(function () {
+    
+    });
+</script>

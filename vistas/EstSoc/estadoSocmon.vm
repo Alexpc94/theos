@@ -1,0 +1,418 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <link href="css/estilo1.css" rel="stylesheet">
+ 
+   <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+   <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+
+  <script src="js/tools_oam.js"></script>
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+ <script>
+      $( function() {
+          $( "#a_fecha" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+          });
+          $( "#m_fecha" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+         
+      });
+  </script>    
+<div class="container-fluid">          
+           <!-- /. ROW  -->              
+            <div  class="row">
+            <div class="col-md-1">
+            </div>
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Gestión Costos</p>     
+                                </div>                                
+                                <fieldset class="col-md-12 fielset-mio" >        
+	                                    <legend>Parámetros::</legend>
+<div class="container-fluid">
+  <div class="row">	              
+  									
+	                               <div class="col-md-4">
+	                                
+	                               </div>
+									<div class="col-md-8 pull-right">        
+										        
+			                                    <!-- BOTON TO PRINT -->
+			                                    <button class="pull-right" id="print">
+			                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+			                                    </button>			                                  
+	                               </div>
+  </div>
+</div>									    
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                        <div >
+                            <div class="espacio-small"></div>
+                            <div class="table-responsive">
+ <div id="lisEstSoc-det">
+                                <table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center ancho-icono">#</th>
+                                            <th class="col-sm-0 text-center">Cod.</th>
+                                            <th class="col-sm-0">Nombre del Estado Socio</th>
+                                            <th class="col-sm-0">Costo Actual</th>
+                                            <th class="col-sm-0" title="Estado del Socio">EST</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>     
+                                    	#set($con=1)
+                                    	#foreach($reg in $xEstSoc)	                                   
+                                         <tr class="gradeU">
+                                            <td class="text-center">${con}</td>
+                                            <td>${reg.codes}</td>
+                                            <td>${reg.nombre}</td>
+                                          	<td align="right">${reg.getCostoFormat()}</td>
+                                            <td class="text-center ancho-icono">
+                                            	<a  href="javascript:void(0)" onclick="javascript:llamarCosto('${reg.codes}','${reg.nombre}')">
+                                            		<input type="radio" name="estado_sel" />
+                                            	</A>
+                                            </td>
+                                           
+                                            
+                                           
+                                        </tr>                        
+                                        #set($con=$con + 1)
+                                       #end               
+                                    </tbody>
+                                </table>
+</div>                                
+                            </div>                            
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+                <input type="HIDDEN" id="mensaje" value="${mensaje}">
+                <input type="HIDDEN" id="menTexto" value="${menTexto}">
+            <div class="col-md-1">
+            </div>
+            
+            </div>
+</div>
+<div id="detalle-costo">
+
+</div>
+<!--  Modals-->
+<!--  Modals ADICIONAR MODAL-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-estados" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Adicionar Cuota</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="estSocServices.html" method="POST" id="addform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Cuota::</label>
+                            <div class="col-xs-6">
+                            	<input type="hidden" name="a_codes" id="a_codes">
+                            	
+                                <input type="text" class="form-control" name="a_costo" id="a_costo" placeholder="Ingrese Cuota.." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Fecha.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_fecha" id="a_fecha" value="${xfecha}" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        <input type="hidden" name="opcion" value="${opAdd}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_add">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ADICIONAR-MODAL-->
+
+
+<!--  Modals MODIF MODAL-->
+<div class="panel-body">
+    <div class="modal fade" id="modModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Cuota</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="estSocServices.html" method="POST" id="modform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Cuota::</label>
+                            <div class="col-xs-6">
+                            	<input type="hidden" name="m_codes" id="m_codes">
+                            	<input type="hidden" name="m_codest" id="m_codest">
+                                <input type="text" class="form-control" name="m_costo" id="m_costo" placeholder="Ingrese Cuota.." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Fecha.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_fecha" id="m_fecha" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        <input type="hidden" name="opcion" value="${opMod}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_mod">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MODIFICAR-MODAL-->
+
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    
+<script>
+
+//ADICONAR DATOS COSTOS
+function adicionarEstSoc(xcodes, xcosto,xfecha,xcodest){
+	$('#myModal-estados').modal('show');
+}
+
+//ADICIONAR DATOS COSTOS
+function modificarEstSoc(xcodes, xcosto,xfecha,xcodest){
+	$('#m_codes').val(xcodes);
+	$('#m_codest').val(xcodest);
+	$('#m_costo').val(xcosto);
+	$('#m_fecha').val(xfecha);
+	$('#modModal').modal('show');
+}
+
+function llamarCosto(xcodes, xnombres){
+	//alert("llegoo..."+xnombres);
+	jQuery.post('detalle_costo4.html',{xcodes:xcodes,xnombre:xnombres},
+				function(data){$('#detalle-costo').html(data);}
+	);
+}
+	
+$(document).ready(function () {
+    	 $("#a_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
+    	 $("#m_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	
+         $('#dataTables-example').dataTable();
+         
+         //Devuelve los mensajes de guardado
+         if ($('#mensaje').val() != '0'){
+        	 if ($('#mensaje').val() == '1'){
+        	 	$.notify($('#menTexto').val(), "success",{ position:"center middle" });
+        	 }
+        	 if ($('#mensaje').val() == '2'){
+         	 	$.notify($('#menTexto').val(), "error",{ position:"center middle" });
+         	 }
+         }
+         
+         //limpia los datos del modal al momento de ingresar
+        $('#myModal').on('hidden.bs.modal', function(){ 
+     		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+     	}); 
+        
+         //SI OCURRE CAMBIO
+        $(".paramsChange").change( function() {
+            $("#paramform").submit();
+        }); 
+        
+         //ANULA TECLA ENTER PARA LOS INPUTS
+        $("input").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+         
+       //Butons MODIFICAR
+ 		$("#btnAcept_mod").click(function(){
+ 			var xnombres=$("#estado_name").val();
+ 			var xcodes=$("#estado_codes").val();
+ 			if (validarDatos_mod() == 0) {
+ 					if(confirm('¿Seguro de Modificar La Cuota ?')){ 				
+ 		 				//$("#modform").submit(); //envia los datos a destino FORM.
+ 		 				//$('#modModal').modal('hide'); 		 				
+	 						$.when(	
+				 	 				jQuery.post('estSocServices.html',$('#modform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','la <b>Cuota</b> se MODIFICO satisfactoriamente..!');
+				 									//alert("OK");
+				 									$('#modModal').modal('hide');
+				 									
+				 								}else{
+				 									if (obj.error=='2'){
+				 										menError('Error..!', 'NO SE PUEDE MODIFICAR PORQUE CON ESTE COSTO YA SE GENERO BOLETAS..Revisar.!');
+				 									}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICAR LOS DATOS..Revisar.!');
+				 									}
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+							).then(function() {	
+									jQuery.post('detalle_costo4.html',{xcodes:xcodes,xnombre:xnombres},
+					 	 						function(data){	$('#detalle-costo').html(data);
+					 	 			});
+							});
+ 					}
+ 			}
+ 		});
+ 		
+ 		//Butons ACEPTAR Beneficiario
+ 		$("#btnAcept_add").click(function(){
+ 			var xnombres= $("#estado_name").val();
+ 			var xcodes= $("#estado_codes").val();
+ 			$("#a_codes").val(xcodes);
+
+ 			if (validarDatos_add() == 0) {
+	 			if(confirm('¿Seguro de Adicionar La Cuota ?')){  				
+		 				$.when(	
+			 	 				jQuery.post('estSocServices.html',$('#addform').serialize(), 	 						
+			 	 						function(data){		 	 					
+			 	 							obj = JSON.parse(data);
+			 								//alert(obj.error);
+			 								if (obj.error=='0'){
+			 									//repetir(xdatos) 									
+			 									menOK('Correcto..!','Los Datos se <b>GUARDARON satisfactoriamente</b>..!');
+			 									//alert("OK");
+			 									$('#myModal-estados').modal('hide');
+			 									
+			 								}else{
+			 									if (obj.error=='1'){
+			 										menError('Error..!', 'EL CODIGO ESTA REPETIDO..Revisar.!');
+			 									}else{
+			 										menError('Error..!', 'NO SE PUDO GUARDAR LOS DATOS..Revisar.!');
+			 									}	
+			 							    }
+			 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+							).then(function() {	
+								jQuery.post('detalle_costo4.html',{xcodes:xcodes,xnombre:xnombres},
+				 	 						function(data){	$('#detalle-costo').html(data);
+				 	 			});
+							});						
+	 			}
+ 			}
+ 		 });
+        	 		
+ 		//Butons PRINT
+ 		$("#print").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+ 			window.open('estadoSocReportes01.html?xest='+xestado,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });	
+ 		
+ 		//validar solo para opcion modificar
+ 		function validarDatos_mod(){
+ 			var sw=0;
+ 			var tc=$('#m_costo').val();
+ 			
+ 			var xfecha=$('#m_fecha').val();
+ 			
+ 			var xtc=$.trim(tc);
+ 			if (xtc != tc) {
+				$('#m_costo').val(xtc);
+				tc=xtc;
+			}			
+			
+ 					
+					if (tc != ""){
+						if (!isNaN(tc)){
+							if (validaFechaDDMMAAAA(xfecha)){
+								sw=0;	
+							}else{
+								sw=1;
+					 			menError('Error..!', 'La </B>LA FECHA </B> debe ser dia/mes/año..!');
+									$('#m_fecha').focus();
+							}
+						}else{
+							sw=1;
+					 		menError('Error..!', '<B>COSTO</B> debe tener un valor NUMERICO..!');
+					 		$('#m_costo').focus();
+						}			
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>COSTO</B> no puede ser vacio..!');
+				 		$('#m_costo').focus();
+					}
+ 				
+ 			
+ 			return sw;
+ 		}
+		
+ 		//validar solo para opcion adicionar
+ 		function validarDatos_add(){
+ 			var sw=0;
+ 			var tc=$('#a_costo').val();
+ 			
+ 			var xfecha=$('#a_fecha').val();
+ 			
+ 			var xtc=$.trim(tc);
+ 			if (xtc != tc) {
+				$('#a_costo').val(xtc);
+				tc=xtc;
+			}			
+ 			
+			if (tc != ""){
+					if (!isNaN(tc)){
+						if (validaFechaDDMMAAAA(xfecha)){
+							sw=0;	
+						}else{
+							sw=1;
+				 			menError('Error..!', 'La </B>LA FECHA </B> debe ser dia/mes/año..!');
+								$('#a_fecha').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', '<B>COSTO</B> debe tener un valor NUMERICO..!');
+				 		$('#a_costo').focus();
+					}			
+			}else{
+					sw=1;
+			 		menError('Error..!', 'El Dato </B>COSTO</B> no puede ser vacio..!');
+			 		$('#a_costo').focus();
+			} 					
+ 			return sw;
+ 		}
+    });
+    
+  
+</script>

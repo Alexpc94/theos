@@ -1,0 +1,27 @@
+	                                <select class="form-control" name="Ae_codes" id="Ae_codes">
+	                                	#foreach($est in $xestsoc)		
+		                                	#set($xsel="")
+	                                		#if (${est.codes} == ${xcodes})
+	                                			#set($xsel="selected")
+	                                		#end
+											<option value="${est.codes}@${est.padre}" ${xsel}>$est.nombre </option>										
+										#end
+									</select>
+								
+<script>
+
+    $(document).ready(function () {
+    	
+      	$('#Ae_codes').change(function(){ 
+        	var codigo = $(this).val();
+        	var res = codigo.split("@");
+//            alert("hola amigos.."+res[1]);		
+        	if (res[1] != '0'){
+        		$('#a_permiso').show();
+        	}else{
+        		$('#a_permiso').hide();
+        	}
+        });
+    
+    });
+</script>										

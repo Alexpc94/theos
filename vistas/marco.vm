@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Tenis Club..</title>
+
+    <link href="css/agency.css" rel="stylesheet">
+<!-- Bootstrap core JavaScript -->
+    <script src="js/jquery/jquery.js"></script>
+<!-- Custom JavaScript for this theme -->
+    <script src="js/agency.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="js/bootstrap.js"></script>
+    
+     <link href="css/estilo1.css" rel="stylesheet">
+
+     <!-- DESDE AQUI-->    
+     
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <style>
+        .navbar-toggler {
+            z-index: 1;
+        }
+        
+        @media (max-width: 576px) {
+            nav > .container {
+                width: 100%;
+            }
+        }
+        .div-principal{
+		    margin-top:-50px;    
+		}
+    </style>
+
+</head>
+
+<body  id="page-top">
+ <header   >
+    <!-- Navigation -->
+	<form action="index2.html" method="POST" id="indexform" name="indexform">
+	 <nav class="navbar  navbar-inverse navbar-fixed-top" role="navigation">
+	    <div class="navbar-header">
+	        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	        </button>
+	        <p class="navbar-brand-logito" >Club Tenis Tarija</p>
+	    </div>
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	        <ul class="nav navbar-nav">
+	            <li class="dropdown">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inicio<b class="caret"></b></a>
+	                <ul class="dropdown-menu">
+	                    <li><a href="modclave.html">Cambiar Clave</a></li>
+	                    <li><a href="#">Pizarron de Anuncios</a></li>
+	                </ul>
+	            </li>
+			#foreach($reg in $xlistaMenus)	
+				#if (${reg.codr}==${rolActivoID})
+				<li class="dropdown">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${reg.nombre}<b class="caret"></b></a>
+	                <ul class="dropdown-menu">
+	                #foreach($fila in $xlistaProcesos)
+			            #if ((${fila.codr}==${rolActivoID})&&(${fila.codm}==${reg.codm}))
+	                    	<li><a href="${fila.link}?cd=$reg.codmCrypt" title="${fila.help}">${fila.nombre}</a></li>
+	                    #end
+		            #end	                  
+	                </ul>
+	            </li>
+		        #end
+		    #end                        
+	       </ul>
+	        <div class="usurol">
+	            <div class="pull-right">
+	                <select class="rolesChange form-control" name="zroles">
+		            #foreach($reg in $xlistaRoles)
+	             		#set($activoRol="")
+	             		#if (${reg.codr} == ${rolActivoID})
+	             			#set($activoRol="SELECTED")
+	             		#end                
+	                    <option value="${reg.codr}" ${activoRol} >${reg.nombre}</option>
+	               #end 
+	                </select>
+	            </div>
+	            <div class="pull-right">
+	                <label>Rol::&nbsp;&nbsp;</label>
+	            </div>
+	        </div>
+	    </div>    
+	</nav>
+	</form>
+ </header>
+
+    <!-- Portfolio Grid -->
+    <section id="portfolio" class="">
+        <div class="container ">
+        	<div class="div-principal">
+                 #parse("$file1")
+            </div>
+        </div>
+    </section>
+    
+    
+    <!--  Modals XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+    <!--  LISTA DE SOCIOS -->
+    <div class="panel-body">
+        <div class="modal fade" id="alertar-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <br><br><br>
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabl">CONFLICTOS EN ALGUNOS CASOS</h4>
+                    </div>
+                    <div class="modal-body">
+     <!-- MODAL-BODY -->
+     <!-- aqui tamaño de tablas  -->               
+     <!-- /. ROW  -->              
+     <div  class="row">
+     
+         <!-- aqui tamaño de tablas  -->               
+         <div class="col-md-12">
+             <!-- Advanced Tables -->
+             <div  class="panel panel-default">
+                 <div >
+                     <div class="espacio-small"></div>
+                     <div class="table-responsive">
+    <div id="listaAlertas">
+
+    </div>                    
+                     </div>                 
+                 </div>
+             </div>
+             <!--End Advanced Tables -->
+
+         </div>
+         <input type="HIDDEN" id="selected-row" value="0">
+     </div>
+     <!--End Advanced Tables -->            
+     <!-- MODAL-BODY -->                
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modals LISTA SOCIOS -->
+
+       
+    <!-- Footer -->
+    <footer>
+        <table class="table-uno table-bordered-uno taskbar-pie ">
+          <tbody>
+            <tr>
+              <td>
+                Usuario Conectado:<span>${xusuario}</span>
+              </td>
+              <td>
+                Copyright &copy; Theos - 2017
+              </td>
+              
+              #if (${xalertas} == '1')
+	              <td>
+	                Alerta:<img id="alertar" src="images/img-sis/warning.gif" style="width:25px;" title="Hacer click para ver..">
+	              </td>
+              #end  
+              <td>
+                Fecha:<span>${xfecha}</span> &nbsp;&nbsp;  - &nbsp;&nbsp; <span><a href="/theos/index.html"><img src="images/taskbar/group.png" alt="User" /> Desconectase</a></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </footer>
+
+</body>
+
+</html>
+<script type="text/javascript">
+
+//LISTA DE SOCIO 
+$("#alertar").click(function(){
+	//alert("todo bien");
+	$('#alertar-Modal').modal('show');	
+
+	jQuery.post('listaAlertas_2.html',{},
+			function(data){$('#listaAlertas').html(data);}
+	);
+
+})
+
+    $(document).ready(function(){
+    	 $('#dataTablesMenus-example_otro').dataTable();
+    	 $('#dataTablesMenus-example_dos').dataTable();
+    	  
+        $(".rolesChange").change( function() {
+            $("#indexform").submit();
+        });
+
+         
+    });
+</script>

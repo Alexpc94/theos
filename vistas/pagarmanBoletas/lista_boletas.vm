@@ -1,0 +1,31 @@
+ 
+			            <!-- OAM -->
+			            <hr>
+			            <div class="form-group">
+				            <label class="control-label col-xs-2">Boletas::</label>
+				            <div class="col-xs-10" id="tablita">						        
+								<table class="table table-bordered" >
+								
+							        #set($con=0)
+							        #foreach($reg in $xBoletas)
+							        	#set($con=$con + 1)
+							        	#if (($con % 2)!=0)
+							        		<tr>
+							        	#end
+				                   			<td width="48%" align="right">
+				                   				<b style="color:#5389D8;">${reg.getMesFormat()}/</b>${reg.anio} - <b style="color:#5389D8;">${reg.getSaldoFormat()}</B>
+				                   			</td>
+				                   			<td width="2%">
+			                   					<input type="checkbox" id="mon_${con}"  name="mon_${con}" value="0" onclick="javascript:sumar('${reg.saldo}')"/>
+			                   					<input type="HIDDEN" id="montito_${con}"  name="montito_${con}" value="${reg.saldo}"/>
+			                   					<input type="hidden" id="datos_${con}"  name="datos_${con}" value="${reg.codestado}@${reg.mes}@${reg.anio}@${reg.saldo}@${reg.nombre}@${reg.contador}">
+			                   				</td>
+			                   			#if (($con % 2)==0)
+							        		</tr>
+							        	#end
+				                	#end
+
+				            	</table>
+							    <input type="HIDDEN" id="filas"  name="filas" value="${con}"/>    	
+	                		</div>
+			            </div>

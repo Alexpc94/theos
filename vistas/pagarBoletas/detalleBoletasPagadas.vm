@@ -1,0 +1,50 @@
+
+<div class="col-md-3"> </div>
+        <div class="col-md-6">
+            <div class="div-capa">
+                <div class="div-arriba">
+                    <table >
+                    <thead>
+                        <tr>
+                            <th colspan="2" >DETALLE DE BOLETAS </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CODIGO : ${xcodpag} </td>
+                            <td>NOMBRE : ${xnombre} </td>
+                        </tr>
+                    <tbody>  
+                    </table>
+                </div>
+                <div class="div-abajo">
+                    <table class="table table-bordered table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th width="2%" align="right">#</th>
+                          <th align="right">Boletas</th>
+                          <th align="right">Monto</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      	#set($con=1)
+                        #foreach($reg in $xBoletas_pagadas)	
+                            <tr>
+                              <th scope="row">${con}</th>
+                              <td>${reg.getMesFormat()} - ${reg.anio}</td>
+                              <td align="right">${reg.getMontoFormat()} </td>
+                            </tr>
+                            #set($con=$con + 1)
+                        #end    
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<div class="col-md-3"> </div>
+
+<script>
+    $(document).ready(function () {
+    
+    });
+</script>

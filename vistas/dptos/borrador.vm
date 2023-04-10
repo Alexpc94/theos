@@ -1,0 +1,386 @@
+    <link rel="stylesheet" type="text/css" href="css/libs/estilos2.css" />
+    <link rel="stylesheet" type="text/css" href="css/libs/font-awesome.min.css" />
+	<style>
+      .error{ color:red;font-size:small;}
+      #imagen {
+        
+        width:100%;
+    	height:100%;
+    	max-width:560px;
+    	max-height:320px;
+    	min-width:560px;
+    	min-height:320px;
+        object-fit: cover;
+      }
+      #imagen2 {
+        
+        width:60%;
+    	height:80%;
+    	
+        object-fit: cover;
+      }
+     
+      /* Optional: Makes the sample page fill the window. */
+      #margen{
+        
+		line-height: 25%;   /*esta es la propiedad para el interlineado*/
+		}
+		  		
+    </style>
+    
+			 <div class="row">		
+				<div class="tab-pane" id="${xnombre}${xcodr}" role="tabpanel">
+                  	<div class="col-md-12 " >
+                        <div class="card card-body printableArea">
+                            <div class="row">
+                                <div class="col-md-12" >
+                                    <div class="pull-left text-left" >
+                                        <address>
+                                        #foreach ($list in [10..15])
+                                            <h4><p class="text-danger" >${list}</p></h4>
+                                          <p class="text-muted m-l-5"  ><h6 class="font-bold" id="margen">Restaurante ${list}</h6></p>
+                                            <p class="text-muted m-l-5"  ><h6 class="font-bold" id="margen">Direccion : ${list}</h6></p>
+                                            <p class="text-muted m-l-5" ><h6 class="font-bold" id="margen" >Contactanos : ${list}</h6></p>
+                                            <p class="text-muted m-l-5" ><h6 class="font-bold" id="margen" >Telefono : ${list}</h6></p>
+<!-- oam XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->                                          
+<div class="todo" >
+		<span class="heading">Opiniones de Usuarios ${list}</span>
+		<span style="font-size:130%;color:gold;">&bigstar;</span>
+		<span style="font-size:130%;color:gold;">&bigstar;</span>
+		<span style="font-size:130%;color:gold;">&bigstar;</span>
+		<span style="font-size:130%;color:gold;">&bigstar;</span>
+		<span style="font-size:130%;color:gold;">&bigstar;</span>
+		
+		<p class="heading">Promedio basado al 100%</p>
+		<hr style="border:3px solid #f1f1f1">
+		<div class="row">
+		<div class="col-lg-22">
+				  <div class="side">
+				    <div>5 star</div>
+				  </div>
+				  <div class="middle">
+				    <div class="bar-container">  
+				      <div id="bar5" style='width: ${list}%; height: 16px;background-color: #4CAF50;'></div>
+				    </div>
+				  </div>
+				  <div class="side right"><div id="div5">${list}%</div></div>
+				
+				  <div class="side">
+				    <div>4 star</div>
+				  </div>
+				  <div class="middle">
+				    <div class="bar-container">
+				      <div id="bar4" style='width: ${list}%; height: 16px; background-color: #2196F3;'></div>
+				    </div>
+				  </div>
+				  <div class="side right"> <div id="div4">${list}%</div> </div>
+				
+				  <div class="side">
+				    <div>3 star</div>
+				  </div>
+				  <div class="middle">
+				    <div class="bar-container">
+				      <div id="bar3" style='width: ${list}%; height: 16px; background-color: #00bcd4;'></div>
+				    </div>
+				  </div>
+				  <div class="side right"><div id="div3">${list}%</div></div>
+				
+				  <div class="side">
+				    <div>2 star</div>
+				  </div>
+				  <div class="middle">
+				    <div class="bar-container">
+				      <div id="bar2" style='width: ${list}%; height: 16px; background-color: #ff9800;'></div>
+				    </div>
+				  </div>
+				  <div class="side right"><div id="div2">${list}%</div> </div>
+				
+				  <div class="side">
+				    <div>1 star</div>
+				  </div>
+				  <div class="middle">
+				    <div class="bar-container">
+				      <div id="bar1" style='width: ${list}%; height: 16px; background-color: #f44336;'></div>
+				    </div>
+				  </div>
+				  <div class="side right"><div id="div1">${list}%</div> </div>
+		</div>
+		</div>
+</div>
+                                         
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->  
+                                          <button type="button" onclick="javascript:ValorarR('${list.codr}')" class="btn btn-success float-left btn-sm" data-toggle="tooltip" data-placement="top" title="Valora al Restaurante">Valorar
+                                          </button>                                        
+                    					          #end
+                                        </address>                                
+                                    </div>
+                                   
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+        </div>
+      </div>
+           	
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+   
+   
+<!-- End Modals HABILITAR>
+
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    
+<script>
+function ValorarR(xcodr){
+	$('#codr').val(xcodr);
+	$('#AddModalV').modal('show');
+}
+
+$(function() {
+	var formaddval = $("#addvalform");
+	var formmodVval = $("#modvaliform");
+	var formaddVval = $("#addvaliform");
+	
+	formaddval.validate({
+        
+        rules: {
+            correo: {
+                required: true,
+                email: true
+            }   
+        },
+        
+        errorPlacement: function(error, element) {
+                error.insertAfter(element);
+            },
+        submitHandler: function(form){
+			var xcodr= $("#codr").val();
+			var xcorreo= $("#correo").val();
+			jQuery.post('verificarCorreo_datos_12.html',{xcodr:xcodr,xcorreo:xcorreo}, 	 						
+						function(data){		 	 					
+							obj = JSON.parse(data);
+							
+							if (obj.estado==1){
+							//	alert(obj.xcodper);
+							$('#xcodr_mod').val(obj.xcodr);
+						   	$('#xcorreo_mod').val(obj.xcorreo);
+						  // 	$('#xcalificacion_mod').val(obj.xcalificacion);
+						   	$('#xobservacion_mod').val(obj.xobservacion);
+						   	$('#xpersona_mod').val(obj.xpersona);
+	 			
+							if(obj.xcalificacion==1){
+								$('#radio10').attr('checked', true);
+							}else{
+								if(obj.xcalificacion==2){
+									$('#radio9').attr('checked', true);
+								}else{
+									if(obj.xcalificacion==3){
+										$('#radio8').attr('checked', true);
+									}else{
+										if(obj.xcalificacion==4){
+											$('#radio7').attr('checked', true);
+										}else{
+											$('#radio6').attr('checked', true);
+										}
+									}
+								}
+							}
+							
+						   		$('#AddModalV').modal('hide');
+								$('#myModal_mod').modal('show');
+								$('#myModal_mod').on('hidden.bs.modal', function(){ 
+							 		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+							 	});
+							}else{
+							//	alert(obj.xcodr);
+							$('#xcodr_add').val(obj.xcodr);
+							$('#xcorreo_add').val(obj.xcorreo);
+								$('#AddModalV').modal('hide');
+								$('#myModal_add').modal('show');
+								$('#myModal_add').on('hidden.bs.modal', function(){ 
+							 		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+							 	});								
+							}
+				        } //end of function (data)
+			); //END of first ajax 		
+        },
+        	
+    });
+	
+	formmodVval.validate({
+        
+        rules: {
+            xpersona_mod: "required",
+            xcalificacion_mod: "required",
+            xobservacion_mod: {
+                maxlength: 500,
+            },
+                 
+        },
+        
+        errorPlacement: function(error, element) {
+                error.insertAfter(element);
+            },
+        submitHandler: function(form){
+			swal({
+  				text: "¿Seguro de enviar su valoracion?",
+  				buttons: true,
+			})
+	.then((confirmar) => {
+  				if (confirmar) {
+				        // Get form
+				        //Butons ACEPTAR
+ 						
+ 						var form = $('#modvaliform')[0];
+						// Create an FormData object 
+				        var data = new FormData(form);
+						// If you want to add an extra field for the FormData
+				        data.append("CustomField", "This is some extra data, testing");
+				        $.ajax({
+				            type: "POST",
+				            
+				            url: "RestaurantServices.html",
+				            data: data,
+				            processData: false,
+				            contentType: false,
+				            cache: false,
+				            timeout: 600000,
+				            success: function(data){		 	 					
+								 obj = JSON.parse(data);
+                                    //alert(obj.error);
+                                    if (obj.error=='0'){
+                                        //repetir(xdatos)
+                                        swal("Gracias..!!");                                      
+                                        //alert("OK");
+                                        $('#myModal_mod').modal('hide');                                                
+                                    }else{
+                                            swal("'Error..!', 'No se pudo Calificar.!'");
+                                    }
+							}, //end of function (data)
+				            error: function (e) {
+				              swal("'Error..!', 'No se pudo Calificar.!'");
+				          	}
+				        })
+  				} else {
+  				}
+			}); 		
+        }, 	
+    });
+    
+    formaddVval.validate({
+        
+        rules: {
+            xpersona_add: "required",
+            xcalificacion_add: "required",
+            xobservacion_add: {
+                maxlength: 500,
+            },
+        },
+        
+        errorPlacement: function(error, element) {
+                error.insertAfter(element);
+            },
+        submitHandler: function(form){
+			swal({
+  				
+  				text: "¿Seguro de enviar su valoracion?",
+  				buttons: true,
+			})
+	.then((confirmar) => {
+  				if (confirmar) {
+				        // Get form
+				        //Butons ACEPTAR
+ 						
+ 						var form = $('#addvaliform')[0];
+						// Create an FormData object 
+				        var data = new FormData(form);
+						// If you want to add an extra field for the FormData
+				        data.append("CustomField", "This is some extra data, testing");
+				        $.ajax({
+				            type: "POST",
+				            
+				            url: "RestaurantServices.html",
+				            data: data,
+				            processData: false,
+				            contentType: false,
+				            cache: false,
+				            timeout: 600000,
+				            success: function(data){		 	 					
+								 obj = JSON.parse(data);
+                                    //alert(obj.error);
+                                    if (obj.error=='0'){
+                                        //repetir(xdatos)
+                                        swal("Gracias..!!");                                      
+                                        //alert("OK");
+                                        $('#myModal_add').modal('hide');                                                
+                                    }else{
+                                            swal("'Error..!', 'No se pudo Calificar.!'");
+                                    }
+							}, //end of function (data)
+				            error: function (e) {
+				               swal("'Error..!', 'No se pudo Calificar.!'");
+				          	}
+				        })
+  				} else {
+  				}
+			}); 		
+        }, 	
+    });
+    
+	$('#btnAcept_addVal').click(function() {
+    	//alert("entro");
+        $("#addvalform").valid(); //validate form 
+         	 	 			
+    });
+       $('#btnAcept_modValoracion').click(function() {
+    	//alert("entro");
+        $("#modvaliform").valid(); //validate form 
+         	 	 			
+    });
+    $('#btnAcept_addValoracion').click(function() {
+    	//alert("entro");
+        $("#addvaliform").valid(); //validate form 
+         	 	 			
+    });
+});
+
+function ejecutar(dato1,dato2,dato3,dato4,dato5) {
+		  dato1=dato1+'%';
+		  dato2=dato2+'%';
+		  dato3=dato3+'%';
+		  dato4=dato4+'%';
+		  dato5=dato5+'%';
+		  alert(dato1);
+          var b1 = document.getElementById('bar1');
+          b1.className = 'bar-1';
+          b1.style.width=dato1;
+          document.getElementById("div1").innerHTML = dato1;
+
+          var b2 = document.getElementById('bar2');
+          b2.className = 'bar-2';
+          b2.style.width=dato2;
+          document.getElementById("div2").innerHTML = dato2;
+
+          var b3 = document.getElementById('bar3');
+          b3.className = 'bar-3';
+          b3.style.width=dato3;
+          document.getElementById("div3").innerHTML = dato3;
+
+          var b4 = document.getElementById('bar4');
+          b4.className = 'bar-4';
+          b4.style.width=dato4;
+          document.getElementById("div4").innerHTML = dato4;
+
+          var b5 = document.getElementById('bar5');
+          b5.className = 'bar-5';
+          b5.style.width=dato5;
+          document.getElementById("div5").innerHTML = dato5;
+        }
+        
+        
+        
+</script>
+             	

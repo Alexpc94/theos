@@ -1,0 +1,52 @@
+
+<div class="col-md-2"> </div>
+        <div class="col-md-8">
+            <div class="div-capa">
+                <div class="div-arriba">
+                    <table >
+                    <thead>
+                        <tr>
+                            <th colspan="2" >DETALLE DE PAGOS  </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CODIGO : ${xcodpag} </td>
+                            <td>NOMBRE : ${xnombre} </td>
+                        </tr>
+                    <tbody>  
+                    </table>
+                </div>
+                <div class="div-abajo">
+                    <table class="table table-bordered table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th width="2%" align="right">#</th>
+                          <th width="40%">Concepto</th>
+                          <th width="40%">Detalle para Factura</th>
+                          <th width="5%" align="right">Importe</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      	#set($con=1)
+                        #foreach($reg in $xBoletas_pagadas)	
+                            <tr>
+                              <th scope="row">${con}</th>
+                              <td>${reg.nombre}</td>
+                              <td>${reg.detalle}</td>
+                              <td align="right">${reg.getImporteFormat()} </td>
+                            </tr>
+                            #set($con=$con + 1)
+                        #end    
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<div class="col-md-2"> </div>
+
+<script>
+    $(document).ready(function () {
+    
+    });
+</script>

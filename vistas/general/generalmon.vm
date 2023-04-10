@@ -1,0 +1,430 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <link href="css/estilo1.css" rel="stylesheet">
+ 
+   <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+   <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+
+  <script src="js/tools_oam.js"></script>
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+  
+    
+           <!-- /. ROW  -->              
+            <div  class="row">
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Datos Generales </p>     
+                                </div>                                
+                                <fieldset class="col-md-12" >        
+	                                    <legend>Parámetros::</legend>
+	                                    
+	                                    <!-- BOTON TO PRINT -->
+	                                    <button class="pull-right" id="print">
+	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                
+	                                   
+	                                
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                        <div >
+                            <div class="espacio-small"></div>
+                            <div class="table-responsive">
+ <div id="listgeneral-det">
+                                <table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center ancho-icono">#</th>
+                                            <th class="col-sm-0 text-center">Cod.</th>
+                                            <th class="col-sm-0">mes </th>
+                                            <th class="col-sm-0">Año</th>
+                                            <th class="col-sm-0">Gestion</th>
+                                            <th class="col-sm-0">Num boleta</th>
+                                            <th class="col-sm-0">Num Pago</th>
+                                            <th class="col-sm-0">Compra Dolar</th>
+                                            <th class="col-sm-0">Nit</th>
+                                            <th class="col-sm-0">NroAcción</th>
+                                            <th class="col-sm-0" title="MODIFICAR Tipo de Cambio">MOD</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>     
+                                    	#set($con=1)
+                                    	                                  
+                                         <tr class="gradeU">
+                                            <td class="text-center">${con}</td>
+                                            <td>${xcodg} </td>
+                                            <td>${xmesTexto} </td>
+                                            <td>${xanio}</td>
+                                            <td>${xges}</td>
+                                            <td>${xboletaid}</td>
+                                            <td>${xmpagosid}</td>
+                                            <td>${xcompradolarid} </td>
+                                            <td>${xnit} </td>
+                                            <td>${xnroaccion} </td>
+                                           
+                                           	<td class="text-center ancho-icono">
+	                                           		#if (${PM}=="M")
+		                                           		<a  href="javascript:void(0)" onclick="javascript:modificarGeneral('${xcodg}','${xmesTexto}','${xanio}','${xges}','${xboletaid}','${xmpagosid}','${xcompradolarid}','${xmes}','${xnit}','${xnroaccion}')">
+		                                           			<img src="images/img-sis/mod.png" style="width:25px;" title="Modificar Tipo de Cambio..">
+		                                				</a>
+	                                				#else
+		                                				<img src="images/img-sis/nomod.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                			#end
+                                			</td>	
+                                           
+                                         
+                                        </tr>                        
+                                        #set($con=$con + 1)
+                                      
+                                    </tbody>
+                                </table>
+</div>                                                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+                <input type="HIDDEN" id="mensaje" value="${mensaje}">
+                <input type="HIDDEN" id="menTexto" value="${menTexto}">
+                               
+            </div>
+
+ <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
+<!--  Modals-->
+
+<!--  Modals MODIF MODAL-->
+<div class="panel-body">
+    <div class="modal fade" id="modModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Datos Generales</h4>
+                </div>
+                <div class="modal-body">
+                     <form class="form-horizontal" action="generalServices.html" method="POST" id="modform">
+                         
+                            	<input type="hidden" name="m_codg" id="m_codg">
+                       <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Mes ::</label>
+                            <div class="col-xs-4">
+	                            <select class="form-control" name="m_mes" id="m_mes">
+		                        	<option value="1">ENERO</option>
+		                        	<option value="2">FEBREO</option>
+		                        	<option value="3">MARZO</option>
+		                        	<option value="4">ABRIL</option>
+		                        	<option value="5">MAYO</option>
+		                        	<option value="6">JUNIO</option>
+		                        	<option value="7">JULIO</option>
+		                        	<option value="8">AGOSTO</option>
+		                        	<option value="9">SEPTIEMBRE</option>
+		                        	<option value="10">OCTUBRE</option>
+		                        	<option value="11">NOVIEMBRE</option>
+		                        	<option value="12">DICIEMBRE</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Año::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_anio" id="m_anio" placeholder="Año.." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Gestion::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_ges" id="m_ges" placeholder="Gestion.." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Num de Boleta::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_boleta_id" id="m_boleta_id" placeholder="Numero de Boleta.." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Num de Pago::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_mpagos_id" id="m_mpagos_id" placeholder="Numero de Pago.." required>
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Compra Dolar::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_compradolar_id" id="m_compradolar_id" placeholder="Compra Dolar.." required>
+                            </div>
+                        </div>  
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Nit::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_nit" id="m_nit" placeholder="Nit.." required>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+	                        <label class="control-label col-xs-4">
+	                        <span style="color:red;font-size:18px;">*</span>Nro.Acción::</label>
+	                        <div class="col-xs-6">
+	                            <input type="text" class="form-control" name="m_nroaccion" id="m_nroaccion" placeholder="Nro.Acción.." required>
+	                        </div>
+	                    </div>
+                                <input type="hidden" name="opcion" value="${opMod}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_mod">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MODIFICAR-MODAL-->
+
+<!-- End Modals -->
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    
+<script>
+
+function modificarGeneral(xcodg, xmestexto,xanio,xges,xboleta_id,xmpagos_id,xcompradolar_id,xmes,xnit,xnroaccion){
+	$('#m_codg').val(xcodg);
+	$('#m_mes').val(xmes);
+	$('#m_mestexto').val(xmestexto);
+	$('#m_anio').val(xanio);
+	$('#m_ges').val(xges);
+	$('#m_boleta_id').val(xboleta_id);
+	$('#m_mpagos_id').val(xmpagos_id);
+	$('#m_compradolar_id').val(xcompradolar_id);
+	$('#m_nit').val(xnit);
+	$('#m_nroaccion').val(xnroaccion);
+	$('#modModal').modal('show');
+	
+}
+
+
+$(document).ready(function () {
+         $('#dataTables-example').dataTable();
+         
+         //Devuelve los mensajes de guardado
+         if ($('#mensaje').val() != '0'){
+        	 if ($('#mensaje').val() == '1'){
+        	 	$.notify($('#menTexto').val(), "success",{ position:"center middle" });
+        	 }
+        	 if ($('#mensaje').val() == '2'){
+         	 	$.notify($('#menTexto').val(), "error",{ position:"center middle" });
+         	 }
+         }
+         
+         //limpia los datos del modal al momento de ingresar
+        $('#myModal').on('hidden.bs.modal', function(){ 
+     		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+     	}); 
+        
+         //SI OCURRE CAMBIO 
+        $(".paramsChange").change( function() {
+//            $("#paramform").submit();
+
+			var xestado=$('input[name=estado]:checked').val();
+			jQuery.post('listaGeneral_det_19.html',{xestado:xestado},
+						function(data){	$('#listgeneral-det').html(data);
+			});
+			
+        }); 
+        
+         //ANULA TECLA ENTER PARA LOS INPUTS
+        $("input").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+         
+ 		//Butons MODIFICAR
+ 		$("#btnAcept_mod").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+ 			
+ 			if (validarDatos_mod() == 0) {
+ 					if(confirm('¿Seguro de Modificar El Tipo de Cambio ?')){ 				
+	 						$.when(	
+				 	 				jQuery.post('generalServices.html',$('#modform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','Los Datos se <b>MODIFICARON satisfactoriamente</b>..!');
+				 									//alert("OK");
+				 									$('#modModal').modal('hide');			 									
+				 								}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+							).then(function() {	
+				 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+									jQuery.post('listaGeneral_det_19.html',{xestado:xestado},
+					 	 						function(data){	$('#listgeneral-det').html(data);
+					 	 			});
+							});
+ 					}
+ 			}
+ 		});
+
+ 		//validar solo para opcion modificar
+ 		function validarDatos_mod(){
+ 			var sw=0;
+ 			var mes=$('#m_mes').val();
+ 			var anio=$('#m_anio').val();
+ 			var ges=$('#m_ges').val();
+ 			var boleta=$('#m_boleta_id').val();
+ 			var pagos=$('#m_mpagos_id').val();
+ 			var compra=$('#m_compradolar_id').val();
+ 			
+ 			var xmes=$.trim(mes);
+ 			if (xmes != mes) {
+				$('#m_mes').val(xmes);
+				mes=xmes;
+			}
+			var xanio=$.trim(anio);
+ 			if (xanio != anio) {
+				$('#m_anio').val(xanio);
+				anio=xanio;
+			}			
+			var xges=$.trim(ges);
+ 			if (xges != ges) {
+				$('#m_ges').val(xges);
+				ges=xges;
+			}
+			var xboleta=$.trim(boleta);
+ 			if (xboleta != boleta) {
+				$('#m_boleta_id').val(xboleta);
+				boleta=xboleta;
+			}
+			var xpagos=$.trim(pagos);
+ 			if (xpagos != pagos) {
+				$('#m_mpagos_id').val(xpagos);
+				pagos=xpagos;
+			}
+			var xcompra=$.trim(compra);
+ 			if (xcompra != compra) {
+				$('#m_compradolar_id').val(xcompra);
+				compra=xcompra;
+			}
+ 					
+					if (mes != ""){
+						if (!isNaN(mes)){
+							if (anio != ""){
+								if (!isNaN(anio)){
+									if (ges != ""){
+										if (boleta != ""){
+											if (!isNaN(boleta)){	
+												if (pagos != ""){
+													if (!isNaN(pagos)){
+														if (compra != ""){	
+															if (!isNaN(compra)){
+																sw=0;
+															}else{
+																sw=1;
+					 											menError('Error..!', '<B>Compra Dolar</B> debe tener un valor NUMERICO..!');
+					 											$('#m_compradolar_id').focus();
+															}
+														}else{
+															sw=1;
+				 											menError('Error..!', 'El Dato </B>Compra Dolar</B> no puede ser vacio..!');
+				 											$('#m_compradolar_id').focus();
+														}
+													}else{
+														sw=1;
+					 									menError('Error..!', '<B>Numero de Pagos</B> debe tener un valor NUMERICO..!');
+					 									$('#m_mpagos_id').focus();
+													}			
+												}else{
+													sw=1;
+				 									menError('Error..!', 'El Dato </B>Numero de Pagos</B> no puede ser vacio..!');
+				 									$('#m_mpagos_id').focus();
+												}	
+											}else{
+												sw=1;
+					 							menError('Error..!', '<B>Boleta</B> debe tener un valor NUMERICO..!');
+					 							$('#m_boleta_id').focus();
+											}	
+										}else{
+											sw=1;
+				 							menError('Error..!', 'El Dato </B>Boleta</B> no puede ser vacio..!');
+				 							$('#m_boleta_id').focus();
+										}
+									}else{
+										sw=1;
+				 						menError('Error..!', 'El Dato </B>Gestion </B> no puede ser vacio..!');
+				 						$('#m_ges').focus();
+									}
+								}else{
+									sw=1;
+					 				menError('Error..!', '<B>Año</B> debe tener un valor NUMERICO..!');
+					 				$('#m_anio').focus();
+								}		
+							}else{
+								sw=1;
+				 				menError('Error..!', 'El Dato </B>Año</B> no puede ser vacio..!');
+				 				$('#m_anio').focus();
+							}		
+						}else{
+							sw=1;
+					 		menError('Error..!', '<B>Mes </B> debe tener un valor NUMERICO..!');
+					 		$('#m_mes').focus();
+						}			
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>mes</B> no puede ser vacio..!');
+				 		$('#m_mes').focus();
+					}
+ 				
+ 			
+ 			return sw;
+ 		}
+ 		
+ 		
+ 		 
+ 		//Butons PRINT
+ 		$("#print").click(function(){
+ 			window.open('generalReportes01.html','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });
+		
+		
+ 		
+		
+ 		
+    });
+</script>

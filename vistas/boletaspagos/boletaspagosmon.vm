@@ -1,0 +1,765 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <script src="js/tools_oam.js"></script>
+    
+    <link href="css/estilo1.css" rel="stylesheet">
+            
+	<!-- COPIADO-->
+    <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+    <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+    
+    
+<div class="container-fluid">          
+           <!-- /. ROW  -->              
+            <div  class="row">
+            
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Gestión de Boletas de Pagos</p>     
+                                </div>                                
+                                <fieldset class="col-md-12" >        
+	                                    <legend>Parámetros::</legend>
+	                                    #if (${PA}=="A")
+	                                    <button class="pull-right" data-toggle="modal" id="btn-addBoletas">
+	                                        <img src="images/img-sis/add_2.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                    <button class="pull-right" data-toggle="modal" id="btn-addBoletas2">
+	                                        <img src="images/img-sis/add.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                    #else
+	                                    <button class="pull-right" data-toggle="modal">
+	                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                	#end
+	                                    <!-- BOTON TO PRINT -->
+	                                    <button class="pull-right" id="print">
+	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                <form id="paramform" action="lugarmon.html" method="POST"> 
+
+	                                    
+	                                    
+	                                    <label class="control-label col-xs-1">Socio::
+	                                    	<img src="images/img-sis/updown.png" style="width:15px;" title="Lista de Socios..">	
+	                                    	</label> 
+	                                    <div class="col-xs-4">
+			                                <input type="text" class="form-control" id="xsocio" placeholder="Buscar por Socios.." required>
+			                                <input type="HIDDEN"  id="xsocio_2" >
+			                                <input type="HIDDEN" name="xsocio_val" id="xsocio_val" >
+			                            </div>
+			       				    		
+			       				    		
+	                                    <div class="col-md-3 par-activos pull-right">
+	                                    	<label><input type="radio" name="estado" value="1" class="paramsChange" #if($estado== 1) checked #end>Activos </label>
+									      	<label><input type="radio" name="estado" value="0" class="paramsChange" #if($estado== 0) checked #end>Nulos</label>
+									      	<label><input type="radio" name="estado" value="2" class="paramsChange" #if($estado== 2) checked #end>Todos</label>
+									    </div>
+									</form>    
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                        <div>
+                            	<div class="espacio-small"></div>
+	                            <div class="table-responsive" id="detalle_lis">
+	                            	<!-- detalle -->
+	                            </div>
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+
+            </div>
+            
+</div>
+<input type="hidden" id="listaJson" value="">
+<input type="hidden" name="opcion" id="opcion_json" value="${op_json}" >
+<!--  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!--  Modals Adicionar    -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Adicionar  Nueva Boleta</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform">
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Socio::</label>
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="a_codper" id="a_codper" placeholder="Socio.." disabled>
+                                <input type="HIDDEN" class="form-control" name="a_codperVal" id="a_codperVal" >
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                             <label class="control-label col-xs-3">Mes::</label>
+                             	<div class="col-xs-6">
+                                <select class="form-control" name="a_mes" id="a_mes">
+									<option value="1" >ENERO </option>
+									<option value="2" >FEBRERO </option>
+									<option value="3" >MARZO </option>
+									<option value="4" >ABRIL </option>
+									<option value="5" >MAYO </option>
+									<option value="6" >JUNIO </option>
+									<option value="7" >JULIO </option>
+									<option value="8" >AGOSTO </option>
+									<option value="9" >SEPTIEMBRE </option>
+									<option value="10" >OCTUBRE </option>
+									<option value="11" >NOVIEMBRE </option>
+									<option value="12" >DICIEMBRE </option>
+								</select>
+                                </div>
+			            </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Año::</label>
+	                          <div class="col-xs-3">                             	
+	                          <input type="text" class="form-control" name="a_anio" id="a_anio" placeholder="Ingrese año">
+	                          </div>
+			            </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Monto::</label>
+	                          <div class="col-xs-3">                             	
+	                          <input type="text" class="form-control" name="a_monto" id="a_monto" placeholder="Ingrese Monto">
+	                          </div>
+			            </div>
+			            <div class="form-group">
+				            <label class="control-label col-xs-3">Observ.::</label>
+	                    	<div class="col-xs-8">
+	                    	 	<textarea class="form-control" rows="2" cols="200" name="a_obser" id="a_obser"></textarea>	                    		                             		
+	                    	</div>			            	 
+	                	</div>
+                        <input type="hidden" name="opcion" value="${opAdd}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_add">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-->
+
+<!--  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!--  Modals Adicionar  multiples boletas  -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Adicionar  MULTIPLES BOLETAS</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform2">
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Socio::</label>
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="a_codper2" id="a_codper2" placeholder="Socio.." disabled>
+                                <input type="HIDDEN" class="form-control" name="a_codperVal2" id="a_codperVal2" >
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                             <label class="control-label col-xs-3">Mes INICIO::</label>
+                             	<div class="col-xs-6">
+                                <select class="form-control" name="a_mes2" id="a_mes2">
+									<option value="1" >ENERO </option>
+									<option value="2" >FEBRERO </option>
+									<option value="3" >MARZO </option>
+									<option value="4" >ABRIL </option>
+									<option value="5" >MAYO </option>
+									<option value="6" >JUNIO </option>
+									<option value="7" >JULIO </option>
+									<option value="8" >AGOSTO </option>
+									<option value="9" >SEPTIEMBRE </option>
+									<option value="10" >OCTUBRE </option>
+									<option value="11" >NOVIEMBRE </option>
+									<option value="12" >DICIEMBRE </option>
+								</select>
+                                </div>
+			            </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Año INICIO::</label>
+	                          <div class="col-xs-3">                             	
+	                          <input type="text" class="form-control" name="a_anio2" id="a_anio2" placeholder="Año INICIO">
+	                          </div>
+			            </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Monto::</label>
+	                          <div class="col-xs-3">                             	
+	                          <input type="text" class="form-control" name="a_monto2" id="a_monto2" placeholder="Ingrese Monto">
+	                          </div>
+			            </div>
+			            <div class="form-group">
+	                        <label class="control-label col-xs-3">Mes FIN::</label>
+	                        	<div class="col-xs-6">
+	                           <select class="form-control" name="a_mes3" id="a_mes3">
+									<option value="1" >ENERO </option>
+									<option value="2" >FEBRERO </option>
+									<option value="3" >MARZO </option>
+									<option value="4" >ABRIL </option>
+									<option value="5" >MAYO </option>
+									<option value="6" >JUNIO </option>
+									<option value="7" >JULIO </option>
+									<option value="8" >AGOSTO </option>
+									<option value="9" >SEPTIEMBRE </option>
+									<option value="10" >OCTUBRE </option>
+									<option value="11" >NOVIEMBRE </option>
+									<option value="12" >DICIEMBRE </option>
+								</select>
+	                           </div>
+			            </div>
+	                   <div class="form-group">
+	                       <label class="control-label col-xs-3">Año FIN::</label>
+	                         <div class="col-xs-3">                             	
+	                         <input type="text" class="form-control" name="a_anio3" id="a_anio3" placeholder="Año FIN">
+	                         </div>
+			            </div>
+			            <div class="form-group">
+				            <label class="control-label col-xs-3">Observ.::</label>
+	                    	<div class="col-xs-8">
+	                    	 	<textarea class="form-control" rows="2" cols="200" name="a_obser2" id="a_obser2"></textarea>	                    		                             		
+	                    	</div>			            	 
+	                	</div>
+                        <input type="hidden" name="opcion" value="${opAdd2}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_add2">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL2 multiples boletas-->
+
+<!--  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  -->
+<!--  Modals ELIMINAR  OAM  -->
+<div class="panel-body">
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de eliminar LA BOLETA ?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="delform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">CODIGO::</label>
+                            <div class="col-xs-3">                            	
+                                <input type="text" class="form-control" name="b_codbol" id="b_codbol" disabled>
+                                <input type="hidden" name="b_codbolVal" id="b_codbolVal">
+                            </div>
+                        </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Mes::</label>
+	                          <div class="col-xs-4">                             	
+	                          <input type="text" class="form-control" name="b_mes" id="b_mes" disabled>
+	                          </div>
+			            </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Monto::</label>
+	                          <div class="col-xs-3">                             	
+	                          <input type="text" class="form-control" name="b_monto" id="b_monto" disabled>
+	                          </div>
+			            </div>			            
+			            <div class="form-group">
+				            <label class="control-label col-xs-3">Observ.::</label>
+	                    	<div class="col-xs-8">
+	                    	 	<textarea class="form-control" rows="2" cols="200" name="b_obser" id="b_obser"></textarea>	                    		                             		
+	                    	</div>			            	 
+	                	</div>
+                        <input type="hidden" name="opcion" value="${opDel}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_del">ELIMINAR BOLETA</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR-->
+
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx -->
+    <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+    <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+
+    
+<script>
+
+//LLAMADA PRINCIPAL A ADICIONAR MULTIPLES BOLETAS 
+$("#btn-addBoletas2").click(function(){	
+  var xsocio=$("#xsocio").val();
+  var xsocio_2=$("#xsocio_2").val();
+  var xsocio_val=$("#xsocio_val").val();
+  var sw=0;
+  if (xsocio != ''){
+	    if (xsocio == xsocio_2){	    	
+	    	$('#a_codper2').val(xsocio);
+	    	$('#a_codperVal2').val(xsocio_val);
+//	    	$('#a_anio').val('');
+//	    	$('#a_monto').val('');
+//	    	$('#a_obser').val('');
+	    	
+	    	$('#myModal2').modal('show');  //visualiza la ventana modal
+	    	
+	    }else{	
+	    	sw=1;
+	    	menError('Error..!', '<b>EL SOCIO SELECCIONADO NO ES VALIDO</B>..!');
+			$('#xsocio2').focus();
+	    }
+  }else{
+  	sw=1;
+  	menError('Error..!', '<b>EL SOCIO NO PUEDE SER VACIO</B>..!');
+		$('#xsocio2').focus();
+  }	
+});
+
+//LLAMADA PRINCIPAL A ADICIONAR BOLETAS  
+$("#btn-addBoletas").click(function(){	
+    var xsocio=$("#xsocio").val();
+    var xsocio_2=$("#xsocio_2").val();
+    var xsocio_val=$("#xsocio_val").val();
+    var sw=0;
+    if (xsocio != ''){
+	    if (xsocio == xsocio_2){
+	    	$('#a_codper').val(xsocio);
+	    	$('#a_codperVal').val(xsocio_val);
+	    	$('#a_anio').val('');
+	    	$('#a_monto').val('');
+	    	$('#a_obser').val('');
+	    	
+	    	$('#myModal').modal('show');  //visualiza la ventana modal
+	    	
+	    }else{	
+	    	sw=1;
+	    	menError('Error..!', '<b>EL SOCIO SELECCIONADO NO ES VALIDO</B>..!');
+			$('#xsocio').focus();
+	    }
+    }else{
+    	sw=1;
+    	menError('Error..!', '<b>EL SOCIO NO PUEDE SER VACIO</B>..!');
+		$('#xsocio').focus();
+    }	
+});
+
+function ejecutaListaBoletas(){	
+	var xestado=$('input[name=estado]:checked').val();
+    var xsocio=$("#xsocio").val();
+    var xsocio_2=$("#xsocio_2").val();
+    var xsocio_val=$("#xsocio_val").val();
+    if (xsocio != xsocio_2){
+    	//alert("malllll");
+    	$("#detalle_lis").hide();
+    }else {
+    	$("#detalle_lis").show();
+    	jQuery.post('boletaspagosDet101.html',{xcodper:xsocio_val,xestado:xestado},
+    			function(data){$('#detalle_lis').html(data);
+    	});
+    }
+}
+
+//ELIMINAR UNA BOLETA OAM
+//eliminarBoleta('${reg.boleta_id}','${reg.getMesFormat()}','${reg.anio}','${reg.getMontoFormat()}','${reg.monto}','${reg.saldo}')">
+function eliminarBoleta(xcodbol,xmes,xanio,xmontoFormato,xmonto,xsaldo){
+	//alert(" codbol="+xcodbol+" MONTO="+xmonto+" saldo="+xsaldo);
+	if (parseFloat(xmonto) == parseFloat(xsaldo)){
+		$('#b_codbol').val(xcodbol);
+		$('#b_codbolVal').val(xcodbol);
+		$('#b_mes').val(xmes+"/"+xanio);
+		$('#b_monto').val(xmontoFormato);
+		$('#delModal').modal('show');
+	}else{
+		menError('Error..!', 'NO SE PUEDE ELIMINAR LA BOLETA <b>LA BOLETA TIENE PAGOS</b>..Revisar.!');
+	}
+}
+
+function cargaLista(){
+	var datitos=$("#listaJson").val();     		
+ 	$('#xsocio').autocomplete({  	 
+         source : JSON.parse(datitos),
+          minLength:1,
+          select: function(event, ui){  
+              // just in case you want to see the ID
+              var accountVal = ui.item.value;
+              console.log(accountVal);
+
+              // now set the label in the textbox
+              var accountText = ui.item.label;
+              $('#xsocio').val(accountText);
+              $('#xsocio_2').val(accountText);
+              $('#xsocio_val').val(accountVal);
+   			
+              ejecutaListaBoletas();
+              
+              return false;
+          },
+          focus: function( event, ui ) {
+              // this is to prevent showing an ID in the textbox instead of name
+              // when the user tries to select using the up/down arrow of his keyboard
+              $( "#xsocio" ).val( ui.item.label );
+              
+              
+              return false;
+          }
+     });
+}
+
+//
+$(function () {
+	var op_json4=$("#opcion_json").val();
+	//carga un JSON 	
+    $.ajax({
+	    data: {"opcion" : op_json4 },
+	    type: "POST",
+	    dataType: "json",
+	    url: "boletaspagosServices.html",
+	})
+	 .done(function( data, textStatus, jqXHR ) {
+		 $("#listaJson").val(JSON.stringify(data));
+	 })
+	 .fail(function( jqXHR, textStatus, errorThrown ) {
+		 alert( "La solicitud a fallado marcas: " +  textStatus);
+	}); 
+//	alert(datitos);    
+});
+
+$(document).ready(function () {
+    	 
+ //        $('#dataTables-example').dataTable();
+         
+         //cuando esta listo el Doc.
+         if ($('select[name=b_dep]').val()==(-1)){
+        	 ejecutaLista();
+         }
+        		 
+         //SI OCURRE CAMBIO
+        $(".paramsChange").change( function() {
+        	ejecutaListaBoletas();
+        }); 
+        
+         //limpia los datos del modal al momento de ingresar
+        $('#myModal').on('hidden.bs.modal', function(){ 
+     		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+     	}); 
+        
+         //CARGA LISTA DE SOCIOS
+        $("#xsocio").click( function() {
+        	cargaLista();
+        }); 
+        
+        
+        $("#xsocio").keypress(function(e) {
+            if (e.which == 13) {
+            	var xsocio=$("#xsocio").val();
+                var xsocio_2=$("#xsocio_2").val();
+                if (xsocio != xsocio_2){
+                	$("#detalle_lis").hide();
+                }
+            }
+        });
+        $("#xsocio").blur(function(e) {
+            	var xsocio=$("#xsocio").val();
+                var xsocio_2=$("#xsocio_2").val();
+                if (xsocio != xsocio_2){
+                	$("#detalle_lis").hide();
+                }
+        });
+        
+         //ANULA TECLA ENTER PARA LOS INPUTS
+        $("input").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+         
+        
+        
+       //Butons ACEPTAR 
+ 		$("#btnAcept_add").click(function(){
+ 			if (validarDatos_add() == 0) {
+	 			if(confirm('¿Seguro de Guardar LA BOLETA ?')){ 	
+		 			$.when(	
+		 	 				jQuery.post('boletaspagosServices.html',$('#addform').serialize(), 	 						
+		 	 						function(data){		 	 					
+		 	 							obj = JSON.parse(data);
+		 								if (obj.error=='0'){
+		 									menOK('Correcto..!','<b>BOLETA SE GUARDO SATISFACTORIAMENTE</b>..!');
+		 									$('#myModal').modal('hide');
+
+		 								}else{
+		 									if (obj.error=='2'){
+		 										menError('Error..!', '<b>EL SOCIO NO ESTA ACTIVO EN PLANILLA</b>..Revisar.!');
+		 									}
+		 									if (obj.error=='3'){
+		 										menError('Error..!', '<b>LA BOLETA YA EXISTE</b>..Revisar.!');
+		 									}
+		 									if (obj.error=='1'){
+		 										menError('Error..!', 'NO SE PUDO <b>GUARDAR LA BOLETA</b>..Revisar.!');
+		 									}
+		 							    }
+		 	 						}//end of function (data)		 	 						
+		 	 				) //END of first ajax
+					).then(function() {
+						if (obj.error == '0') {
+							//INICIALIZA VARIABLES
+							ejecutaListaBoletas();
+						}
+					});	
+	 			}
+ 			}
+        });	
+       
+ 		 //Butons ACEPTAR MULTIPLES
+ 		$("#btnAcept_add2").click(function(){
+ 			if (validarDatos_add2() == 0) {
+	 			if(confirm('¿Seguro de Guardar LAS BOLETAS ?')){ 	
+		 			$.when(	
+		 	 				jQuery.post('boletaspagosServices.html',$('#addform2').serialize(), 	 						
+		 	 						function(data){		 	 					
+		 	 							obj = JSON.parse(data);
+		 								if (obj.error=='0'){
+		 									menOK('Correcto..!','<b>BOLETA SE GUARDARON SATISFACTORIAMENTE</b>..!');
+		 									$('#myModal2').modal('hide');
+
+		 								}else{
+		 									if (obj.error=='2'){
+		 										menError('Error..!', '<b>EL SOCIO NO ESTA ACTIVO EN PLANILLA</b>..Revisar.!');
+		 									}
+		 									if (obj.error=='3'){
+		 										menError('Error..!', '<b>LA BOLETA YA EXISTE</b>..Revisar.!');
+		 									}
+		 									if (obj.error=='1'){
+		 										menError('Error..!', 'NO SE PUDO <b>GUARDAR LA BOLETA</b>..Revisar.!');
+		 									}
+		 							    }
+		 	 						}//end of function (data)		 	 						
+		 	 				) //END of first ajax
+					).then(function() {
+						if (obj.error == '0') {
+							//INICIALIZA VARIABLES
+							ejecutaListaBoletas();
+						}
+					});	
+	 			}
+ 			}
+        });
+ 		 		
+ 		//Butons ELIMINAR  BOLETA OAM
+ 		$("#btnAcept_del").click(function(){
+ 			$.when(	
+ 	 				jQuery.post('boletaspagosServices.html',$('#delform').serialize(), 	 						
+ 	 						function(data){		 	 					
+ 	 							obj = JSON.parse(data);
+ 								if (obj.error=='0'){
+ 									menOK('Correcto..!','<b>BOLETA SE ELIMINO SATISFACTORIAMENTE</b>..!');
+ 									$('#delModal').modal('hide');
+ 								}
+ 								if (obj.error=='1'){ 									
+ 									menError('Error..!', 'NO SE PUDO <b>ELIMINAR LA BOLETA</b>..Revisar.!');
+ 							    }
+ 								if (obj.error=='2'){ 									
+ 									menError('Error..!', '<b>LA BOLETA TIENE PAGOS..</b>..Revisar.!');
+ 							    }
+ 	 						}//end of function (data)		 	 						
+ 	 				) //END of first ajax
+			).then(function() {
+				if (obj.error == '0') {
+					//INICIALIZA VARIABLES
+					ejecutaListaBoletas();
+				}
+			});
+ 			
+ 		});
+ 		
+ 		//VALIDA ADICIONAR DATOS DEL PLAN			
+ 		function validarDatos_add(){
+ 			var sw=0;
+ 			var xanio=$('#a_anio').val();
+ 			var xmonto=$('#a_monto').val();
+// 			alert(xmes);
+ 			if (xanio != ''){
+ 				if (/^([0-9])*$/.test(xanio)){
+ 					if ((parseInt(xanio)>=2015)&&(parseInt(xanio)<=2050)){
+ 						if (xmonto != '') {
+		 			 			if (/^([0-9])*[.]?[0-9]*$/.test(xmonto)){	
+		 			 				if (parseFloat(xmonto)>0){
+		 			 					sw=0;
+		 			 				}else{
+		 			 					sw=1;
+		 			 			 		menError('Error..!', '<b>EL MONTO TIENE QUE SER MAYOR A CERO</B>..!');
+		 			 			 		$('#a_monto').focus();
+		 			 				}
+		 			 			}else{
+		 			 					sw=1;
+		 			 			 		menError('Error..!', '<b>EL MONTO ES DATO NO VALIDO</B>..!');
+		 			 			 		$('#a_monto').focus();
+		 			 			}
+ 						}else{
+ 	 	 	 				sw=1;
+ 	 	 			 		menError('Error..!', '</B>EL MONTO NO PUEDE SER VACIO..!</B>..!');
+ 	 	 			 		$('#a_monto').focus();
+ 	 	 				}		
+ 					}else{
+ 	 	 				sw=1;
+ 	 			 		menError('Error..!', '</B>EL AÑO ESTA FUERA DE RANGO[2015..2050]..!</B>..!');
+ 	 			 		$('#a_anio').focus();
+ 	 				}
+ 				}else{
+ 	 				sw=1;
+ 			 		menError('Error..!', '</B>EL AÑO ES UN DATO NO VALIDO..!</B>..!');
+ 			 		$('#a_anio').focus();
+ 				}
+ 			}else{
+ 				sw=1;
+		 		menError('Error..!', '</B>EL AÑO NO PUEDE SER VACIO..!</B>..!');
+		 		$('#a_anio').focus();
+			}			
+ 			return sw;
+ 		} 
+ 		
+ 		
+ 		//VALIDA ADICIONAR DATOS DEL PLAN			
+ 		function validarDatos_add2(){
+ 			var sw=0;
+ 			var xanio1=$('#a_anio2').val();
+ 			var xmes1=$('#a_mes2').val();
+ 			
+ 			var xanio2=$('#a_anio3').val();
+ 			var xmes2=$('#a_mes3').val();
+ 			
+ 			var xmonto=$('#a_monto2').val();
+// 			alert(xmes);
+ 			if (xanio1 != ''){
+ 				if (/^([0-9])*$/.test(xanio1)){
+ 					if ((parseInt(xanio1)>=2015)&&(parseInt(xanio1)<=2050)){
+ 						if (xmonto != '') {
+		 			 			if (/^([0-9])*[.]?[0-9]*$/.test(xmonto)){	
+		 			 				if (parseFloat(xmonto)>0){
+		 			 						if (xanio2 != ''){
+		 			 							if (/^([0-9])*$/.test(xanio2)){
+		 			 								if ((parseInt(xanio2)>=2015)&&(parseInt(xanio2)<=2050)){
+		 			 									var xmon1=(parseInt(xanio1)*12)+parseInt(xmes1);
+		 			 									var xmon2=(parseInt(xanio2)*12)+parseInt(xmes2);
+		 			 									if (xmon1 <= xmon2){
+		 			 										sw=0;
+		 			 									}else{
+			 			 			 	 	 				sw=1;
+			 			 			 	 			 		menError('Error..!', '</B>EL MES/AÑO INICIAL DEBE SER MENOR O IGUAL QUE EL FINAL..!</B>..!');
+			 			 			 	 			 		$('#a_anio2').focus();
+			 			 			 	 				}
+		 			 								}else{
+		 			 			 	 	 				sw=1;
+		 			 			 	 			 		menError('Error..!', '</B>EL AÑO ESTA FUERA DE RANGO[2015..2050]..!</B>..!');
+		 			 			 	 			 		$('#a_anio3').focus();
+		 			 			 	 				}
+		 			 							}else{
+		 			 			 	 				sw=1;
+		 			 			 			 		menError('Error..!', '</B>EL AÑO ES UN DATO NO VALIDO..!</B>..!');
+		 			 			 			 		$('#a_anio3').focus();
+		 			 			 				}
+			 			 					}else{
+			 			 		 				sw=1;
+			 			 				 		menError('Error..!', '</B>EL AÑO NO PUEDE SER VACIO..!</B>..!');
+			 			 				 		$('#a_anio3').focus();
+			 			 					}
+		 			 				}else{
+		 			 					sw=1;
+		 			 			 		menError('Error..!', '<b>EL MONTO TIENE QUE SER MAYOR A CERO</B>..!');
+		 			 			 		$('#a_monto').focus();
+		 			 				}
+		 			 			}else{
+		 			 					sw=1;
+		 			 			 		menError('Error..!', '<b>EL MONTO ES DATO NO VALIDO</B>..!');
+		 			 			 		$('#a_monto').focus();
+		 			 			}
+ 						}else{
+ 	 	 	 				sw=1;
+ 	 	 			 		menError('Error..!', '</B>EL MONTO NO PUEDE SER VACIO..!</B>..!');
+ 	 	 			 		$('#a_monto').focus();
+ 	 	 				}		
+ 					}else{
+ 	 	 				sw=1;
+ 	 			 		menError('Error..!', '</B>EL AÑO ESTA FUERA DE RANGO[2015..2050]..!</B>..!');
+ 	 			 		$('#a_anio2').focus();
+ 	 				}
+ 				}else{
+ 	 				sw=1;
+ 			 		menError('Error..!', '</B>EL AÑO ES UN DATO NO VALIDO..!</B>..!');
+ 			 		$('#a_anio2').focus();
+ 				}
+ 			}else{
+ 				sw=1;
+		 		menError('Error..!', '</B>EL AÑO NO PUEDE SER VACIO..!</B>..!');
+		 		$('#a_anio2').focus();
+			}			
+ 			return sw;
+ 		}
+ /*		
+ 		function validaMontos(xmonto,pos){
+ 			var sw=0;
+ 			var xmon=xmonto;
+ 			if (xmon == '') {xmon=0; }
+ 			if (/^([0-9])*[.]?[0-9]*$/.test(xmon)){	
+ 				if (parseFloat(xmon)>0){
+ 					sw=0;
+ 				}else{
+ 					sw=1;
+ 			 		menError('Error..!', 'EL <b>MONTO DE LA FILA << '+pos+' >> </B> no puede ser <B>CERO</B>..!');
+ 				}
+ 			}else{
+ 					sw=1;
+ 			 		menError('Error..!', 'LA <b>CANTIDAD DE LA FILA << '+pos+' >> </B> no es valido..!');
+ 			}
+ 			return sw;
+ 		} 
+*/ 		
+ 		//Butons PRINT
+ 		/*
+ 		$("#print").click(function(){
+ 			window.open('lugarReportes01.html','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });
+        */
+		
+		
+ 		
+    });
+</script>

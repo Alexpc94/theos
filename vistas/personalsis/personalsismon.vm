@@ -1,0 +1,1128 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <link href="css/estilo1.css" rel="stylesheet">
+ 
+   <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+   <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+
+  <script src="js/tools_oam.js"></script>
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+  <script>
+      $( function() {
+          $( "#a_fnac" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+          });
+          $( "#m_fechanac" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+      });
+  </script>
+    
+           <!-- /. ROW  -->              
+            <div  class="row">
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Gestión Personal</p>     
+                                </div>                                
+                                <fieldset class="col-md-12" >        
+	                                    <legend>Parámetros::</legend>
+	                                    #if (${PA}=="A")
+	                                    <button class="pull-right" data-toggle="modal" data-target="#myModal">
+	                                        <img src="images/img-sis/add_2.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                    #else
+	                                    <button class="pull-right" data-toggle="modal">
+	                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                	#end
+	                                    <!-- BOTON TO PRINT -->
+	                                    <button class="pull-right" id="print">
+	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                
+	                                   
+	                                <form id="paramform" action="personalSismon.html" method="POST">  
+	                                    <div class="col-md-4 par-activos pull-right">
+	                                    	<label><input type="radio" name="estado" value="1" class="paramsChange" #if($estado== 1) checked #end>Activos</label>
+									      	<label><input type="radio" name="estado" value="0" class="paramsChange" #if($estado== 0) checked #end>Nulos</label>
+									      	<label><input type="radio" name="estado" value="2" class="paramsChange" #if($estado== 2) checked #end>Todos</label>
+									    </div>
+									</form>    
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                        <div >
+                            <div class="espacio-small"></div>
+                            <div class="table-responsive">
+ <div id="lisPersonal-det">
+                                <table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center ancho-icono">#</th>
+                                            <th class="col-sm-0 text-center">Cod.</th>
+                                            <th class="col-sm-0">Ci</th>
+                                            <th class="col-sm-0">Nombres</th>
+                                            
+                                            <th class="col-sm-0">Celular</th>
+                                            <th class="col-sm-0">Genero</th>
+                                            <th class="col-sm-0" title="ESTADO Personal">EST</th>
+                                            <th class="col-sm-0" title="MODIFICAR Personal">MOD</th>
+                                            <th class="col-sm-0" title="ELIMINAR Personal">DEL</th>
+                                            <th class="col-sm-0" title="Habilitar Personal">HAB</th>
+                                            
+                                            <th class="col-sm-0" title="Claves y Login">CLA</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>     
+                                    	#set($con=1)
+                                    	#foreach($reg in $xPersonal)	                                   
+                                         <tr class="gradeU">
+                                            <td class="text-center">${con}</td>
+                                            <td>${reg.codper}</td>
+                                             <td>${reg.getDatosCedula()}</td>
+                                            <td>${reg.getDatosPersona()} </td>
+                                            
+                                            <td>${reg.getDatosCell()}</td>
+                                            <td>${reg.getDatosGenero()}</td>
+                                            <td class="text-center ancho-icono">
+                                            	#if (${reg.estado}==1)
+                                            		<img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
+                                            	#else	
+                                            		<img src="images/img-sis/hand_down.png" style="width:25px;">
+                                            	#end
+                                            </td>
+                                           	<td class="text-center ancho-icono">
+	                                           	#if (${reg.estado}==1)
+	                                           		#if (${PM}=="M")
+		                                           		<a  href="javascript:void(0)" onclick="javascript:modificarPersonaSis('${reg.codper}','${reg.nombre}','${reg.ap}','${reg.getDatosAm()}','${reg.getDatosTelf()}','${reg.getDatosCell()}','${reg.getDatosEmail()}','${reg.cedula}','${reg.genero}','${reg.ecivil}','${reg.getFecharegFormat()}')">
+		                                           			<img src="images/img-sis/mod.png" style="width:25px;" title="Modificar Personal..">
+		                                				</a>
+	                                				#else
+		                                				<img src="images/img-sis/nomod.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                			#end
+	                                			#else
+	                                					<img src="images/img-sis/nomod.png" style="width:25px;">
+	                                			#end            
+                                			</td>	
+                                            <td class="text-center ancho-icono">
+                                            #if (${reg.estado}==1)
+                                            	#if (${PB}=="B")
+                                            	<a  href="javascript:void(0)" onclick="javascript:eliminarPersonaSis('${reg.codper}','${reg.getDatosPersona()}')">
+                                            		<img src="images/img-sis/del.png" style="width:25px;" title="Eliminar Personal..">
+                                            	</a>
+                                            	#else
+		                                			<img src="images/img-sis/nodel.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                		#end
+		                                    #else
+	                                					<img src="images/img-sis/nodel.png" style="width:25px;" >
+	                                		#end     	
+                                            </td>
+                                          <td class="text-center ancho-icono">
+                                            #if (${reg.estado}==0)
+                                            	#if (${PH}=="H")
+                                            	<a  href="javascript:void(0)" onclick="javascript:habilitarPersonaSis('${reg.codper}','${reg.getDatosPersona()}')">
+                                            		<img src="images/img-sis/undo.png" style="width:25px;" title="Habilitar Personal..">
+                                            	</a>
+                                            	#else
+		                                			<img src="images/img-sis/noundo.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                		#end
+		                                    #else
+	                                					<img src="images/img-sis/noundo.png" style="width:25px;" >
+	                                		#end     	
+                                            </td>
+                                           
+                                          <td class="text-center ancho-icono">
+                                            #if (${reg.login}=="-")
+                                            	<a  href="javascript:void(0)" onclick="javascript:AsignarUsuPersona('${reg.codper}','${reg.getDatosPersona()}')">
+                                            		<img src="images/img-sis/cand2.png" style="width:25px;" title="Asignar Usuario a Personal..">
+                                            	</a>
+		                                    #else
+	                                			<a  href="javascript:void(0)" onclick="javascript:ModificarUsuPersona('${reg.codper}','${reg.getDatosPersona()}','${reg.login}')">
+                                            		<img src="images/img-sis/cand1.png" style="width:25px;" title="Modificar Usuario a Personal..">
+                                            	</a>
+	                                		#end     	
+                                            </td>  
+                                        </tr>                        
+                                        #set($con=$con + 1)
+                                       #end
+                                    </tbody>
+                                </table>
+</div>                                                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+                <input type="HIDDEN" id="mensaje" value="${mensaje}">
+                <input type="HIDDEN" id="menTexto" value="${menTexto}">
+                               
+            </div>
+<div id="detalle-personal">
+
+</div> 
+
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
+<!--  Modals-->
+<!--  Modals Adicionar-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Adicionar Personal</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaSisServices.html" method="POST" id="addform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Ci::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_ci" id="a_ci" placeholder="Ci.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Nombre Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_nombre" id="a_nombre" placeholder="Nombre.." required>
+                            </div>
+                            
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">Apellido Pat. Persona::</label>
+                           <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_ap" id="a_ap" placeholder="Ap. Paterno.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Apellido Mat. Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_am" id="a_am" placeholder="Ap. Materno.." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Fecha Nac.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_fnac" id="a_fnac" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Telefono::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_telef" id="a_telef" placeholder="Telefono.." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Celular::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_cell" id="a_cell" placeholder="Celular.." required>
+                            </div>
+                        </div>                        
+                   		<div class="form-group">
+                            <label class="control-label col-xs-4">Email::</label>
+                            <div class="col-xs-6">
+                                <input type="email" class="form-control" name="a_email" id="a_email" placeholder="Email.." required>
+                        	</div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="control-label col-xs-4">Genero:</label>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="a_genero" value="M"> Masculino
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="a_genero" value="F" checked> Fenenino
+                        			</label>
+                        		</div>
+                        </div>
+                   		<div class="form-group">
+                        	<label class="control-label col-xs-4">E. Civil:</label>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="a_ecivilRadios" value="C"> Casado
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="a_ecivilRadios" value="S" checked> Soltero
+                        			</label>
+                        		</div>
+                        </div>
+                        <input type="HIDDEN" name="opcion" value="${opAdd}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_add">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-->
+
+<!--  Modals MODIF MODAL-->
+<div class="panel-body">
+    <div class="modal fade" id="modModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Persona</h4>
+                </div>
+                <div class="modal-body">
+                     <form class="form-horizontal" action="personaSisServices.html" method="POST" id="modform">
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">Ci::</label>
+                            <div class="col-xs-6">
+                            	<input type="hidden" name="m_codper" id="m_codper">
+                                <input type="text" class="form-control" name="m_ci" id="m_ci" placeholder="Ci.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Nombre Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_nombre" id="m_nombre" placeholder="Nombre.." required>
+                            </div>
+                            
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">Apellido Pat. Persona::</label>
+                           <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_ap" id="m_ap" placeholder="Ap. Paterno.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Apellido Mat. Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_am" id="m_am" placeholder="Ap. Materno.." required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Fecha Nac.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_fechanac" id="m_fechanac" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                                                
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Telefono::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_telef" id="m_telef" placeholder="Telefono.." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Celular::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_cell" id="m_cell" placeholder="Celular.." required>
+                            </div>
+                        </div>
+                   		<div class="form-group">
+                            <label class="control-label col-xs-4">Email::</label>
+                            <div class="col-xs-6">
+                                <input type="email" class="form-control" name="m_email" id="m_email" placeholder="Email.." required>
+                        	</div>
+                        </div>
+                         <div class="form-group">
+                        	<label class="control-label col-xs-4">Genero:</label>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="m_genero" id="m_mas" value="M" > Masculino
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="m_genero" id="m_fem" value="F" > Femenino
+                        			</label>
+                        		</div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="control-label col-xs-4">E. Civil:</label>
+                        		
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="m_ecivil" id="m_cas" value="C"> Casado
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="m_ecivil" id="m_sol" value="S"> Soltero
+                        			</label>
+                        		</div>
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opMod}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_mod">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MODIFICAR-MODAL-->
+
+<!--  Modals ELIMINAR-->
+<div class="panel-body">
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de Eliminar Personal ?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaSisServices.html" method="POST" id="delform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Persona::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="d_codper" id="d_codper">
+                                <input type="text" class="form-control" name="d_nombres" id="d_nombres" disabled>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opDel}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_del">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR-->
+
+
+<!--  Modals HABILITAR-->
+<div class="panel-body">
+    <div class="modal fade" id="habModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de Habilitar Personal ?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaSisServices.html" method="POST" id="habform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Persona::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="h_codper" id="h_codper">
+                                <input type="text" class="form-control" name="h_nombres" id="h_nombres" disabled>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opHab}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_hab">Habilitar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR-->
+
+<!--  Modals ADICIONAR ACCESO-->
+<div class="panel-body">
+    <div class="modal fade" id="usuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Asignar Acceso</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaSisServices.html" method="POST" id="addusuform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre persona::</label>
+                            
+                            <div class="col-xs-7">
+                            	<input type="hidden" name="Usu_codper" id="Usu_codper">
+                                <input type="text" class="form-control" name="Usu_nombres" id="Usu_nombres" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Login::</label>
+                            
+                            <div class="col-xs-7">
+                                <input type="text" class="form-control" name="Usu_log" id="Usu_log" placeholder="Login" >
+                            </div>
+                        </div>
+                       <div class="form-group">
+                            <label class="control-label col-xs-3">Password:</label>
+                            	<div class="col-xs-7">
+                             	<input type="password" class="form-control" name="Usu_login" id="Usu_login" placeholder="Password">
+                              	</div>
+                       </div>
+                       
+                       <div class="form-group">
+                            <label class="control-label col-xs-3">Password:</label>
+                            	<div class="col-xs-7">
+                             	<input type="password" class="form-control" name="Usu_login1" id="Usu_login1" placeholder="Password">
+                              	</div>
+                       </div>
+                      
+                       
+                        <input type="hidden" name="opcion" value="${opAddusu}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_addacc">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ADICIONAR ACCESO-->
+
+
+<!--  Modals MODIFICAR ACCESO-->
+<div class="panel-body">
+    <div class="modal fade" id="musuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Acceso</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaSisServices.html" method="POST" id="modusuform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre persona::</label>
+                            
+                            <div class="col-xs-7">
+                            	<input type="hidden" name="Musu_codper" id="Musu_codper">
+                                <input type="text" class="form-control" name="Musu_nombres" id="Musu_nombres" disabled>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-3">Login::</label>
+                            
+                            <div class="col-xs-7">
+                                <input type="text" class="form-control" name="Musu_log" id="Musu_log" disabled >
+                            </div>
+                        </div>
+                       <div class="form-group">
+                            <label class="control-label col-xs-3">Password:</label>
+                            	<div class="col-xs-7">
+                             	<input type="password" class="form-control" name="Musu_login" id="Musu_login" placeholder="Password">
+                              	</div>
+                       </div>                       
+                       <div class="form-group">
+                            <label class="control-label col-xs-3">Repita Password:</label>
+                            	<div class="col-xs-7">
+                             	<input type="password" class="form-control" name="Musu_login1" id="Musu_login1" placeholder="Password">
+                              	</div>
+                       </div>
+                       
+                        <input type="hidden" name="opcion" value="${opModUsu}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_modacc">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Modals MODIFICAR ACCESO-->
+<!-- End Modals -->
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    
+<script>
+
+function modificarPersonaSis(xcodper, xnombre, xap,xam,xtelf,xcell,xemail,xcedula,xgenero,xecivil,xfechanac){
+	$('#m_codper').val(xcodper);
+	$('#m_nombre').val(xnombre);
+	$('#m_ap').val(xap);
+	$('#m_am').val(xam);
+	$('#m_telef').val(xtelf);
+	$('#m_cell').val(xcell);
+	$('#m_email').val(xemail);
+	$('#m_ci').val(xcedula);
+	if(xecivil=='C'){
+		$('#m_cas').attr('checked', true);
+	}else{
+		$('#m_sol').attr('checked', true);
+	}
+	
+	if(xgenero=='M'){
+		$('#m_mas').attr('checked', true);
+	}else{
+		$('#m_fem').attr('checked', true);
+	}
+	$('#m_fechanac').val(xfechanac);
+	$('#modModal').modal('show');
+	
+}
+
+function eliminarPersonaSis(xcodper, xnombres){
+	$('#d_codper').val(xcodper);
+	$('#d_nombres').val(xnombres);
+	$('#delModal').modal('show');
+}
+
+function habilitarPersonaSis(xcodper, xnombres){
+	$('#h_codper').val(xcodper);
+	$('#h_nombres').val(xnombres);
+	$('#habModal').modal('show');
+}
+
+function AsignarUsuPersona(xcodper, xnombres){
+	$('#usuModal').on('hidden.bs.modal', function(){ 
+ 		$(this).find('form')[0].reset();
+ 	});
+	$('#Usu_codper').val(xcodper);
+	$('#Usu_nombres').val(xnombres);
+	$('#usuModal').modal('show');
+}	
+	
+function ModificarUsuPersona(xcodper, xnombres,xlog){
+	$('#musuModal').on('hidden.bs.modal', function(){ 
+ 		$(this).find('form')[0].reset();
+ 	}); 
+	$('#Musu_codper').val(xcodper);
+	$('#Musu_nombres').val(xnombres);
+	$('#Musu_log').val(xlog);
+	$('#musuModal').modal('show');
+}
+	
+	
+	
+    $(document).ready(function () {
+
+    	$("#a_fnac").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	$("#m_fechanac").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	
+         $('#dataTables-example').dataTable();
+         
+         //Devuelve los mensajes de guardado
+         if ($('#mensaje').val() != '0'){
+        	 if ($('#mensaje').val() == '1'){
+        	 	$.notify($('#menTexto').val(), "success",{ position:"center middle" });
+        	 }
+        	 if ($('#mensaje').val() == '2'){
+         	 	$.notify($('#menTexto').val(), "error",{ position:"center middle" });
+         	 }
+         }
+         
+         //limpia los datos del modal al momento de ingresar
+        $('#myModal').on('hidden.bs.modal', function(){ 
+     		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+     	}); 
+        
+         //SI OCURRE CAMBIO 
+        $(".paramsChange").change( function() {
+//            $("#paramform").submit();
+
+			var xestado=$('input[name=estado]:checked').val();
+			jQuery.post('listaPersonalSis_det_11.html',{xestado:xestado},
+						function(data){	$('#lisPersonal-det').html(data);
+			});
+			
+        }); 
+        
+         //ANULA TECLA ENTER PARA LOS INPUTS
+        $("input").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+         
+       //Butons ACEPTAR
+ 		$("#btnAcept_add").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+ 			
+ 			if (validarDatos_add() == 0) {
+	 			if(confirm('¿Seguro de Guardar La Persona ?')){ 				
+		 				$.when(	
+			 	 				jQuery.post('personaSisServices.html',$('#addform').serialize(), 	 						
+			 	 						function(data){		 	 					
+			 	 							obj = JSON.parse(data);
+			 								//alert(obj.error);
+			 								if (obj.error=='0'){
+			 									//repetir(xdatos) 									
+			 									menOK('Correcto..!','Los Datos se <b>GUARDARON satisfactoriamente</b>..!');
+			 									//alert("OK");
+			 									$('#myModal').modal('hide');
+			 									
+			 								}else{
+			 									if (obj.error=='1'){
+			 										menError('Error..!', 'EL CODIGO ESTA REPETIDO..Revisar.!');
+			 									}else{
+			 										menError('Error..!', 'NO SE PUDO GUARDAR LOS DATOS..Revisar.!');
+			 									}	
+			 							    }
+			 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+							).then(function() {	
+			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+								jQuery.post('listaPersonalSis_det_11.html',{xestado:xestado},
+				 	 						function(data){	$('#lisPersonal-det').html(data);
+				 	 			});
+							});						
+	 			}
+ 			}
+        });	
+       
+ 		//Butons MODIFICAR
+ 		$("#btnAcept_mod").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+ 			
+ 			if (validarDatos_mod() == 0) {
+ 					if(confirm('¿Seguro de Modificar Datos de Persona ?')){ 				
+	 						$.when(	
+				 	 				jQuery.post('personaSisServices.html',$('#modform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','Los Datos se <b>MODIFICARON satisfactoriamente</b>..!');
+				 									//alert("OK");
+				 									$('#modModal').modal('hide');			 									
+				 								}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICCAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+							).then(function() {	
+				 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+									jQuery.post('listaPersonalSis_det_11.html',{xestado:xestado},
+					 	 						function(data){	$('#lisPersonal-det').html(data);
+					 	 			});
+							});
+ 					}
+ 			}
+ 		});
+
+ 		//Butons ELIMINAR
+ 		$("#btnAcept_del").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+				$.when(	
+	 	 				jQuery.post('personaSisServices.html',$('#delform').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','Los Datos se <b>ELIMINARON satisfactoriamente</b>..!');
+	 									//alert("OK");
+	 									$('#delModal').modal('hide');			 									
+	 								}else{
+	 										menError('Error..!', 'NO SE PUDO ELIMINAR LOS DATOS..Revisar.!');
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+	 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+						jQuery.post('listaPersonalSis_det_11.html',{xestado:xestado},
+		 	 						function(data){	$('#lisPersonal-det').html(data);
+		 	 			});
+				});
+ 		});
+ 		
+ 		//Butons HABILITAR
+ 		$("#btnAcept_hab").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+	 			$.when(	
+	 	 				jQuery.post('personaSisServices.html',$('#habform').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','Los Datos se <b>HABILITARON satisfactoriamente</b>..!');
+	 									//alert("OK");
+	 									$('#habModal').modal('hide');			 									
+	 								}else{
+	 										menError('Error..!', 'NO SE PUDO <b>HABILITAR</b> LOS DATOS..Revisar.!');
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+	 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+						jQuery.post('listaPersonalSis_det_11.html',{xestado:xestado},
+		 	 						function(data){	$('#lisPersonal-det').html(data);
+		 	 			});
+				});
+ 		});
+ 		
+ 		//valida datos para opcion adiciona		
+ 		function validarDatos_add(){
+ 			var sw=0;
+ 			var ci=$('#a_ci').val();
+ 			var nombre=$('#a_nombre').val();
+
+ 			var ap=$('#a_ap').val();
+ 			var am=$('#a_am').val();
+ 			
+ 			var xfnac=$('#a_fnac').val();
+ 			
+ 			var xci=$.trim(ci);
+ 			if (xci != ci) {
+				$('#a_ci').val(xci);
+				ci=xci;
+			}			
+			if (ci.length < 16 ){
+ 					var xnombre=$.trim(nombre);
+					if (xnombre != nombre) {
+						$('#a_nombre').val(xnombre);
+						nombre=xnombre;
+					}
+					if (nombre != ""){
+						if (nombre.length < 31){
+							var xap=$.trim(ap);
+							if (xap != ap) {
+								$('#a_ap').val(xap);
+								ap=xap;
+							}
+							var xam=$.trim(am);
+							if (xam != am) {
+								$('#a_am').val(xam);
+								am=xam;
+							}
+							if ((ap != "")||(am != "")){
+								if ((ap.length < 31)&&(am.length < 31)){																	
+										if (validaFechaDDMMAAAA(xfnac)){
+											sw=0;	
+										}else{
+											sw=1;
+									 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+									 		$('#a_fnac').focus();
+										}									
+								}else{
+									sw=1;
+							 		menError('Error..!', 'El </B>APELLIDO</B> no puede exceder los 30 Caracteres..!');
+							 		$('#a_ap').focus();
+								}
+							}else{
+								sw=1;
+						 		menError('Error..!', 'Debe ingresar al menos un APELLIDO..!');
+						 		$('#a_ap').focus();
+							}							
+						}else{
+							sw=1;
+					 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede exceder los 20 Caracteres..!');
+					 		$('#a_nombre').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede ser vacio..!');
+				 		$('#a_nombre').focus();
+					}
+ 				}else{
+ 					sw=1;
+			 		menError('Error..!', 'La </B>CEDULA</B> no debe exceder los 15 Caracteres..!');
+			 		$('#a_ci').focus();	
+ 				}
+ 			
+ 			return sw;
+ 		}
+		
+ 		//validar solo para opcion modificar
+ 		function validarDatos_mod(){
+ 			var sw=0;
+ 			var ci=$('#m_ci').val();
+ 			var nombre=$('#m_nombre').val();
+ 			var ap=$('#m_ap').val();
+ 			var am=$('#m_am').val();
+ 			var xfechanac=$('#m_fechanac').val();
+ 			
+ 			var xci=$.trim(ci);
+ 			if (xci != ci) {
+				$('#m_ci').val(xci);
+				ci=xci;
+			}			
+			if (ci.length < 16 ){
+ 					var xnombre=$.trim(nombre);
+					if (xnombre != nombre) {
+						$('#m_nombre').val(xnombre);
+						nombre=xnombre;
+					}
+					if (nombre != ""){
+						if (nombre.length < 31){
+							var xap=$.trim(ap);
+							if (xap != ap) {
+								$('#m_ap').val(xap);
+								ap=xap;
+							}
+							var xam=$.trim(am);
+							if (xam != am) {
+								$('#m_am').val(xam);
+								am=xam;
+							}
+							if ((ap != "")||(am != "")){
+								if ((ap.length < 31)&&(am.length < 31)){
+									if (validaFechaDDMMAAAA(xfechanac)){
+										sw=0;	
+									}else{
+										sw=1;
+								 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+								 		$('#m_fechanac').focus();
+									}						
+								}else{
+									sw=1;
+							 		menError('Error..!', 'El </B>APELLIDO</B> no puede exceder los 30 Caracteres..!');
+							 		$('#m_ap').focus();
+								}
+							}else{
+								sw=1;
+						 		menError('Error..!', 'Debe ingresar al menos un APELLIDO..!');
+						 		$('#m_ap').focus();
+							}							
+						}else{
+							sw=1;
+					 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede exceder los 20 Caracteres..!');
+					 		$('#m_nombre').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede ser vacio..!');
+				 		$('#m_nombre').focus();
+					}
+ 				}else{
+ 					sw=1;
+			 		menError('Error..!', 'La </B>CEDULA</B> no debe exceder los 15 Caracteres..!');
+			 		$('#m_ci').focus();	
+ 				}
+ 			
+ 			return sw;
+ 		}
+ 		
+ 		
+ 		//Butons ACEPTAR ACCESO
+ 		$("#btnAcept_addacc").click(function(){
+//		 				$("#addusuform").submit(); //envia los datos a destino FORM.
+//		 				$('#usuModal').modal('hide'); 					
+			var xestado=$('input[name=estado]:checked').val();
+ 			
+			if (validarDatos_addacc() == 0) {
+				if(confirm('¿Seguro de Guardar EL Usuario ?')){ 				
+	 						$.when(	
+				 	 				jQuery.post('personaSisServices.html',$('#addusuform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									menOK('Correcto..!','El <b>PASSWORD SE MODIFICO</b>  satisfactoriamente..!');
+				 									$('#usuModal').modal('hide');			 									
+				 								}else{
+				 									if (obj.error=='1'){
+				 										menError('Error..!', 'EL <P>LOGIN</B> ESTA REPETIDO..!');
+				 									}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICCAR LOS DATOS..Revisar.!');
+				 									}				 									
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+							).then(function() {	
+									if (obj.error=='0'){
+											jQuery.post('listaPersonalSis_det_11.html',{xestado:xestado},
+							 	 						function(data){	$('#lisPersonal-det').html(data);
+							 	 			});
+									}
+							});
+ 				}
+ 			}
+        });	
+        
+        //Butons ACEPTAR MODIFICAR ACCESO
+ 		$("#btnAcept_modacc").click(function(){					
+			var xestado=$('input[name=estado]:checked').val();
+ 			
+			if (validarDatos_modacc() == 0) {
+				if(confirm('¿Seguro de Modificar EL Usuario ?')){ 				
+	 						$.when(	
+				 	 				jQuery.post('personaSisServices.html',$('#modusuform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','El <b>PASSWORD SE MODIFICO</b>  satisfactoriamente..!');
+				 									//alert("OK");
+				 									$('#musuModal').modal('hide');			 									
+				 								}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICCAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+							).then(function() {	
+									jQuery.post('listaPersonalSis_det_11.html',{xestado:xestado},
+					 	 						function(data){	$('#lisPersonal-det').html(data);
+					 	 			});
+							});
+ 				}
+ 			} 			
+ 			
+        });	
+ 		
+ 		//valida datos para opcion adddacc			
+ 		function validarDatos_addacc(){
+ 			var sw=0;
+ 			var nombrelogin=$('#Usu_login').val();
+ 			var nombrelogin1=$('#Usu_login1').val();
+ 			var nombrelog=$('#Usu_log').val();
+ 			
+ 			var xnom=$.trim(nombrelog);
+// 			alert("si entro....");
+ 				//en caso de haber diferencia actulizar
+ 				if (xnom != nombrelog) {
+ 					$('#Usu_log').val(xnom);
+ 					nombrelog=xnom;
+ 				}
+ 			if (nombrelog != ''){
+		 		if ((nombrelog.length <= 10)){
+
+		 			if (nombrelogin != ''){
+			 			if ((nombrelogin.length >= 6)){
+			 				if (nombrelogin1 != ''){
+			 		 			if ((nombrelogin1.length >= 6)){
+			 		 				if (nombrelogin != nombrelogin1){
+			 		 					menError('Error..!', 'Los PASSWORD </B>SON DIFERENTES..!</B>');
+			 			 				$('#Usu_login1').focus();	 				
+			 			 				sw=1;
+			 		 				}else{
+			 		 					sw=0; //cuando todo esta OK
+			 		 				} 			
+			 		 			}else{
+			 		 				sw=1;
+			 		 				menError('Error..!', 'El </B>PASSWORD DEBE TENER AL MENOS 6 CHAR..!</B>');
+			 		 				$('#Usu_login1').focus();
+			 		 			}
+			 	 			}else{
+			 	 				sw=1;
+			 	 				menError('Error..!', 'El Dato </B>PASSWORD ESTA VACIO..!</B>');
+			 	 				$('#Usu_login1').focus();
+			 	 			}	
+			 			}else{
+			 				sw=1;
+			 				menError('Error..!', 'El </B>PASSWORD DEBE TENER AL MENOS 6 CHAR..!</B>');
+			 				$('#Usu_login').focus();
+			 			}
+		 			}else{
+		 				sw=1;
+		 				menError('Error..!', 'El Dato </B>PASSWORD ESTA VACIO..!</B>');
+		 				$('#Usu_login').focus();
+		 			}	
+		 		}else{
+		 			sw=1;
+		 			menError('Error..!','<b>EL LOGIN EXCEDE LOS 10 CHAR..!</b>');
+		 			$('#Usu_log').focus();
+		 		}
+	 		}else{
+	 			sw=1;
+	 			menError('Error..!','<b>EL LOGIN ESTA VACIO..!</b>');
+	 			$('#Usu_log').focus();
+ 			}
+ 			return sw;
+ 		}
+ 		
+        
+        //valida datos para opcion modacc			
+ 		function validarDatos_modacc(){
+ 			var sw=0;
+ 			var nombremlogin=$('#Musu_login').val();
+ 			var nombremlogin1=$('#Musu_login1').val();
+				
+ 			if (nombremlogin != ''){
+	 			if ((nombremlogin.length >= 6)){
+	 				if (nombremlogin1 != ''){
+	 		 			if ((nombremlogin1.length >= 6)){
+	 		 				if (nombremlogin != nombremlogin1){
+	 		 					menError('Error..!', 'Los PASSWORD </B>SON DIFERENTES..!</B>');
+	 			 				$('#Musu_login1').focus();	 				
+	 			 				sw=1;
+	 		 				}else{
+	 		 					sw=0; //cuando todo esta OK
+	 		 				} 			
+	 		 			}else{
+	 		 				sw=1;
+	 		 				menError('Error..!', 'El </B>PASSWORD DEBE TENER AL MENOS 6 CHAR..!</B>');
+	 		 				$('#Musu_login1').focus();
+	 		 			}
+	 	 			}else{
+	 	 				sw=1;
+	 	 				menError('Error..!', 'El Dato </B>PASSWORD ESTA VACIO..!</B>');
+	 	 				$('#Musu_login1').focus();
+	 	 			}	
+	 			}else{
+	 				sw=1;
+	 				menError('Error..!', 'El </B>PASSWORD DEBE TENER AL MENOS 6 CHAR..!</B>');
+	 				$('#Musu_login').focus();
+	 			}
+ 			}else{
+ 				sw=1;
+ 				menError('Error..!', 'El Dato </B>PASSWORD ESTA VACIO..!</B>');
+ 				$('#Musu_login').focus();
+ 			}
+ 			
+ 			return sw;
+ 		}
+ 		
+ 		//Butons PRINT
+ 		$("#print").click(function(){
+ 		var xestado=$('input[name=estado]:checked').val();
+ 			window.open('personalSisReportes01.html?xest='+xestado,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });
+		
+
+ 		
+		
+ 		
+    });
+</script>

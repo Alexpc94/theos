@@ -1,0 +1,78 @@
+
+<div class="col-md-2"> </div>
+        <div class="col-md-8">
+            <div class="div-capa">
+                <div class="div-arriba">
+                    <table >
+                    <thead>
+                        <tr>
+                            <th colspan="2" >ASIGNAR COSTO A : ${xnombre} </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CODIGO : ${xcodes} </td><input type="hidden" id="estado_codes" value="${xcodes}">
+                            <td>NOMBRE : ${xnombre} </td><input type="hidden" id="estado_name" value="${xnombre}">
+                            <td align="right">
+<!--                            	
+                            	<button class="pull-right" data-toggle="modal" id="myModal-addEstado">
+	                            </button>
+-->	                            
+                            	<a  href="javascript:void(0)" onclick="javascript:adicionarEstSoc()">
+	                                 <img src="images/img-sis/add_2.png" style="width:25px; height:25px;">
+	                            </a>     
+                            </td>
+                        </tr>
+                    <tbody>  
+                    </table>
+                </div>
+                <div class="div-abajo">
+                    <table class="table table-bordered table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th width="2%">#</th>
+                          <th>FECHA</th>
+                          <th>COSTO</th>
+                          <th title="ESTADO SOCIO ACTUAL">SOC</th>
+                          
+                          <th width="2%" title="Modificar estado de Socio">M</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      	#set($con=1)
+                        #foreach($reg in $xCostos_estados)	
+                            <tr>
+                              <th scope="row">${con}</th>
+                              <td>${reg.getFecharegFormat()}</td>
+                              <td align="right">${reg.getCostoFormat()}</td>
+                              <td class="text-center ancho-icono">
+                                          	#if (${reg.sw}==1)
+                                          		<img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
+                                          	#else	
+                                          		<img src="images/img-sis/hand_down.png" style="width:25px;">
+                                           	#end
+                              </td>
+                              <td>
+                               	#if (${reg.sw}==1)
+                              		<a  href="javascript:void(0)" onclick="javascript:modificarEstSoc('${reg.codes}','${reg.getCostoFormat()}','${reg.getFecharegFormat()}','${reg.codest}')">
+                              	       <img src="images/img-sis/mod.png" style="width:25px;" title="Modificar Costo..">
+                              	    </a>
+                              	  #else
+	                               		<img src="images/img-sis/nomod.png" style="width:25px;">
+	                              #end  
+                              </td>
+                            </tr>
+                            #set($con=$con + 1)
+                        #end    
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<div class="col-md-2"> </div>
+
+<script>
+    $(document).ready(function () {
+   		
+    });
+</script>

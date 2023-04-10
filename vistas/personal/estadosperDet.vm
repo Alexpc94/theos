@@ -1,0 +1,112 @@
+<div class="col-md-2"> </div>
+        <div class="col-md-8">
+            <div class="div-capa">
+                <div class="div-arriba">
+                    <table >
+                    <thead>
+                        <tr>
+                            <th colspan="2" >ASIGNAR ESTADO A : ${xnombre} </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CODIGO : <b style="color:blue;font-size:16px;">${xcodigoper}</b> </td>
+                            <input type="hidden" id="estado_codper" value="${xcodper}">
+                            <input type="hidden" id="estado_codigoper" value="${xcodigoper}">
+                            <td>NOMBRE : ${xnombre} </td><input type="hidden" id="estado_name" value="${xnombre}"> </td>
+<!--                            
+                            <td class="right">  
+                         	  	<button class="pull-right" data-toggle="modal" onclick="javascript:AsignarAntSocio('${xcodper}','${zcodes}')">
+                            		Antiguedad
+                            	</button>                	
+                            </td>
+-->                            
+                            <td align="right">
+	                            #set($con=1)
+	                            #set($zcodes=0)
+	                            #foreach($reg in $xPersonal_estados)	
+	                             	#if (${con}==1)	                               		   
+	                            		#set($zcodes=${reg.codes})
+	                            	    #set($con=999)
+	    	                        #end  	                                
+	                            #end  
+	                            #if (${PA}=="A")
+	                            	<button class="pull-right" data-toggle="modal"  onclick="javascript:adicionarNuevoEstado('${xcodper}','${xestadosoc}','${zcodes}')">
+		                                 <img src="images/img-sis/add_2.png" style="width:25px; height:25px;">
+		                            </button>
+		                        #else
+		                        		<img src="images/img-sis/noadd_2.png" style="width:25px; height:25px;">
+		                        #end   
+		                        
+		                        #if (${PW}=="W")
+	                            	<button class="pull-right" data-toggle="modal"  onclick="javascript:adicionarNuevoEstadoALL('${xcodper}','${xestadosoc}','${zcodes}')">
+		                                 <img src="images/img-sis/rmas.png" style="width:25px; height:25px;">
+		                            </button>
+		                        #else
+		                        		<img src="images/img-sis/normas.png" style="width:25px; height:25px;">
+		                        #end  
+                            </td>
+                        </tr>
+                        <tr>
+	                        <td colspan="2">FECHA ANTIGUEDAD : <b style="color:blue;font-size:16px;">${xfecha_ant}</b> </td>
+	                        <td colspan="2" class="right">  
+	                     	  	<button class="pull-right" data-toggle="modal" onclick="javascript:AsignarAntSocio('${xcodper}','${zcodes}')">
+	                        		Fecha Antiguedad
+	                        	</button>                	
+	                        </td>
+                        </tr>
+                    <tbody>  
+                    </table>
+                </div>
+                <div class="div-abajo">
+                    <table class="table table-bordered table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th width="2%">#</th>
+                          <th>FECHA</th>
+                          <th>ESTADO SOC</th>
+                          <th title="ESTADO SOCIO ACTUAL">SOC</th>
+                          
+                          <th width="2%" title="Modificar estado de Socio">M</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      	#set($con=1)
+                        #foreach($reg in $xPersonal_estados)	
+                            <tr>
+                              <th scope="row">${con}</th>
+                              <td>${reg.getFecharegFormat()} </td>
+                              <td>${reg.nomestado} </td>
+                              <td class="text-center ancho-icono">
+                                          	#if (${reg.sw}==1)
+                                          		<img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
+                                          	#else	
+                                          		<img src="images/img-sis/hand_down.png" style="width:25px;">
+                                           	#end
+                              </td>
+                              <td>
+                               	#if (${reg.sw}==1)
+                              		<a  href="javascript:void(0)" onclick="javascript:modificarEstado('${reg.codper}','${reg.codestado}','${reg.codes}','${reg.nomestado}','${reg.getFecharegFormat()}','${reg.padre}')">
+                              	       <img src="images/img-sis/mod.png" style="width:25px;" title="Modificar Estado persona..">
+                              	  </a>
+                              	  #else
+	                               		<img src="images/img-sis/nomod.png" style="width:25px;">
+	                              #end  
+                              </td>
+                            </tr>
+                            #set($con=$con + 1)
+                        #end    
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<div class="col-md-2"> </div>
+
+<script>
+
+    $(document).ready(function () {
+
+    
+    });
+</script>

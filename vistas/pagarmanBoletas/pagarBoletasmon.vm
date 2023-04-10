@@ -1,0 +1,735 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <script src="js/tools_oam.js"></script>
+    
+    <link href="css/estilo1.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+    <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+<script>
+    $( function() {
+        $( "#fini" ).datepicker({
+          changeMonth: true,
+          changeYear: true
+        });        
+        $( "#ffin" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+        $( "#a_fecha" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+    
+    
+</script>
+        
+<div class="container-fluid">          
+           <!-- /. ROW  -->              
+            <div  class="row">
+            
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Gestión PAGOS de Boletas MANUALES</p>     
+                                </div>                                
+                                <fieldset class="col-md-12" >        
+	                                    <legend>Parámetros::</legend>
+	                                    #if (${PA}=="A")
+		                                    <button class="pull-right" data-toggle="modal" id="btn-nuevo">
+		                                        <img src="images/img-sis/add_2.png" style="width:30px; height:30px;">
+		                                    </button>
+	                                    #else
+		                                    <button class="pull-right" data-toggle="modal">
+		                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
+		                                    </button>
+	                                	#end
+	                                    <!-- BOTON TO PRINT -->
+	                                    <button class="pull-right" id="print">
+	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                <form id="paramform" action="lugarmon.html" method="POST"> 
+		                                <div class="form-group">	                                    	
+			                                <div class="col-md-1">
+			                                	<label class="control-label col-xs-3 ">Fecha Inicio::</label>
+		                                    </div>
+		                                    <div class="col-md-2">
+		                                    	<input type="text" class="form-control paramsChange" name="fini" id="fini" placeholder="dd/mm/aaaa"  required>
+		                                    </div>
+		                                    <div class="col-md-1">
+			                                	<label class="control-label col-xs-3">Fecha Fin::</label>
+		                                    </div>
+		                                    <div class="col-md-2">
+		                                       <input type="text" class="form-control paramsChange" name="ffin" id="ffin" placeholder="dd/mm/aaaa" required>
+		                                    </div>
+
+		                                    <label><input type="radio" name="estado" value="1" class="paramsChange" #if($estado== 1) checked #end>Activos </label>
+									      	<label><input type="radio" name="estado" value="0" class="paramsChange" #if($estado== 0) checked #end>Nulos</label>
+									      	<label><input type="radio" name="estado" value="2" class="paramsChange" #if($estado== 2) checked #end>Todos</label>
+
+									    </div>
+									</form>    
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                        <div>	       				    		                        
+<div class="espacio-small"></div>
+<div class="table-responsive" id="detalle_lis">
+							<table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<thead>
+							    <tr>							
+						        <th class="text-center ancho-icono">#</th>
+						        <th width="5" > &nbsp; </th>
+						        <th class="col-sm-0 text-center">CodPag.</th>
+						        <th class="col-sm-0 text-center">Fecha</th>							        
+						        <th class="col-sm-0 text-center">Socio</th>
+						        <th class="col-sm-0 text-center">Factura</th>
+						        <th class="col-sm-0 text-center">monto</th>
+						        <th class="col-sm-0 text-center">estado</th>
+						        <th class="col-sm-0 text-center">DEL</th>	
+						        <th class="col-sm-0 text-center">PR</th>								        
+							    </tr>
+							</thead>
+							<tbody>     
+								#set($con=1)
+								#foreach($reg in $xMpagos)	                                   
+							     <tr class="gradeU">
+							        <td class="text-center">${con}</td>
+							        <td class="text-center">
+							        	<a  href="javascript:void(0)" onclick="javascript:llamarDetallePagos('${reg.codpag}','${reg.getDatosPersona()}')">
+	                                		<input type="radio" name="beneficiario_sel" />
+	                                	</a>
+							        </td>
+							        <td>${reg.codpag}</td>
+							        <td>${reg.getFechaFormat()}</td>
+							        <td>${reg.getDatosPersona()}</td>
+							        <td>${reg.nrofac}</td>
+							        <td align="right">${reg.getMontoFormat()}</td>
+							        <td class="text-center ancho-icono">
+	                                	#if (${reg.estado}==1)
+	                                		<img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
+	                                	#else	
+	                                		<img src="images/img-sis/hand_down.png" style="width:25px;">
+	                                	#end
+	                                </td>
+										
+							        <td class="text-center ancho-icono">
+								        #if (${reg.estado}==1)	
+								        	#if (${PB}=="B")
+								        	<a  href="javascript:void(0)" onclick="javascript:eliminarPagosFact('${reg.getCodpagEncript()}','${reg.getNroFacturaEncript()}','${reg.getFechaFormat()}','${reg.codpag}','${reg.getDatosPersona()}','${reg.nrofac}','${reg.getMontoFormat()}')">
+								        		<img src="images/img-sis/del.png" style="width:25px;">
+								        	</a>
+								        	#else
+								                	<img src="images/img-sis/nodel.png" style="width:25px;">
+								            #end
+								        #else
+													<img src="images/img-sis/nodel.png" style="width:25px;" >
+										#end     	    	
+							        </td>
+										
+									<td class="text-center ancho-icono">
+									<!--
+							        <a href="javascript:void(0);" onclick="window.open('reportePagarBoletas102102.html?opcion=${opReporte}&codpag=${reg.getCodpagEncript()}','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');" >
+									-->
+							        <a href="#">
+		            						<img src="images/img-sis/print.png"
+		            							style="vertical-align: middle; width: 24px; height: 24px"
+		            							alt="Vista previa" title="Imprimir Factura.." /> 
+		    							</a>
+								    </td>
+								    
+							    </tr>                        
+							    #set($con=$con + 1)
+							   #end               
+							</tbody>
+							</table>
+</div>
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+
+            </div>
+            
+</div>
+<input type="hidden" id="listaJson" value="">
+<input type="hidden" id="opReporte" value="${opReporte}">
+<input type="hidden" id="xcodpag" value="">
+<input type="hidden" name="opcion" id="opcion_json" value="${op_json}" >
+
+<div id="detalle-pagos">
+
+</div>
+
+<!--  Modals-->
+<!--  Modals Adicionar  OAM -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Pago de Boletas</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform">
+	                    <div class="form-group">
+		                    <label class="control-label col-xs-3">
+		                    <span style="color:red;font-size:18px;">*</span>Fecha::</label>
+		                    <div class="col-xs-4">                               
+		                    	<input type="text" class="form-control" name="a_fecha" id="a_fecha" placeholder="dd/mm/aaaa" required>
+		                    </div>                            
+		                </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">
+                            <span style="color:red;font-size:18px;">*</span>
+                            <img src="images/img-sis/updown.png" style="width:15px;" title="Lista de Socios..">
+                            Socio::</label>
+                            <div class="col-xs-9">                               
+                                <input type="text" class="form-control" id="xsocio" placeholder="Buscar por Socios.." required>
+                                <input type="HIDDEN"  id="xsocio_2" >
+                                <input type="HIDDEN" name="xsocio_val" id="xsocio_val" >
+                            </div>                            
+                        </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">
+	                        <span style="color:red;font-size:18px;">*</span>Nro.Factura::</label>
+	                        <div class="col-xs-4">                               
+	                            <input type="text" class="form-control" id="xnrofac" name="xnrofac" placeholder="Nro. de Factura." required>
+	                        </div>                            
+	                    </div>  
+	                        <div class="form-group">
+	                        <label class="control-label col-xs-3">
+	                        <span style="color:red;font-size:18px;">*</span>Adicional::</label>
+	                        <div class="col-xs-4">                               
+	                            <input type="text" class="form-control changeMonto" id="xadicional" name="xadicional" placeholder="Adicional.." required>
+	                        </div>                            
+	                    </div> 	                    
+<div id="lista-boletas">                       
+				            				            	
+</div>			            			            
+			            <div class="form-group">
+                        	<label class="control-label col-xs-3">
+                        	<span style="color:red;font-size:18px;">*</span>Monto a Pagar::</label>
+                        	<div class="col-xs-4">
+                        		<input type="text" class="form-control" name="xtotal" id="xtotal" value="00.00" disabled>
+                        		<input type="hidden" name="xtotal_aux" id="xtotal_aux" >
+                        		
+                           </div>
+                    	</div>
+                    	<div class="form-group">
+	                    	<label class="control-label col-xs-3">
+	                    	<span style="color:red;font-size:18px;">*</span>Observ.::</label>
+	                    	<div class="col-xs-9">
+	                    	 	<textarea class="form-control" rows="2" cols="60" name="a_obser" id="a_obser"></textarea>	                    		                             		
+	                       </div>
+	                	</div>
+                    	
+                        <input type="hidden" name="opcion" value="${opAdd}" >                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal" -->
+                    <button type="button" class="btn btn-default" id="btnCancel_add" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_add">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-->
+
+
+<!--  Modals ELIMINAR  OAM -->
+<div class="panel-body">
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de eliminar PAGO Y ANULAR FACTURA?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="pagarBoletas102Services.html" method="POST" id="delform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Fecha Pago::</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" name="d_fecha" id="d_fecha" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Socio::</label>
+                         	<div class="col-xs-8">
+	                            <input type="text" class="form-control" name="d_socio" id="d_socio" disabled>  
+                            </div>
+			            </div>
+			            <div class="form-group">
+	                        <label class="control-label col-xs-3">Cod.Pago::</label>
+	                     	<div class="col-xs-4">
+	                            <input type="text" class="form-control" name="d_codpag1" id="d_codpag1" disabled>
+	                            <input type="HIDDEN"  name="d_codpag" id="d_codpag">
+	                        </div>
+			            </div>
+			            <div class="form-group">
+	                        <label class="control-label col-xs-3">Nro.Factura::</label>
+	                     	<div class="col-xs-4">
+	                            <input type="text" class="form-control" name="d_factura1" id="d_factura1" disabled>
+	                            <input type="HIDDEN"  name="d_factura" id="d_factura">
+	                        </div>
+			            </div>
+			            <div class="form-group">
+	                        <label class="control-label col-xs-3">Monto Pago::</label>
+	                     	<div class="col-xs-4">
+	                            <input type="text" class="form-control" name="d_monto" id="d_monto" disabled>	                            
+	                        </div>
+			            </div>			            
+                        <input type="HIDDEN" name="opcion" value="${opDel}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_del">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR-->
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx -->
+    <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+    <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+
+<script>
+
+	//Butons NUEVO
+	$("#btn-nuevo").click(function(){
+		$("#xnrofac").val('');
+		$("#xadicional").val('');
+		$('#myModal').modal('show');
+		cargaSociosBoletas(); //carga todo el autocompletar de socio-boletas
+	});
+
+function llamarDetallePagos(xcodpag,xnombre){
+	//alert("llegoo..."+xnombres);
+	$('#detalle-pagos').show();
+	jQuery.post('detalle_Pagos_boletas109.html',{xcodpag:xcodpag,xnombre:xnombre},
+		function(data){$('#detalle-pagos').html(data);}
+	);
+}
+
+//OAM
+function ejecutaListaBoletas(){	
+	$("#xtotal").val('00.00');
+	
+	var xestado=$('input[name=estado]:checked').val();
+    var xsocio=$("#xsocio").val();
+    var xsocio_2=$("#xsocio_2").val();
+    var xsocio_val=$("#xsocio_val").val();
+    if (xsocio != xsocio_2){
+    	$("#lista-boletas").hide();
+    }else {
+    	$("#lista-boletas").show();
+    	jQuery.post('listarBoletas109.html',{xcodper:xsocio_val},
+    			function(data){$('#lista-boletas').html(data);
+    	});
+    }
+}
+
+function ejecutarDetallePagos(){	
+	$('#detalle-pagos').hide();
+	
+	var xfini=$('#fini').val();
+	var xffin=$('#ffin').val();
+	var xestado=$('input[name=estado]:checked').val();
+	//alert(xestado+"-"+xfini+" - "+xffin);
+//window.open('reportePagarBoletas102102.html?opcion='+opRep+'&codpag='+xcodpag,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+//window.open('reportePagarBoletas102102.html?opcion=opRep&codpag=xcodpag','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');	
+	jQuery.post('pagarBoletasDet109.html',{xestado:xestado,xfinicial:xfini,xffinal:xffin},
+  			function(data){$('#detalle_lis').html(data);
+  	});
+}
+
+/*
+function modificarLugar(xcodl, xnombre, xcodd){
+	$('#m_codl').val(xcodl);
+	$('#m_nombre').val(xnombre);
+	$('#m_codd').val(xcodd);
+	document.getElementById(xcodd).selected = "true";  
+	$('#modModal').modal('show');
+}
+*/
+
+//oam   '${reg.getCodpagEncript()}','${reg.getNroFacturaEncript()}'
+// d_fecha,d_socio,d_codpag1,d_codpag,d_factura1,d_factura,d_monto
+function eliminarPagosFact(zcodpago,znro,xfecha,xcodpag,xcliente,xnum,xmonto){
+	$('#d_fecha').val(xfecha);
+	$('#d_socio').val(xcliente);
+	$('#d_codpag1').val(xcodpag);
+	$('#d_codpag').val(zcodpago);
+	$('#d_factura1').val(xnum);
+	$('#d_factura').val(znro);
+	$('#d_monto').val(xmonto);
+	
+	$("#btnAcept_del").prop('disabled',false);
+	
+	$('#delModal').modal('show');
+}
+/*
+function habilitarLugar(xcodl, xnombre, xcodd){
+	$('#h_codl').val(xcodl);
+	$('#h_nombre').val(xnombre);
+	$('#h_codd').val(xcodd);
+	document.getElementById(xcodd).selected = "true";  
+	$('#habModal').modal('show');
+}
+*/
+
+function sumar(xmonto){
+	var xadd=$('#xadicional').val();
+	xadd=$.trim(xadd);	
+	if (xadd==''){
+		$('#xadicional').val('0');
+		xadd=0;
+	}
+	if (isNaN(xadd)) {
+		$("#xtotal").val('0');
+		$("#xtotal_aux").val('0');
+		menError('Error..!', 'El <b>MONTO ADICIONAL</B> no es valido..!');
+	 	$('#xadicional').focus();
+	}else{
+		var xfilas=$('#filas').val();	
+		var xres=0;
+		var xmon=0;
+		
+		for (i=1;i<=parseInt(xfilas);i++){
+			if(document.getElementById('mon_'+i).checked){
+				xres=$('#montito_'+i).val();
+				xmon=xmon + parseFloat(xres);
+			}	
+		}
+		$("#xtotal_aux").val(xmon);//para ver si se cargo boletas
+		xmon=xmon + parseFloat(xadd);
+		$("#xtotal").val(xmon);
+		
+	}
+}
+
+function InicializaNoMarcados(){
+	var xfilas=$('#filas').val();
+	for (i=1;i<=xfilas;i++){
+		if(!document.getElementById('mon_'+i).checked)
+			$('#datos_'+i).val('0');
+	}
+}
+
+//esta funciona carga lista y llama a autocomplete
+function cargaSociosBoletas(){
+		var op_json4=$("#opcion_json").val();
+		$.when(				
+				//carga un JSON 	
+			    $.ajax({
+				    data: {"opcion" : op_json4 },
+				    type: "POST",
+				    dataType: "json",
+				    url: "pagarBoletas109Services.html",
+				})
+				 .done(function( data, textStatus, jqXHR ) {
+					 $("#listaJson").val(JSON.stringify(data));
+				 })
+				 .fail(function( jqXHR, textStatus, errorThrown ) {
+					 alert( "La solicitud a fallado CARGA SOCIO: " +  textStatus);
+				})				 
+		).then(function() {
+				var datitos=$("#listaJson").val();     	
+			 	$('#xsocio').autocomplete({  	 
+			         source : JSON.parse(datitos),
+			          minLength:1,
+			          select: function(event, ui){  
+			              // just in case you want to see the ID
+			              var accountVal = ui.item.value;
+			              console.log(accountVal);
+	
+			              // now set the label in the textbox
+			              var accountText = ui.item.label;
+			              $('#xsocio').val(accountText);
+			              $('#xsocio_2').val(accountText);
+			              $('#xsocio_val').val(accountVal);
+			   			
+			              ejecutaListaBoletas();  //VISUALIZA BOLETAS
+			              
+			              return false;
+			          },
+			          focus: function( event, ui ) {
+			              $( "#xsocio" ).val( ui.item.label );                       
+			              return false;
+			          }
+			     })				 	
+		});	
+}
+
+$(document).ready(function () {
+    	$('#dataTables-example').dataTable(); 
+         
+    	$("#fini").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfechaini});
+    	$("#ffin").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfechafin});
+    	$("#a_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
+		
+         //cuando esta listo el Doc.
+         if ($('select[name=b_dep]').val()==(-1)){
+        	 ejecutaLista();
+         }
+        		 
+        //SI OCURRE CAMBIO EN PARAMETROS
+        $(".paramsChange").change( function() {
+        	ejecutarDetallePagos();
+        }); 
+        
+        //SI OCURRE CAMBIO EN MONTO ADICIONAL
+        $(".changeMonto").change( function() {
+        	sumar(0);
+        });
+        
+         //CARGA LISTA DE SOCIOS
+        $("#xsocio").click( function() {
+        	cargaLista();
+        }); 
+        
+        
+        $("#xsocio").keypress(function(e) {
+            if (e.which == 13) {
+            	var xsocio=$("#xsocio").val();
+                var xsocio_2=$("#xsocio_2").val();
+                var xsocio_val=$("#xsocio_val").val();
+                if (xsocio != xsocio_2){
+                	$("#detalle_lis").hide();
+                }
+            }
+        });
+        
+         //ANULA TECLA ENTER PARA LOS INPUTS
+        $("input").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+         
+                
+      //Butons CANCELAR DE ADD-BOLETAS OAM
+ 		$("#btnCancel_add").click(function(){
+ 			$("#lista-boletas").hide();
+			$('#xsocio').val("");
+			$("#xtotal").val("0");
+			$("#a_obser").val("");
+			$('#myModal').modal('hide');
+ 		});
+ 		
+       //Butons ACEPTAR OAM
+ 		$("#btnAcept_add").click(function(){
+ 			if (validarDatos_add() == 0) {
+	 			if(confirm('¿Seguro de Guardar el Pago ?')){	 				
+		 				//$("#addform").submit(); //envia los datos a destino FORM.
+		 				//$('#myModal').modal('hide');
+	 				InicializaNoMarcados();
+		 			$.when(	
+		 	 				jQuery.post('pagarBoletas109Services.html',$('#addform').serialize(), 	 						
+		 	 						function(data){		 	 					
+		 	 							obj = JSON.parse(data);
+		 								if (obj.error=='0'){
+		 									//repetir(xdatos) 		
+		 									$("#xcodpag").val(obj.codpag);
+		 									menOK('Correcto..!','EL <b>PAGO DE BOLETAS SE GUARDO SATISFACTORIAMENTE</b>..!');
+		 									$('#myModal').modal('hide');	
+
+		 								}else{
+		 									if (obj.error=='1'){
+		 										menError('Error..!', '<b>EL PAGAO YA EXISTE</b>..Revisar.!');
+		 									}else{
+		 										menError('Error..!', 'NO SE PUDO <b>GUARDAR EL PAGO DE BOLETAS</b>..Revisar.!');
+		 									}
+		 							    }
+		 	 						}//end of function (data)		 	 						
+		 	 				) //END of first ajax
+					).then(function() {
+							
+							$("#lista-boletas").hide();
+							$('#xsocio').val("");
+							$("#xtotal").val("0");
+							$("#a_obser").val("");							
+							//jQuery.post('detalle_umedida22.html',{estado:xestado},
+								//	function(data){$('#umedidas-det').html(data);}
+							//);
+							ejecutarDetallePagos();
+
+//							var opRep=$('#opReporte').val();		 			
+//							var xcodpag=$('#xcodpag').val();
+//							alert(xcodpag);
+//				 			window.open('reportePagarBoletas102102.html?opcion='+opRep+'&codpag='+xcodpag,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');							
+//window.open('reportePagarBoletas102102.html?opcion='+opRep+'&codpag='+xcodpag,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+//oam window.open('reportesServicios103.html?opcion='+op+'&fechaini='+fecha1+'&fechafin='+fecha2,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');							
+
+					});	 
+
+	 			}
+ 			}
+        });	
+       
+ 		//Butons MODIFICAR
+ 		$("#btnAcept_mod").click(function(){
+ 			if (validarDatos_mod() == 0) {
+ 					if(confirm('¿Seguro de Modificar Datos del Lugar ?')){ 				
+ 		 				$("#modform").submit(); //envia los datos a destino FORM.
+ 		 				$('#modModal').modal('hide'); 					
+ 					}
+ 			}
+ 		});
+ 		
+ 		//desactivando el doble click
+ 		$('#btnAcept_del').dblclick(function(e){
+ 			e.preventDefault();
+ 		});
+ 		//Butons ELIMINAR
+ 		$("#btnAcept_del").click(function(){
+ 			$("#btnAcept_del").prop('disabled', true);
+ 			$.when(	
+ 	 				jQuery.post('pagarBoletas109Services.html',$('#delform').serialize(), 	 						
+ 	 						function(data){		 	 					
+ 	 							obj = JSON.parse(data);
+ 								if (obj.error=='0'){				
+ 									menOK('Correcto..!','EL <b>PAGO DE BOLETAS SE ELIMINO SATISFACTORIAMENTE</b>..!');
+ 									$('#delModal').modal('hide');	
+ 								}
+ 	 				        } //end of function (data)
+ 	 				) //END of first ajax
+			).then(function() {						
+					ejecutarDetallePagos();							
+			});
+ 		});
+ 		//Butons HABILITAR
+ 		$("#btnAcept_hab").click(function(){
+			$("#habform").submit(); //envia los datos a destino FORM.
+			$('#habModal').modal('hide'); 					
+ 		});
+ 		
+ 		//valida datos para opcion adiciona   //xadicional			
+ 		function validarDatos_add(){
+ 			var sw=0;
+ 			var xfenac=$('#a_fecha').val();
+ 			var xnombre=$('#xsocio').val();
+ 			var xnom2=$.trim(xnombre);
+				if (xnom2 != xnombre) {
+					$('#xsocio').val(xnom2);
+					xnombre=xnom2;
+				}
+		
+			var xnrofac=$('#xnrofac').val();
+			var xnrofac2=$.trim(xnrofac);
+			if (xnrofac != xnrofac2) {
+				$('#xnrofac').val(xnrofac2);
+				xnrofac=xnrofac2;
+			}
+			
+			var xadd=$('#xadicional').val();
+			var xadd2=$.trim(xadd);
+			if (xadd != xadd2) {
+				$('#xadicional').val(xadd2);
+				xadd=xadd2;
+			}
+			
+			var xtotal=$('#xtotal_aux').val();
+			
+ 			if (validaFechaDDMMAAAA(xfenac)){
+ 				if (xnombre != ''){ 					
+ 					var xnombre222=$('#xsocio_2').val();
+ 					if (xnombre == xnombre222){
+ 						if (xnrofac != '') {
+ 							if (!isNaN(xnrofac)) {
+ 								if (xnrofac.length <= 10){
+ 									if (!isNaN(xadd)) {
+													if (parseFloat(xtotal) > 0.1 ){
+														sw=0;
+													}else{
+														sw=1;
+			 	 		 	 	 	 			 		menError('Error..!', '<b>DEBE SELECCIONAR UNA BOLETA </B> mínimamente..!');
+			 	 		 	 	 	 			 		$('#xtotal').focus();
+													}
+ 									}else{
+ 										sw=1;
+ 			 	 	 	 				menError('Error..!', 'El <b>MONTO ADICIONAL NO ES NUMERO</B>..!');
+ 			 	 	 	 				$('#xadicional').focus();
+ 									}
+ 								}else{
+									sw=1;
+		 	 	 	 				menError('Error..!', 'El <b>NUMERO DE FACTURA</B> No debe exceder los 10 caracteres..!');
+		 	 	 	 				$('#xnrofac').focus();
+								}		
+ 							}else{
+ 	 	 						sw=1;
+ 	 	 	 			 		menError('Error..!', 'El <b>NUMERO DE FACTURA NO ES VALIDO </B>revisar..!');
+ 	 	 	 			 		$('#xnrofac').focus();
+ 	 	 					}			
+ 						}else{
+ 	 						sw=1;
+ 	 	 			 		menError('Error..!', 'El <b>NUMERO DE FACTURA NO PUEDE SER VACIO </B>..!');
+ 	 	 			 		$('#xnrofac').focus();
+ 	 					}				
+ 					}else{
+ 						sw=1;
+ 	 			 		menError('Error..!', 'El <b>NOMBRE DEL SOCIO</B> no es valido..!');
+ 	 			 		$('#xsocio').focus();
+ 					} 
+ 										
+ 				}else{
+ 					sw=1;
+ 			 		menError('Error..!', 'El <b>NOMBRE DEL SOCIO</B> esta vacio..!');
+ 			 		$('#xsocio').focus();
+ 				}
+ 			}else{
+ 				sw=1;
+		 		menError('Error..!', 'La <b>FECHA DE TRANSACCION</B> no es Válido..!');
+		 		$('#a_fecha').focus();
+ 			}
+ 			return sw;
+ 		}
+ 		
+ 		//validar solo para opcion modificar
+ 		function validarDatos_mod(){
+ 		 	return 1;
+ 		}
+ 		
+ 		//Butons PRINT
+ 		/*
+ 		$("#print").click(function(){
+ 			window.open('lugarReportes01.html','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });
+        */
+		
+		
+ 		
+    });
+</script>

@@ -1,0 +1,15 @@
+					#set($contador=0)
+					#foreach($reg in $xBoletas)
+						#if ($contador==0)
+							<div class="form-group">
+	                             <label class="control-label col-xs-3">CLiente Factura::</label>
+	                             	<div class="col-xs-6">
+	                             		<input type="text" class="form-control" name="xcliente" id="xcliente" value="${reg.cliente}" placeholder="Datos del Socio.." required>                             		
+	                                </div>
+	                                <div class="col-xs-3">
+		                         		<input type="text" class="form-control" name="xnit" id="xnit" value="${reg.ci}" placeholder="NIT del Socio.." required>
+	                         		</div>
+				            </div>
+				        #end    
+				        #set($contador=10)
+			        #end    

@@ -1,0 +1,158 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <link href="css/estilo1.css" rel="stylesheet">
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+<!--  Modals MODIF MODAL-->
+
+<!--  Modals MODIFICAR ACCESO-->
+<div class="panel-body">
+    <div class="modal fade" id="musuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Acceso</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="claveServices.html" method="POST" id="modusuform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre persona::</label>
+                            
+                            <div class="col-xs-7">
+                            	<input type="hidden" name="Musu_codper" id="Musu_codper">
+                                <input type="text" class="form-control" name="Musu_nombres" id="Musu_nombres" value="${Musu_nombres}" disabled>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-3">Login::</label>
+                            
+                            <div class="col-xs-7">
+                                <input type="text" class="form-control" name="Musu_log" id="Musu_log" value="${Musu_log}" disabled >
+                            </div>
+                        </div>
+                       <div class="form-group">
+                            <label class="control-label col-xs-3">Password:</label>
+                            	<div class="col-xs-7">
+                             	<input type="password" class="form-control" name="Musu_login" id="Musu_login" placeholder="Password">
+                              	</div>
+                       </div>                       
+                       <div class="form-group">
+                            <label class="control-label col-xs-3">Repita Password:</label>
+                            	<div class="col-xs-7">
+                             	<input type="password" class="form-control" name="Musu_login1" id="Musu_login1" placeholder="Password">
+                              	</div>
+                       </div>
+                       
+                        <input type="hidden" name="opcion" value="${opModUsu}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_modacc">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Modals MODIFICAR ACCESO-->
+
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    
+<script>
+
+function generarBoletas(){
+	$('#musuModal').modal('show');
+}
+
+    $(document).ready(function () {
+    	 
+         
+    	generarBoletas();
+         
+  		//Butons ACEPTAR MODIFICAR ACCESO
+ 		$("#btnAcept_modacc").click(function(){
+ 			if (validarDatos_modacc() == 0) {
+ 					if(confirm('¿Seguro de Modificar EL Usuario ?')){ 				
+ 		 				//$("#modform").submit(); //envia los datos a destino FORM.
+ 		 				//$('#modModal').modal('hide'); 		 				
+
+				 	 				jQuery.post('claveServices.html',$('#modusuform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','El <b>PASSWORD SE MODIFICO</b>  satisfactoriamente..!');
+				 									//alert("OK");
+				 									$('#musuModal').modal('hide');			 									
+				 								}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICCAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+						}
+ 					}
+ 		});
+ 		
+ 		//valida datos para opcion modacc			
+ 		function validarDatos_modacc(){
+ 			var sw=0;
+ 			var nombremlogin=$('#Musu_login').val();
+ 			var nombremlogin1=$('#Musu_login1').val();
+				
+ 			if (nombremlogin != ''){
+	 			if ((nombremlogin.length >= 6)){
+	 				if (nombremlogin1 != ''){
+	 		 			if ((nombremlogin1.length >= 6)){
+	 		 				if (nombremlogin != nombremlogin1){
+	 		 					menError('Error..!', 'Los PASSWORD </B>SON DIFERENTES..!</B>');
+	 			 				$('#Musu_login1').focus();	 				
+	 			 				sw=1;
+	 		 				}else{
+	 		 					sw=0; //cuando todo esta OK
+	 		 				} 			
+	 		 			}else{
+	 		 				sw=1;
+	 		 				menError('Error..!', 'El </B>PASSWORD DEBE TENER AL MENOS 6 CHAR..!</B>');
+	 		 				$('#Musu_login1').focus();
+	 		 			}
+	 	 			}else{
+	 	 				sw=1;
+	 	 				menError('Error..!', 'El Dato </B>PASSWORD ESTA VACIO..!</B>');
+	 	 				$('#Musu_login1').focus();
+	 	 			}	
+	 			}else{
+	 				sw=1;
+	 				menError('Error..!', 'El </B>PASSWORD DEBE TENER AL MENOS 6 CHAR..!</B>');
+	 				$('#Musu_login').focus();
+	 			}
+ 			}else{
+ 				sw=1;
+ 				menError('Error..!', 'El Dato </B>PASSWORD ESTA VACIO..!</B>');
+ 				$('#Musu_login').focus();
+ 			}
+ 			
+ 			return sw;
+ 		}
+ 		
+ 		
+    });
+</script>

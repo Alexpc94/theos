@@ -1,0 +1,5 @@
+<div>
+			<a  href="javascript:void(0)" onclick="javascript:adicionarTipo('${xnivel}','${xcodpadre}','${xnompadre}')">
+	        	<img src="images/img-sis/add_2.png" style="width:20px;"  class="pull-right" id="img1_${reg.codpadre}_${xcon}">
+	        </a>
+</div>	      

@@ -1,0 +1,3803 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <link href="css/estilo1.css" rel="stylesheet">
+ 
+   <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+   <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+
+  <script src="js/tools_oam.js"></script>
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+  <script>
+      $( function() {
+          $( "#a_fnac" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+          });
+          $( "#a_fing" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+          $( "#ab_fnac" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+          });
+          $( "#ab_fing" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+          $( "#ae_fest" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+           $( "#a_fant" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+          });
+          $( "#me_fest" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });     
+          $( "#m_fechanac" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+           $( "#m_fechaing" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+          $( "#mb_fechanac" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+           $( "#mb_fechaing" ).datepicker({
+              changeMonth: true,
+              changeYear: true
+          });
+           $( "#m_fant" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+          });
+	      $( "#activo_fecha" ).datepicker({
+	           changeMonth: true,
+	           changeYear: true
+	      });
+	      $( "#desactivo_fecha" ).datepicker({
+	           changeMonth: true,
+	           changeYear: true
+	      });	      
+      });
+  </script>
+    
+           <!-- /. ROW  -->              
+            <div  class="row">
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Gestión Socios</p>     
+                                </div>                                
+                                <fieldset class="col-md-12" >        
+	                                    <legend>Parámetros::</legend>
+	                                    #if (${PA}=="A")
+	                                    <button class="pull-right" data-toggle="modal" id="myModal-btn">
+	                                        <img src="images/img-sis/add_2.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                    #else
+	                                    <button class="pull-right" data-toggle="modal">
+	                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                	#end
+	                                    <!-- BOTON TO PRINT -->
+	                                    <button class="pull-right" id="print">
+	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                    <button class="pull-right" id="print1">
+	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                	
+	                                   
+<!-- 
+	                                    <div class="col-md-4 par-activos pull-right">
+	                                    	<label><input type="radio" name="estado" value="1" class="paramsChange" #if($estado== 1) checked #end>Habilitado</label>
+									      	<label><input type="radio" name="estado" value="0" class="paramsChange" #if($estado== 0) checked #end>Deshabilitado</label>
+									      	<label><input type="radio" name="estado" value="2" class="paramsChange" #if($estado== 2) checked #end>Todos</label>
+									    </div>
+-->
+									    <div class="col-md-6 par-activos pull-right">
+	                                    	<label><input type="radio" name="activos" value="1" class="paramsChange" #if($activos== 1) checked #end>HABILITADOS &nbsp;&nbsp;&nbsp;</label>
+									      	<label><input type="radio" name="activos" value="0" class="paramsChange" #if($activos== 0) checked #end>DESHABILITADOS &nbsp;&nbsp;&nbsp;</label>
+									      	<label><input type="radio" name="activos" value="2" class="paramsChange" #if($activos== 2) checked #end>TODOS</label>
+									    </div>
+									    
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                        <div >
+                            <div class="espacio-small"></div>
+                            <div class="table-responsive">
+ <div id="lisPersonal-det">
+                                <table  class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center ancho-icono">#</th>
+                                            <th class="col-sm-0 text-center" title="CODIGO DEL SOCIO">Cod.</th>
+                                            <th class="col-sm-0">CI</th>
+                                            <th class="col-sm-0">Nombres</th>
+                                            <th class="col-sm-0" title="TIPO de Socio">T.Socio</th>
+                                            <th class="col-sm-0" title="Género">Gen</th>
+                                            <th class="col-sm-0">E.Civil</th>
+                                            <th class="col-sm-0" title="HABILITADO/DESHABILITADO Socio">EST</th>
+                                            <th class="col-sm-0" title="MODIFICAR Socio">MOD</th>
+<!--                                            
+                                            <th class="col-sm-0" title="ELIMINAR Socio">DEL</th>
+                                            <th class="col-sm-0" title="Habilitar Socio">HAB</th>
+-->                                            
+                                            <th class="col-sm-0" title="Trabajo del Socio">TRAB</th>
+                                            <th class="col-sm-0" title="Domicilio del Socio">DOM</th>
+                                            <th class="col-sm-0" title="MODIFICAR Datos Factura Socio">FAC</th>
+                                            <th class="col-sm-0" title="Estado del Socio">EST</th>
+                                            <th class="col-sm-0" title="Beneficiarios del Socio">BEN</th>
+                                            <th class="col-sm-0" title="Socio Activo o Inactivo">ACT</th>                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>     
+                                    	#set($con=1)
+                                    	#foreach($reg in $xPersonal)	                                   
+                                         <tr class="gradeU">
+                                            <td class="text-center">${con}</td>
+                                            <td><b>${reg.codigoper}<b> </td>
+                                             <td>${reg.getDatosCedula()} </td>
+                                            <td>${reg.getDatosPersona()} </td>
+                                            <td><span id="est2_${reg.codper}">${reg.nomsocio}</span> <input type="HIDDEN" id="est_${reg.codper}" value="${reg.nomsocio}"></td>
+                                            <td>${reg.getDatosGenero()}</td>
+                                             <td>${reg.getDatosEcivil()}</td>
+                                            <td class="text-center ancho-icono">
+                                            	#if (${reg.activo}==1)
+                                            		<img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
+                                            	#else	
+                                            		<img src="images/img-sis/hand_down.png" style="width:25px;">
+                                            	#end
+                                            </td>
+                                           	<td class="text-center ancho-icono">
+	                                           	#if (${reg.estado}==1)
+	                                           		#if (${PM}=="M")
+		                                           		<a  href="javascript:void(0)"  onclick="javascript:modificarPersona('${reg.codper}','${reg.nombre}','${reg.ap}','${reg.getDatosAm()}','${reg.getDatosEmail()}','${reg.codes}','${reg.cedula}','${reg.ecivil}','${reg.genero}','${reg.getFecharegFormat()}','${reg.getFechaNregFormat()}','${reg.codigoper}')">
+		                                           			<img src="images/img-sis/mod.png" style="width:25px;" data-toggle="tooltip" title="Tarija  <b>javascript:eliminarPersona</b>('${reg.codper}','${reg.getDatosPersona()}')">
+		                                				</a>
+	                                				#else
+		                                				<img src="images/img-sis/nomod.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                			#end
+	                                			#else
+	                                					<img src="images/img-sis/nomod.png" style="width:25px;">
+	                                			#end            
+                                			</td>
+<!--	                                			
+                                            <td class="text-center ancho-icono">
+                                            #if (${reg.estado}==1)
+                                            	#if (${PB}=="B")
+                                            	<a  href="javascript:void(0)" onclick="javascript:eliminarPersona('${reg.codper}','${reg.getDatosPersona()}')">
+                                            		<img src="images/img-sis/del.png" style="width:25px;" title="Eliminar Personal..">
+                                            	</a>
+                                            	#else
+		                                			<img src="images/img-sis/nodel.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                		#end
+		                                    #else
+	                                					<img src="images/img-sis/nodel.png" style="width:25px;" >
+	                                		#end     	
+                                            </td>
+                                          <td class="text-center ancho-icono">
+                                            #if (${reg.estado}==0)
+                                            	#if (${PH}=="H")
+                                            	<a  href="javascript:void(0)" onclick="javascript:habilitarPersona('${reg.codper}','${reg.getDatosPersona()}')">
+                                            		<img src="images/img-sis/undo.png" style="width:25px;" title="Habilitar Personal..">
+                                            	</a>
+                                            	#else
+		                                			<img src="images/img-sis/noundo.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                		#end
+		                                    #else
+	                                					<img src="images/img-sis/noundo.png" style="width:25px;" >
+	                                		#end     	
+                                            </td>
+-->                                            
+                                            <td class="text-center ancho-icono">
+                                           		<a  href="javascript:void(0)" onclick="javascript:AsignarTrabPersona('${reg.codper}')">
+                                            		<img src="images/img-sis/trabajo.jpg" style="width:25px;" title="Asignar Trabajo a Personal..">
+                                            	</a> 	
+                                            </td>
+                                            
+                                            <td class="text-center ancho-icono">
+                                           		<a  href="javascript:void(0)" onclick="javascript:AsignarDomPersona('${reg.codper}')">
+                                            		<img src="images/img-sis/domicilio.jpg" style="width:25px;"  title="Asignar Domicilio a Personal.." >
+                                            	</a> 	
+                                            </td>
+                                            <td class="text-center ancho-icono">
+	                                           	#if (${reg.estado}==1)
+	                                           		#if (${PM}=="M")
+		                                           		<a  href="javascript:void(0)" onclick="javascript:modificarDatosfac('${reg.codper}','${reg.getDatoscicli()}','${reg.cliente}')">
+		                                           			<img src="images/img-sis/mod.png" style="width:25px;" title="Modificar Datos Factura..">
+		                                				</a>
+	                                				#else
+		                                				<img src="images/img-sis/nomod.png" style="width:25px;" title="SIN PRIVILEGIOS..">
+		                                			#end
+	                                			#else
+	                                					<img src="images/img-sis/nomod.png" style="width:25px;">
+	                                			#end            
+                                			</td>	
+                                            <td class="text-center ancho-icono">
+                                            	<a  href="javascript:void(0)" onclick="javascript:llamarEstado('${reg.codper}','${reg.getDatosPersona()}','${reg.nomsocio}','${reg.codigoper}')">
+                                            		<input type="radio" name="estado_sel" />
+                                            	</A>
+                                            </td>
+                                        	<td class="text-center ancho-icono">
+                                            	<a  href="javascript:void(0)" onclick="javascript:llamarBeneficiario('${reg.codper}','${reg.getDatosPersona()}','${reg.codigoper}')">
+                                            		<input type="radio" name="beneficiario_sel" />
+                                            	</A>
+                                            </td>
+                                            <td class="text-center ancho-icono">
+	                                            #if (${reg.estado}==1)
+	                                            	#if (${reg.activo}==1)                                            		
+		                                            	<a  href="javascript:void(0)" onclick="javascript:desactivarPersona('${reg.codper}','${reg.getDatosPersona()}')">
+	                                            			<img src="images/img-sis/activo.gif" id="btn-activo" title="Socio Activo" style="width:18px;">
+			                                        	</a>
+	                                            	#else	
+		                                            	<a  href="javascript:void(0)" onclick="javascript:activarPersona('${reg.codper}','${reg.getDatosPersona()}','${reg.nomsocio}')">
+			                                    			<img src="images/img-sis/inactivo.png" id="btn-activo" title="Socio NO Activo" style="width:18px;">
+			                                        	</a>
+			                                        #end
+			                                    #else
+		                                    		<img src="images/img-sis/uninactivo.png" id="btn-activo" title="Socio NO Activo" style="width:18px;">
+			                                    #end
+                                            </td>
+                                        </tr>                        
+                                        #set($con=$con + 1)
+                                       #end
+                                    </tbody>
+                                </table>
+</div>                                                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+                <input type="HIDDEN" id="mensaje" value="${mensaje}">
+                <input type="HIDDEN" id="menTexto" value="${menTexto}">
+                               
+            </div>
+<div id="detalle-personal">
+
+</div>
+ <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
+<!--  Modals-->
+<!--  Modals Adicionar-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Adicionar Socio</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="addform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Ci::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_ci" id="a_ci" placeholder="Ci.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Código Acción::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_codigoper" id="a_codigoper" placeholder="Código Persona.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            	<span style="color:red;font-size:18px;">*</span>Nombre Persona::
+                            </label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_nombre" id="a_nombre" placeholder="Nombre.." required>
+                            </div>
+                            
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            	<span style="color:red;font-size:18px;">*</span>Apellido Pat. Persona::
+                            </label>
+                           <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_ap" id="a_ap" placeholder="Ap. Paterno.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            	<span style="color:red;font-size:18px;">*</span>Apellido Mat. Persona::
+                            </label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_am" id="a_am" placeholder="Ap. Materno.." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            	<span style="color:red;font-size:18px;">*</span>Fecha Nac.::
+                            </label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_fnac" id="a_fnac" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            	<span style="color:red;font-size:18px;">*</span>Fecha Ingreso.::
+                            </label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_fing" id="a_fing" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        
+                                      
+                   		<div class="form-group">
+                            <label class="control-label col-xs-4">Email::</label>
+                            <div class="col-xs-6">
+                                <input type="email" class="form-control" name="a_email" id="a_email" placeholder="Email.." required>
+                        	</div>
+                        </div>
+                   		
+			            <div class="form-group">
+                        	<label class="control-label col-xs-4">
+                        		<span style="color:red;font-size:18px;">*</span>E. Civil:
+                        	</label>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="a_ecivilRadios" value="C"> Casado
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="a_ecivilRadios" value="S" checked> Soltero
+                        			</label>
+                        		</div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="control-label col-xs-4">
+                        		<span style="color:red;font-size:18px;">*</span>Genero:
+                        	</label>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="a_generoRadios" value="M"> Masculino
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="a_generoRadios" value="F" checked> Femenino
+                        			</label>
+                        		</div>
+                        </div>
+<!--                        
+                        <div class="form-group">
+	                    	<label class="control-label col-xs-4">Cónyuge:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_conyuge" value="1"> SI
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_conyuge" value="0" > NO
+	                    			</label>
+	                    		</div>
+	                    </div>
+-->	                    
+                        <input type="HIDDEN" name="opcion" value="${opAdd}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_add">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-->
+
+<!--  Modals MODIF MODAL-->
+<div class="panel-body">
+    <div class="modal fade" id="modModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Socio</h4>
+                </div>
+                <div class="modal-body">
+                     <form class="form-horizontal" action="personaServices.html" method="POST" id="modform">
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">Ci::</label>
+                            <div class="col-xs-6">
+                            	<input type="hidden" name="m_codper" id="m_codper">
+                                <input type="text" class="form-control" name="m_ci" id="m_ci" placeholder="Ci.." required>
+                            </div>                            
+                        </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-4">
+	                        <span style="color:red;font-size:18px;">*</span>Código Acción::</label>
+	                        <div class="col-xs-6">
+	                            <input type="text" class="form-control" name="m_codigoper" id="m_codigoper" placeholder="Código Persona.." required>
+	                        </div>
+	                        
+	                    </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Nombre Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_nombre" id="m_nombre" placeholder="Nombre.." required>
+                            </div>
+                            
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Apellido Pat. Persona::</label>
+                           <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_ap" id="m_ap" placeholder="Ap. Paterno.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Apellido Mat. Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_am" id="m_am" placeholder="Ap. Materno.." required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Fecha Nac.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_fechanac" id="m_fechanac" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Fecha Ingreso.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_fechaing" id="m_fechaing" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                                                
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Email::</label>
+                            <div class="col-xs-6">
+                                <input type="email" class="form-control" name="m_email" id="m_email" placeholder="Email.." required>
+                        	</div>
+                        </div>
+                   		
+			            <div class="form-group">
+                        	<label class="control-label col-xs-4">
+                        	<span style="color:red;font-size:18px;">*</span>E. Civil:</label>
+                        		
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="m_ecivil" id="m_cas" value="C"> Casado
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="m_ecivil" id="m_sol" value="S"> Soltero
+                        			</label>
+                        		</div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="control-label col-xs-4">
+                        	<span style="color:red;font-size:18px;">*</span>Genero:</label>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="m_genero" id="m_mas" value="M" > Masculino
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="m_genero" id="m_fem" value="F" > Femenino
+                        			</label>
+                        		</div>
+                        </div>
+                        <input type="hidden" name="opcion" value="${opMod}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_mod">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MODIFICAR-MODAL-->
+
+<!--  Modals ELIMINAR-->
+<div class="panel-body">
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de Eliminar Socio?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="delform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Persona::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="d_codper" id="d_codper">
+                                <input type="text" class="form-control" name="d_nombres" id="d_nombres" disabled>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opDel}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_del">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR-->
+
+<!--  Modals DESACTIVAR-->
+<div class="panel-body">
+    <div class="modal fade" id="desactivoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">DESACTIVAR SOCIO?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="desactivoform">
+	                    <div class="form-group">
+		                    <label class="control-label col-xs-3">Fecha::</label>
+		                    <div class="col-xs-4">
+		                        <input type="text" class="form-control" name="desactivo_fecha" id="desactivo_fecha" placeholder="dd/mm/aaaa" required>
+		                    </div>
+		                </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Socio::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="act_b_codper" id="act_b_codper">
+                                <input type="text" class="form-control" name="act_b_nombres" id="act_b_nombres" disabled>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opDesactivo}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_desactivo">DESACTIVAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals DESACTIVO-->
+
+<!--  Modals ACTIVAR-->
+<div class="panel-body">
+    <div class="modal fade" id="activoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">ACTIVAR SOCIO?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="activoform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Persona::</label>
+                            <div class="col-xs-6">
+                            	<input type="hidden" name="act_a_codper" id="act_a_codper">
+                                <input type="text" class="form-control" name="act_a_nombres" id="act_a_nombres" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Fecha Activación::</label>
+	                        <div class="col-xs-4">
+	                            <input type="text" class="form-control" name="activo_fecha" id="activo_fecha" placeholder="dd/mm/aaaa" required>
+	                        </div>
+	                    </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Activar desde:::</label>
+	                          <div class="col-xs-6">                             	
+	                           	<select class="form-control" name="act_a_mes" id="act_a_mes">
+									<option value="1" > ENERO </option>
+									<option value="2" > FEBRERO </option>
+									<option value="3" > MARZO </option>
+									<option value="4" > ABRIL </option>
+									<option value="5" > MAYO </option>
+									<option value="6" > JUNIO </option>
+									<option value="7" > JULIO </option>
+									<option value="8" > AGOSTO </option>
+									<option value="9" > SEPTIEMBRE </option>
+									<option value="10" > OCTUBRE </option>
+									<option value="11" > NOVIEMBRE </option>
+									<option value="12" > DICIEMBRE </option>
+								</select>
+	                          </div>
+			            </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-3">Año::</label>
+	                          <div class="col-xs-3">                             	
+	                          <input type="text" class="form-control" name="act_a_anio" id="act_a_anio" placeholder="ingrese año">
+	                          </div>
+			            </div>
+                        <input type="hidden" name="opcion" value="${opActivo}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_activo">ACTIVAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ACTIVAR-->
+
+<!--  Modals ELIMINAR-->
+<div class="panel-body">
+    <div class="modal fade" id="habModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de Habilitar Socio?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="habform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Persona::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="h_codper" id="h_codper">
+                                <input type="text" class="form-control" name="h_nombres" id="h_nombres" disabled>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opHab}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_hab">Habilitar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR-->
+
+<!--  Modals ADICIONAR ACCESO-->
+<div class="panel-body">
+    <div class="modal fade" id="usuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Asignar Acceso</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="addusuform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre persona::</label>
+                            
+                            <div class="col-xs-7">
+                            	<input type="hidden" name="Usu_codper" id="Usu_codper">
+                                <input type="text" class="form-control" name="Usu_nombres" id="Usu_nombres" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Login::</label>
+                            
+                            <div class="col-xs-7">
+                                <input type="text" class="form-control" name="Usu_log" id="Usu_log" placeholder="Login" >
+                            </div>
+                        </div>
+                       <div class="form-group">
+                            <label class="control-label col-xs-3">Password:</label>
+                            	<div class="col-xs-7">
+                             	<input type="password" class="form-control" name="Usu_login" id="Usu_login" placeholder="Password">
+                              	</div>
+                       </div>
+                       
+                       <div class="form-group">
+                            <label class="control-label col-xs-3">Password:</label>
+                            	<div class="col-xs-7">
+                             	<input type="password" class="form-control" name="Usu_login1" id="Usu_login1" placeholder="Password">
+                              	</div>
+                       </div>
+                      
+                       
+                        <input type="hidden" name="opcion" value="${opAddusu}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_addacc">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ADICIONAR ACCESO-->
+
+
+<!--  Modals MODIFICAR ACCESO-->
+<div class="panel-body">
+    <div class="modal fade" id="musuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Acceso</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="modusuform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre persona::</label>
+                            
+                            <div class="col-xs-7">
+                            	<input type="hidden" name="Musu_codper" id="Musu_codper">
+                                <input type="text" class="form-control" name="Musu_nombres" id="Musu_nombres" disabled>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-3">Login::</label>
+                            
+                            <div class="col-xs-7">
+                                <input type="text" class="form-control" name="Musu_log" id="Musu_log" disabled >
+                            </div>
+                        </div>
+                       <div class="form-group">
+                            <label class="control-label col-xs-3">Password:</label>
+                            	<div class="col-xs-7">
+                             	<input type="password" class="form-control" name="Musu_login" id="Musu_login" placeholder="Password">
+                              	</div>
+                       </div>                       
+                       <div class="form-group">
+                            <label class="control-label col-xs-3">Repita Password:</label>
+                            	<div class="col-xs-7">
+                             	<input type="password" class="form-control" name="Musu_login1" id="Musu_login1" placeholder="Password">
+                              	</div>
+                       </div>
+                       
+                        <input type="hidden" name="opcion" value="${opModUsu}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_modacc">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Modals MODIFICAR ACCESO-->
+
+<!--  Modals Adicionar domicilio-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-add-dom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Adicionar Domicilio</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="addformD">
+                        <input type="hidden" name="xcodper-add-dom" id="xcodper-add-dom">
+			           
+			            <div class="form-group">
+                             <label class="control-label col-xs-4">
+                             <span style="color:red;font-size:18px;">*</span>Lugar::</label>
+                             	<div class="col-xs-6">
+                                <select class="form-control" name="xcodl-add-dom" id="xcodl-add-dom">
+                                	#foreach($lugar in $xlugar)
+									<option value="$lugar.codl" >$lugar.nombre</option>
+									#end
+								</select>
+                                </div>
+			            </div>
+			            <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Zona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xzona-add-dom" id="xzona-add-dom"  placeholder="Zona..">                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Av./calle::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xcalle-add-dom" id="xcalle-add-dom" placeholder="Calle.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Nro::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xnumero-add-dom" id="xnumero-add-dom" placeholder="Numero.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Edificio::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xedificio-add-dom" id="xedificio-add-dom" placeholder="Edificio.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Bloque::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xbloque-add-dom" id="xbloque-add-dom" placeholder="Bloque.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Telefono::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xtelefono-add-dom" id="xtelefono-add-dom" placeholder="Telefono.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Celular::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xcelular-add-dom" id="xcelular-add-dom" placeholder="Celular" required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Email::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xemail-add-dom" id="xemail-add-dom" placeholder="Email.." required>
+                            </div> 
+                        </div>
+                        <input type="hidden" name="opcion" value="${opAddD}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_addD">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals Adicionar Domicilio-->
+
+<!--  Modals Modificar domicilio-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-mod-dom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Domicilio</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="modformD">
+                        <input type="hidden" name="xcodper-mod-dom" id="xcodper-mod-dom">
+			           
+			            <div class="form-group">
+                             <label class="control-label col-xs-4">
+                             <span style="color:red;font-size:18px;">*</span>Lugar::</label>
+                             	<div class="col-xs-6">
+                                <select class="form-control" name="xcodl-mod-dom" id="xcodl-mod-dom">
+                                	#foreach($lugar in $xlugar)
+									<option value="$lugar.codl" >$lugar.nombre</option>
+									#end
+								</select>
+                                </div>
+			            </div>
+			            <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Zona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xzona-mod-dom" id="xzona-mod-dom"  placeholder="Zona..">                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Av./calle::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xcalle-mod-dom" id="xcalle-mod-dom" placeholder="Calle.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Nro::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xnumero-mod-dom" id="xnumero-mod-dom" placeholder="Numero.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Edificio::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xedificio-mod-dom" id="xedificio-mod-dom" placeholder="Edificio.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Bloque::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xbloque-mod-dom" id="xbloque-mod-dom" placeholder="Bloque.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Telefono::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xtelefono-mod-dom" id="xtelefono-mod-dom" placeholder="Telefono.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Celular::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xcelular-mod-dom" id="xcelular-mod-dom" placeholder="Celular" required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Email::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xemail-mod-dom" id="xemail-mod-dom" placeholder="Email.." required>
+                            </div> 
+                        </div>
+                        <input type="hidden" name="opcion" id="opcion" value="${opModD}" >
+                        <input type="hidden"  id="opcionDel" value="${opDelD}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_delDom">Eliminar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_modDom">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals Modificar Domicilio-->
+
+
+
+<!--  Modals Adicionar Trabajo-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-add-trab" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Adicionar Trabajo</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="addformT">
+                        <input type="hidden" name="xcodper-add-trab" id="xcodper-add-trab">
+			           <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Empresa::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xempresa-add-trab" id="xempresa-add-trab"  placeholder="Empresa..">                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Cargo::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xcargo-add-trab" id="xcargo-add-trab"  placeholder="Cargo..">                                
+                            </div>
+                        </div>
+                        
+			            <div class="form-group">
+                             <label class="control-label col-xs-4">
+                             <span style="color:red;font-size:18px;">*</span>Lugar::</label>
+                             	<div class="col-xs-6">
+                                <select class="form-control" name="xcodl-add-trab" id="xcodl-add-trab">
+                                	#foreach($lugar in $xlugar)
+									<option value="$lugar.codl" >$lugar.nombre</option>
+									#end
+								</select>
+                                </div>
+			            </div>
+			            <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Zona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xzona-add-trab" id="xzona-add-trab"  placeholder="Zona..">                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Av./calle::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xcalle-add-trab" id="xcalle-add-trab" placeholder="Calle.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Nro::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xnumero-add-trab" id="xnumero-add-trab" placeholder="Numero.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Edificio::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xedificio-add-trab" id="xedificio-add-trab" placeholder="Edificio.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Bloque::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xbloque-add-trab" id="xbloque-add-trab" placeholder="Bloque.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Telefono::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xtelefono-add-trab" id="xtelefono-add-trab" placeholder="Telefono.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Celular::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xcelular-add-trab" id="xcelular-add-trab" placeholder="Celular" required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Email::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xemail-add-trab" id="xemail-add-trab" placeholder="Email.." required>
+                            </div> 
+                        </div>
+                        <input type="hidden" name="opcion" value="${opAddT}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_addT">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals Adicionar Trabajo-->
+
+<!--  Modals Modificar Trabajo-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-mod-trab" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Trabajo</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="modformT">
+                        <input type="hidden" name="xcodper-mod-trab" id="xcodper-mod-trab">
+			           <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Empresa::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xempresa-mod-trab" id="xempresa-mod-trab"  placeholder="Empresa..">                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Cargo::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xcargo-mod-trab" id="xcargo-mod-trab"  placeholder="Cargo..">                                
+                            </div>
+                        </div>
+                       
+			            <div class="form-group">
+                             <label class="control-label col-xs-4">
+                             <span style="color:red;font-size:18px;">*</span>Lugar::</label>
+                             	<div class="col-xs-6">
+                                <select class="form-control" name="xcodl-mod-trab" id="xcodl-mod-trab">
+                                	#foreach($lugar in $xlugar)
+									<option value="$lugar.codl" >$lugar.nombre</option>
+									#end
+								</select>
+                                </div>
+			            </div>
+			            <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Zona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xzona-mod-trab" id="xzona-mod-trab"  placeholder="Zona..">                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Av./calle::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xcalle-mod-trab" id="xcalle-mod-trab" placeholder="Calle.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Nro::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xnumero-mod-trab" id="xnumero-mod-trab" placeholder="Numero.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Edificio::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xedificio-mod-trab" id="xedificio-mod-trab" placeholder="Edificio.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Bloque::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xbloque-mod-trab" id="xbloque-mod-trab" placeholder="Bloque.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Telefono::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xtelefono-mod-trab" id="xtelefono-mod-trab" placeholder="Telefono.." required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Celular::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xcelular-mod-trab" id="xcelular-mod-trab" placeholder="Celular" required>
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Email::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="xemail-mod-trab" id="xemail-mod-trab" placeholder="Email.." required>
+                            </div> 
+                        </div>
+                        <input type="hidden" name="opcion" id="opcion1" value="${opModT}" >
+                        <input type="hidden"  id="opcionDelT" value="${opDelT}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_delTrab">Eliminar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_modTrab">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals Modificar Trabajo-->
+
+<!--  Modals Adicionar estado   -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-estados" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Asignar estado</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="addformE">
+		            <div class="form-group">
+	                    <label class="control-label col-xs-4">Fecha::</label>
+	                    <div class="col-xs-6">
+	                        <input type="text" class="form-control" name="ae_fest" id="ae_fest" placeholder="dd/mm/aaaa" required>
+	                    </div>
+	                </div>                        
+                       <input type="hidden" name="Ae_codper" id="Ae_codper" value="0">
+                       <div class="form-group">
+                             <label class="control-label col-xs-4">Estados::</label>
+                             	<div class="col-xs-6">
+<div id="listaestados">                             	
+
+</div>
+                                </div>
+			            </div> 
+
+                        <!-- ALEX -->                        
+<div id="a_permiso">                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Mes Inicio::</label>
+                            <div class="col-xs-4">
+	                            <select class="form-control" name="Ae_mesini" id="Ae_mesini">
+		                        	<option value="1">ENERO</option>
+		                        	<option value="2">FEBRERO</option>
+		                        	<option value="3">MARZO</option>
+		                        	<option value="4">ABRIL</option>
+		                        	<option value="5">MAYO</option>
+		                        	<option value="6">JUNIO</option>
+		                        	<option value="7">JULIO</option>
+		                        	<option value="8">AGOSTO</option>
+		                        	<option value="9">SEPTIEMBRE</option>
+		                        	<option value="10">OCTUBRE</option>
+		                        	<option value="11">NOVIEMBRE</option>
+		                        	<option value="12">DICIEMBRE</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-4">AÑO Inicio::</label>
+	                        <div class="col-xs-4">
+	                            <select class="form-control" name="Ae_anioini" id="Ae_anioini">
+		                        	<option value="2018">2018</option>
+		                        	<option value="2019">2019</option>
+		                        	<option value="2020">2020</option>
+		                        	<option value="2021">2021</option>
+		                        	<option value="2022">2022</option>
+		                        	<option value="2023">2023</option>
+		                        	<option value="2024">2024</option>
+		                        	<option value="2025">2025</option>
+								</select>
+	                        </div>
+	                    </div>
+	                 <div class="form-group">
+                        <label class="control-label col-xs-4">Mes FIN::</label>
+                        <div class="col-xs-4">
+                            <select class="form-control" name="Ae_mesfin" id="Ae_mesfin">
+	                        	<option value="1">ENERO</option>
+	                        	<option value="2">FEBREO</option>
+	                        	<option value="3">MARZO</option>
+	                        	<option value="4">ABRIL</option>
+	                        	<option value="5">MAYO</option>
+	                        	<option value="6">JUNIO</option>
+	                        	<option value="7">JULIO</option>
+	                        	<option value="8">AGOSTO</option>
+	                        	<option value="9">SEPTIEMBRE</option>
+	                        	<option value="10">OCTUBRE</option>
+	                        	<option value="11">NOVIEMBRE</option>
+	                        	<option value="12">DICIEMBRE</option>
+							</select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4">AÑO FIN::</label>
+                        <div class="col-xs-4">
+                            <select class="form-control" name="Ae_aniofin" id="Ae_aniofin">
+	                        	<option value="2018">2018</option>
+	                        	<option value="2019">2019</option>
+	                        	<option value="2020">2020L</option>
+	                        	<option value="2021">2021</option>
+	                        	<option value="2022">2022</option>
+	                        	<option value="2023">2023</option>
+	                        	<option value="2024">2024</option>
+	                        	<option value="2025">2025</option>
+							</select>
+                        </div>
+                    </div>
+                                                
+</div>                        
+                        <input type="HIDDEN" name="opcion" value="${opAddE}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_addestado">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL estado-->
+
+<!--  Modals Modificar estado    -->
+<div class="panel-body">
+    <div class="modal fade" id="modModal-estado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar estado</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="modformE">
+                        
+                       <input type="hidden" name="me_codper" id="me_codper">
+                       <input type="hidden" name="me_codestado" id="me_codestado">
+                      
+                       <div class="form-group">
+                            <label class="control-label col-xs-4">Fecha::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="me_fest" id="me_fest" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        
+                       <div class="form-group">
+                             <label class="control-label col-xs-4">Estados::</label>
+                             	<div class="col-xs-6">
+<div id="listaestados_mod">                             	
+
+</div>
+                                </div>
+			            </div> 
+			            
+<div id="me_permiso">                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Mes Inicio::</label>
+                            <div class="col-xs-4">
+	                            <select class="form-control" name="me_mesini" id="me_mesini">
+		                        	<option value="1">ENERO</option>
+		                        	<option value="2">FEBRERO</option>
+		                        	<option value="3">MARZO</option>
+		                        	<option value="4">ABRIL</option>
+		                        	<option value="5">MAYO</option>
+		                        	<option value="6">JUNIO</option>
+		                        	<option value="7">JULIO</option>
+		                        	<option value="8">AGOSTO</option>
+		                        	<option value="9">SEPTIEMBRE</option>
+		                        	<option value="10">OCTUBRE</option>
+		                        	<option value="11">NOVIEMBRE</option>
+		                        	<option value="12">DICIEMBRE</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+	                        <label class="control-label col-xs-4">AÑO Inicio::</label>
+	                        <div class="col-xs-4">
+	                            <select class="form-control" name="me_anioini" id="me_anioini">
+		                        	<option value="2017">2017</option>
+		                        	<option value="2018">2018</option>
+		                        	<option value="2019">2019</option>
+		                        	<option value="2020">2020</option>
+		                        	<option value="2021">2021</option>
+		                        	<option value="2022">2022</option>
+		                        	<option value="2023">2023</option>
+		                        	<option value="2024">2024</option>
+		                        	<option value="2025">2025</option>
+								</select>
+	                        </div>
+	                    </div>
+	                 <div class="form-group">
+                        <label class="control-label col-xs-4">Mes FIN::</label>
+                        <div class="col-xs-4">
+                            <select class="form-control" name="me_mesfin" id="me_mesfin">
+	                        	<option value="1">ENERO</option>
+	                        	<option value="2">FEBREO</option>
+	                        	<option value="3">MARZO</option>
+	                        	<option value="4">ABRIL</option>
+	                        	<option value="5">MAYO</option>
+	                        	<option value="6">JUNIO</option>
+	                        	<option value="7">JULIO</option>
+	                        	<option value="8">AGOSTO</option>
+	                        	<option value="9">SEPTIEMBRE</option>
+	                        	<option value="10">OCTUBRE</option>
+	                        	<option value="11">NOVIEMBRE</option>
+	                        	<option value="12">DICIEMBRE</option>
+							</select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4">AÑO FIN::</label>
+                        <div class="col-xs-4">
+                            <select class="form-control" name="me_aniofin" id="me_aniofin">
+	                        	<option value="2017">2017</option>
+	                        	<option value="2018">2018</option>
+	                        	<option value="2019">2019</option>
+	                        	<option value="2020">2020</option>
+	                        	<option value="2021">2021</option>
+	                        	<option value="2022">2022</option>
+	                        	<option value="2023">2023</option>
+	                        	<option value="2024">2024</option>
+	                        	<option value="2025">2025</option>
+							</select>
+                        </div>
+                    </div>
+                                                
+</div>                        
+                        
+                        <input type="HIDDEN" name="opcion" value="${opModE}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_modestado">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL modificar estado-->
+
+
+<!--  Modals ELIMINAR BENEFICIARIO      -->
+<div class="panel-body">
+    <div class="modal fade" id="delModal-beneficiario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de Eliminar el Beneficiario?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="dellBform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Nombre Beneficiario::</label>
+                            <div class="col-xs-7">
+                            	<input type="hidden" name="db_codper" id="db_codper">
+                                <input type="text" class="form-control" name="db_nombres" id="db_nombres" disabled>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opDelB}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_elimB">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR BENEFICIARIO-->
+
+
+<!--  Modals HABILITAR BENEFICIARIO      -->
+<div class="panel-body">
+    <div class="modal fade" id="habModal-beneficiario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de Habilitar el Beneficiario?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="habBform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Nombre Beneficiario::</label>
+                            <div class="col-xs-7">
+                            	<input type="hidden" name="hb_codper" id="hb_codper">
+                                <input type="text" class="form-control" name="hb_nombres" id="hb_nombres" disabled>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opHabB}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_habB">Habilitar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals HABILITAR BENEFICIARIO-->
+
+<!--  Modals Adicionar BENEFICIARIO-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-beneficiario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Añadir Beneficiario</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="addformB">
+                        <input type="hidden" name="Ab_codper" id="Ab_codper" value="0">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Ci::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="ab_ci" id="ab_ci" placeholder="Ci.." required>
+                            </div>
+                            
+                        </div>
+<!--                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Código Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="ab_codigoper" id="ab_codigoper" placeholder="Código Persona.." required>
+                            </div>                            
+                        </div>
+-->                        
+                        <input type="HIDDEN"  name="ab_codigoper" id="ab_codigoper" value="0">
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Nombre Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="ab_nombre" id="ab_nombre" placeholder="Nombre.." required>
+                            </div>
+                            
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Apellido Pat. Persona::</label>
+                           <div class="col-xs-6">
+                                <input type="text" class="form-control" name="ab_ap" id="ab_ap" placeholder="Ap. Paterno.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Apellido Mat. Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="ab_am" id="ab_am" placeholder="Ap. Materno.." required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Fecha Nac.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="ab_fnac" id="ab_fnac" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Fecha Ingreso.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="ab_fing" id="ab_fing" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        
+                                      
+                   		<div class="form-group">
+                            <label class="control-label col-xs-4">Email::</label>
+                            <div class="col-xs-6">
+                                <input type="email" class="form-control" name="ab_email" id="ab_email" placeholder="Email.." required>
+                        	</div>
+                        </div>
+                   		
+			            <div class="form-group">
+                        	<label class="control-label col-xs-4">
+                        	<span style="color:red;font-size:18px;">*</span>E. Civil:</label>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="ab_ecivilRadios" value="C"> Casado
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="ab_ecivilRadios" value="S" checked> Soltero
+                        			</label>
+                        		</div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="control-label col-xs-4">
+                        	<span style="color:red;font-size:18px;">*</span>Genero:</label>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="ab_generoRadios" value="M"> Masculino
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="ab_generoRadios" value="F" checked> Femenino
+                        			</label>
+                        		</div>
+                        </div>
+                        <div class="form-group">
+	                    	<label class="control-label col-xs-4">
+	                    	<span style="color:red;font-size:18px;">*</span>Cónyuge:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="ab_conyuge" value="1"> SI
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="ab_conyuge" value="0" > NO
+	                    			</label>
+	                    		</div>
+	                    </div>
+                        <input type="HIDDEN" name="opcion" value="${opAddB}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_addB">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-->
+
+<!--  Modals MODIF MODAL BENEFICIARIO-->
+<div class="panel-body">
+    <div class="modal fade" id="modModal-beneficiario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Beneficiario</h4>
+                </div>
+                <div class="modal-body">
+                     <form class="form-horizontal" action="personaServices.html" method="POST" id="modformB">
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">Ci::</label>
+                            <div class="col-xs-6">
+                            	<input type="hidden" name="mb_codper" id="mb_codper">
+                                <input type="text" class="form-control" name="mb_ci" id="mb_ci" placeholder="Ci.." required>
+                            </div>                            
+                        </div>
+<!--                        
+                        <div class="form-group">
+	                        <label class="control-label col-xs-4">Código Persona::</label>
+	                        <div class="col-xs-6">
+	                            <input type="text" class="form-control" name="mb_codigoper" id="mb_codigoper" placeholder="Código Persona.." required>
+	                        </div>
+	                        
+	                    </div>
+-->	                    
+	                    <input type="HIDDEN"  name="mb_codigoper" id="mb_codigoper" value="0" >
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Nombre Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="mb_nombre" id="mb_nombre" placeholder="Nombre.." required>
+                            </div>
+                            
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Apellido Pat. Persona::</label>
+                           <div class="col-xs-6">
+                                <input type="text" class="form-control" name="mb_ap" id="mb_ap" placeholder="Ap. Paterno.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Apellido Mat. Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="mb_am" id="mb_am" placeholder="Ap. Materno.." required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Fecha Nac.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="mb_fechanac" id="mb_fechanac" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Fecha Ingreso.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="mb_fechaing" id="mb_fechaing" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                                                
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Email::</label>
+                            <div class="col-xs-6">
+                                <input type="email" class="form-control" name="mb_email" id="mb_email" placeholder="Email.." required>
+                        	</div>
+                        </div>
+                   		
+			            <div class="form-group">
+                        	<label class="control-label col-xs-4">
+                        	<span style="color:red;font-size:18px;">*</span>E. Civil:</label>
+                        		
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="mb_ecivil" id="mb_cas" value="C"> Casado
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="mb_ecivil" id="mb_sol" value="S"> Soltero
+                        			</label>
+                        		</div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="control-label col-xs-4">
+                        	<span style="color:red;font-size:18px;">*</span>Genero:</label>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="mb_genero" id="mb_mas" value="M" > Masculino
+                        			</label>
+                        		</div>
+                        		<div class="col-xs-2">
+                        			<label class="radio-inline">
+                        				<input type="radio" name="mb_genero" id="mb_fem" value="F" > Femenino
+                        			</label>
+                        		</div>
+                        </div>
+                        <div class="form-group">
+	                    	<label class="control-label col-xs-4">
+	                    	<span style="color:red;font-size:18px;">*</span>Cónyuge:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="mb_conyuge" id="mb_conyuge_si" value="1"> SI
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="mb_conyuge" id="mb_conyuge_no" value="0" > NO
+	                    			</label>
+	                    		</div>
+	                    </div>
+                        <input type="hidden" name="opcion" value="${opModB}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_modB">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MODIFICAR-MODAL BENEFICIARIO-->
+
+<!--  Modals MODIF MODAL-->
+<div class="panel-body">
+    <div class="modal fade" id="modfacModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Datos Para Factura</h4>
+                </div>
+                <div class="modal-body">
+                     <form class="form-horizontal" action="personaServices.html" method="POST" id="modfacform">
+                         <div class="form-group">
+                            <label class="control-label col-xs-4">Ci::</label>
+                            <div class="col-xs-6">
+                            	<input type="hidden" name="mf_codper" id="mf_codper">
+                                <input type="text" class="form-control" name="mf_ci" id="mf_ci" placeholder="Ci.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Nombres Persona::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="mf_nombres" id="mf_nombres" placeholder="Nombres.." required>
+                            </div>
+                            
+                        </div>
+                        
+                        <input type="hidden" name="opcion" value="${opModf}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAceptf_mod">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MODIFICAR-MODAL-->
+
+<!--  Modals Adicionar Antiguedad-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-add-ant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Adicionar Antiguedad Socio</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="addformAnt">
+                        <input type="hidden" name="xcodper-add-ant" id="xcodper-add-ant">
+                        
+			           <div class="form-group">
+                            <label class="control-label col-xs-4">Fecha Ingreso.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_fant" id="a_fant" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        
+                        
+                        <input type="hidden" name="opcion" value="${opAddAnt}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_addAnt">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals Adicionar Antiguedad-->
+<!--  Modals Eliminar Antiguedad-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-del-ant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Eliminar Antiguedad Socio</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="personaServices.html" method="POST" id="delformAnt">
+                        <input type="hidden" name="xcodper-mod-ant" id="xcodper-mod-ant">
+                         <input type="hidden" name="xcodes-mod-ant" id="xcodes-mod-ant">
+                        
+			           <div class="form-group">
+                            <label class="control-label col-xs-4">Fecha Ingreso.::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_fant" id="m_fant" placeholder="dd/mm/aaaa" required>
+                            </div>
+                        </div>
+                        
+                        
+                        <input type="hidden" name="opcion" value="${opdelAnt}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_delAnt">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals Eliminar Antiguedad-->
+<!-- End Modals -->
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxxxxx -->
+    
+<script>
+
+$("#myModal-btn").click(function(){
+	
+	jQuery.post('recuperaNroAccion_12.html',{}, 	 						
+			function(data){		 	 					
+				obj = JSON.parse(data);
+				var xaccion=obj.xnroaccion;
+				xaccion=parseInt(xaccion) + 1;
+				$("#a_codigoper").val(xaccion);				
+	        } //end of function (data)
+	); //END of first ajax
+	
+	$('#myModal').modal('show');
+});
+
+function modificarPersona(xcodper, xnombre, xap,xam,xemail,xcodes,xcedula,xecivil,xgenero,xfechanac,xfechaing,xcodigoper){
+	$('#m_codigoper').val(xcodigoper);
+	$('#m_codper').val(xcodper);
+	$('#m_nombre').val(xnombre);
+	$('#m_ap').val(xap);
+	$('#m_am').val(xam);
+	$('#m_email').val(xemail);
+	$('#m_estsoc').val(xcodes);
+	$('#m_ci').val(xcedula);
+	if(xecivil=='C'){
+		$('#m_cas').attr('checked', true);
+	}else{
+		$('#m_sol').attr('checked', true);
+	}
+	
+	if(xgenero=='M'){
+		$('#m_mas').attr('checked', true);
+	}else{
+		$('#m_fem').attr('checked', true);
+	}
+	$('#m_fechanac').val(xfechanac);
+	$('#m_fechaing').val(xfechaing);
+	$('#modModal').modal('show');
+	
+}
+function modificarDatosfac(xcodper,xcedula,xnombres){
+	$('#mf_codper').val(xcodper);
+	$('#mf_nombres').val(xnombres);
+	$('#mf_ci').val(xcedula);
+	
+	$('#modfacModal').modal('show');
+	
+}
+
+function eliminarPersona(xcodper, xnombres){
+	$('#d_codper').val(xcodper);
+	$('#d_nombres').val(xnombres);
+	$('#delModal').modal('show');
+}
+
+//ACTIVA SOCIOS
+function activarPersona(xcodper, xnombres, xestadoSoc){
+	var xesta=$("#est_"+xcodper).val();
+//	alert(xesta);
+	if (xesta == '-'){
+		menError('Error..!', ' <b> DEBE DEFINIR EL ESTADO DEL SOCIO </b>..!');
+	}else{
+		$('#act_a_codper').val(xcodper);
+		$('#act_a_nombres').val(xnombres);	
+		jQuery.post('detalle_activosper12.html',{xcodper:xcodper,xnombre:xnombres},
+				function(data){$('#detalle-personal').html(data);}
+		);
+		$('#activoModal').modal('show');
+	}	
+}
+
+//DESACTIVA SOCIOS
+function desactivarPersona(xcodper, xnombres){
+	$('#act_b_codper').val(xcodper);
+	$('#act_b_nombres').val(xnombres);
+	
+	$('#desactivoModal').modal('show');
+	
+	jQuery.post('detalle_activosper12.html',{xcodper:xcodper,xnombre:xnombres},
+			function(data){$('#detalle-personal').html(data);}
+	);
+}
+
+function habilitarPersona(xcodper, xnombres){
+	$('#h_codper').val(xcodper);
+	$('#h_nombres').val(xnombres);
+	$('#habModal').modal('show');
+}
+
+//MODIFICAR DATOS DE LOS BENEFICIARIOS
+function llamarBeneficiario(xcodper, xnombres, xcodigoper){
+	jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+				function(data){$('#detalle-personal').html(data);}
+	);
+}
+function eliminarBeneficiario(xcodper,xnombres){
+	$('#db_codper').val(xcodper);
+	$('#db_nombres').val(xnombres);
+	$('#delModal-beneficiario').modal('show');
+}
+function habilitarBeneficiario(xcodper,xnombres){
+	$('#hb_codper').val(xcodper);
+	$('#hb_nombres').val(xnombres);
+	$('#habModal-beneficiario').modal('show');
+}
+
+function modificarBeneficiario(xcodper, xnombre, xap,xam,xemail,xcedula,xecivil,xgenero,xfechanac,xfechaing,xconyuge,xcodigoper){
+	$('#mb_codper').val(xcodper);
+	$('#mb_codigoper').val(xcodigoper);
+	$('#mb_nombre').val(xnombre);
+	$('#mb_ap').val(xap);
+	$('#mb_am').val(xam);
+	$('#mb_email').val(xemail);
+	$('#mb_ci').val(xcedula);
+	if(xecivil=='C'){
+		$('#mb_cas').prop('checked', true);
+	}else{
+		$('#mb_sol').prop('checked', true);
+	}
+	
+	if(xgenero=='M'){
+		$('#mb_mas').prop('checked', true);
+	}else{
+		$('#mb_fem').prop('checked', true);
+	}
+
+	if(xconyuge=='1'){
+		$('#mb_conyuge_si').prop('checked', true);
+	}else{
+		$('#mb_conyuge_no').prop('checked', true);
+	}
+	
+	$('#mb_fechanac').val(xfechanac);
+	$('#mb_fechaing').val(xfechaing);
+	$('#modModal-beneficiario').modal('show');
+	
+}
+
+function llamarEstado(xcodper, xnombres,xestadosocio, xcodigoper){
+	jQuery.post('detalle_estado12.html',{xcodper:xcodper,xnombre:xnombres,xestadosocio:xestadosocio,xcodigoper:xcodigoper},
+				function(data){$('#detalle-personal').html(data);}
+	);
+}
+
+//Adiconar estado del socio 
+function adicionarNuevoEstado(xcodper,xestadosoc, xcodes){
+	jQuery.post('detalle_lista_estado12.html',{xcodper:xcodper,xestadosoc:xestadosoc,xcodes:xcodes},
+		function(data){$('#listaestados').html(data);}
+	);
+	$('#a_permiso').hide();
+	$('#myModal-estados').modal('show');
+}
+
+//Adiconar estado del socio - TODOS LOS SOCIOS 
+function adicionarNuevoEstadoALL(xcodper,xestadosoc, xcodes){
+	xestadosoc="-";
+	jQuery.post('detalle_lista_estado12.html',{xcodper:xcodper,xestadosoc:xestadosoc,xcodes:xcodes},
+		function(data){$('#listaestados').html(data);}
+	);
+	$('#a_permiso').hide();
+	$('#myModal-estados').modal('show');
+}
+
+function modificarNuevoEstado(){
+	$('#me_permiso').hide();
+	$('#modModal-estado').modal('show');
+}
+
+//MODIFICAR ESTADO SOCIO   
+function modificarEstado(xcodper,xcodestado, xcodes,xnombres,xfecha,xpadre){
+	jQuery.post('detalle_lista_estado_mod12.html',{xcodper:xcodper,xcodes:xcodes},
+			function(data){$('#listaestados_mod').html(data);}
+	);
+	
+	$('#me_codper').val(xcodper);
+	$('#me_codestado').val(xcodestado);
+	$('#me_codes').val(xcodes);
+//	$('#me_Actcodes').val(xcodes);
+//	$("#me_Actcodes").val(xcodes+"@"+xpadre);	
+	$('#me_nombres').val(xnombres);
+	$('#me_fest').val(xfecha);
+
+	recuperaDatosPermiso(xcodestado);
+	
+	$('#me_permiso').hide();
+	if (xpadre !='0') {
+		$('#me_permiso').show();
+	}
+	
+	$('#modModal-estado').modal('show');	
+}
+
+function recuperaDatosPermiso(xcodestado){
+	//alert(xcodestado);
+	jQuery.post('recuperaDatosPermiso_12.html',{xcodestado:xcodestado}, 	 						
+						function(data){		 	 					
+							obj = JSON.parse(data);
+							
+							if (obj.estado==1){
+			                
+								$("#me_mesini > option[value="+ obj.xmesini +"]").attr("selected","selected");
+								$("#me_anioini option[value="+ obj.xanioini +"]").attr("selected",true);
+								$("#me_mesfin option[value="+ obj.xmesfin +"]").attr("selected",true);
+								$("#me_aniofin option[value="+ obj.xaniofin +"]").attr("selected",true);
+							}else{
+								$('#me_permiso').modal('hide');
+							}
+				        } //end of function (data)
+	); //END of first ajax
+}
+
+//ADICIONAR ESTADO DEL SOCIO
+function AsignarAntSocio(xcodper, xcodes){
+	jQuery.post('tiposAntDet_datos_12.html',{xcodper:xcodper,xcodes:xcodes}, 	 						
+			function(data){		 	 					
+				obj = JSON.parse(data);
+				
+				if (obj.estado==1){
+					
+					$('#xcodper-mod-ant').val(obj.xcodper);
+				   	$('#m_fant').val(obj.xfecha);  
+					$('#xcodes-mod-ant').val(obj.xcodes);
+				
+					
+					$('#myModal-del-ant').modal('show');
+					$('#myModal-del-ant').on('hidden.bs.modal', function(){ 
+				 		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+				 	});
+				}else{
+					
+					$('#xcodper-add-ant').val(obj.xcodper);
+					$('#myModal-add-ant').modal('show');
+					$('#myModal-add-ant').on('hidden.bs.modal', function(){ 
+				 		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+				 	});								
+				}
+	        } //end of function (data)
+	); //END of first ajax
+
+}
+
+		
+function AsignarDomPersona(xcodper){
+	jQuery.post('tiposDirDet_datos_12.html',{xcodper:xcodper}, 	 						
+						function(data){		 	 					
+							obj = JSON.parse(data);
+							
+							if (obj.estado==1){
+								
+							$('#xcodper-mod-dom').val(obj.xcodper);
+						   	$('#xcoddom-mod-dom').val(obj.xcoddom);  
+							$('#xcodl-mod-dom').val(obj.xcodl);
+							$('#xzona-mod-dom').val(obj.xzona);
+							$('#xcalle-mod-dom').val(obj.xcalle);
+							$('#xnumero-mod-dom').val(obj.xnumero);				
+							$('#xedificio-mod-dom').val(obj.xedificio);
+							$('#xbloque-mod-dom').val(obj.xbloque);
+							$('#xpiso-mod-dom').val(obj.xpiso);
+							$('#xtelefono-mod-dom').val(obj.xtelefono);
+							$('#xcelular-mod-dom').val(obj.xcelular);
+							$('#xemail-mod-dom').val(obj.xemail);
+								
+								$('#myModal-mod-dom').modal('show');
+								$('#myModal-mod-dom').on('hidden.bs.modal', function(){ 
+							 		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+							 	});
+							}else{
+								
+								$('#xcodper-add-dom').val(obj.xcodper);
+								$('#myModal-add-dom').modal('show');
+								$('#myModal-add-dom').on('hidden.bs.modal', function(){ 
+							 		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+							 	});								
+							}
+				        } //end of function (data)
+	); //END of first ajax
+
+}
+
+function AsignarTrabPersona(xcodper){
+//	alert("entro");
+	jQuery.post('tiposTrabDet_datos_12.html',{xcodper:xcodper}, 	 						
+						function(data){		 	 					
+							obj = JSON.parse(data);
+							
+							if (obj.estado==1){
+							//	alert(obj.xcodper);
+							$('#xcodper-mod-trab').val(obj.xcodper);
+						   	$('#xcoddom-mod-trab').val(obj.xcoddom);  
+							$('#xcodl-mod-trab').val(obj.xcodl);
+							$('#xempresa-mod-trab').val(obj.xempresa);
+							$('#xcargo-mod-trab').val(obj.xcargo);
+							$('#xzona-mod-trab').val(obj.xzona);							 
+							$('#xcalle-mod-trab').val(obj.xcalle);
+							$('#xnumero-mod-trab').val(obj.xnumero);				
+							$('#xedificio-mod-trab').val(obj.xedificio);
+							$('#xbloque-mod-trab').val(obj.xbloque);
+							$('#xpiso-mod-trab').val(obj.xpiso);
+							$('#xtelefono-mod-trab').val(obj.xtelefono);
+							$('#xcelular-mod-trab').val(obj.xcelular);
+							$('#xemail-mod-trab').val(obj.xemail);
+								
+								$('#myModal-mod-trab').modal('show');
+								$('#myModal-mod-trab').on('hidden.bs.modal', function(){ 
+							 		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+							 	});
+							}else{
+							//	alert(obj.xcodper);
+								$('#xcodper-add-trab').val(obj.xcodper);
+								$('#myModal-add-trab').modal('show');
+								$('#myModal-add-trab').on('hidden.bs.modal', function(){ 
+							 		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+							 	});								
+							}
+				        } //end of function (data)
+	); //END of first ajax
+}			
+		
+//ADICIONAR BENEFICIARIO
+function adicionarNuevoBeneficiario(){
+	$("#ab_ci").val("");
+	$("#ab_nombre").val("");
+	$("#ab_ap").val("");
+	$("#ab_am").val("");
+	$("#ab_fing").val("");
+	$("#ab_email").val("");
+	$('#myModal-beneficiario').modal('show');		
+}	
+		
+$(document).ready(function () {
+
+    	$("#a_fnac").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	$("#a_fing").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	$("#ab_fnac").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	$("#ab_fing").datepicker("option", "dateFormat", "dd/mm/yy" ).val();    	
+    	$("#ae_fest").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});//fecha estado socio
+    	$("#me_fest").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	$("#a_fant").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	$("#m_fechanac").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	$("#m_fechaing").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	$("#mb_fechanac").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	$("#mb_fechaing").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	$("#m_fant").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
+    	
+    	$("#activo_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
+    	$("#desactivo_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
+    	
+         $('#dataTables-example1').dataTable();
+         
+         $('[data-toggle="tooltip"]').tooltip();
+         
+         //Devuelve los mensajes de guardado
+         if ($('#mensaje').val() != '0'){
+        	 if ($('#mensaje').val() == '1'){
+        	 	$.notify($('#menTexto').val(), "success",{ position:"center middle" });
+        	 }
+        	 if ($('#mensaje').val() == '2'){
+         	 	$.notify($('#menTexto').val(), "error",{ position:"center middle" });
+         	 }
+         }
+         
+         //limpia los datos del modal al momento de ingresar
+        $('#myModal').on('hidden.bs.modal', function(){ 
+     		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+     	}); 
+        
+         //SI OCURRE CAMBIO 
+        $(".paramsChange").change( function() {
+//            $("#paramform").submit();
+
+			var xestado=1;//$('input[name=estado]:checked').val();
+			var xactivos=$('input[name=activos]:checked').val();
+			jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+						function(data){	$('#lisPersonal-det').html(data);
+			});
+			
+        }); 
+        //SI OCURRE CAMBIO
+        //$('#a_permiso').hide();
+        /*
+      	$('#Ae_codes').change(function(){ 
+      		alert("hola amigos..");
+        	var codigo = $(this).val()        		 
+        	if (codigo != '0'){
+        		$('#a_permiso').show();
+        	}else{
+        		$('#a_permiso').hide();
+        	}
+        });
+      	*/
+      	// me_Actcodes
+        //$('#me_permiso').show();
+        //alert($('#me_Actcodes').val());
+        
+      	$('#me_Actcodes').change(function(){ 
+        	var codigo = $(this).val()        		 
+        	if (codigo=='900'){
+        		$('#me_permiso').show();
+        	}else{
+        		$('#me_permiso').hide();
+        	}
+        });
+        
+         //ANULA TECLA ENTER PARA LOS INPUTS
+        $("input").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+                
+        //Butons ACEPTAR
+ 		$("#btnAcept_add").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+ 			if (validarDatos_add() == 0) {
+	 			if(confirm('¿Seguro de Guardar La Persona ?')){ 				
+		 				$.when(	
+			 	 				jQuery.post('personaServices.html',$('#addform').serialize(), 	 						
+			 	 						function(data){		 	 					
+			 	 							obj = JSON.parse(data);
+			 								//alert(obj.error);
+			 								if (obj.error=='0'){
+			 									//repetir(xdatos) 									
+			 									menOK('Correcto..!','Los Datos se <b>GUARDARON satisfactoriamente</b>..!');
+			 									//alert("OK");
+			 									$('#myModal').modal('hide');
+			 									
+			 								}else{
+			 									if (obj.error=='1'){
+			 										menError('Error..!', 'EL CODIGO ESTA REPETIDO..Revisar.!');
+			 									}else{
+			 										menError('Error..!', 'NO SE PUDO GUARDAR LOS DATOS..Revisar.!');
+			 									}	
+			 							    }
+			 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+							).then(function() {	
+			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+								jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+				 	 						function(data){	$('#lisPersonal-det').html(data);
+				 	 			});
+							});						
+	 			}
+ 			}
+        });	
+       
+ 		//Butons MODIFICAR
+ 		$("#btnAcept_mod").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+ 			if (validarDatos_mod() == 0) {
+ 					if(confirm('¿Seguro de Modificar Datos de Persona ?')){ 				
+	 						$.when(	
+				 	 				jQuery.post('personaServices.html',$('#modform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','Los Datos se <b>MODIFICARON satisfactoriamente</b>..!');
+				 									//alert("OK");
+				 									$('#modModal').modal('hide');			 									
+				 								}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+							).then(function() {	
+				 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+									jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+					 	 						function(data){	$('#lisPersonal-det').html(data);
+					 	 			});
+							});
+ 					}
+ 			}
+ 		});
+		
+		//Butons MODIFICAR
+ 		$("#btnAceptf_mod").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+ 					if(confirm('¿Seguro de Modificar Datos Factura de Persona ?')){ 				
+	 						$.when(	
+				 	 				jQuery.post('personaServices.html',$('#modfacform').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','Los Datos se <b>MODIFICARON satisfactoriamente</b>..!');
+				 									//alert("OK");
+				 									$('#modfacModal').modal('hide');			 									
+				 								}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+							).then(function() {	
+				 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+									jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+					 	 						function(data){	$('#lisPersonal-det').html(data);
+					 	 			});
+							});
+ 					}
+ 			
+ 		});
+		
+ 		//Butons ELIMINAR
+ 		$("#btnAcept_del").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+				$.when(	
+	 	 				jQuery.post('personaServices.html',$('#delform').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','Los Datos se <b>ELIMINARON satisfactoriamente</b>..!');
+	 									//alert("OK");
+	 									$('#delModal').modal('hide');			 									
+	 								}else{
+	 										menError('Error..!', 'NO SE PUDO ELIMINAR LOS DATOS..Revisar.!');
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+	 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+						jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+		 	 						function(data){	$('#lisPersonal-det').html(data);
+		 	 			});
+				});
+ 		});
+
+ 		//Butons ACTIVAR SOCIO
+ 		$("#btnAcept_activo").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+ 			if (validarDatos_add_activo() == 0) {
+	 			if(confirm('¿Seguro de ACTIVAR al Socio ?')){ 
+					$.when(	
+		 	 				jQuery.post('personaServices.html',$('#activoform').serialize(), 	 						
+		 	 						function(data){		 	 					
+		 	 							obj = JSON.parse(data);
+		 								//alert(obj.error);
+		 								if (obj.error=='0'){
+		 									//repetir(xdatos) 									
+		 									menOK('Correcto..!','<b>EL SOCIO SE ACTIVO satisfactoriamente</b>..!');
+		 									//alert("OK");
+		 									$('#activoModal').modal('hide');			 									
+		 								}else{
+		 									if (obj.error=='2'){
+		 										menError('Error..!', 'ERROR AL ACTIVAR POQUE EL SOCIO HIZO TRANSFERENCIA..Revisar.!');
+		 									}else{
+		 										menError('Error..!', 'NO SE PUDO ACTIVAR AL SOCIO..Revisar.!');
+		 									}	
+		 							    }
+		 	 				        } //end of function (data)
+		 	 				) //END of first ajax
+					).then(function() {	
+		 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+							jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+			 	 						function(data){	$('#lisPersonal-det').html(data);
+			 	 			});
+					});
+	 			}
+ 			}	
+ 		});
+ 		
+ 		//Butons ACTIVAR SOCIO
+ 		$("#btnAcept_desactivo").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+ 			if (validarDatos_add_desactivo() == 0) {
+	 			if(confirm('¿Seguro de DESACTIVAR al Socio ?')){ 
+					$.when(	
+		 	 				jQuery.post('personaServices.html',$('#desactivoform').serialize(), 	 						
+		 	 						function(data){		 	 					
+		 	 							obj = JSON.parse(data);
+		 								//alert(obj.error);
+		 								if (obj.error=='0'){
+		 									//repetir(xdatos) 									
+		 									menOK('Correcto..!','<b>EL SOCIO FUE DESACTIVO satisfactoriamente</b>..!');
+		 									//alert("OK");
+		 									$('#desactivoModal').modal('hide');			 									
+		 								}else{
+		 										menError('Error..!', 'NO SE PUDO DESACTIVAR AL SOCIO..Revisar.!');
+		 							    }
+		 	 				        } //end of function (data)
+		 	 				) //END of first ajax
+					).then(function() {	
+		 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+							jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+			 	 						function(data){	$('#lisPersonal-det').html(data);
+			 	 			});
+					});
+	 			}
+ 			}	
+ 		});
+ 		
+ 		//Butons HABILITAR
+ 		$("#btnAcept_hab").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+	 			$.when(	
+	 	 				jQuery.post('personaServices.html',$('#habform').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','Los Datos se <b>HABILITARON satisfactoriamente</b>..!');
+	 									//alert("OK");
+	 									$('#habModal').modal('hide');			 									
+	 								}else{
+	 										menError('Error..!', 'NO SE PUDO <b>HABILITAR</b> LOS DATOS..Revisar.!');
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+	 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+						jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+		 	 						function(data){	$('#lisPersonal-det').html(data);
+		 	 			});
+				});
+ 		});
+ 		
+ 		//valida datos para opcion adiciona		
+ 		function validarDatos_add(){
+ 			var sw=0;
+ 			var ci=$('#a_ci').val();
+ 			var nombre=$('#a_nombre').val();
+
+ 			var ap=$('#a_ap').val();
+ 			var am=$('#a_am').val();
+ 			
+ 			var xfnac=$('#a_fnac').val();
+ 			var xfing=$('#a_fing').val();
+ 			
+ 			var xci=$.trim(ci);
+ 			if (xci != ci) {
+				$('#a_ci').val(xci);
+				ci=xci;
+			}		
+ 			
+ 			var xcod=$('#a_codigoper').val();
+ 			var xcod2=$.trim(xcod);
+ 			if (xcod != xcod2) {
+				$('#a_codigoper').val(xcod2);
+				xcod=xcod2;
+			}
+ 			
+			if (ci.length < 16 ){
+				if ((xcod.length < 10)&&(!isNaN(xcod))&&(xcod.length > 0)) {
+ 					var xnombre=$.trim(nombre);
+					if (xnombre != nombre) {
+						$('#a_nombre').val(xnombre);
+						nombre=xnombre;
+					}
+					if (nombre != ""){
+						if (nombre.length < 31){
+							var xap=$.trim(ap);
+							if (xap != ap) {
+								$('#a_ap').val(xap);
+								ap=xap;
+							}
+							var xam=$.trim(am);
+							if (xam != am) {
+								$('#a_am').val(xam);
+								am=xam;
+							}
+							if ((ap != "")||(am != "")){
+								if ((ap.length < 31)&&(am.length < 31)){																	
+										if (validaFechaDDMMAAAA(xfnac)){
+											if (validaFechaDDMMAAAA(xfing)){
+													sw=0;	
+											}else{
+												sw=1;
+									 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+									 			$('#a_fing').focus();
+											}	
+										}else{
+											sw=1;
+									 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+									 		$('#a_fnac').focus();
+										}									
+								}else{
+									sw=1;
+							 		menError('Error..!', 'El </B>APELLIDO</B> no puede exceder los 30 Caracteres..!');
+							 		$('#a_ap').focus();
+								}
+							}else{
+								sw=1;
+						 		menError('Error..!', 'Debe ingresar al menos un APELLIDO..!');
+						 		$('#a_ap').focus();
+							}							
+						}else{
+							sw=1;
+					 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede exceder los 20 Caracteres..!');
+					 		$('#a_nombre').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede ser vacio..!');
+				 		$('#a_nombre').focus();
+					}
+				}else{
+					sw=1;
+			 		menError('Error..!', 'El CODIGO </B>ESTA FUERA DE RANGO (10 DIGITOS) O ES DATO NO VALIDO</B>..!');
+			 		$('#a_codigoper').focus();
+				}	
+ 			}else{
+ 					sw=1;
+			 		menError('Error..!', 'La </B>CEDULA</B> no debe exceder los 15 Caracteres..!');
+			 		$('#a_ci').focus();	
+ 			}
+ 			
+ 			return sw;
+ 		}
+
+ 		//DESACTIVAR DATOS DE LOS SOCIOS		
+ 		function validarDatos_add_desactivo(){
+ 			var sw=0;
+ 			var xfecha=$('#desactivo_fecha').val();
+ 			
+			if (validaFechaDDMMAAAA(xfecha)){
+						sw=0;
+			}else{
+				sw=1;
+	 			menError('Error..!', 'La </B>LA FECHA </B> debe ser dia/mes/año..!');
+	 			$('#desactivo_fecha').focus();
+			}	
+ 			
+ 			return sw;
+ 		}
+ 		
+ 		//ACTIVAR DATOS DE LOS SOCIOS		
+ 		function validarDatos_add_activo(){
+ 			var sw=0;
+ 			var xfecha=$('#activo_fecha').val();
+ 			
+ 			var xanio=$('#act_a_anio').val();
+ 			var xanio2=$.trim(xanio);
+ 			if (xanio != xanio2) {
+				$('#act_a_anio').val(xanio2);
+				xanio=xanio2;
+			}
+ 			
+			if (validaFechaDDMMAAAA(xfecha)){
+				if ((!isNaN(xanio))&&(xanio != '')) {
+					if ((xanio >= 2000)&&(xanio <= 2050)){
+						sw=0;
+					}else{
+						sw=1;
+			 			menError('Error..!', '</B>EL AÑO FUERA DE RANDO [2000..2050]</B>..!');
+			 			$('#act_a_anio').focus();
+					}
+				}else{
+					sw=1;
+		 			menError('Error..!', '</B>EL AÑO NO ES VALIDO</B>..!');
+		 			$('#act_a_anio').focus();
+				}	
+			}else{
+				sw=1;
+	 			menError('Error..!', 'La </B>LA FECHA </B> debe ser dia/mes/año..!');
+	 			$('#activo_fecha').focus();
+			}	
+ 			
+ 			return sw;
+ 		}
+		
+
+ 		
+ 		//validar solo para opcion modificar  
+ 		function validarDatos_mod(){
+ 			var sw=0;
+ 			var ci=$('#m_ci').val();
+ 			var nombre=$('#m_nombre').val();
+ 			var ap=$('#m_ap').val();
+ 			var am=$('#m_am').val();
+ 			var xfechanac=$('#m_fechanac').val();
+ 			var xfechaing=$('#m_fechaing').val();
+ 			
+ 			var xci=$.trim(ci);
+ 			if (xci != ci) {
+				$('#m_ci').val(xci);
+				ci=xci;
+			}			
+ 			
+ 			var xcod=$('#m_codigoper').val();
+ 			var xcod2=$.trim(xcod);
+ 			if (xcod != xcod2) {
+				$('#m_codigoper').val(xcod2);
+				xcod=xcod2;
+			}
+ 			
+			if (ci.length < 16 ){
+				if ((!isNaN(xcod))&&(xcod != '')){
+ 					var xnombre=$.trim(nombre);
+					if (xnombre != nombre) {
+						$('#m_nombre').val(xnombre);
+						nombre=xnombre;
+					}
+					if (nombre != ""){
+						if (nombre.length < 31){
+							var xap=$.trim(ap);
+							if (xap != ap) {
+								$('#m_ap').val(xap);
+								ap=xap;
+							}
+							var xam=$.trim(am);
+							if (xam != am) {
+								$('#m_am').val(xam);
+								am=xam;
+							}
+							if ((ap != "")||(am != "")){
+								if ((ap.length < 31)&&(am.length < 31)){
+									if (validaFechaDDMMAAAA(xfechanac)){
+										if (validaFechaDDMMAAAA(xfechaing)){
+											sw=0;	
+										}else{
+											sw=1;
+								 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+								 			$('#m_fechaing').focus();
+									}		
+									}else{
+										sw=1;
+								 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+								 		$('#m_fechanac').focus();
+									}						
+								}else{
+									sw=1;
+							 		menError('Error..!', 'El </B>APELLIDO</B> no puede exceder los 30 Caracteres..!');
+							 		$('#m_ap').focus();
+								}
+							}else{
+								sw=1;
+						 		menError('Error..!', 'Debe ingresar al menos un APELLIDO..!');
+						 		$('#m_ap').focus();
+							}							
+						}else{
+							sw=1;
+					 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede exceder los 20 Caracteres..!');
+					 		$('#m_nombre').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede ser vacio..!');
+				 		$('#m_nombre').focus();
+					}
+				}else{
+	 				sw=1;
+					menError('Error..!', ' </B>EL CODIGO DE SOCIO NO ES VALIDO</B>..!');
+					$('#m_codigoper').focus();	
+	 			}	
+ 			}else{
+ 				sw=1;
+				menError('Error..!', 'La </B>CEDULA</B> no debe exceder los 15 Caracteres..!');
+				$('#m_ci').focus();	
+ 			}
+ 			
+ 			return sw;
+ 		}
+ 		
+ 		
+ 		 		
+ 		//Butons ACEPTAR
+ 		$("#btnAcept_addD").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+ 			if (validarDatos_addD() == 0) {
+	 			if(confirm('¿Seguro de Guardar El Domicilio De Persona ?')){ 				
+		 				$.when(	
+			 	 				jQuery.post('personaServices.html',$('#addformD').serialize(), 	 						
+			 	 						function(data){		 	 					
+			 	 							obj = JSON.parse(data);
+			 								//alert(obj.error);
+			 								if (obj.error=='0'){
+			 									//repetir(xdatos) 									
+			 									menOK('Correcto..!','Los Datos se <b>GUARDARON satisfactoriamente</b>..!');
+			 									//alert("OK");
+			 									$('#myModal-add-dom').modal('hide');
+			 									
+			 								}else{
+			 									if (obj.error=='1'){
+			 										menError('Error..!', 'EL CODIGO ESTA REPETIDO..Revisar.!');
+			 									}else{
+			 										menError('Error..!', 'NO SE PUDO GUARDAR LOS DATOS..Revisar.!');
+			 									}	
+			 							    }
+			 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+							).then(function() {	
+			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+								jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+				 	 						function(data){	$('#lisPersonal-det').html(data);
+				 	 			});
+							});						
+	 			}
+ 			}
+        });	
+       
+      //valida datos para opcion adiciona		
+ 		function validarDatos_addD(){
+ 			var sw=0;
+ 			var zona=$('#xzona-add-dom').val();
+ 			var calle=$('#xcalle-add-dom').val();
+		
+			if (zona.length < 60 ){
+ 					var xzona=$.trim(zona);
+ 						if (xzona != zona) {
+						$('#xzona-add-dom').val(xzona);
+						zona=xzona;
+						}
+					if (zona != ""){
+						if (calle.length < 40){
+							var xcalle=$.trim(calle);
+ 								if (xcalle != calle) {
+								$('#xcalle-add-dom').val(xcalle);
+								calle=xcalle;
+								}	
+								if(calle != ""){
+									sw=0; //cuando todo esta OK
+								}else{
+									sw=1;
+				 					menError('Error..!', 'El Dato </B>Calle</B> no puede ser vacio..!');
+				 					$('#xcalle-add-dom').focus();
+								}					
+						}else{
+							sw=1;
+					 		menError('Error..!', 'El Dato </B>Calle</B> no puede exceder los 40 Caracteres..!');
+					 		$('#xcalle-add-dom').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>Zona</B> no puede ser vacio..!');
+				 		$('#xzona-add-dom').focus();
+					}
+ 				}else{
+ 					sw=1;
+			 		menError('Error..!', 'La </B>Zona</B> no debe exceder los 60 Caracteres..!');
+			 		$('#xzona-add-dom').focus();	
+ 				}
+ 			
+ 			return sw;
+ 		}
+		
+		//Butons ACEPTAR Modificar
+ 		$("#btnAcept_modDom").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+ 			if (validarDatos_modD() == 0) {
+	 			if(confirm('¿Seguro de Modificar El Domicilio De Persona ?')){ 				
+		 				$.when(	
+			 	 				jQuery.post('personaServices.html',$('#modformD').serialize(), 	 						
+			 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','El <b>Domicilio se modifico</b>  satisfactoriamente..!');
+				 									//alert("OK");
+				 									$('#myModal-mod-dom').modal('hide');			 									
+				 								}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICCAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+							).then(function() {	
+			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+								jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+				 	 						function(data){	$('#lisPersonal-det').html(data);
+				 	 			});
+							});						
+	 			}
+ 			}
+        });	
+       
+ 		//valida datos para opcion modifica		
+ 		function validarDatos_modD(){
+ 			var sw=0;
+ 			var zona=$('#xzona-mod-dom').val();
+ 			var calle=$('#xcalle-mod-dom').val();
+			
+ 			
+ 			
+					
+			if (zona.length < 60 ){
+ 					var xzona=$.trim(zona);
+ 						if (xzona != zona) {
+						$('#xzona-mod-dom').val(xzona);
+						zona=xzona;
+						}
+					if (zona != ""){
+						if (calle.length < 40){
+							var xcalle=$.trim(calle);
+ 								if (xcalle != calle) {
+								$('#xcalle-mod-dom').val(xcalle);
+								calle=xcalle;
+								}	
+								if(calle != ""){
+									sw=0; //cuando todo esta OK
+								}else{
+									sw=1;
+				 					menError('Error..!', 'El Dato </B>Calle</B> no puede ser vacio..!');
+				 					$('#xcalle-mod-dom').focus();
+								}					
+						}else{
+							sw=1;
+					 		menError('Error..!', 'El Dato </B>Calle</B> no puede exceder los 40 Caracteres..!');
+					 		$('#xcalle-mod-dom').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>Zona</B> no puede ser vacio..!');
+				 		$('#xzona-mod-dom').focus();
+					}
+ 				}else{
+ 					sw=1;
+			 		menError('Error..!', 'La </B>Zona</B> no debe exceder los 60 Caracteres..!');
+			 		$('#xzona-mod-dom').focus();	
+ 				}
+ 			
+ 			return sw;
+ 		}
+		
+ 		//Butons ELIMINAR
+ 		$("#btnAcept_delDom").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+				$.when(	
+	 	 				jQuery.post('personaServices.html',$('#modformD').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','Los Datos se <b>ELIMINARON satisfactoriamente</b>..!');
+	 									//alert("OK");
+	 									$('#musuModal').modal('hide');			 									
+	 								}else{
+	 										menError('Error..!', 'NO SE PUDO ELIMINAR LOS DATOS..Revisar.!');
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+	 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+						jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+		 	 						function(data){	$('#lisPersonal-det').html(data);
+		 	 			});
+				});
+ 		});
+ 		
+ 		
+ 		//Butons ACEPTAR Trabajo
+ 		$("#btnAcept_addT").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+ 			if (validarDatos_addT() == 0) {
+	 			if(confirm('¿Seguro de Guardar El Trabajo De Persona ?')){ 				
+		 				$.when(	
+			 	 				jQuery.post('personaServices.html',$('#addformT').serialize(), 	 						
+			 	 						function(data){		 	 					
+			 	 							obj = JSON.parse(data);
+			 								//alert(obj.error);
+			 								if (obj.error=='0'){
+			 									//repetir(xdatos) 									
+			 									menOK('Correcto..!','Los Datos se <b>GUARDARON satisfactoriamente</b>..!');
+			 									//alert("OK");
+			 									$('#myModal-add-trab').modal('hide');
+			 									
+			 								}else{
+			 									if (obj.error=='1'){
+			 										menError('Error..!', 'EL CODIGO ESTA REPETIDO..Revisar.!');
+			 									}else{
+			 										menError('Error..!', 'NO SE PUDO GUARDAR LOS DATOS..Revisar.!');
+			 									}	
+			 							    }
+			 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+							).then(function() {	
+			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+								jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+				 	 						function(data){	$('#lisPersonal-det').html(data);
+				 	 			});
+							});						
+	 			}
+ 			}
+        });	
+       
+      //valida datos para opcion adiciona		
+ 		function validarDatos_addT(){
+ 			var sw=0;
+ 			var zona=$('#xzona-add-trab').val();
+ 			var calle=$('#xcalle-add-trab').val();
+ 			var cargo=$('#xcargo-add-trab').val();
+ 			var empresa=$('#xempresa-add-trab').val();
+			
+ 			
+ 			
+					
+			if (zona.length < 60 ){
+ 					var xzona=$.trim(zona);
+ 						if (xzona != zona) {
+						$('#xzona-add-trab').val(xzona);
+						zona=xzona;
+						}
+					if (zona != ""){
+						if (calle.length < 40){
+							var xcalle=$.trim(calle);
+ 								if (xcalle != calle) {
+								$('#xcalle-add-trab').val(xcalle);
+								calle=xcalle;
+								}	
+								if(calle != ""){
+									if (empresa.length < 40 ){
+										var xempresa=$.trim(empresa);
+ 											if (xempresa!= empresa) {
+											$('#xempresa-add-trab').val(xempresa);
+											empresa=xempresa;
+										}
+										if (empresa != ""){
+											if (cargo.length < 40 ){
+											var xcargo=$.trim(cargo);
+ 												if (xcargo != cargo) {
+												$('#xcargo-add-trab').val(xcargo);
+												cargo=xcargo;
+												}	
+												if(cargo != ""){
+													sw=0; //cuando todo esta OK
+												}else{
+													sw=1;
+				 									menError('Error..!', 'El Dato </B>Cargo</B> no puede ser vacio..!');
+				 									$('#xcargo-add-trab').focus();
+												}	
+											}else{
+ 												sw=1;
+			 									menError('Error..!', 'El </B>Cargo</B> no debe exceder los 40 Caracteres..!');
+			 									$('#xcargo-add-trab').focus();	
+ 											}
+										}else{
+											sw=1;
+				 							menError('Error..!', 'El Dato </B>Empresa</B> no puede ser vacio..!');
+				 							$('#xempresa-add-trab').focus();
+										}	
+									}else{
+ 										sw=1;
+			 							menError('Error..!', 'El </B>Nombre De la Empresa</B> no debe exceder los 40 Caracteres..!');
+			 							$('#xempresa-add-trab').focus();	
+ 									}
+								}else{
+									sw=1;
+				 					menError('Error..!', 'El Dato </B>Calle</B> no puede ser vacio..!');
+				 					$('#xcalle-add-trab').focus();
+								}					
+						}else{
+							sw=1;
+					 		menError('Error..!', 'El Dato </B>Calle</B> no puede exceder los 40 Caracteres..!');
+					 		$('#xcalle-add-trab').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>Zona</B> no puede ser vacio..!');
+				 		$('#xzona-add-trab').focus();
+					}
+ 				}else{
+ 					sw=1;
+			 		menError('Error..!', 'La </B>Zona</B> no debe exceder los 60 Caracteres..!');
+			 		$('#xzona-add-trab').focus();	
+ 				}
+ 			
+ 			return sw;
+ 		}
+		
+		//Butons ACEPTAR Modificar trabajo
+ 		$("#btnAcept_modTrab").click(function(){
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+ 			if (validarDatos_modT() == 0) {
+	 			if(confirm('¿Seguro de Modificar El Trabajo De Persona ?')){ 				
+		 				$.when(	
+			 	 				jQuery.post('personaServices.html',$('#modformT').serialize(), 	 						
+			 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								// alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','El <b>Trabajo se modifico</b>  satisfactoriamente..!');
+				 									//alert("OK");
+				 									$('#myModal-mod-trab').modal('hide');			 									
+				 								}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICCAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+							).then(function() {	
+			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+								jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+				 	 						function(data){	$('#lisPersonal-det').html(data);
+				 	 			});
+							});						
+	 			}
+ 			}
+        });	
+		
+		 //valida datos para opcion adiciona		
+ 		function validarDatos_modT(){
+ 			var sw=0;
+ 			var zona=$('#xzona-mod-trab').val();
+ 			var calle=$('#xcalle-mod-trab').val();
+ 			var cargo=$('#xcargo-mod-trab').val();
+ 			var empresa=$('#xempresa-mod-trab').val();
+			
+ 			
+ 			
+					
+			if (zona.length < 60 ){
+ 					var xzona=$.trim(zona);
+ 						if (xzona != zona) {
+						$('#xzona-mod-trab').val(xzona);
+						zona=xzona;
+						}
+					if (zona != ""){
+						if (calle.length < 40){
+							var xcalle=$.trim(calle);
+ 								if (xcalle != calle) {
+								$('#xcalle-mod-trab').val(xcalle);
+								calle=xcalle;
+								}	
+								if(calle != ""){
+									if (empresa.length < 40 ){
+										var xempresa=$.trim(empresa);
+ 											if (xempresa!= empresa) {
+											$('#xempresa-mod-trab').val(xempresa);
+											empresa=xempresa;
+										}
+										if (empresa != ""){
+											if (cargo.length < 40 ){
+											var xcargo=$.trim(cargo);
+ 												if (xcargo != cargo) {
+												$('#xcargo-mod-trab').val(xcargo);
+												cargo=xcargo;
+												}	
+												if(cargo != ""){
+													sw=0; //cuando todo esta OK
+												}else{
+													sw=1;
+				 									menError('Error..!', 'El Dato </B>Cargo</B> no puede ser vacio..!');
+				 									$('#xcargo-mod-trab').focus();
+												}	
+											}else{
+ 												sw=1;
+			 									menError('Error..!', 'El </B>Cargo</B> no debe exceder los 40 Caracteres..!');
+			 									$('#xcargo-mod-trab').focus();	
+ 											}
+										}else{
+											sw=1;
+				 							menError('Error..!', 'El Dato </B>Empresa</B> no puede ser vacio..!');
+				 							$('#xempresa-mod-trab').focus();
+										}	
+									}else{
+ 										sw=1;
+			 							menError('Error..!', 'El </B>Nombre De la Empresa</B> no debe exceder los 40 Caracteres..!');
+			 							$('#xempresa-mod-trab').focus();	
+ 									}
+								}else{
+									sw=1;
+				 					menError('Error..!', 'El Dato </B>Calle</B> no puede ser vacio..!');
+				 					$('#xcalle-mod-trab').focus();
+								}					
+						}else{
+							sw=1;
+					 		menError('Error..!', 'El Dato </B>Calle</B> no puede exceder los 40 Caracteres..!');
+					 		$('#xcalle-mod-trab').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>Zona</B> no puede ser vacio..!');
+				 		$('#xzona-mod-trab').focus();
+					}
+ 				}else{
+ 					sw=1;
+			 		menError('Error..!', 'La </B>Zona</B> no debe exceder los 60 Caracteres..!');
+			 		$('#xzona-mod-trab').focus();	
+ 				}
+ 			
+ 			return sw;
+ 		}
+			
+		//Butons ELIMINAR trabajo
+ 		$("#btnAcept_delTrab").click(function(){
+		$("#opcion1").val($("#opcionDelT").val());
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+				$.when(	
+	 	 				jQuery.post('personaServices.html',$('#modformT').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','Los Datos se <b>ELIMINARON satisfactoriamente</b>..!');
+	 									//alert("OK");
+	 									$('#myModal-mod-trab').modal('hide');			 									
+	 								}else{
+	 										menError('Error..!', 'NO SE PUDO ELIMINAR LOS DATOS..Revisar.!');
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+	 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+						jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+		 	 						function(data){	$('#lisPersonal-det').html(data);
+		 	 			});
+				});
+ 		});
+ 		
+ 		//Butons ELIMINAR Domicilio
+ 		$("#btnAcept_delDom").click(function(){
+		$("#opcion").val($("#opcionDel").val());
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			
+				$.when(	
+	 	 				jQuery.post('personaServices.html',$('#modformD').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','Los Datos se <b>ELIMINARON satisfactoriamente</b>..!');
+	 									//alert("OK");
+	 									$('#myModal-mod-dom').modal('hide');			 									
+	 								}else{
+	 										menError('Error..!', 'NO SE PUDO ELIMINAR LOS DATOS..Revisar.!');
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+	 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+						jQuery.post('listaPersonal_det_12.html',{xestado:xestado,xactivos:xactivos},
+		 	 						function(data){	$('#lisPersonal-det').html(data);
+		 	 			});
+				});
+ 		});
+ 		
+ 		
+ 		//Butons ADICIONAR ESTADOS 
+ 		$("#btnAcept_addestado").click(function(){
+ 			var xnombres= $("#estado_name").val();
+ 			var xcodper= $("#estado_codper").val(); 
+ 			var xcodigoper= $("#estado_codigoper").val(); 
+ 			$("#Ae_codper").val(xcodper);	
+ 			if (validarDatos_addE() == 0) {
+	 			if(confirm('¿Seguro de Guardar Estado Socio de la Persona ?')){ 	 				
+		 	 			$.when(	
+			 	 				jQuery.post('personaServices.html',$('#addformE').serialize(), 	 						
+			 	 						function(data){		 	 					
+			 	 							obj = JSON.parse(data);
+			 								//alert(obj.error);
+			 								if (obj.error=='0'){
+			 									//repetir(xdatos) 									
+			 									menOK('Correcto..!','LA <b>EL ESTADO SOCIO SE GUARDO SATISFACTORIAMENTE</b>..!');
+			 									//alert("OK");
+			 									$('#myModal-estados').modal('hide');			 									
+			 								}else{
+			 									if (obj.error=='1'){
+			 										menError('Error..!', '<b>El ESTADO SOCIO YA EXISTE</b>..Revisar.!');
+			 									}else{
+			 										menError('Error..!', 'NO SE PUDO <b>GUARDAR EL ESTADO SOCIO</b>..Revisar.!');
+			 									}
+			 							    }
+			 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+						).then(function() {	
+							if (obj.error=='0'){
+								$("#est_"+xcodper).val("OK");
+								$("#est2_"+xcodper).text(obj.xestsoc);  
+								
+					 	 		jQuery.post('detalle_estado12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+										function(data){$('#detalle-personal').html(data);}
+								);
+							}	
+						});
+	 			}
+	 		}
+        });	
+        
+        function validarDatos_addE(){
+ 			var sw=0;
+ 			var xfing=$('#ae_fest').val();
+ 			
+ 					
+			if (validaFechaDDMMAAAA(xfing)){
+				sw=0;	
+			}else{
+				sw=1;
+	 			menError('Error..!', 'La </B>LA FECHA</B> debe ser dia/mes/año..!');
+	 			$('#ae_fest').focus();
+			}	
+ 			
+ 			return sw;
+ 		}
+        
+ 		
+ 		
+ 		//Butons ACEPTAR Modificar ESTADO  
+ 		$("#btnAcept_modestado").click(function(){
+ 			var xnombres= $("#estado_name").val();
+ 			var xcodper= $("#estado_codper").val();
+ 			var xcodigoper= $("#estado_codigoper").val();
+ 			if (validarDatos_modE() == 0) {
+	 			if(confirm('¿Seguro de Modificar El estado De Persona ?')){ 				
+		 				$.when(	
+			 	 				jQuery.post('personaServices.html',$('#modformE').serialize(), 	 						
+			 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								// alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','EL <b>ESTADO SE MODIFICO SATISFACTORIAMENTE</b>..!');
+				 									//alert("OK");
+				 									$('#modModal-estado').modal('hide');			 									
+				 								}else{
+				 									if (obj.error=='2'){
+				 										menError('Error..!', 'EL ESTADO YA GENERO BOLETAS DE PAGO</b>..Revisar.!');
+				 									}else{
+				 										menError('Error..!', 'NO SE PUDO <b>MODIFICAR EL ESTADO</b>..Revisar.!');
+				 									}
+				 							    }
+				 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+							).then(function() {	
+			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+								jQuery.post('detalle_estado12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+				 	 						function(data){	$('#detalle-personal').html(data);
+				 	 			});
+							});						
+	 			}
+ 			}
+        });	
+		
+		function validarDatos_modE(){
+ 			var sw=0;
+ 			var xfing=$('#me_fest').val();
+ 			
+ 					
+			if (validaFechaDDMMAAAA(xfing)){
+				sw=0;	
+			}else{
+				sw=1;
+	 			menError('Error..!', 'La </B>LA FECHA</B> debe ser dia/mes/año..!');
+	 			$('#me_fest').focus();
+			}	
+ 			
+ 			return sw;
+ 		}
+ 		
+ 		//Butons ELIMINAR BENEFICIARIO
+ 		$("#btnAcept_elimB").click(function(){
+//			$("#dellBform").submit(); //envia los datos a destino FORM.
+//			$('#delModal-beneficiario').modal('hide');
+			var xnombres= $("#beneficiario_name").val();
+ 			var xcodper= $("#beneficiario_codper").val();
+ 			var xcodigoper= $("#beneficiario_codigoper").val();
+ 			
+	 			$.when(	
+	 	 				jQuery.post('personaServices.html',$('#dellBform').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','EL <b>BENEFICIARIO SE ELIMINO SATISFACTORIAMENTE</b>..!');
+	 									//alert("OK");
+	 									$('#delModal-beneficiario').modal('hide');			 									
+	 								}else{
+	 									if (obj.error=='1'){
+	 										menError('Error..!', 'EL BENEFICIARIO TIENE DATOS EN ACCION..Revisar.!');
+	 									}else{
+	 										menError('Error..!', 'NO SE PUDO <b>ELIMINAR EL BENEFICIARIO</b>..Revisar.!');
+	 									}	
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+			 	 		jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+									function(data){$('#detalle-personal').html(data);}
+						);
+				});
+	 			
+ 		});
+ 		
+ 		//Butons HABILITAR BENEFICIARIO
+ 		$("#btnAcept_habB").click(function(){
+//			$("#habBform").submit(); //envia los datos a destino FORM.
+//			$('#habModal-beneficiario').modal('hide');
+			var xnombres= $("#beneficiario_name").val();
+ 			var xcodper= $("#beneficiario_codper").val();
+ 			var xcodigoper= $("#beneficiario_codigoper").val();
+ 			
+	 			$.when(	
+	 	 				jQuery.post('personaServices.html',$('#habBform').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','EL <b>BENEFICIARIO SE HABILITO SATISFACTORIAMENTE</b>..!');
+	 									//alert("OK");
+	 									$('#habModal-beneficiario').modal('hide');			 									
+	 								}else{
+	 										menError('Error..!', 'NO SE PUDO <b>HABILITAR EL BENEFICIARIO</b>..Revisar.!');
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+			 	 		jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+									function(data){$('#detalle-personal').html(data);}
+						);
+				});
+	 			
+ 		});
+ 		
+ 		//Butons ACEPTAR Beneficiario
+ 		$("#btnAcept_addB").click(function(){
+ 			var xnombres= $("#beneficiario_name").val();
+ 			var xcodper= $("#beneficiario_codper").val();
+ 			var xcodigoper= $("#beneficiario_codigoper").val();
+ 			
+ 			$("#Ab_codper").val(xcodper);
+ 			if (validarDatos_addB() == 0) {
+	 			if(confirm('¿Seguro de Guardar Al Beneficiario?')){ 				
+		 				$.when(	
+			 	 				jQuery.post('personaServices.html',$('#addformB').serialize(), 	 						
+			 	 						function(data){		 	 					
+			 	 							obj = JSON.parse(data);
+			 								//alert(obj.error);
+			 								if (obj.error=='0'){
+			 									//repetir(xdatos) 									
+			 									menOK('Correcto..!','Los Datos se <b>GUARDARON satisfactoriamente</b>..!');
+			 									//alert("OK");
+			 									$('#myModal-beneficiario').modal('hide');
+			 									
+			 								}else{
+			 									if (obj.error=='1'){
+			 										menError('Error..!', 'EL CODIGO ESTA REPETIDO..Revisar.!');
+			 									}else{
+			 										menError('Error..!', 'NO SE PUDO GUARDAR LOS DATOS..Revisar.!');
+			 									}	
+			 							    }
+			 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+							).then(function() {	
+			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+								jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+				 	 						function(data){	$('#detalle-personal').html(data);
+				 	 			});
+							});						
+	 			}
+ 			}
+        });	
+       
+       //Butons MODIFICAR 
+ 		$("#btnAcept_modB").click(function(){
+ 			var xnombres= $("#beneficiario_name").val();
+ 			var xcodper= $("#beneficiario_codper").val();
+ 			var xcodigoper= $("#beneficiario_codigoper").val();
+ 			
+ 				if (validarDatos_modB() == 0) {
+ 					if(confirm('¿Seguro de Modificar Datos de Beneficiario?')){ 				
+	 						$.when(	
+				 	 				jQuery.post('personaServices.html',$('#modformB').serialize(), 	 						
+				 	 						function(data){		 	 					
+				 	 							obj = JSON.parse(data);
+				 								//alert(obj.error);
+				 								if (obj.error=='0'){
+				 									//repetir(xdatos) 									
+				 									menOK('Correcto..!','Los Datos se <b>MODIFICARON satisfactoriamente</b>..!');
+				 									//alert("OK");
+				 									$('#modModal-beneficiario').modal('hide');			 									
+				 								}else{
+				 										menError('Error..!', 'NO SE PUDO MODIFICAR LOS DATOS..Revisar.!');
+				 							    }
+				 	 				        } //end of function (data)
+				 	 				) //END of first ajax
+							).then(function() {	
+				 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+									jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+					 	 						function(data){	$('#detalle-personal').html(data);
+					 	 			});
+							});
+ 				}
+ 			}
+ 		});
+       
+       //valida datos para opcion adiciona		
+ 		function validarDatos_addB(){
+ 			var sw=0;
+ 			var ci=$('#ab_ci').val();
+ 			var nombre=$('#ab_nombre').val();
+
+ 			var ap=$('#ab_ap').val();
+ 			var am=$('#ab_am').val();
+ 			
+ 			var xfnac=$('#ab_fnac').val();
+ 			var xfing=$('#ab_fing').val();
+ 			
+ 			var xcodigo=$('#ab_codigoper').val();
+ 			var xcodigo2=$.trim(xcodigo);
+ 			if (xcodigo2 != xcodigo) {
+				$('#ab_codigoper').val(xcodigo2);
+				xcodigo=xcodigo2;
+			}
+ 			
+ 			var xci=$.trim(ci);
+ 			if (xci != ci) {
+				$('#ab_ci').val(xci);
+				ci=xci;
+			}			
+			if (ci.length < 16 ){
+				if ((!isNaN(xcodigo))&&(xcodigo != '')){
+ 					var xnombre=$.trim(nombre);
+					if (xnombre != nombre) {
+						$('#ab_nombre').val(xnombre);
+						nombre=xnombre;
+					}
+					if (nombre != ""){
+						if (nombre.length < 31){
+							var xap=$.trim(ap);
+							if (xap != ap) {
+								$('#ab_ap').val(xap);
+								ap=xap;
+							}
+							var xam=$.trim(am);
+							if (xam != am) {
+								$('#ab_am').val(xam);
+								am=xam;
+							}
+							if ((ap != "")||(am != "")){
+								if ((ap.length < 31)&&(am.length < 31)){																	
+										if (validaFechaDDMMAAAA(xfnac)){
+											if (validaFechaDDMMAAAA(xfing)){
+												if (!isNaN($('input[name=ab_conyuge]:checked').val())){  //valida si conyuge
+													sw=0;	
+												}else{
+													sw=1;
+										 			menError('Error..!', '</B>DEBE SELECCIONAR EL DATO CONYUGE</B>');
+										 			$('#ab_conyuge').focus();
+												}		
+											}else{
+												sw=1;
+									 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+									 			$('#ab_fing').focus();
+										}	
+										}else{
+											sw=1;
+									 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+									 		$('#ab_fnac').focus();
+										}									
+								}else{
+									sw=1;
+							 		menError('Error..!', 'El </B>APELLIDO</B> no puede exceder los 30 Caracteres..!');
+							 		$('#ab_ap').focus();
+								}
+							}else{
+								sw=1;
+						 		menError('Error..!', 'Debe ingresar al menos un APELLIDO..!');
+						 		$('#ab_ap').focus();
+							}							
+						}else{
+							sw=1;
+					 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede exceder los 20 Caracteres..!');
+					 		$('#ab_nombre').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede ser vacio..!');
+				 		$('#ab_nombre').focus();
+					}
+		    	}else{
+					sw=1;
+					menError('Error..!', ' </B>EL CODIGO DEL SOCIO NO ES VALIDA O ESTA VACIO</B>..!');
+					$('#ab_codigoper').focus();	
+				}	
+ 			}else{
+ 				sw=1;
+				menError('Error..!', 'La </B>CEDULA</B> no debe exceder los 15 Caracteres..!');
+				$('#ab_ci').focus();	
+ 			}
+ 			
+ 			return sw;
+ 		}
+		
+		
+ 		//validar solo para opcion modificar
+ 		function validarDatos_modB(){
+ 			var sw=0;
+ 			var ci=$('#mb_ci').val();
+ 			var nombre=$('#mb_nombre').val();
+ 			var ap=$('#mb_ap').val();
+ 			var am=$('#mb_am').val();
+ 			var xfechanac=$('#mb_fechanac').val();
+ 			var xfechaing=$('#mb_fechaing').val();
+ 			
+ 			var xcod=$('#mb_codigoper').val();
+ 			var xcod2=$.trim(xcod);
+ 			if (xcod2 != xcod) {
+				$('#mb_codigoper').val(xcod2);
+				xcod=xcod2;
+			}
+ 			
+ 			var xci=$.trim(ci);
+ 			if (xci != ci) {
+				$('#mb_ci').val(xci);
+				ci=xci;
+			}			
+ 			
+			if (ci.length < 16 ){
+				if ((!isNaN(xcod))&&(xcod != '')){
+ 					var xnombre=$.trim(nombre);
+					if (xnombre != nombre) {
+						$('#mb_nombre').val(xnombre);
+						nombre=xnombre;
+					}
+					if (nombre != ""){
+						if (nombre.length < 31){
+							var xap=$.trim(ap);
+							if (xap != ap) {
+								$('#mb_ap').val(xap);
+								ap=xap;
+							}
+							var xam=$.trim(am);
+							if (xam != am) {
+								$('#mb_am').val(xam);
+								am=xam;
+							}
+							if ((ap != "")||(am != "")){
+								if ((ap.length < 31)&&(am.length < 31)){
+									if (validaFechaDDMMAAAA(xfechanac)){
+										if (validaFechaDDMMAAAA(xfechaing)){
+											if (!isNaN($('input[name=mb_conyuge]:checked').val())){  //valida si conyuge
+												sw=0;	
+											}else{
+												sw=1;
+									 			menError('Error..!', '</B>DEBE SELECCIONAR EL DATO CONYUGE</B>');
+									 			$('#ab_conyuge').focus();
+											}	
+										}else{
+											sw=1;
+								 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+								 			$('#mb_fechaing').focus();
+									}		
+									}else{
+										sw=1;
+								 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+								 		$('#mb_fechanac').focus();
+									}						
+								}else{
+									sw=1;
+							 		menError('Error..!', 'El </B>APELLIDO</B> no puede exceder los 30 Caracteres..!');
+							 		$('#mb_ap').focus();
+								}
+							}else{
+								sw=1;
+						 		menError('Error..!', 'Debe ingresar al menos un APELLIDO..!');
+						 		$('#mb_ap').focus();
+							}							
+						}else{
+							sw=1;
+					 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede exceder los 20 Caracteres..!');
+					 		$('#mb_nombre').focus();
+						}
+					}else{
+						sw=1;
+				 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede ser vacio..!');
+				 		$('#mb_nombre').focus();
+					}
+				}else{
+	 				sw=1;
+					menError('Error..!', '</B>CODIGO SOCIO NO ES VALIDO</B>..!');
+					$('#mb_codigoper').focus();	
+	 			}	
+ 			}else{
+ 				sw=1;
+				menError('Error..!', 'La </B>CEDULA</B> no debe exceder los 15 Caracteres..!');
+				$('#mb_ci').focus();	
+ 			}
+ 			
+ 			return sw;
+ 		}
+ 		
+ 		//Butons ACEPTAR Antiguedad
+ 		$("#btnAcept_addAnt").click(function(){
+ 			var xnombres= $("#estado_name").val();
+ 			var xcodper= $("#estado_codper").val();
+ 			var xcodigoper= $("#estado_codigoper").val();
+ 			
+ 			if (validarDatos_addAnt() == 0) {
+	 			if(confirm('¿Seguro de Guardar La fecha de Antiguedad De Persona ?')){ 				
+		 				$.when(	
+			 	 				jQuery.post('personaServices.html',$('#addformAnt').serialize(), 	 						
+			 	 						function(data){		 	 					
+			 	 							obj = JSON.parse(data);
+			 								//alert(obj.error);
+			 								if (obj.error=='0'){
+			 									//repetir(xdatos) 									
+			 									menOK('Correcto..!','Los Datos se <b>GUARDARON satisfactoriamente</b>..!');
+			 									//alert("OK");
+			 									$('#myModal-add-ant').modal('hide');
+			 									
+			 								}else{
+			 									if (obj.error=='1'){
+			 										menError('Error..!', 'EL CODIGO ESTA REPETIDO..Revisar.!');
+			 									}else{
+			 										menError('Error..!', 'NO SE PUDO GUARDAR LOS DATOS..Revisar.!');
+			 									}	
+			 							    }
+			 	 				        } //end of function (data)
+			 	 				) //END of first ajax
+							).then(function() {	
+			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+								jQuery.post('detalle_estado12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+				 	 						function(data){	$('#detalle-personal').html(data);
+				 	 			});
+							});						
+	 			}
+ 			}
+        });	
+       
+       
+       
+       //valida datos para opcion adiciona		
+ 		function validarDatos_addAnt(){
+ 			var sw=0;
+ 			var xfing=$('#a_fant').val();
+ 			
+ 			if (validaFechaDDMMAAAA(xfing)){
+				sw=0;	
+			}else{
+				sw=1;
+				menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+				$('#a_fant').focus();
+			}		
+ 			return sw;
+ 		}
+		
+		//Butons ELIMINAR Antiguedad
+ 		$("#btnAcept_delAnt").click(function(){
+			var xnombres= $("#estado_name").val();
+ 			var xcodper= $("#estado_codper").val();
+ 			var xcodigoper= $("#estado_codigoper").val();
+ 					$.when(	
+	 	 				jQuery.post('personaServices.html',$('#delformAnt').serialize(), 	 						
+	 	 						function(data){		 	 					
+	 	 							obj = JSON.parse(data);
+	 								//alert(obj.error);
+	 								if (obj.error=='0'){
+	 									//repetir(xdatos) 									
+	 									menOK('Correcto..!','Los Datos se <b>ELIMINARON satisfactoriamente</b>..!');
+	 									//alert("OK");
+	 									$('#myModal-del-ant').modal('hide');			 									
+	 								}else{
+	 										menError('Error..!', 'NO SE PUDO ELIMINAR LOS DATOS..Revisar.!');
+	 							    }
+	 	 				        } //end of function (data)
+	 	 				) //END of first ajax
+				).then(function() {	
+	 	 		//		alert(xcodpadre+" -a ver- "+xestado);
+						jQuery.post('detalle_estado12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+		 	 							function(data){	$('#detalle-personal').html(data);
+		 	 			});
+				});
+ 		});
+ 		
+       
+       
+ 		//Butons PRINT
+ 		$("#print").click(function(){
+ 			
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			window.open('personalReportes01.html?xest='+xestado+'&xact='+xactivos,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });
+		//Butons PRINT
+ 		$("#print1").click(function(){
+ 			
+ 			var xestado=1;//$('input[name=estado]:checked').val();
+ 			var xactivos=$('input[name=activos]:checked').val();
+ 			window.open('personalReportes01XLS.html?xest='+xestado+'&xact='+xactivos,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });
+		
+ 		
+    });
+</script>

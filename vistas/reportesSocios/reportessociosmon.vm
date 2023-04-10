@@ -1,0 +1,1518 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <script src="js/tools_oam.js"></script>
+    
+    <link href="css/estilo1.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+    <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+    
+    <script src="js/bootstrap-notify/bootstrap-notify.js"></script>
+    <link href="css/myNotify.css" rel="stylesheet">
+    <script src="js/myNotify.js"></script>
+    
+<script>
+    $( function() {
+        $( "#a_fechaini" ).datepicker({
+          changeMonth: true,
+          changeYear: true
+        });        
+        $( "#a_fechafin" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+        $( "#a_fechaini_K" ).datepicker({
+          changeMonth: true,
+          changeYear: true
+        });        
+        $( "#a_fechafin_K" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+    
+    
+</script>
+        
+<div class="container-fluid">          
+      <!-- /. ROW  -->              
+            <div  class="row">            
+			    <div class="col-md-3"> </div>
+			            <div class="col-md-6">
+			                <div class="div-capa">
+			                    <div class="div-arriba">
+			                        <table >
+			                        <thead>
+			                            <tr>
+			                                <th colspan="2" >REPORTES DE SOCIOS </th>
+			                            </tr>
+			                        </thead>
+			                        </table>
+			                    </div>
+			                    <div class="div-abajo">
+			                        <table class="table table-bordered table-hover table-striped">
+			                          <thead>
+			                            <tr>
+			                              <th width="2%" align="right">#</th>
+			                              <th align="right">Reporte</th>
+			                            </tr>
+			                          </thead>
+			                          <tbody>
+		                                <tr>
+		                                  <td scope="row">1.-</td>
+		                                  <td align="left">
+				                                <a  href="javascript:void(0)" onclick="javascript:arqueoDecaja()">
+					                                <img src="images/img-sis/print.png"
+			            							style="vertical-align: middle; width: 24px; height: 24px"
+			            							alt="Vista previa" title="Imprimir Parte Diario de Pagos.." />
+				                                	Parte Diario de Pagos
+			                                	</a>			                                 
+				            			  </td>
+		                                </tr>
+		                                <tr>
+		                                <td scope="row">2.-</td>
+		                                  <td align="left">
+				                                <a  href="javascript:void(0)" onclick="javascript:saldos2anios()">
+					                                <img src="images/img-sis/print.png"
+			            							style="vertical-align: middle; width: 24px; height: 24px"
+			            							alt="Vista previa" title="Imprimir Movimientos y Saldos en 2 Años.." />
+				                                	Movimientos y Saldos en 2 Años
+			                                	</a>			                                 
+				            			  </td>
+		                                </tr>
+		                                <tr>
+		                                  <td scope="row">3.-</td>
+		                                  <td align="left">
+				                                <a  href="javascript:void(0)" onclick="javascript:sociosPagosMes()">
+					                                <img src="images/img-sis/print.png"
+			            							style="vertical-align: middle; width: 24px; height: 24px"
+			            							alt="Vista previa" title="Imprimir Socios que Pagaron hasta un Mes Determinado.." />
+				                                	Socios que Pagaron hasta un MES Determinado
+			                                	</a>			                                 
+				            			  </td>
+		                                </tr>
+		                                <tr>
+		                                <tr>
+		                                  <td scope="row">3.1.-</td>
+		                                  <td align="left">
+				                                <a  href="javascript:void(0)" onclick="javascript:sociosCBPagosMes()">
+					                                <img src="images/img-sis/print.png"
+			            							style="vertical-align: middle; width: 24px; height: 24px"
+			            							alt="Vista previa" title="Imprimir Socios con Beneficiarios que Pagaron hasta un Mes Determinado.." />
+				                                	Socios con Beneficiarios que Pagaron hasta un MES Determinado
+			                                	</a>			                                 
+				            			  </td>
+		                                </tr>
+		                                <tr>
+		                                  <td scope="row">4.-</td>
+		                                  <td align="left">
+			                                  	<A href="javascript:void(0);"  onclick="javascript:sociosMasEstado()">
+				            						<img src="images/img-sis/print.png"
+				            							style="vertical-align: middle; width: 24px; height: 24px"
+				            							alt="Vista previa" title="Imprimir Socios y Estados.." />
+				            						Reporte de Socios y Estado del Socio
+				            					</A>
+		                                  </td>
+		                                </tr>
+		                                <tr>
+		                                  <td scope="row">5.-</td>
+		                                  <td align="left">
+			                                  	<A href="javascript:void(0);"  onclick="javascript:sociosMenoresMasEstado()">
+				            						<img src="images/img-sis/print.png"
+				            							style="vertical-align: middle; width: 24px; height: 24px"
+				            							alt="Vista previa" title="Imprimir Socios Menores.." />
+				            						Reporte de Socios Menores (Activos/Pasivos)
+				            					</A>
+		                                  </td>
+		                                </tr>		                                
+										<tr>
+		                                  <td scope="row">6.-</td>
+		                                  <td align="left">
+				                                <a  href="javascript:void(0)" onclick="javascript:saldoDeudorMes()">
+					                                <img src="images/img-sis/print.png"
+			            							style="vertical-align: middle; width: 24px; height: 24px"
+			            							alt="Vista previa" title="Imprimir Socios que Pagaron hasta un Mes Determinado.." />
+				                                	Saldos Deudores Hasta un Mes Determinado
+			                                	</a>			                                 
+				            			  </td>
+		                                </tr>
+										<tr>
+		                                  <td scope="row">7.-</td>
+		                                  <td align="left">
+				                                <a  href="javascript:void(0)" onclick="javascript:sociosBeneficiarios()">
+					                                <img src="images/img-sis/print.png"
+			            							style="vertical-align: middle; width: 24px; height: 24px"
+			            							alt="Vista previa" title="Imprimir Socios y sus Beneficiarios.." />
+				                                	Socios y sus Beneficiarios
+			                                	</a>			                                 
+				            			  </td>
+		                                </tr>
+		                                <tr>
+		                                  <td scope="row">8.-</td>
+		                                  <td align="left">
+				                                <a  href="javascript:void(0)" onclick="javascript:kardexPagosSocios()">
+					                                <img src="images/img-sis/print.png"
+			            							style="vertical-align: middle; width: 24px; height: 24px"
+			            							alt="Vista previa" title="Imprimir Kardex de Pagos de Socios.." />
+				                                	Kardex de Pagos del Socio
+			                                	</a>			                                 
+				            			  </td>
+		                                </tr>
+		                                <tr>
+		                                  <td scope="row">9.-</td>
+		                                  <td align="left">
+				                                <a  href="javascript:void(0)" onclick="javascript:resumenSaldoDeudorMes()">
+					                                <img src="images/img-sis/print.png"
+			            							style="vertical-align: middle; width: 24px; height: 24px"
+			            							alt="Vista previa" title="Imprimir Kardex de Pagos de Socios.." />
+				                                	Resúmen Deudas por Rango de Mes 
+			                                	</a>			                                 
+				            			  </td>
+		                                </tr>		                                		                                
+			                          </tbody>
+			                        </table>
+			                    </div>
+			                </div>
+			            </div>
+			    <div class="col-md-3"> </div>
+      </div>            
+</div>
+<input type="hidden" id="reporte1" value="${opPagos}">
+<input type="hidden" id="listaJson" value="">
+<input type="hidden" name="opcion" id="opcion_json" value="${op_json}" >
+
+<input type="hidden" name="opListaSocios" id="opListaSocios" value="${opListaSocios}" >
+
+<!--  Modals-->
+<!--  Modals Adicionar -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Arqueo de Caja</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform">
+	                    <div class="form-group">
+		                    <label class="control-label col-xs-3">Fecha Inicio::</label>
+		                    <div class="col-xs-6">                               
+		                    	<input type="text" class="form-control" name="a_fechaini" id="a_fechaini" placeholder="dd/mm/aaaa" required>
+		                    </div>                            
+		                </div>
+		                <div class="form-group">
+		                    <label class="control-label col-xs-3">Fecha fin::</label>
+		                    <div class="col-xs-6">                               
+		                    	<input type="text" class="form-control" name="a_fechafin" id="a_fechafin" placeholder="dd/mm/aaaa" required>
+		                    </div>                            
+		                </div>
+                        <input type="hidden" name="opcion" value="${opAdd}" >                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal" -->
+                    <button type="button" class="btn btn-default" id="btnCancel_add" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_add">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!--  Modals SALDOS 2 AÑOS -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-saldos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">MOVIMIENTOS DE SALDOS DE 2 AÑOS</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform">
+	                    <div class="form-group">
+		                    <label class="control-label col-xs-4">Gestión Inicio::</label>
+		                    <div class="col-xs-5">                               
+		                    	<input type="text" class="form-control" name="a_anioini" id="a_anioini" placeholder="Ingrese una Gestión" required>
+		                    </div>                            
+		                </div>
+		                <div class="form-group">
+		                    <label class="control-label col-xs-4">Gestión fin::</label>
+		                    <div class="col-xs-5">                               
+		                    	<input type="text" class="form-control" name="a_aniofin" id="a_aniofin" placeholder="Gestión" readonly>
+		                    </div>                            
+		                </div>
+			            <div class="form-group">
+	                    	<label class="control-label col-xs-4">Estados:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_saldos" value="0">Sin Saldos
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_saldos" value="1" >Con Saldos
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_saldos" value="2" checked>todos
+	                    			</label>
+	                    		</div>
+	                    </div>
+	                    <input type="hidden" id="opSaldos" value="${opSaldos}">                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal" -->
+                    <button type="button" class="btn btn-default" id="btnCancel_saldos" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_saldos">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-SALDOS-->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!--  Modals SOCIOS QUE PAGARON HASTA CIERTO MES   -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-pagosMes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">SOCIOS QUE PAGARON HASTA CIERTO MES</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform">
+	                    <div class="form-group">
+		                        <label class="control-label col-xs-4">Pagos Hasta::</label>
+                             	<div class="col-xs-5">
+	                                <select class="form-control" name="a_mes2" id="a_mes2">
+										<option value="1" >ENERO </option>
+										<option value="2" >FEBRERO </option>
+										<option value="3" >MARZO </option>
+										<option value="4" >ABRIL </option>
+										<option value="5" >MAYO </option>
+										<option value="6" >JUNIO </option>
+										<option value="7" >JULIO </option>
+										<option value="8" >AGOSTO </option>
+										<option value="9" >SEPTIEMBRE </option>
+										<option value="10" >OCTUBRE </option>
+										<option value="11" >NOVIEMBRE </option>
+										<option value="12" >DICIEMBRE </option>
+									</select>
+                                </div>                          
+		                </div>	                
+		                <div class="form-group">
+		                    <label class="control-label col-xs-4">Gestión::</label>
+		                    <div class="col-xs-5">                               
+		                    	<input type="text" class="form-control" name="a_aniofin_pagosMes" id="a_aniofin_pagosMes" placeholder="Gestión" >
+		                    </div>                            
+		                </div>
+<!--
+		                <div class="form-group">
+	                    		<label class="control-label col-xs-4"></label>
+	                    		<div class="col-xs-4">
+	                    			<label><input type="radio" name="estado_1" value="1" >CON AUSENTES</label>
+	                    		</div>
+	                    		<div class="col-xs-3">
+	                    			<label><input type="radio" name="estado_1" value="0" CHECKED >SIN AUSENTES</label>
+	                    		</div>                    		
+	                    </div>
+-->	                    
+		                <div class="form-group">
+	                    		<label class="control-label col-xs-4">Estado Socios:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				ACTIVO:<input type="checkbox" id="xpro_1"  name="xpro_1" value="100" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				MENOR:<input type="checkbox" id="xpro_2"  name="xpro_2" value="200" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				EMERITO:<input type="checkbox" id="xpro_3"  name="xpro_3" value="300" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				JOVEN:<input type="checkbox" id="xpro_4"  name="xpro_4" value="400" CHECKED />
+	                    			</label>
+	                    		</div>	                    		
+	                    </div>
+	                    <div class="form-group">
+	                    		<label class="control-label col-xs-4">Estado Ausente:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				ACTIVO AUSENTE:<input type="checkbox" id="xproa_1"  name="xproa_1" value="100" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				MENOR AUSENTE:<input type="checkbox" id="xproa_2"  name="xproa_2" value="200" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				EMERITO AUSENTE:<input type="checkbox" id="xproa_3"  name="xproa_3" value="300" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				JOVEN AUSENTE:<input type="checkbox" id="xproa_4"  name="xproa_4" value="400" CHECKED />
+	                    			</label>
+	                    		</div>	                    		
+	                    </div>
+			            <div class="form-group">
+	                    		<label class="control-label col-xs-4">Formatos:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_tipodoc" value="P" checked>PDF
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_tipodoc" value="X" >EXCEL
+	                    			</label>
+	                    		</div>
+	                    </div>
+	                    <input type="hidden" id="opPagosMes" value="${opPagosMes}">                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal"  -->
+                    <button type="button" class="btn btn-default" id="btnCancel_pagosMes" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_pagosMes">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-SALDOS-->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!--  Modals SOCIOS CON BENEFICIARIOS QUE PAGARON HASTA CIERTO MES   -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-pagosMesCB" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">SOCIOS CON BENEFICIARIOS QUE PAGARON HASTA CIERTO MES</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform">
+	                    <div class="form-group">
+		                        <label class="control-label col-xs-4">Pagos Hasta::</label>
+                             	<div class="col-xs-5">
+	                                <select class="form-control" name="a_mes2c" id="a_mes2c">
+										<option value="1" >ENERO </option>
+										<option value="2" >FEBRERO </option>
+										<option value="3" >MARZO </option>
+										<option value="4" >ABRIL </option>
+										<option value="5" >MAYO </option>
+										<option value="6" >JUNIO </option>
+										<option value="7" >JULIO </option>
+										<option value="8" >AGOSTO </option>
+										<option value="9" >SEPTIEMBRE </option>
+										<option value="10" >OCTUBRE </option>
+										<option value="11" >NOVIEMBRE </option>
+										<option value="12" >DICIEMBRE </option>
+									</select>
+                                </div>                          
+		                </div>	                
+		                <div class="form-group">
+		                    <label class="control-label col-xs-4">Gestión::</label>
+		                    <div class="col-xs-5">                               
+		                    	<input type="text" class="form-control" name="a_aniofin_pagosMesc" id="a_aniofin_pagosMesc" placeholder="Gestión" >
+		                    </div>                            
+		                </div>
+<!--
+		                <div class="form-group">
+	                    		<label class="control-label col-xs-4"></label>
+	                    		<div class="col-xs-4">
+	                    			<label><input type="radio" name="estado_1c" value="1" >CON AUSENTES</label>
+	                    		</div>
+	                    		<div class="col-xs-3">
+	                    			<label><input type="radio" name="estado_1c" value="0" CHECKED >SIN AUSENTES</label>
+	                    		</div>                    		
+	                    </div>
+-->	                    
+		                <div class="form-group">
+	                    		<label class="control-label col-xs-4">Estado Socios:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				ACTIVO:<input type="checkbox" id="xpro_1c"  name="xpro_1c" value="100" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				MENOR:<input type="checkbox" id="xpro_2c"  name="xpro_2c" value="200" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				EMERITO:<input type="checkbox" id="xpro_3c"  name="xpro_3c" value="300" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				JOVEN:<input type="checkbox" id="xpro_4c"  name="xpro_4c" value="400" CHECKED />
+	                    			</label>
+	                    		</div>	                    		
+	                    </div>
+	                    <div class="form-group">
+	                    		<label class="control-label col-xs-4">Estado Ausente:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				ACTIVO AUSENTE:<input type="checkbox" id="xproa_1c"  name="xproa_1c" value="100" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				MENOR AUSENTE:<input type="checkbox" id="xproa_2c"  name="xproa_2c" value="200" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				EMERITO AUSENTE:<input type="checkbox" id="xproa_3c"  name="xproa_3c" value="300" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				JOVEN AUSENTE:<input type="checkbox" id="xproa_4c"  name="xproa_4c" value="400" CHECKED />
+	                    			</label>
+	                    		</div>	                    		
+	                    </div>
+			            <div class="form-group">
+	                    		<label class="control-label col-xs-4">Formatos:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_tipodocc" value="P" checked>PDF
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_tipodocc" value="X" >EXCEL
+	                    			</label>
+	                    		</div>
+	                    </div>
+	                    <input type="hidden" id="opPagosMesCB" value="${opPagosMesCB}">                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal"  -->
+                    <button type="button" class="btn btn-default" id="btnCancel_pagosMesCB" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_pagosMesCB">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-SALDOS-->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!--  Modals SALDOS DEUDORES HASTA UN MES DETERMINADO     -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-saldoDeudorMes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">SALDOS DEUDORES HASTA UN MES DETERMINADO</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform_sd">
+                    	<div class="form-group">
+		                        <label class="control-label col-xs-3"></label>
+                             	<div class="col-xs-8">
+		                                    <label><input type="radio" name="finicio_sd" value="1" class="paramsChangeFecha_sd" >SIN FECHA inicio </label>
+		                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									      	<label><input type="radio" name="finicio_sd" value="0" class="paramsChangeFecha_sd" CHECKED >CON FECHA inicio</label>
+                                </div>                                            
+		                </div>
+						<div class="form-group" id="desde_sd">
+				                    <label class="control-label col-xs-3">DESDE::</label>
+	                             	<div class="col-xs-4">
+			                                <select class="form-control" name="sda_mes1" id="sda_mes1">
+												<option value="1" >ENERO </option>
+												<option value="2" >FEBRERO </option>
+												<option value="3" >MARZO </option>
+												<option value="4" >ABRIL </option>
+												<option value="5" >MAYO </option>
+												<option value="6" >JUNIO </option>
+												<option value="7" >JULIO </option>
+												<option value="8" >AGOSTO </option>
+												<option value="9" >SEPTIEMBRE </option>
+												<option value="10" >OCTUBRE </option>
+												<option value="11" >NOVIEMBRE </option>
+												<option value="12" >DICIEMBRE </option>
+											</select>
+	                                </div>                          
+				                    <div class="col-xs-4">                               
+				                    	<input type="text" class="form-control" name="a_anioini_sd" id="a_anioini_sd" placeholder="Gestión" >
+				                    </div>                            
+                    	</div>
+	                    <div class="form-group">
+	                        <label class="control-label col-xs-3">HASTA::</label>
+                           	<div class="col-xs-4">
+	                                <select class="form-control" name="sda_mes2" id="sda_mes2">
+										<option value="1" >ENERO </option>
+										<option value="2" >FEBRERO </option>
+										<option value="3" >MARZO </option>
+										<option value="4" >ABRIL </option>
+										<option value="5" >MAYO </option>
+										<option value="6" >JUNIO </option>
+										<option value="7" >JULIO </option>
+										<option value="8" >AGOSTO </option>
+										<option value="9" >SEPTIEMBRE </option>
+										<option value="10" >OCTUBRE </option>
+										<option value="11" >NOVIEMBRE </option>
+										<option value="12" >DICIEMBRE </option>
+									</select>
+                            </div>                          
+		                    <div class="col-xs-4">                               
+		                    	<input type="text" class="form-control" name="a_aniofin_sd" id="a_aniofin_sd" placeholder="Gestión" >
+		                    </div>                            
+		                </div>		            
+			            <div class="form-group">
+	                    		<label class="control-label col-xs-4">Formatos:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="sda_tipodoc" value="P" checked>PDF
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="sda_tipodoc" value="X" >EXCEL
+	                    			</label>
+	                    		</div>
+	                    </div>
+	                    <input type="hidden" id="opSaldoDeudor" value="${opSaldoDeudor}">                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal" -->
+                    <button type="button" class="btn btn-default" id="btnCancel_saldoDeudor" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_saldoDeudor">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-SALDOS DEUDORES-->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!--  Modals RESUMEN SALDOS DEUDORES HASTA UN MES DETERMINADO     -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-resumenSaldoDeudorMes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">RESUMEN SALDOS DEUDORES POR MESES </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform_resd">
+						<div class="form-group" >
+				                    <label class="control-label col-xs-3">DESDE::</label>
+	                             	<div class="col-xs-4">
+			                                <select class="form-control" name="resda_mes1" id="resda_mes1">
+												<option value="1" >ENERO </option>
+												<option value="2" >FEBRERO </option>
+												<option value="3" >MARZO </option>
+												<option value="4" >ABRIL </option>
+												<option value="5" >MAYO </option>
+												<option value="6" >JUNIO </option>
+												<option value="7" >JULIO </option>
+												<option value="8" >AGOSTO </option>
+												<option value="9" >SEPTIEMBRE </option>
+												<option value="10" >OCTUBRE </option>
+												<option value="11" >NOVIEMBRE </option>
+												<option value="12" >DICIEMBRE </option>
+											</select>
+	                                </div>                          
+				                    <div class="col-xs-4">                               
+				                    	<input type="text" class="form-control" name="a_anioini_resd" id="a_anioini_resd" placeholder="Gestión" >
+				                    </div>                            
+                    	</div>
+	                    <div class="form-group">
+	                        <label class="control-label col-xs-3">HASTA::</label>
+                           	<div class="col-xs-4">
+	                                <select class="form-control" name="resda_mes2" id="resda_mes2">
+										<option value="1" >ENERO </option>
+										<option value="2" >FEBRERO </option>
+										<option value="3" >MARZO </option>
+										<option value="4" >ABRIL </option>
+										<option value="5" >MAYO </option>
+										<option value="6" >JUNIO </option>
+										<option value="7" >JULIO </option>
+										<option value="8" >AGOSTO </option>
+										<option value="9" >SEPTIEMBRE </option>
+										<option value="10" >OCTUBRE </option>
+										<option value="11" >NOVIEMBRE </option>
+										<option value="12" >DICIEMBRE </option>
+									</select>
+                            </div>                          
+		                    <div class="col-xs-4">                               
+		                    	<input type="text" class="form-control" name="a_aniofin_resd" id="a_aniofin_resd" placeholder="Gestión" >
+		                    </div>                            
+		                </div>		            
+			            <div class="form-group">
+	                    		<label class="control-label col-xs-4">Formatos:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="resda_tipodoc" value="P" checked>PDF
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="resda_tipodoc" value="X" >EXCEL
+	                    			</label>
+	                    		</div>
+	                    </div>
+	                    <input type="hidden" id="opResSaldoDeudor" value="${opResSaldoDeudor}">                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal"  OAM -->
+                    <button type="button" class="btn btn-default" id="btnCancel_resumenSaldoDeudor" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_resumenSaldoDeudor">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-RESUMEN SALDOS DEUDORES-->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!--  Modals SOCIOS Y SUS BENEFICIARIOS  -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-sociosBeneficiarios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">SOCIOS Y SUS BENEFICIARIOS</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform_sd">
+		                <div class="form-group">
+		                    <label class="control-label col-xs-4">Que Contenga::</label>
+		                    <div class="col-xs-4">                               
+		                    	<input type="text" class="form-control" name="a_filtro1" id="a_filtro1" placeholder="Filtro 1" >
+		                    </div>   
+		                    <div class="col-xs-4">                               
+		                    	<input type="text" class="form-control" name="a_filtro2" id="a_filtro2" placeholder="Filtro 2" >
+		                    </div>                          
+		                </div>		            
+			            <div class="form-group">
+	                    		<label class="control-label col-xs-4">Formatos:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="ben_tipodoc" value="P" checked>PDF
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="ben_tipodoc" value="X" >EXCEL
+	                    			</label>
+	                    		</div>
+	                    </div>
+	                    <input type="hidden" id="opBeneficiarios" value="${opBeneficiarios}">     
+	                    	                                      
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal"   -->
+                    <button type="button" class="btn btn-default" id="btnCancel_beneficiarios" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_Beneficiarios">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals SOCIOS Y SUS BENEFICIARIOS -->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!--  Modals KARDEX PAGOS DE SOCIOS      -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-kardexPagosSocios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">KARDEX DE PAGOS DE SOCIOS</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform_sd">
+		                <div class="form-group">
+		                    <label class="control-label col-xs-3">Socio::</label>
+	        	            <div class="col-xs-8">
+	                            <input type="text" class="form-control" id="xsocio" placeholder="Buscar por Socios.." required>
+	                            <input type="HIDDEN"  id="xsocio_2" >
+	                            <input type="HIDDEN" name="xsocio_val" id="xsocio_val" >
+	                        </div>                           
+		                </div>	
+		                <div class="form-group">
+		                    <label class="control-label col-xs-9">Transacciones Realizadas sobre Boletas::</label>                          
+		                </div>	
+		                <div class="form-group">
+		                        <label class="control-label col-xs-3"></label>
+                             	<div class="col-xs-8">
+		                                    <label><input type="radio" name="finicio" value="1" class="paramsChangeFecha" >SIN FECHA inicio </label>
+		                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									      	<label><input type="radio" name="finicio" value="0" class="paramsChangeFecha" CHECKED >CON FECHA inicio</label>
+                                </div>                                            
+		                </div>
+		                
+	                    <div class="form-group" id="fini">
+		                    <label class="control-label col-xs-3">Fecha Inicio::</label>
+		                    <div class="col-xs-4">                               
+		                    	<input type="text" class="form-control" name="a_fechaini_K" id="a_fechaini_K" placeholder="dd/mm/aaaa" required>
+		                    </div>                            
+		                </div>
+		                
+		                <div class="form-group">
+		                    <label class="control-label col-xs-3">Fecha fin::</label>
+		                    <div class="col-xs-4">                               
+		                    	<input type="text" class="form-control" name="a_fechafin_K" id="a_fechafin_K" placeholder="dd/mm/aaaa" required>
+		                    </div>                            
+		                </div>
+		                		                		                               		       
+<!--		                	            
+			            <div class="form-group">
+	                    		<label class="control-label col-xs-3">Formatos:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="ben_tipodoc" value="P" checked>PDF
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="ben_tipodoc" value="X" >EXCEL
+	                    			</label>
+	                    		</div>
+	                    </div>
+-->	                    
+	                    <input type="hidden" id="opKardexPagosSocios" value="${opKardexPagosSocios}">     
+	                    	                                      
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal"  -->
+                    <button type="button" class="btn btn-default" id="btnCancel_kardexPagosSocios" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_kardexPagosSocios">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals KARDEX PAGOS SOCIOS -->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!--  Modals SOCIOS Y SUS ESTADOS   -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-sociosEstados" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">LISTA DE SOCIOS Y ESTADOS</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform_ES">
+                    	<div class="form-group">
+	                    		<label class="control-label col-xs-4">Estado Ausente:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				ACTIVO AUSENTE:<input type="checkbox" id="esproa_1"  name="esproa_1" value="100" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				MENOR AUSENTE:<input type="checkbox" id="esproa_2"  name="esproa_2" value="200" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				EMERITO AUSENTE:<input type="checkbox" id="esproa_3"  name="esproa_3" value="300" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				JOVEN AUSENTE:<input type="checkbox" id="esproa_4"  name="esproa_4" value="400" CHECKED />
+	                    			</label>
+	                    		</div>	                    		
+	                    </div>
+		                <div class="form-group">
+	                    		<label class="control-label col-xs-4">Estado Socios:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				ACTIVO:<input type="checkbox" id="espro_1"  name="espro_1" value="100" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				MENOR:<input type="checkbox" id="espro_2"  name="espro_2" value="200" CHECKED/>
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				EMERITO:<input type="checkbox" id="espro_3"  name="espro_3" value="300" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				JOVEN:<input type="checkbox" id="espro_4"  name="espro_4" value="400" CHECKED  />
+	                    			</label>
+	                    		</div>	                    		
+	                    </div>
+			            <div class="form-group">
+	                    		<label class="control-label col-xs-4">Formatos:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_tipodoc_ES" value="P" checked>PDF
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_tipodoc_ES" value="X" >EXCEL
+	                    			</label>
+	                    		</div>
+	                    </div>
+	                    <input type="hidden" id="opPagosMes_ES" value="${opSociosEstados}">                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal"   -->
+                    <button type="button" class="btn btn-default" id="btnCancel_sociosEstados" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_pagosEstados">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-SOCIOS-ESTADOS -->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!--  Modals SOCIOS MENORES Y SUS ESTADOS    -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-sociosMenores" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">LISTA DE SOCIOS MENORES Y ESTADOS</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform_ES">                   
+						<div class="form-group">
+	                    		<label class="control-label col-xs-4">Estado Ausente:</label>
+	                    		<div class="col-xs-6">
+	                    			<label class="radio-inline">
+	                    				MENOR ACTIVO AUSENTE:<input type="checkbox" id="menpro_0"  name="menpro_0" value="201" CHECKED />
+	                    			</label>
+	                    		</div>
+	                    </div>
+		                <div class="form-group">
+	                    		<label class="control-label col-xs-4">Socio MENOR:</label>
+	                    		<div class="col-xs-4">
+	                    			<label class="radio-inline">
+	                    				ACTIVO:              <input type="checkbox" id="menpro_1"  name="menpro_1" value="200" CHECKED/>
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-4">
+	                    			<label class="radio-inline">
+	                    				PASIVO:              <input type="checkbox" id="menpro_2"  name="menpro_2" value="999" CHECKED />
+	                    			</label>
+	                    		</div>                    		
+	                    </div>
+			            <div class="form-group">
+	                    		<label class="control-label col-xs-4">Formatos:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_tipodoc_MEN" value="P" checked>PDF
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="a_tipodoc_MEN" value="X" >EXCEL
+	                    			</label>
+	                    		</div>
+	                    </div>
+	                    <input type="hidden" id="opPagosMes_MEN" value="${opSociosMenores}">                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal"   -->
+                    <button type="button" class="btn btn-default" id="btnCancel_sociosMenores" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_sociosMenores">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-SOCIOS-MENORES-ESTADOS -->
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx -->
+    <link rel="stylesheet" href="js/jquery-ui-themes-1.12.0/themes/base/jquery-ui.css">
+    <script src="js/jquery-ui-1.12.0/jquery-ui.js"></script>
+
+<script>
+
+//esta funciona carga lista DE SOCIOS y llama a autocomplete 
+function cargaSociosConBoletas(){
+		var op_json4=$("#opListaSocios").val();
+		
+		$.when(				
+				//carga un JSON 	
+			    $.ajax({
+				    data: {"opcion" : op_json4 },
+				    type: "POST",
+				    dataType: "json",
+				    url: "serviciosQuerys_103.html",
+				})
+				 .done(function( data, textStatus, jqXHR ) {
+					 $("#listaJson").val(JSON.stringify(data));
+				 })
+				 .fail(function( jqXHR, textStatus, errorThrown ) {
+					 alert( "La solicitud a fallado CARGA SOCIO: " +  textStatus);
+				})				 
+		).then(function() {
+				var datitos=$("#listaJson").val();     	
+			 	$('#xsocio').autocomplete({  	 
+			         source : JSON.parse(datitos),
+			          minLength:1,
+			          select: function(event, ui){  
+			              // just in case you want to see the ID
+			              var accountVal = ui.item.value;
+			              console.log(accountVal);
+	
+			              // now set the label in the textbox
+			              var accountText = ui.item.label;
+			              $('#xsocio').val(accountText);
+			              $('#xsocio_2').val(accountText);
+			              $('#xsocio_val').val(accountVal);
+			              return false;
+			          },
+			          focus: function( event, ui ) {
+			              $( "#xsocio" ).val( ui.item.label );                       
+			              return false;
+			          }
+			     })				 	
+		});	
+}
+
+function arqueoDecaja(){
+	$('#myModal').modal('show');
+}
+
+function saldos2anios(){
+	$('#myModal-saldos').modal('show');
+}
+
+//SOCIOS QUE PAGARON HASTA CIERTO MES  
+function sociosPagosMes(){
+	$('#myModal-pagosMes').modal('show');
+}
+//SOCIOS CB QUE PAGARON HASTA CIERTO MES  
+function sociosCBPagosMes(){
+	$('#myModal-pagosMesCB').modal('show');
+}
+//SALDOS DEUDORES HASTA MES DETERMINADO   
+function saldoDeudorMes(){
+	$('#myModal-saldoDeudorMes').modal('show');
+}
+
+//RESUMEN SALDOS DEUDORES HASTA MES DETERMINADO   
+function resumenSaldoDeudorMes(){
+	$('#myModal-resumenSaldoDeudorMes').modal('show');
+}
+
+//SI FECHA INICIO  
+$(".paramsChangeFecha").change( function() {
+	var xfinicio=$('input[name=finicio]:checked').val();
+
+	if (xfinicio == '1'){
+		$("#fini").hide();
+	}else{
+		$("#fini").show();
+	}
+});
+
+//SI SALDO DEUDOR  
+$(".paramsChangeFecha_sd").change( function() {
+	var xfinicio=$('input[name=finicio_sd]:checked').val();
+
+	if (xfinicio == '1'){
+		$("#desde_sd").hide();
+	}else{
+		$("#desde_sd").show();
+	}
+});
+
+//SOCIOS Y SUS BENEFICIARIOS 
+function sociosBeneficiarios(){
+	$('#myModal-sociosBeneficiarios').modal('show');
+}
+
+//KARDEX DE PAGOS SOCIOS   
+function kardexPagosSocios(){
+	cargaSociosConBoletas();
+	$('#myModal-kardexPagosSocios').modal('show');
+}
+
+//SOCIOS MAS ESTADOS  
+function sociosMasEstado(){
+	$('#myModal-sociosEstados').modal('show');
+}
+
+//SOCIOS MENORES    
+function sociosMenoresMasEstado(){
+	$('#myModal-sociosMenores').modal('show');
+}
+
+$(document).ready(function () {
+	$("#a_fechaini").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfechaini});
+	$("#a_fechafin").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfechafin});
+	
+	$("#a_fechaini_K").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfechaini_K});
+	$("#a_fechafin_K").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfechafin_K});
+ 		
+    //Butons CANCELAR DE ADD-BOLETAS 
+		$("#btnCancel_add").click(function(){
+			$('#myModal').modal('hide');
+		});
+		$("#btnCancel_saldos").click(function(){
+			$('#myModal-saldos').modal('hide');
+		});
+		$("#btnCancel_pagosMes").click(function(){
+			$('#myModal-pagosMes').modal('hide');
+		});
+		$("#btnCancel_pagosMesCB").click(function(){
+			$('#myModal-pagosMesCB').modal('hide');
+		});
+		// 
+		$("#btnCancel_saldoDeudor").click(function(){
+			$('#myModal-saldoDeudorMes').modal('hide');
+		});
+		
+		// 
+		$("#btnCancel_resumenSaldoDeudor").click(function(){
+			$('#myModal-resumenSaldoDeudorMes').modal('hide');
+		});		
+		$("#btnCancel_beneficiarios").click(function(){
+			$('#myModal-sociosBeneficiarios').modal('hide');
+		});
+
+		$("#btnCancel_kardexPagosSocios").click(function(){
+			$('#myModal-kardexPagosSocios').modal('hide');
+		});
+		
+		$("#btnCancel_sociosEstados").click(function(){
+			$('#myModal-sociosEstados').modal('hide');
+		});
+		
+		//
+		$("#btnCancel_sociosMenores").click(function(){
+			$('#myModal-sociosMenores').modal('hide');
+		});		
+		
+		//Butons REPORTES DE SALDOS DE 2 AÑOS 
+ 		$("#btnAcept_saldos").click(function(){
+ 			if (valida_saldos() == 0) {
+	 			var op=$("#opSaldos").val();
+	 			var anioini=$('#a_anioini').val();
+	 			var saldos=$('input[name=a_saldos]:checked').val();
+	 			$('#myModal-saldos').modal('hide');	 			
+	 			window.open('reportesServicios103.html?opcion='+op+'&anioini='+anioini+'&saldos='+saldos,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+ 			} 			
+        });
+
+		//Butons REPORTES DE PAGOS HASTA MES   
+ 		$("#btnAcept_pagosMes").click(function(){
+ 			if (valida_pagosMes() == 0) {
+ 				var xtipodoc=$('input[name=a_tipodoc]:checked').val();
+	 			var op=$("#opPagosMes").val();
+	 			var aniofin=$('#a_aniofin_pagosMes').val();
+	 			var mes=$('#a_mes2').val();
+	 			
+	 			var xpro1="0";
+	 			var xpro2="0";
+	 			var xpro3="0";
+	 			var xpro4="0";
+	 			var xproa1="0";
+	 			var xproa2="0";
+	 			var xproa3="0";
+	 			var xproa4="0";
+	 			
+	 			if ($('#xpro_1').is(':checked')) { xpro1="100"; }
+	 			if ($('#xpro_2').is(':checked')) { xpro2="200"; }
+	 			if ($('#xpro_3').is(':checked')) { xpro3="300"; }
+	 			if ($('#xpro_4').is(':checked')) { xpro4="400"; }
+	 			
+	 			if ($('#xproa_1').is(':checked')) { xproa1="100"; }
+	 			if ($('#xproa_2').is(':checked')) { xproa2="200"; }
+	 			if ($('#xproa_3').is(':checked')) { xproa3="300"; }
+	 			if ($('#xproa_4').is(':checked')) { xproa4="400"; }
+	 			
+	 			window.open('reportesServicios103.html?opcion='+op+'&aniofin='+aniofin+'&mes='+mes+'&tipodoc='+xtipodoc+'&pro_1='+xpro1+'&pro_2='+xpro2+'&pro_3='+xpro3+'&pro_4='+xpro4+'&proa_1='+xproa1+'&proa_2='+xproa2+'&proa_3='+xproa3+'&proa_4='+xproa4,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+ 			} 			
+        });
+		
+				//Butons REPORTES DE PAGOS HASTA MES CB  
+ 		$("#btnAcept_pagosMesCB").click(function(){
+ 			if (valida_pagosMesCB() == 0) {
+ 				var xtipodoc=$('input[name=a_tipodocc]:checked').val();
+	 			var op=$("#opPagosMesCB").val();
+	 			var aniofin=$('#a_aniofin_pagosMesc').val();
+	 			var mes=$('#a_mes2c').val();
+	 			
+	 			var xpro1="0";
+	 			var xpro2="0";
+	 			var xpro3="0";
+	 			var xpro4="0";
+	 			var xproa1="0";
+	 			var xproa2="0";
+	 			var xproa3="0";
+	 			var xproa4="0";
+	 			
+	 			if ($('#xpro_1c').is(':checked')) { xpro1="100"; }
+	 			if ($('#xpro_2c').is(':checked')) { xpro2="200"; }
+	 			if ($('#xpro_3c').is(':checked')) { xpro3="300"; }
+	 			if ($('#xpro_4c').is(':checked')) { xpro4="400"; }
+	 			
+	 			if ($('#xproa_1c').is(':checked')) { xproa1="100"; }
+	 			if ($('#xproa_2c').is(':checked')) { xproa2="200"; }
+	 			if ($('#xproa_3c').is(':checked')) { xproa3="300"; }
+	 			if ($('#xproa_4c').is(':checked')) { xproa4="400"; }
+	 			
+	 			window.open('reportesServicios103.html?opcion='+op+'&aniofin='+aniofin+'&mes='+mes+'&tipodoc='+xtipodoc+'&pro_1='+xpro1+'&pro_2='+xpro2+'&pro_3='+xpro3+'&pro_4='+xpro4+'&proa_1='+xproa1+'&proa_2='+xproa2+'&proa_3='+xproa3+'&proa_4='+xproa4,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+ 			} 			
+        });
+        
+        
+		//Butons REPORTES DE SALDO DEUDOR  HASTA MES    
+ 		$("#btnAcept_saldoDeudor").click(function(){
+ 			if (valida_saldoDeudor() == 0) {
+ 				var xtipodoc=$('input[name=sda_tipodoc]:checked').val();
+	 			var op=$("#opSaldoDeudor").val();
+	 			
+	 			var xfinicio=$('input[name=finicio_sd]:checked').val();
+	 			
+	 			var anioini=$('#a_anioini_sd').val();
+	 			var mesini=$('#sda_mes1').val();
+	 			
+	 			var aniofin=$('#a_aniofin_sd').val();
+	 			var mes=$('#sda_mes2').val();
+	 			 			
+	 			window.open('reportesServicios103.html?opcion='+op+'&aniofin='+aniofin+'&mes='+mes+'&tipodoc='+xtipodoc+'&anioini='+anioini+'&mesini='+mesini+'&xfinicio='+xfinicio,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+ 			} 			
+        });
+        
+        //Butons RESUMEN SALDO DEUDOR  HASTA MES  OAM    
+ 		$("#btnAcept_resumenSaldoDeudor").click(function(){ 			
+ 			if (valida_resumenSaldoDeudor() == 0) { 				
+ 				var xtipodoc=$('input[name=resda_tipodoc]:checked').val();
+	 			var op=$("#opResSaldoDeudor").val();
+	 			
+	 			var anioini=$('#a_anioini_resd').val();
+	 			var mesini=$('#resda_mes1').val();
+	 			
+	 			var aniofin=$('#a_aniofin_resd').val();
+	 			var mes=$('#resda_mes2').val();	
+	 			window.open('reportesServicios103.html?opcion='+op+'&aniofin='+aniofin+'&mes='+mes+'&tipodoc='+xtipodoc+'&anioini='+anioini+'&mesini='+mesini,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+ 			} 			
+        });
+        
+        //Butons REPORTES DE SOCIOS Y SUS BENEFICIARIOS  
+ 		$("#btnAcept_Beneficiarios").click(function(){
+ 				var xtipodoc=$('input[name=ben_tipodoc]:checked').val();
+ 				var op=$("#opBeneficiarios").val();
+ 				var xfiltro1=$('#a_filtro1').val();
+ 				var xfiltro2=$('#a_filtro2').val(); 			 			
+	 			window.open('reportesServicios103.html?opcion='+op+'&filtro1='+xfiltro1+'&filtro2='+xfiltro2+'&tipodoc='+xtipodoc,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');			
+        });
+
+		//Butons REPORTES DE KARDEX DE PAGOS DE SOCIOS   
+ 		$("#btnAcept_kardexPagosSocios").click(function(){
+			 if (valida_kardexPagosSocios()==0){
+ 		 		var op=$("#opKardexPagosSocios").val();
+ 		 		
+ 		 		var fecha1=$('#a_fechaini_K').val();
+ 				var fecha2=$('#a_fechafin_K').val();
+ 		 		
+ 				var xfinicio=$('input[name=finicio]:checked').val();
+				var xsocioVal=$("#xsocio_val").val();
+								
+	 			window.open('reportesServicios103.html?opcion='+op+'&xfinicio='+xfinicio+'&xsocioVal='+xsocioVal+'&xfechaini='+fecha1+'&xfechafin='+fecha2,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+	 		 }				
+        });
+
+		//Butons REPORTES SOCIOS Y SUS ESTADOS  
+ 		$("#btnAcept_pagosEstados").click(function(){
+ 				//var xestado=$('input[name=estado_es]:checked').val();
+ 				var xtipodoc=$('input[name=a_tipodoc_ES]:checked').val(); 				
+	 			var op=$("#opPagosMes_ES").val();
+
+	 			var xpro1="0";
+	 			var xpro2="0";
+	 			var xpro3="0";
+	 			var xpro4="0";
+	 			
+	 			var xproa1="0";
+	 			var xproa2="0";
+	 			var xproa3="0";
+	 			var xproa4="0";
+	 			
+	 			if ($('#espro_1').is(':checked')) { xpro1="100"; }
+	 			if ($('#espro_2').is(':checked')) { xpro2="200"; }
+	 			if ($('#espro_3').is(':checked')) { xpro3="300"; }
+	 			if ($('#espro_4').is(':checked')) { xpro4="400"; }
+	 			
+	 			if ($('#esproa_1').is(':checked')) { xproa1="100"; }
+	 			if ($('#esproa_2').is(':checked')) { xproa2="200"; }
+	 			if ($('#esproa_3').is(':checked')) { xproa3="300"; }
+	 			if ($('#esproa_4').is(':checked')) { xproa4="400"; }
+
+	 			window.open('reportesServicios103.html?opcion='+op+'&tipodoc='+xtipodoc+'&pro_1='+xpro1+'&pro_2='+xpro2+'&pro_3='+xpro3+'&pro_4='+xpro4+'&proa_1='+xproa1+'&proa_2='+xproa2+'&proa_3='+xproa3+'&proa_4='+xproa4,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');			
+        });		
+		
+		//Butons REPORTES SOCIOS MENORES Y SUS ESTADOS  
+ 		$("#btnAcept_sociosMenores").click(function(){
+ 				var xestado=1;//$('input[name=estado_men]:checked').val();
+ 				var xtipodoc=$('input[name=a_tipodoc_MEN]:checked').val(); 				
+	 			var op=$("#opPagosMes_MEN").val();
+//	                    				MENOR ACTIVO AUSENTE:<input type="checkbox" id="menpro_0"  name="menpro_0" value="201" CHECKED />
+//	                    				ACTIVO:              <input type="checkbox" id="menpro_1"  name="menpro_1" value="200" CHECKED/>
+//	                    				PASIVO:              <input type="checkbox" id="menpro_2"  name="menpro_2" value="999" CHECKED />
+				var xpro0="0";
+	 			var xpro1="-1";
+	 			var xpro2="0";
+	 			
+	 			if ($('#menpro_0').is(':checked')) { xpro0="201"; }
+	 			if ($('#menpro_1').is(':checked')) { xpro2="200"; }
+	 			if ($('#menpro_2').is(':checked')) { xpro1="999"; }
+
+	 			window.open('reportesServicios103.html?opcion='+op+'&tipodoc='+xtipodoc+'&pro_1='+xpro1+'&pro_2='+xpro2+'&pro_0='+xpro0,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');			
+        });
+		
+		//Butons ACEPTAR  btnAcept_saldos
+ 		$("#btnAcept_add").click(function(){
+ 			var op=$("#reporte1").val();
+ 			var fecha1=$('#a_fechaini').val();
+ 			var fecha2=$('#a_fechafin').val();
+ 			$('#myModal').modal('hide');
+// 			window.open('reportesServicios103.html?opcion=factura&codpag=00036/17','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no'); 			
+	window.open('reportesServicios103.html?opcion='+op+'&fechaini='+fecha1+'&fechafin='+fecha2,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');			 			
+        });
+ 		
+ 		$("#a_anioini").blur(function(){
+ 			if (valida_saldos()==0){
+ 				var xanio=$('#a_anioini').val();
+ 				var xgestion=parseInt(xanio)+1;
+ 				$('#a_aniofin').val(xgestion);
+ 			}
+ 	    });
+
+		//valida KARDEX_PAGOS_SOCIOS
+		function valida_kardexPagosSocios(){
+ 			var sw=0;
+ 					
+ 			var xsocio=$("#xsocio").val();
+ 			var xsocio2=$("#xsocio_2").val();
+			
+			var xfinicio=$('input[name=finicio]:checked').val();
+			if (xfinicio == '1'){
+				//hide()				
+				$("#a_fechaini_k").val("01/01/2000");
+			}
+									
+			if (xsocio != ''){
+	 			if (xsocio == xsocio2){
+	 				sw=0;
+				}else{
+					sw=1;
+		 			menError('Error..!', '<B>EL DATO SOCIO - NO ES VALIDO</B>');
+					$('#xsocio').focus();
+				}
+			}else{
+				sw=1;
+		 		menError('Error..!', '<B>EL DATO DEL SOCIO - NO PUEDE SER VACIO</B>');
+				$('#xsocio').focus();
+			}	
+						
+ 			return sw;
+ 		}
+ 		
+ 		function valida_saldos(){
+ 			var sw=0;
+ 			var xanio=$('#a_anioini').val();
+ 			var xanio2=$.trim(xanio);
+ 			if (xanio2 != xanio) {
+				$('#a_anioini').val(xanio2);
+				xanio=xanio2;
+			}
+ 			
+ 			var xsaldos=$('input[name=a_saldos]:checked').val();
+ 			
+			if ((!isNaN(xanio))&&(xanio != '')&&(parseInt(xanio) > 2000)&&(parseInt(xanio) < 2040)){
+				sw=0;	
+			}else{
+				sw=1;
+	 			menError('Error..!', '<B>EL DATO -AÑO- NO ES VALIDO</B>..[2000..2040]');
+				$('#a_anioini').focus();
+			}
+ 				
+ 			return sw;
+ 		}
+ 		 		
+ 		function valida_pagosMes(){
+ 			var sw=0;
+ 			
+ 			var xanio=$('#a_aniofin_pagosMes').val();
+ 			var xanio2=$.trim(xanio);
+ 			if (xanio2 != xanio) {
+				$('#a_aniofin').val(xanio2);
+				xanio=xanio2;
+			}
+ 			 
+ 			 			
+			if ((!isNaN(xanio))&&(xanio != '')&&(parseInt(xanio) >= 2000)&&(parseInt(xanio) <= 2040)){
+				sw=0;	
+			}else{
+				sw=1;
+	 			menError('Error..!', '<B>EL DATO -AÑO- NO ES VALIDO</B>..[2000..2040]');
+				$('#a_aniofin').focus();
+			}			
+ 			return sw;
+ 		}	
+ 	 	
+ 	 	function valida_pagosMesCB(){
+ 			var sw=0;
+ 			
+ 			var xanio=$('#a_aniofin_pagosMesc').val();
+ 			var xanio2=$.trim(xanio);
+ 			if (xanio2 != xanio) {
+				$('#a_aniofin').val(xanio2);
+				xanio=xanio2;
+			}
+ 			 
+ 			 			
+			if ((!isNaN(xanio))&&(xanio != '')&&(parseInt(xanio) >= 2000)&&(parseInt(xanio) <= 2040)){
+				sw=0;	
+			}else{
+				sw=1;
+	 			menError('Error..!', '<B>EL DATO -AÑO- NO ES VALIDO</B>..[2000..2040]');
+				$('#a_aniofin').focus();
+			}			
+ 			return sw;
+ 		}	
+ 		// 
+		function valida_saldoDeudor(){
+ 			var sw=0;
+ 			
+ 			var xfinicio=$('input[name=finicio_sd]:checked').val();
+			if (xfinicio == '1'){
+				//hide()				
+				$('#a_anioini_sd').val("2000");
+			}
+ 			
+ 			var xanioini=$('#a_anioini_sd').val();
+ 			var xanioini2=$.trim(xanioini);
+ 			if (xanioini2 != xanioini) {
+				$('#a_anioini_sd').val(xanioini2);
+				xanioini=xanioini2;
+			}
+ 			 
+ 			var xanio=$('#a_aniofin_sd').val();
+ 			var xanio2=$.trim(xanio);
+ 			if (xanio2 != xanio) {
+				$('#a_aniofin_sd').val(xanio2);
+				xanio=xanio2;
+			}
+ 			 			
+ 			if ((!isNaN(xanioini))&&(xanioini != '')&&(parseInt(xanioini) >= 2000)&&(parseInt(xanioini) < 2040)){ 			 			
+				if ((!isNaN(xanio))&&(xanio != '')&&(parseInt(xanio) >= 2000)&&(parseInt(xanio) < 2040)){
+					sw=0;	
+				}else{
+					sw=1;
+		 			menError('Error..!', '<B>LA FECHA FINAL -HASTA- NO ES VALIDO</B>..[2000..2040]');
+					$('#a_aniofin_sd').focus();
+				}
+			}else{
+				sw=1;
+		 		menError('Error..!', '<B>LA FECHA INICIAL -DESDE- NO ES VALIDO</B>..[2000..2040]');
+				$('#a_anioini_sd').focus();
+			}				
+ 			return sw;
+ 		}
+ 		
+ 		// OAM
+		function valida_resumenSaldoDeudor(){
+ 			var sw=0;
+ 			
+ 			var xanioini=$('#a_anioini_resd').val();
+ 			var xanioini2=$.trim(xanioini);
+ 			if (xanioini2 != xanioini) {
+				$('#a_anioini_resd').val(xanioini2);
+				xanioini=xanioini2;
+			}
+ 			 
+ 			var xanio=$('#a_aniofin_resd').val();
+ 			var xanio2=$.trim(xanio);
+ 			if (xanio2 != xanio) {
+				$('#a_aniofin_sd').val(xanio2);
+				xanio=xanio2;
+			}
+ 			 			
+ 			if ((!isNaN(xanioini))&&(xanioini != '')&&(parseInt(xanioini) >= 2000)&&(parseInt(xanioini) < 2040)){ 			 			
+				if ((!isNaN(xanio))&&(xanio != '')&&(parseInt(xanio) >= 2000)&&(parseInt(xanio) < 2040)){
+					sw=0;	
+				}else{
+					sw=1;
+		 			menError('Error..!', '<B>LA FECHA FINAL -HASTA- NO ES VALIDO</B>..[2000..2040]');
+					$('#a_aniofin_resd').focus();
+				}
+			}else{
+				sw=1;
+		 		menError('Error..!', '<B>LA FECHA INICIAL -DESDE- NO ES VALIDO</B>..[2000..2040]');
+				$('#a_anioini_resd').focus();
+			}				
+			
+ 			return sw;
+ 		}
+ 		
+});
+</script>

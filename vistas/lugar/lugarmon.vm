@@ -1,0 +1,434 @@
+	<!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    
+     <!-- TABLE STYLES-->
+    <link href="js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+   
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="js/dataTables/jquery.dataTables.js"></script>
+
+    <script src="js/dataTables/dataTables.bootstrap.js"></script>
+
+    <link href="css/estilo1.css" rel="stylesheet">
+    
+    <script src="js/notify.js"></script>
+
+<div class="container-fluid">          
+           <!-- /. ROW  -->              
+            <div  class="row">
+            <div class="col-md-1">
+            </div>
+                 <!-- aqui tamaño de tablas  -->               
+                <div class="col-md-10">
+                    <!-- Advanced Tables -->
+                    <div  class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="div-cabeza">
+                                <div class="div-logo-titulo">
+                                    <img src="images/img-sis/cand1.png">
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">Gestión Lugar</p>     
+                                </div>                                
+                                <fieldset class="col-md-12" >        
+	                                    <legend>Parámetros::</legend>
+	                                    #if (${PA}=="A")
+		                                    <button class="pull-right" data-toggle="modal" data-target="#myModal">
+		                                        <img src="images/img-sis/add_2.png" style="width:30px; height:30px;">
+		                                    </button>
+	                                    #else
+		                                    <button class="pull-right" data-toggle="modal">
+		                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
+		                                    </button>
+	                                	#end
+	                                    <!-- BOTON TO PRINT -->
+	                                    <button class="pull-right" id="print">
+	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
+	                                    </button>
+	                                <form id="paramform" action="lugarmon.html" method="POST"> 
+                            			 <label class="control-label col-xs-1">Dpto::</label>
+                             				<div class="col-xs-3">
+                               				 <select class="form-control paramsChange" name="b_dep" id="b_dep">
+	                                				#foreach($dpto in $xDpto)
+	                                					#set($sel="")
+	                                					#if (${dpto.codd} == ${ActivoID})
+									             			#set($sel="SELECTED")
+									             		#end 
+	                               					 	<option id="$dpto.codd" value="$dpto.codd" ${sel}>$dpto.nombre $dpto.codd </option>
+													#end
+													#if (${ActivoID}==(-1))													
+														<option id="-1" value="-1" SELECTED>TODOS </option>
+													#else	
+														<option id="-1" value="-1" >TODOS </option>
+													#end	
+											 </select>  
+											 <input type="HIDDEN" id="ActivoID" value="${${ActivoID}">
+			       				    		</div>
+	                                   
+	                                 
+	                                    <div class="col-md-4 par-activos pull-right">
+	                                    	<label><input type="radio" name="estado" value="1" class="paramsChange" #if($estado== 1) checked #end>Activos </label>
+									      	<label><input type="radio" name="estado" value="0" class="paramsChange" #if($estado== 0) checked #end>Nulos</label>
+									      	<label><input type="radio" name="estado" value="2" class="paramsChange" #if($estado== 2) checked #end>Todos</label>
+									    </div>
+									</form>    
+                                </fieldset>                                                               
+                            </div>
+                        </div>
+                        <div>
+                            	<div class="espacio-small"></div>
+	                            <div class="table-responsive" id="detalle_lis">
+	                            	<!-- detalle -->
+	                            </div>
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+                <input type="HIDDEN" id="mensaje" value="${mensaje}">
+                <input type="HIDDEN" id="menTexto" value="${menTexto}">
+            <div class="col-md-1">
+            </div>
+            
+            </div>
+</div>
+<!--  Modals-->
+<!--  Modals Adicionar-->
+<div class="panel-body">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Adicionar Lugares</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform">
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Lugar::</label>
+                            <div class="col-xs-9">
+                                <input type="text" class="form-control" name="lugarname" id="lugarId" placeholder="Ingrese lugar.." required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                             <label class="control-label col-xs-3">Departamento::</label>
+                             	<div class="col-xs-9">
+                                <select class="form-control" name="dpto" id="dpto">
+                                	#foreach($dpto in $xDpto)
+									<option value="$dpto.codd" >$dpto.nombre </option>
+									#end
+								</select>
+                                </div>
+			            </div>
+                        <input type="hidden" name="opcion" value="${opAdd}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_add">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MYMODAL-->
+
+<!--  Modals MODIF MODAL-->
+<div class="panel-body">
+    <div class="modal fade" id="modModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Modificar Lugar</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="modform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Lugar::</label>
+                            
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="m_codl" id="m_codl">
+                                <input type="text" class="form-control" name="m_nombre" id="m_nombre" placeholder="Ingrese Lugar.." required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                             <label class="control-label col-xs-3">Departamento::</label>
+                             	<div class="col-xs-9">
+                                <select class="form-control" name="m_codd" id="m_codd">
+                                	#foreach($dpto in $xDpto)
+                                	<option id="$dpto.codd" value="$dpto.codd" >$dpto.nombre </option>
+									#end
+								</select>
+                                </div>
+			            </div>
+                        <input type="hidden" name="opcion" value="${opMod}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_mod">Modificar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals MODIFICAR-MODAL-->
+
+<!--  Modals ELIMINAR-->
+<div class="panel-body">
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de eliminar LUGAR ?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="delform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Lugar::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="d_codl" id="d_codl">
+                                <input type="text" class="form-control" name="d_nombre" id="d_nombre" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <label class="control-label col-xs-3">Departamento::</label>
+                             	<div class="col-xs-9">
+                                <select class="form-control" name="d_codd" id="d_codd" disabled>
+                                	#foreach($dpto in $xDpto)
+                                	<option id="$dpto.codd" value="$dpto.codd" >$dpto.nombre </option>
+									#end
+								</select>
+                                </div>
+			            </div>
+                        <input type="hidden" name="opcion" value="${opDel}" >
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_del">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals ELIMINAR-->
+<!--  Modals HABILITAR-->
+<div class="panel-body">
+    <div class="modal fade" id="habModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">Seguro de Habilitar Lugar ?</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="habform">
+                        <div class="form-group">
+                            <label class="control-label col-xs-3">Nombre Lugar::</label>
+                            <div class="col-xs-9">
+                            	<input type="hidden" name="h_codl" id="h_codl">
+                                <input type="text" class="form-control" name="h_nombre" id="h_nombre" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <label class="control-label col-xs-3">Departamento::</label>
+                             	<div class="col-xs-9">
+                                <select class="form-control" name="h_codd" id="h_codd" disabled>
+                                	#foreach($dpto in $xDpto)
+                                	<option id="$dpto.codd" value="$dpto.codd" >$dpto.nombre </option>
+									#end
+								</select>
+                                </div>
+			            </div>
+                        <input type="hidden" name="opcion" value="${opHab}" >
+                    </form>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnAcept_hab">Habilitar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals HABILITAR>
+
+
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    
+<script>
+function ejecutaLista(){
+	//alert($("input[name='menu_sel']:checked").val());
+	//var login=$("input[name='menu_sel']:checked").val();
+	var sel=$('select[name=b_dep]').val();
+	var estado=$('input:radio[name=estado]:checked').val();
+	
+	jQuery.post('lugarDet8.html',{sel:sel,estado:estado},
+		function(data){$('#detalle_lis').html(data);
+   	});
+}
+
+function modificarLugar(xcodl, xnombre, xcodd){
+	$('#m_codl').val(xcodl);
+	$('#m_nombre').val(xnombre);
+	$('#m_codd').val(xcodd);
+	document.getElementById(xcodd).selected = "true";  
+	$('#modModal').modal('show');
+}
+
+function eliminarLugar(xcodl, xnombre, xcodd){
+	$('#d_codl').val(xcodl);
+	$('#d_nombre').val(xnombre);
+	$('#d_codd').val(xcodd);
+	document.getElementById(xcodd).selected = "true";  
+	$('#delModal').modal('show');
+}
+function habilitarLugar(xcodl, xnombre, xcodd){
+	$('#h_codl').val(xcodl);
+	$('#h_nombre').val(xnombre);
+	$('#h_codd').val(xcodd);
+	document.getElementById(xcodd).selected = "true";  
+	$('#habModal').modal('show');
+}
+	
+    $(document).ready(function () {
+    	 
+ //        $('#dataTables-example').dataTable();
+         
+         //cuando esta listo el Doc.
+         if ($('select[name=b_dep]').val()==(-1)){
+        	 ejecutaLista();
+         }
+        		
+         //Devuelve los mensajes de guardado
+         if ($('#mensaje').val() != '0'){
+        	 if ($('#mensaje').val() == '1'){
+        	 	$.notify($('#menTexto').val(), "success",{ position:"center middle" });
+        	 }
+        	 if ($('#mensaje').val() == '2'){
+         	 	$.notify($('#menTexto').val(), "error",{ position:"center middle" });
+         	 }
+         }
+         
+         //limpia los datos del modal al momento de ingresar
+        $('#myModal').on('hidden.bs.modal', function(){ 
+     		$(this).find('form')[0].reset(); //para borrar todos los datos que tenga los input, textareas, select.
+     	}); 
+        
+         //SI OCURRE CAMBIO
+        $(".paramsChange").change( function() {
+        	ejecutaLista();
+        	//$("#paramform").submit();
+        }); 
+        
+         //ANULA TECLA ENTER PARA LOS INPUTS
+        $("input").keypress(function(e) {
+            if (e.which == 13) {
+                return false;
+            }
+        });
+         
+       //Butons ACEPTAR
+ 		$("#btnAcept_add").click(function(){
+ 			if (validarDatos_add() == 0) {
+	 			if(confirm('¿Seguro de Guardar EL Lugar ?')){ 				
+		 				$("#addform").submit(); //envia los datos a destino FORM.
+		 				$('#myModal').modal('hide');
+	 			}
+ 			}
+        });	
+       
+ 		//Butons MODIFICAR
+ 		$("#btnAcept_mod").click(function(){
+ 			if (validarDatos_mod() == 0) {
+ 					if(confirm('¿Seguro de Modificar Datos del Lugar ?')){ 				
+ 		 				$("#modform").submit(); //envia los datos a destino FORM.
+ 		 				$('#modModal').modal('hide'); 					
+ 					}
+ 			}
+ 		});
+ 		
+ 		//Butons ELIMINAR
+ 		$("#btnAcept_del").click(function(){
+			$("#delform").submit(); //envia los datos a destino FORM.
+			$('#delModal').modal('hide'); 					
+ 		});
+ 		//Butons HABILITAR
+ 		$("#btnAcept_hab").click(function(){
+			$("#habform").submit(); //envia los datos a destino FORM.
+			$('#habModal').modal('hide'); 					
+ 		});
+ 		
+ 		//valida datos para opcion adiciona 			
+ 		function validarDatos_add(){
+ 			var sw=0;
+ 			var nombrelugar=$('#lugarId').val();
+ 			var xnom2=$.trim(nombrelugar);
+ 			//en caso de haber diferencia actulizar
+				if (xnom2 != nombrelugar) {
+					$('#lugarId').val(xnom2);
+					nombrelugar=xnom2;
+				}
+ 			if (nombrelugar != ''){
+	 			if ((nombrelugar.length > 30)){
+	 				sw=1;
+	 				$('#lugarId').notify("ERROR, EL LUGAR EXCEDE LOS 30 CHAR..!", "error",{ position:"bottom" });
+	 				$('#lugarId').focus();
+	 			}
+ 			}else{
+ 				sw=1;
+ 				$('#lugarId').notify("ERROR, EL LUGAR ESTA VACIO..!", "error",{ position:"bottom" });
+ 				$('#lugarId').focus();
+ 			}
+ 			return sw;
+ 		}
+ 		//validar solo para opcion modificar
+ 		function validarDatos_mod(){
+ 			var sw=0;
+ 			var xcodl=$('#m_codl').val();
+ 			var xnombre=$('#m_nombre').val();
+ 			var xnom2=$.trim(xnombre);
+ 			
+ 				//en caso de haber diferencia actulizar
+ 				if (xnom2 != xnombre) {
+ 					$('#m_nombre').val(xnom2);
+ 					xnombre=xnom2;
+ 				}
+
+	 			if (xnombre != ''){
+		 			if ((xnombre.length > 30)){
+		 				sw=1;
+		 				$('#m_nombre').notify("ERROR, EL LUGAR EXCEDE LOS 30 CHAR..!", "error",{ position:"bottom" });
+		 				$('#m_nombre').focus();
+		 			}
+	 			}else{
+	 				sw=1;
+	 				$('#m_nombre').notify("ERROR, EL LUGAR ESTA VACIO..!", "error",{ position:"bottom" });
+	 				$('#m_nombre').focus();
+	 			}
+ 			return sw;
+ 		}
+ 		
+ 		//Butons PRINT
+ 		$("#print").click(function(){
+ 			var xestado=$('input[name=estado]:checked').val();
+ 			var sel=$('select[name=b_dep]').val();
+ 			window.open('lugarReportes01.html?xest='+xestado+'&sel='+sel,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+        });
+		
+		
+ 		
+    });
+</script>

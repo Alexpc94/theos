@@ -1,0 +1,77 @@
+							
+							<table  class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<thead>
+							    <tr>							
+						        <th class="text-center ancho-icono">#</th>
+						        <th width="5" > &nbsp; </th>
+						        <th class="col-sm-0 text-center">CodPag.</th>
+						        <th class="col-sm-0 text-center">Fecha</th>							        
+						        <th class="col-sm-0 text-center">Socio</th>
+						        <th class="col-sm-0 text-center">Factura</th>
+						        <th class="col-sm-0 text-center">Cod.Control</th>
+						        <th class="col-sm-0 text-center">monto</th>
+						        <th class="col-sm-0 text-center">estado</th>
+						        <th class="col-sm-0 text-center">DEL</th>	
+						        <th class="col-sm-0 text-center">PR</th>	
+
+							        
+							    </tr>
+							</thead>
+							<tbody>     
+								#set($con=1)
+								#foreach($reg in $xMpagos)	                                   
+							     <tr class="gradeU">
+							        <td class="text-center">${con}</td>
+							        <td class="text-center">
+							        	<a  href="javascript:void(0)" onclick="javascript:llamarDetallePagos('${reg.codpag}','${reg.getDatosPersona()}')">
+	                                		<input type="radio" name="beneficiario_sel" />
+	                                	</a>
+							        </td>
+							        <td>${reg.codpag}</td>
+							        <td>${reg.getFechaFormat()}</td>
+							        <td>${reg.getDatosPersona()}</td>
+							        <td>${reg.nrofac}</td>
+							        <td>${reg.codigocontrol}</td>
+							        <td align="right">${reg.getMontoFormat()}</td>
+							        <td class="text-center ancho-icono">
+	                                	#if (${reg.estado}==1)
+	                                		<img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
+	                                	#else	
+	                                		<img src="images/img-sis/hand_down.png" style="width:25px;">
+	                                	#end
+	                                </td>
+										
+							        <td class="text-center ancho-icono">
+								        #if (${reg.estado}==1)	
+								        	#if (${PB}=="B")
+								        	<a  href="javascript:void(0)" onclick="javascript:eliminarPagosFact('${reg.getCodpagEncript()}','${reg.getNroFacturaEncript()}','${reg.getFechaFormat()}','${reg.codpag}','${reg.getDatosPersona()}','${reg.nrofac}','${reg.getMontoFormat()}')">
+								        		<img src="images/img-sis/del.png" style="width:25px;">
+								        	</a>
+								        	#else
+								                	<img src="images/img-sis/nodel.png" style="width:25px;">
+								            #end
+								        #else
+													<img src="images/img-sis/nodel.png" style="width:25px;" >
+										#end     	    	
+							        </td>
+										
+									<td class="text-center ancho-icono">
+								        <a href="javascript:void(0);" onclick="window.open('reportePagarBoletas102102.html?opcion=${opReporte}&codpag=${reg.getCodpagEncript()}','win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');" >
+		            						<img src="images/img-sis/print.png"
+		            							style="vertical-align: middle; width: 24px; height: 24px"
+		            							alt="Vista previa" title="Imprimir Factura.." /> 
+		    							</a>
+								    </td>
+								    
+							    </tr>                        
+							    #set($con=$con + 1)
+							   #end               
+							</tbody>
+							</table>
+
+<script>                                
+    $(document).ready(function () {
+    	 
+         $('#dataTables-example').dataTable();                            
+    });       
+</script>         

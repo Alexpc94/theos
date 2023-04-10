@@ -1,0 +1,55 @@
+
+<div class="col-md-2"> </div>
+        <div class="col-md-7">
+            <div class="div-capa">
+                <div class="div-arriba">
+                    <table >
+                    <thead>
+                        <tr>
+                            <th colspan="2" ><b>DETALLE MESES  PROMOCION</b> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CODIGO :<b> ${xcodp} </b></td>
+                            <td>NOMBRE :<b> ${xnombre} </b></td>
+                        </tr>
+                        <tr>
+	                        <td colspan="2">OBSER:<I> ${xobser} </I></td>
+	                    </tr>
+                    <tbody>  
+                    </table>
+                </div>
+                <div class="div-abajo">
+                    <table class="table table-bordered table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th width="2%" align="right">#</th>
+                          <th align="right">MES/AÑO</th>
+                          <th align="right">MONTO </th>
+                          <th align="right">SALDO </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      	#set($con=1)
+                        #foreach($reg in $xPromociones)	
+                            <tr>
+                              <th scope="row">${con}</th>
+                              <td>${reg.getMesAnioFormat()}</td>
+                              <td align="right">${reg.getMontoFormat()} </td>
+                              <td align="right">${reg.getSaldoFormat()} </td>
+                            </tr>
+                            #set($con=$con + 1)
+                        #end    
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<div class="col-md-2"> </div>
+
+<script>
+    $(document).ready(function () {
+    
+    });
+</script>
