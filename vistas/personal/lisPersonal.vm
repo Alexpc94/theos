@@ -2,11 +2,11 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center ancho-icono">#</th>
-                                            <th class="col-sm-0 text-center" title="CODIGO ACCION DEL SOCIO">Accion</th>
+                                            <th class="col-sm-0 text-center">Cod.</th>
                                             <th class="col-sm-0">CI</th>
                                             <th class="col-sm-0">Nombres</th>
                                             <th class="col-sm-0" title="TIPO de Socio">T.Socio</th>
-                                            <th class="col-sm-0" title="Genero">Gen</th>
+                                            <th class="col-sm-0" title="Género">Gen</th>
                                             <th class="col-sm-0">E.Civil</th>
                                             <th class="col-sm-0" title="HABILITADO/DESHABILITADO Socio">EST</th>
                                             <th class="col-sm-0" title="MODIFICAR Socio">MOD</th>
@@ -27,7 +27,7 @@
                                     	#foreach($reg in $xPersonal)	                                   
                                          <tr class="gradeU">
                                             <td class="text-center">${con}</td>
-                                            <td><b>${reg.newcodigoper}</b></td>
+                                            <td><b>${reg.codigoper}</b></td>
                                              <td>${reg.getDatosCedula()} </td>
                                             <td>${reg.getDatosPersona()} </td>
                                             <td><span id="est2_${reg.codper}">${reg.nomsocio}</span> <input type="HIDDEN" id="est_${reg.codper}" value="${reg.nomsocio}"></td>
