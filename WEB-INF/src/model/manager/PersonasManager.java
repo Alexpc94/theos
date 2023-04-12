@@ -113,10 +113,10 @@ public class PersonasManager {
 	}
 
 	public String setAddPersonal(String ci, int codigoper, String nombre, String ap, String am, String email,
-			String ecivil, String genero, Date fechaNac, Date fechaIng, String cliente, int xconyuge) {
-		return this.jdbcTemplate.queryForObject("select addPersona(?,?,?,?,?,?,?,?,?,?,?,?)", String.class,
+			String ecivil, String genero, Date fechaNac, Date fechaIng, String cliente, int xconyuge,String newcodigoper, String telefono) {
+		return this.jdbcTemplate.queryForObject("select addPersona(?,?,?,?,?,?,?,?,?,?,?,?,?,?)", String.class,
 				new Object[] { ci, codigoper, nombre, ap, am, email, ecivil, genero, fechaNac, fechaIng, cliente,
-						xconyuge });
+						xconyuge, newcodigoper, telefono });
 	}
 
 	public String setModPersonal(String ci, int codper, String nombre, String ap, String am, String email,
