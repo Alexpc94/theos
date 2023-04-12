@@ -137,7 +137,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center ancho-icono">#</th>
-                                            <th class="col-sm-0 text-center" title="CODIGO ACTUAL DEL SOCIO">Acción</th>
+                                            <th class="col-sm-0 text-center" title="CODIGO ACTUAL DEL SOCIO">Accion</th>
                                             <th class="col-sm-0">CI</th>
                                             <th class="col-sm-0">Nombres</th>
                                             <th class="col-sm-0" title="TIPO de Socio">T.Socio</th>
