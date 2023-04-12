@@ -496,12 +496,13 @@ System.out.println("llego xcodes"+xcodes );
 			if (op.equals("addPersonal")){				
 				String ci=request.getParameter("a_ci");
 				String codigoper=request.getParameter("a_codigoper");
+				String newcodigoper=request.getParameter("a_newcodigoper");
 				String xconyuge="1";//request.getParameter("a_conyuge");//SI ES CONYUGE
 				String nombre=request.getParameter("a_nombre");
 				String ap=request.getParameter("a_ap");
 				String am=request.getParameter("a_am");
 				String email=request.getParameter("a_email");
-				
+				String telefono=request.getParameter("a_telef");
 				String ecivil=request.getParameter("a_ecivilRadios");
 				String genero=request.getParameter("a_generoRadios");
 				String fnac=request.getParameter("a_fnac");
@@ -515,10 +516,10 @@ System.out.println("llego xcodes"+xcodes );
 				Date fechaIng = dateformat.parse(fing);
 //				System.out.println(cliente);
 
-//System.out.println(" conyuge="+xconyuge);				
+//System.out.println(" telef="+telefono +"newcodigoper"+ newcodigoper);				
 //System.out.println(" llego ="+ci+" nombre="+nombre+" ap="+ap+" am="+am+" telf="+telef+" email="+email+" direc="+direc+" areas="+areas+" ecivil="+ecivil+" fnac="+fechaNac);
 //System.out.println(" llego ="+ci+" "+nombre+" "+ap+" "+am+" "+telef+" "+email+" "+direc+" "+areas+" "+ecivil);		
-				String error = this.personasManager.setAddPersonal(ci,Integer.parseInt(codigoper),nombre.toUpperCase(),ap.toUpperCase(),am.toUpperCase(),email,ecivil.toUpperCase(),genero.toUpperCase(),fechaNac,fechaIng,cliente.toUpperCase(),Integer.parseInt(xconyuge));		
+				String error = this.personasManager.setAddPersonal(ci,Integer.parseInt(codigoper),nombre.toUpperCase(),ap.toUpperCase(),am.toUpperCase(),email,ecivil.toUpperCase(),genero.toUpperCase(),fechaNac,fechaIng,cliente.toUpperCase(),Integer.parseInt(xconyuge),newcodigoper.toUpperCase(),telefono);		
 //System.out.println(" error ="+error);							
 				//enviando a un  JSON  -- es decir se devuelve al AJAX
 				JsonObject object = new JsonObject();

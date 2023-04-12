@@ -308,9 +308,17 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-4">
-                            <span style="color:red;font-size:18px;">*</span>Código Acción::</label>
+                            <span style="color:red;font-size:18px;">*</span>Cód Antiguo Acción::</label>
                             <div class="col-xs-6">
                                 <input type="text" class="form-control" name="a_codigoper" id="a_codigoper" placeholder="Código Persona.." required>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Código Acción::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_newcodigoper" id="a_newcodigoper" placeholder="Código Actual Persona.." required>
                             </div>
                             
                         </div>
@@ -365,6 +373,13 @@
                         	</div>
                         </div>
                    		
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Telefono::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="a_telef" id="a_telef" placeholder="Telefono.." required>
+                            </div>
+                        </div>
+
 			            <div class="form-group">
                         	<label class="control-label col-xs-4">
                         		<span style="color:red;font-size:18px;">*</span>E. Civil:
@@ -2552,69 +2567,82 @@ $(document).ready(function () {
 				xcod=xcod2;
 			}
  			
+            var xnewcod=$('#a_newcodigoper').val();
+            var xnewcod2=$.trim(xnewcod);
+            if (xnewcod != xnewcod2) {
+                $('#a_newcodigoper').val(xnewcod2);
+                xnewcod=xnewcod2;
+            }
+
 			if (ci.length < 16 ){
 				if ((xcod.length < 10)&&(!isNaN(xcod))&&(xcod.length > 0)) {
- 					var xnombre=$.trim(nombre);
-					if (xnombre != nombre) {
-						$('#a_nombre').val(xnombre);
-						nombre=xnombre;
-					}
-					if (nombre != ""){
-						if (nombre.length < 31){
-							var xap=$.trim(ap);
-							if (xap != ap) {
-								$('#a_ap').val(xap);
-								ap=xap;
-							}
-							var xam=$.trim(am);
-							if (xam != am) {
-								$('#a_am').val(xam);
-								am=xam;
-							}
-							if ((ap != "")||(am != "")){
-								if ((ap.length < 31)&&(am.length < 31)){																	
-										if (validaFechaDDMMAAAA(xfnac)){
-											if (validaFechaDDMMAAAA(xfing)){
-													sw=0;	
-											}else{
-												sw=1;
-									 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
-									 			$('#a_fing').focus();
-											}	
-										}else{
-											sw=1;
-									 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
-									 		$('#a_fnac').focus();
-										}									
-								}else{
-									sw=1;
-							 		menError('Error..!', 'El </B>APELLIDO</B> no puede exceder los 30 Caracteres..!');
-							 		$('#a_ap').focus();
-								}
-							}else{
-								sw=1;
-						 		menError('Error..!', 'Debe ingresar al menos un APELLIDO..!');
-						 		$('#a_ap').focus();
-							}							
-						}else{
-							sw=1;
-					 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede exceder los 20 Caracteres..!');
-					 		$('#a_nombre').focus();
-						}
-					}else{
-						sw=1;
-				 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede ser vacio..!');
-				 		$('#a_nombre').focus();
-					}
+ 					if ((xnewcod.length < 10)&&(!isNaN(xnewcod))&&(xnewcod.length > 0)) {
+
+                        var xnombre=$.trim(nombre);
+    					if (xnombre != nombre) {
+    					   $('#a_nombre').val(xnombre);
+	   	   			 	   nombre=xnombre;
+					    }
+					    if (nombre != ""){
+						    if (nombre.length < 31){
+							    var xap=$.trim(ap);
+							    if (xap != ap) {
+								    $('#a_ap').val(xap);
+								    ap=xap;
+							    }
+							    var xam=$.trim(am);
+							    if (xam != am) {
+								    $('#a_am').val(xam);
+								    am=xam;
+							    }
+							        if ((ap != "")||(am != "")){
+								        if ((ap.length < 31)&&(am.length < 31)){									if (validaFechaDDMMAAAA(xfnac)){
+											    if (validaFechaDDMMAAAA(xfing)){
+                                                    sw=0;
+                                                }else{
+												    sw=1;
+									 			    menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+									 			    $('#a_fing').focus();
+											    }	
+										    }else{
+											    sw=1;
+									 		    menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+									 		    $('#a_fnac').focus();
+										    }									
+								        }else{
+									        sw=1;
+							 		        menError('Error..!', 'El </B>APELLIDO</B> no puede exceder los 30 Caracteres..!');
+							 		        $('#a_ap').focus();
+								        }
+							        }else{
+								        sw=1;
+						 		        menError('Error..!', 'Debe ingresar al menos un APELLIDO..!');
+						 		        $('#a_ap').focus();
+							        }							
+						    }else{
+							    sw=1;
+					 		    menError('Error..!', 'El Dato </B>NOMBRE</B> no puede exceder los 20 Caracteres..!');
+					 		    $('#a_nombre').focus();
+						    }
+					    }else{
+						    sw=1;
+				 		    menError('Error..!', 'El Dato </B>NOMBRE</B> no puede ser vacio..!');
+				 		    $('#a_nombre').focus();
+					    }
+                    }else{
+                        sw=1;
+                        menError('Error..!', 'El CODIGO </B>ESTA FUERA DE RANGO (10 DIGITOS) O ES DATO NO VALIDO</B>..!');
+                        $('#a_newcodigoper').focus();
+                    }
 				}else{
 					sw=1;
 			 		menError('Error..!', 'El CODIGO </B>ESTA FUERA DE RANGO (10 DIGITOS) O ES DATO NO VALIDO</B>..!');
 			 		$('#a_codigoper').focus();
 				}	
  			}else{
- 					sw=1;
-			 		menError('Error..!', 'La </B>CEDULA</B> no debe exceder los 15 Caracteres..!');
-			 		$('#a_ci').focus();	
+ 				sw=1;
+			 	menError('Error..!', 'La </B>CEDULA</B> no debe exceder los 15 Caracteres..!');
+			 	$('#a_ci').focus();	
  			}
  			
  			return sw;
