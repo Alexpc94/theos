@@ -83,7 +83,7 @@
     
            <!-- /. ROW  -->              
             <div  class="row">
-                 <!-- aqui tamaño de tablas  -->               
+                 <!-- aqui tamaï¿½o de tablas  -->               
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
                     <div  class="panel panel-default">
@@ -91,10 +91,10 @@
                             <div class="div-cabeza">
                                 <div class="div-logo-titulo">
                                     <img src="images/img-sis/cand1.png">
-                                    <p class="titulo-gestiones"  id="titulo-pantalla">Gestión Socios</p>     
+                                    <p class="titulo-gestiones"  id="titulo-pantalla">GestiÃ³n Socios</p>     
                                 </div>                                
                                 <fieldset class="col-md-12" >        
-	                                    <legend>Parámetros::</legend>
+	                                    <legend>ParÃ¡metros::</legend>
 	                                    #if (${PA}=="A")
 	                                    <button class="pull-right" data-toggle="modal" id="myModal-btn">
 	                                        <img src="images/img-sis/add_2.png" style="width:30px; height:30px;">
@@ -137,11 +137,11 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center ancho-icono">#</th>
-                                            <th class="col-sm-0 text-center" title="CODIGO DEL SOCIO">Cod.</th>
+                                            <th class="col-sm-0 text-center" title="CODIGO ACCION DEL SOCIO">Accion</th>
                                             <th class="col-sm-0">CI</th>
                                             <th class="col-sm-0">Nombres</th>
                                             <th class="col-sm-0" title="TIPO de Socio">T.Socio</th>
-                                            <th class="col-sm-0" title="Género">Gen</th>
+                                            <th class="col-sm-0" title="Genero">Gen</th>
                                             <th class="col-sm-0">E.Civil</th>
                                             <th class="col-sm-0" title="HABILITADO/DESHABILITADO Socio">EST</th>
                                             <th class="col-sm-0" title="MODIFICAR Socio">MOD</th>
@@ -162,7 +162,7 @@
                                     	#foreach($reg in $xPersonal)	                                   
                                          <tr class="gradeU">
                                             <td class="text-center">${con}</td>
-                                            <td><b>${reg.codigoper}<b> </td>
+                                            <td><b>${reg.newcodigoper}<b> </td>
                                              <td>${reg.getDatosCedula()} </td>
                                             <td>${reg.getDatosPersona()} </td>
                                             <td><span id="est2_${reg.codper}">${reg.nomsocio}</span> <input type="HIDDEN" id="est_${reg.codper}" value="${reg.nomsocio}"></td>
@@ -308,9 +308,9 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-4">
-                            <span style="color:red;font-size:18px;">*</span>Código Acción::</label>
+                            <span style="color:red;font-size:18px;">*</span>Codigo Accion::</label>
                             <div class="col-xs-6">
-                                <input type="text" class="form-control" name="a_codigoper" id="a_codigoper" placeholder="Código Persona.." required>
+                                <input type="text" class="form-control" name="a_codigoper" id="a_codigoper" placeholder="Codigo Persona.." required>
                             </div>
                             
                         </div>
@@ -397,7 +397,7 @@
                         </div>
 <!--                        
                         <div class="form-group">
-	                    	<label class="control-label col-xs-4">Cónyuge:</label>
+	                    	<label class="control-label col-xs-4">Cï¿½nyuge:</label>
 	                    		<div class="col-xs-2">
 	                    			<label class="radio-inline">
 	                    				<input type="radio" name="a_conyuge" value="1"> SI
@@ -445,9 +445,9 @@
                         </div>
                         <div class="form-group">
 	                        <label class="control-label col-xs-4">
-	                        <span style="color:red;font-size:18px;">*</span>Código Acción::</label>
+	                        <span style="color:red;font-size:18px;">*</span>Codigo Accion::</label>
 	                        <div class="col-xs-6">
-	                            <input type="text" class="form-control" name="m_codigoper" id="m_codigoper" placeholder="Código Persona.." required>
+	                            <input type="text" class="form-control" name="m_codigoper" id="m_codigoper" placeholder="Codigo Persona.." required>
 	                        </div>
 	                        
 	                    </div>
@@ -635,7 +635,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-	                        <label class="control-label col-xs-3">Fecha Activación::</label>
+	                        <label class="control-label col-xs-3">Fecha Activacion::</label>
 	                        <div class="col-xs-4">
 	                            <input type="text" class="form-control" name="activo_fecha" id="activo_fecha" placeholder="dd/mm/aaaa" required>
 	                        </div>
@@ -660,9 +660,9 @@
 	                          </div>
 			            </div>
                         <div class="form-group">
-	                        <label class="control-label col-xs-3">Año::</label>
+	                        <label class="control-label col-xs-3">AÃ±o::</label>
 	                          <div class="col-xs-3">                             	
-	                          <input type="text" class="form-control" name="act_a_anio" id="act_a_anio" placeholder="ingrese año">
+	                          <input type="text" class="form-control" name="act_a_anio" id="act_a_anio" placeholder="ingrese aÃ±o">
 	                          </div>
 			            </div>
                         <input type="hidden" name="opcion" value="${opActivo}" >
@@ -1259,7 +1259,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-	                        <label class="control-label col-xs-4">AÑO Inicio::</label>
+	                        <label class="control-label col-xs-4">AÃ±o Inicio::</label>
 	                        <div class="col-xs-4">
 	                            <select class="form-control" name="Ae_anioini" id="Ae_anioini">
 		                        	<option value="2018">2018</option>
@@ -1293,7 +1293,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-4">AÑO FIN::</label>
+                        <label class="control-label col-xs-4">AÃ‘O FIN::</label>
                         <div class="col-xs-4">
                             <select class="form-control" name="Ae_aniofin" id="Ae_aniofin">
 	                        	<option value="2018">2018</option>
@@ -1375,7 +1375,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-	                        <label class="control-label col-xs-4">AÑO Inicio::</label>
+	                        <label class="control-label col-xs-4">AÃ‘O Inicio::</label>
 	                        <div class="col-xs-4">
 	                            <select class="form-control" name="me_anioini" id="me_anioini">
 		                        	<option value="2017">2017</option>
@@ -1410,7 +1410,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-4">AÑO FIN::</label>
+                        <label class="control-label col-xs-4">AÃ‘O FIN::</label>
                         <div class="col-xs-4">
                             <select class="form-control" name="me_aniofin" id="me_aniofin">
 	                        	<option value="2017">2017</option>
@@ -1519,7 +1519,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabl">Añadir Beneficiario</h4>
+                    <h4 class="modal-title" id="myModalLabl">AÃ±adir Beneficiario</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" action="personaServices.html" method="POST" id="addformB">
@@ -1533,9 +1533,9 @@
                         </div>
 <!--                        
                         <div class="form-group">
-                            <label class="control-label col-xs-4">Código Persona::</label>
+                            <label class="control-label col-xs-4">Cï¿½digo Persona::</label>
                             <div class="col-xs-6">
-                                <input type="text" class="form-control" name="ab_codigoper" id="ab_codigoper" placeholder="Código Persona.." required>
+                                <input type="text" class="form-control" name="ab_codigoper" id="ab_codigoper" placeholder="Cï¿½digo Persona.." required>
                             </div>                            
                         </div>
 -->                        
@@ -1616,7 +1616,7 @@
                         </div>
                         <div class="form-group">
 	                    	<label class="control-label col-xs-4">
-	                    	<span style="color:red;font-size:18px;">*</span>Cónyuge:</label>
+	                    	<span style="color:red;font-size:18px;">*</span>CÃ³nyuge:</label>
 	                    		<div class="col-xs-2">
 	                    			<label class="radio-inline">
 	                    				<input type="radio" name="ab_conyuge" value="1"> SI
@@ -1663,9 +1663,9 @@
                         </div>
 <!--                        
                         <div class="form-group">
-	                        <label class="control-label col-xs-4">Código Persona::</label>
+	                        <label class="control-label col-xs-4">Cï¿½digo Persona::</label>
 	                        <div class="col-xs-6">
-	                            <input type="text" class="form-control" name="mb_codigoper" id="mb_codigoper" placeholder="Código Persona.." required>
+	                            <input type="text" class="form-control" name="mb_codigoper" id="mb_codigoper" placeholder="Cï¿½digo Persona.." required>
 	                        </div>
 	                        
 	                    </div>
@@ -1749,7 +1749,7 @@
                         </div>
                         <div class="form-group">
 	                    	<label class="control-label col-xs-4">
-	                    	<span style="color:red;font-size:18px;">*</span>Cónyuge:</label>
+	                    	<span style="color:red;font-size:18px;">*</span>CÃ³nyuge:</label>
 	                    		<div class="col-xs-2">
 	                    			<label class="radio-inline">
 	                    				<input type="radio" name="mb_conyuge" id="mb_conyuge_si" value="1"> SI
@@ -2309,7 +2309,7 @@ $(document).ready(function () {
  			var xactivos=$('input[name=activos]:checked').val();
  			
  			if (validarDatos_add() == 0) {
-	 			if(confirm('¿Seguro de Guardar La Persona ?')){ 				
+	 			if(confirm('Â¿Seguro de Guardar La Persona ?')){ 				
 		 				$.when(	
 			 	 				jQuery.post('personaServices.html',$('#addform').serialize(), 	 						
 			 	 						function(data){		 	 					
@@ -2346,7 +2346,7 @@ $(document).ready(function () {
  			var xactivos=$('input[name=activos]:checked').val();
  			
  			if (validarDatos_mod() == 0) {
- 					if(confirm('¿Seguro de Modificar Datos de Persona ?')){ 				
+ 					if(confirm('Â¿Seguro de Modificar Datos de Persona ?')){ 				
 	 						$.when(	
 				 	 				jQuery.post('personaServices.html',$('#modform').serialize(), 	 						
 				 	 						function(data){		 	 					
@@ -2377,7 +2377,7 @@ $(document).ready(function () {
  			var xestado=1;//$('input[name=estado]:checked').val();
  			var xactivos=$('input[name=activos]:checked').val();
  			
- 					if(confirm('¿Seguro de Modificar Datos Factura de Persona ?')){ 				
+ 					if(confirm('Â¿Seguro de Modificar Datos Factura de Persona ?')){ 				
 	 						$.when(	
 				 	 				jQuery.post('personaServices.html',$('#modfacform').serialize(), 	 						
 				 	 						function(data){		 	 					
@@ -2437,7 +2437,7 @@ $(document).ready(function () {
  			var xactivos=$('input[name=activos]:checked').val();
  			
  			if (validarDatos_add_activo() == 0) {
-	 			if(confirm('¿Seguro de ACTIVAR al Socio ?')){ 
+	 			if(confirm('Â¿Seguro de ACTIVAR al Socio ?')){ 
 					$.when(	
 		 	 				jQuery.post('personaServices.html',$('#activoform').serialize(), 	 						
 		 	 						function(data){		 	 					
@@ -2473,7 +2473,7 @@ $(document).ready(function () {
  			var xactivos=$('input[name=activos]:checked').val();
  			
  			if (validarDatos_add_desactivo() == 0) {
-	 			if(confirm('¿Seguro de DESACTIVAR al Socio ?')){ 
+	 			if(confirm('Â¿Seguro de DESACTIVAR al Socio ?')){ 
 					$.when(	
 		 	 				jQuery.post('personaServices.html',$('#desactivoform').serialize(), 	 						
 		 	 						function(data){		 	 					
@@ -2578,12 +2578,12 @@ $(document).ready(function () {
 													sw=0;	
 											}else{
 												sw=1;
-									 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+									 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/aÃ±o..!');
 									 			$('#a_fing').focus();
 											}	
 										}else{
 											sw=1;
-									 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+									 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/aÃ±o..!');
 									 		$('#a_fnac').focus();
 										}									
 								}else{
@@ -2629,7 +2629,7 @@ $(document).ready(function () {
 						sw=0;
 			}else{
 				sw=1;
-	 			menError('Error..!', 'La </B>LA FECHA </B> debe ser dia/mes/año..!');
+	 			menError('Error..!', 'La </B>LA FECHA </B> debe ser dia/mes/aÃ±o..!');
 	 			$('#desactivo_fecha').focus();
 			}	
  			
@@ -2654,17 +2654,17 @@ $(document).ready(function () {
 						sw=0;
 					}else{
 						sw=1;
-			 			menError('Error..!', '</B>EL AÑO FUERA DE RANDO [2000..2050]</B>..!');
+			 			menError('Error..!', '</B>EL AÃ‘O FUERA DE RANDO [2000..2050]</B>..!');
 			 			$('#act_a_anio').focus();
 					}
 				}else{
 					sw=1;
-		 			menError('Error..!', '</B>EL AÑO NO ES VALIDO</B>..!');
+		 			menError('Error..!', '</B>EL AÃ±O NO ES VALIDO</B>..!');
 		 			$('#act_a_anio').focus();
 				}	
 			}else{
 				sw=1;
-	 			menError('Error..!', 'La </B>LA FECHA </B> debe ser dia/mes/año..!');
+	 			menError('Error..!', 'La </B>LA FECHA </B> debe ser dia/mes/aÃ±o..!');
 	 			$('#activo_fecha').focus();
 			}	
  			
@@ -2722,12 +2722,12 @@ $(document).ready(function () {
 											sw=0;	
 										}else{
 											sw=1;
-								 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+								 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/aÃ±o..!');
 								 			$('#m_fechaing').focus();
 									}		
 									}else{
 										sw=1;
-								 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+								 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/aÃ±o..!');
 								 		$('#m_fechanac').focus();
 									}						
 								}else{
@@ -2772,7 +2772,7 @@ $(document).ready(function () {
  			var xactivos=$('input[name=activos]:checked').val();
  			
  			if (validarDatos_addD() == 0) {
-	 			if(confirm('¿Seguro de Guardar El Domicilio De Persona ?')){ 				
+	 			if(confirm('Â¿Seguro de Guardar El Domicilio De Persona ?')){ 				
 		 				$.when(	
 			 	 				jQuery.post('personaServices.html',$('#addformD').serialize(), 	 						
 			 	 						function(data){		 	 					
@@ -2854,7 +2854,7 @@ $(document).ready(function () {
  			var xactivos=$('input[name=activos]:checked').val();
  			
  			if (validarDatos_modD() == 0) {
-	 			if(confirm('¿Seguro de Modificar El Domicilio De Persona ?')){ 				
+	 			if(confirm('Â¿Seguro de Modificar El Domicilio De Persona ?')){ 				
 		 				$.when(	
 			 	 				jQuery.post('personaServices.html',$('#modformD').serialize(), 	 						
 			 	 						function(data){		 	 					
@@ -2963,7 +2963,7 @@ $(document).ready(function () {
  			var xactivos=$('input[name=activos]:checked').val();
  			
  			if (validarDatos_addT() == 0) {
-	 			if(confirm('¿Seguro de Guardar El Trabajo De Persona ?')){ 				
+	 			if(confirm('Â¿Seguro de Guardar El Trabajo De Persona ?')){ 				
 		 				$.when(	
 			 	 				jQuery.post('personaServices.html',$('#addformT').serialize(), 	 						
 			 	 						function(data){		 	 					
@@ -3084,7 +3084,7 @@ $(document).ready(function () {
  			var xactivos=$('input[name=activos]:checked').val();
  			
  			if (validarDatos_modT() == 0) {
-	 			if(confirm('¿Seguro de Modificar El Trabajo De Persona ?')){ 				
+	 			if(confirm('Â¿Seguro de Modificar El Trabajo De Persona ?')){ 				
 		 				$.when(	
 			 	 				jQuery.post('personaServices.html',$('#modformT').serialize(), 	 						
 			 	 						function(data){		 	 					
@@ -3260,7 +3260,7 @@ $(document).ready(function () {
  			var xcodigoper= $("#estado_codigoper").val(); 
  			$("#Ae_codper").val(xcodper);	
  			if (validarDatos_addE() == 0) {
-	 			if(confirm('¿Seguro de Guardar Estado Socio de la Persona ?')){ 	 				
+	 			if(confirm('Â¿Seguro de Guardar Estado Socio de la Persona ?')){ 	 				
 		 	 			$.when(	
 			 	 				jQuery.post('personaServices.html',$('#addformE').serialize(), 	 						
 			 	 						function(data){		 	 					
@@ -3303,7 +3303,7 @@ $(document).ready(function () {
 				sw=0;	
 			}else{
 				sw=1;
-	 			menError('Error..!', 'La </B>LA FECHA</B> debe ser dia/mes/año..!');
+	 			menError('Error..!', 'La </B>LA FECHA</B> debe ser dia/mes/aÃ±o..!');
 	 			$('#ae_fest').focus();
 			}	
  			
@@ -3318,7 +3318,7 @@ $(document).ready(function () {
  			var xcodper= $("#estado_codper").val();
  			var xcodigoper= $("#estado_codigoper").val();
  			if (validarDatos_modE() == 0) {
-	 			if(confirm('¿Seguro de Modificar El estado De Persona ?')){ 				
+	 			if(confirm('Â¿Seguro de Modificar El estado De Persona ?')){ 				
 		 				$.when(	
 			 	 				jQuery.post('personaServices.html',$('#modformE').serialize(), 	 						
 			 	 						function(data){		 	 					
@@ -3357,7 +3357,7 @@ $(document).ready(function () {
 				sw=0;	
 			}else{
 				sw=1;
-	 			menError('Error..!', 'La </B>LA FECHA</B> debe ser dia/mes/año..!');
+	 			menError('Error..!', 'La </B>LA FECHA</B> debe ser dia/mes/aÃ±o..!');
 	 			$('#me_fest').focus();
 			}	
  			
@@ -3438,7 +3438,7 @@ $(document).ready(function () {
  			
  			$("#Ab_codper").val(xcodper);
  			if (validarDatos_addB() == 0) {
-	 			if(confirm('¿Seguro de Guardar Al Beneficiario?')){ 				
+	 			if(confirm('Â¿Seguro de Guardar Al Beneficiario?')){ 				
 		 				$.when(	
 			 	 				jQuery.post('personaServices.html',$('#addformB').serialize(), 	 						
 			 	 						function(data){		 	 					
@@ -3476,7 +3476,7 @@ $(document).ready(function () {
  			var xcodigoper= $("#beneficiario_codigoper").val();
  			
  				if (validarDatos_modB() == 0) {
- 					if(confirm('¿Seguro de Modificar Datos de Beneficiario?')){ 				
+ 					if(confirm('Â¿Seguro de Modificar Datos de Beneficiario?')){ 				
 	 						$.when(	
 				 	 				jQuery.post('personaServices.html',$('#modformB').serialize(), 	 						
 				 	 						function(data){		 	 					
@@ -3558,12 +3558,12 @@ $(document).ready(function () {
 												}		
 											}else{
 												sw=1;
-									 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+									 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/aÃ±o..!');
 									 			$('#ab_fing').focus();
 										}	
 										}else{
 											sw=1;
-									 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+									 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/aÃ±o..!');
 									 		$('#ab_fnac').focus();
 										}									
 								}else{
@@ -3656,12 +3656,12 @@ $(document).ready(function () {
 											}	
 										}else{
 											sw=1;
-								 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+								 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/aÃ±o..!');
 								 			$('#mb_fechaing').focus();
 									}		
 									}else{
 										sw=1;
-								 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+								 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/aÃ±o..!');
 								 		$('#mb_fechanac').focus();
 									}						
 								}else{
@@ -3705,7 +3705,7 @@ $(document).ready(function () {
  			var xcodigoper= $("#estado_codigoper").val();
  			
  			if (validarDatos_addAnt() == 0) {
-	 			if(confirm('¿Seguro de Guardar La fecha de Antiguedad De Persona ?')){ 				
+	 			if(confirm('Â¿Seguro de Guardar La fecha de Antiguedad De Persona ?')){ 				
 		 				$.when(	
 			 	 				jQuery.post('personaServices.html',$('#addformAnt').serialize(), 	 						
 			 	 						function(data){		 	 					
@@ -3747,7 +3747,7 @@ $(document).ready(function () {
 				sw=0;	
 			}else{
 				sw=1;
-				menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+				menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/aÃ±o..!');
 				$('#a_fant').focus();
 			}		
  			return sw;
