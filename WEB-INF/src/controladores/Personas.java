@@ -545,7 +545,7 @@ System.out.println("llego xcodes"+xcodes );
 				String ecivil=request.getParameter("m_ecivil");
 				String fechanac=request.getParameter("m_fechanac");
 				String fechaing=request.getParameter("m_fechaing");
-				System.out.println(" newcodigoper ="+xnewcodigoper+" telefono "+telefono);
+//				System.out.println(" newcodigoper ="+xnewcodigoper+" telefono "+telefono);
 //				System.out.println(" llego ="+ci+" "+codper+" "+nombre+" "+ap+" "+am+" "+telef+" "+email+" "+direc+" "+areas+" "+ecivil);
 				if (ci == null) {ci="-";}
 				if (ci.equals("")){ci="-";}
