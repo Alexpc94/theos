@@ -178,7 +178,7 @@
                                            	<td class="text-center ancho-icono">
 	                                           	#if (${reg.estado}==1)
 	                                           		#if (${PM}=="M")
-		                                           		<a  href="javascript:void(0)"  onclick="javascript:modificarPersona('${reg.codper}','${reg.nombre}','${reg.ap}','${reg.getDatosAm()}','${reg.getDatosEmail()}','${reg.codes}','${reg.cedula}','${reg.ecivil}','${reg.genero}','${reg.getFecharegFormat()}','${reg.getFechaNregFormat()}','${reg.codigoper}')">
+		                                           		<a  href="javascript:void(0)"  onclick="javascript:modificarPersona('${reg.codper}','${reg.nombre}','${reg.ap}','${reg.getDatosAm()}','${reg.getDatosEmail()}','${reg.codes}','${reg.cedula}','${reg.ecivil}','${reg.genero}','${reg.getFecharegFormat()}','${reg.getFechaNregFormat()}','${reg.codigoper}','${reg.newcodigoper}','${reg.getDatosTelef()}')">
 		                                           			<img src="images/img-sis/mod.png" style="width:25px;" data-toggle="tooltip" title="Tarija  <b>javascript:eliminarPersona</b>('${reg.codper}','${reg.getDatosPersona()}')">
 		                                				</a>
 	                                				#else
@@ -460,12 +460,20 @@
                         </div>
                         <div class="form-group">
 	                        <label class="control-label col-xs-4">
-	                        <span style="color:red;font-size:18px;">*</span>Código Acción::</label>
+	                        <span style="color:red;font-size:18px;">*</span>Cód Antiguo Acción::</label>
 	                        <div class="col-xs-6">
 	                            <input type="text" class="form-control" name="m_codigoper" id="m_codigoper" placeholder="Código Persona.." required>
 	                        </div>
 	                        
 	                    </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Código Acción::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_newcodigoper" id="m_newcodigoper" placeholder="Código Accion Persona.." required>
+                            </div>
+                            
+                        </div>
                         <div class="form-group">
                             <label class="control-label col-xs-4">
                             <span style="color:red;font-size:18px;">*</span>Nombre Persona::</label>
@@ -513,6 +521,13 @@
                         	</div>
                         </div>
                    		
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">Telefono::</label>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="m_telef" id="m_telef" placeholder="Telefono.." required>
+                            </div>
+                        </div>
+
 			            <div class="form-group">
                         	<label class="control-label col-xs-4">
                         	<span style="color:red;font-size:18px;">*</span>E. Civil:</label>
@@ -1923,8 +1938,10 @@ $("#myModal-btn").click(function(){
 	$('#myModal').modal('show');
 });
 
-function modificarPersona(xcodper, xnombre, xap,xam,xemail,xcodes,xcedula,xecivil,xgenero,xfechanac,xfechaing,xcodigoper){
+function modificarPersona(xcodper, xnombre, xap,xam,xemail,xcodes,xcedula,xecivil,xgenero,xfechanac,xfechaing,xcodigoper,xnewcodigoper,xtelefono){
 	$('#m_codigoper').val(xcodigoper);
+    $('#m_newcodigoper').val(xnewcodigoper);
+    $('#m_telef').val(xtelefono);
 	$('#m_codper').val(xcodper);
 	$('#m_nombre').val(xnombre);
 	$('#m_ap').val(xap);
@@ -2576,8 +2593,7 @@ $(document).ready(function () {
 
 			if (ci.length < 16 ){
 				if ((xcod.length < 10)&&(!isNaN(xcod))&&(xcod.length > 0)) {
- 					if ((xnewcod.length < 10)&&(!isNaN(xnewcod))&&(xnewcod.length > 0)) {
-
+ 					if ((xnewcod.length < 20)&&(xnewcod.length > 0)) {
                         var xnombre=$.trim(nombre);
     					if (xnombre != nombre) {
     					   $('#a_nombre').val(xnombre);
@@ -2631,7 +2647,7 @@ $(document).ready(function () {
 					    }
                     }else{
                         sw=1;
-                        menError('Error..!', 'El CODIGO </B>ESTA FUERA DE RANGO (10 DIGITOS) O ES DATO NO VALIDO</B>..!');
+                        menError('Error..!', 'El CODIGO ACCION </B>ESTA FUERA DE RANGO (20 DIGITOS) O ES DATO NO VALIDO</B>..!');
                         $('#a_newcodigoper').focus();
                     }
 				}else{
@@ -2724,60 +2740,73 @@ $(document).ready(function () {
 				xcod=xcod2;
 			}
  			
+            var xnewcod=$('#m_newcodigoper').val();
+            var xnewcod2=$.trim(xnewcod);
+            if (xnewcod != xnewcod2) {
+                $('#m_newcodigoper').val(xnewcod2);
+                xnewcod=xnewcod2;
+            }
+
 			if (ci.length < 16 ){
 				if ((!isNaN(xcod))&&(xcod != '')){
- 					var xnombre=$.trim(nombre);
-					if (xnombre != nombre) {
-						$('#m_nombre').val(xnombre);
-						nombre=xnombre;
-					}
-					if (nombre != ""){
-						if (nombre.length < 31){
-							var xap=$.trim(ap);
-							if (xap != ap) {
-								$('#m_ap').val(xap);
-								ap=xap;
-							}
-							var xam=$.trim(am);
-							if (xam != am) {
-								$('#m_am').val(xam);
-								am=xam;
-							}
-							if ((ap != "")||(am != "")){
-								if ((ap.length < 31)&&(am.length < 31)){
-									if (validaFechaDDMMAAAA(xfechanac)){
-										if (validaFechaDDMMAAAA(xfechaing)){
-											sw=0;	
-										}else{
-											sw=1;
-								 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
-								 			$('#m_fechaing').focus();
-									}		
-									}else{
-										sw=1;
-								 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
-								 		$('#m_fechanac').focus();
-									}						
-								}else{
-									sw=1;
-							 		menError('Error..!', 'El </B>APELLIDO</B> no puede exceder los 30 Caracteres..!');
-							 		$('#m_ap').focus();
-								}
-							}else{
-								sw=1;
-						 		menError('Error..!', 'Debe ingresar al menos un APELLIDO..!');
-						 		$('#m_ap').focus();
-							}							
-						}else{
-							sw=1;
-					 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede exceder los 20 Caracteres..!');
-					 		$('#m_nombre').focus();
-						}
-					}else{
-						sw=1;
-				 		menError('Error..!', 'El Dato </B>NOMBRE</B> no puede ser vacio..!');
-				 		$('#m_nombre').focus();
-					}
+                    if ((xnewcod.length < 20)&&(xnewcod.length > 0)) {
+ 					    var xnombre=$.trim(nombre);
+					    if (xnombre != nombre) {
+						    $('#m_nombre').val(xnombre);
+						    nombre=xnombre;
+					    }
+					    if (nombre != ""){
+						    if (nombre.length < 31){
+							    var xap=$.trim(ap);
+							    if (xap != ap) {
+                                    $('#m_ap').val(xap);
+                                    ap=xap;
+                                }
+                                var xam=$.trim(am);
+                                if (xam != am) {
+								    $('#m_am').val(xam);
+								    am=xam;
+                                }
+                                if ((ap != "")||(am != "")){
+								    if ((ap.length < 31)&&(am.length < 31)){
+                                        if (validaFechaDDMMAAAA(xfechanac)){
+                                            if (validaFechaDDMMAAAA(xfechaing)){
+                                                sw=0;	
+                                            }else{
+                                                sw=1;
+								 			    menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
+								 			    $('#m_fechaing').focus();
+                                            }		
+                                        }else{
+                                            sw=1;
+                                            menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
+                                            $('#m_fechanac').focus();
+                                        }						
+								    }else{
+									   sw=1;
+							 		  menError('Error..!', 'El </B>APELLIDO</B> no puede exceder los 30 Caracteres..!');
+							 		  $('#m_ap').focus();
+								    }
+                                }else{
+								    sw=1;
+                                    menError('Error..!', 'Debe ingresar al menos un APELLIDO..!');
+                                    $('#m_ap').focus();
+                                }							
+                            }else{
+                                sw=1;
+					 		    menError('Error..!', 'El Dato </B>NOMBRE</B> no puede exceder los 20 Caracteres..!');
+					 		    $('#m_nombre').focus();
+                            }
+                        }else{
+                            sw=1;
+                            menError('Error..!', 'El Dato </B>NOMBRE</B> no puede ser vacio..!');
+                            $('#m_nombre').focus();
+                        }
+                    }else{
+                        sw=1;
+                        menError('Error..!', 'El CODIGO ACCION </B>ESTA FUERA DE RANGO (20 DIGITOS) O ES DATO NO VALIDO</B>..!');
+                        $('#m_newcodigoper').focus();
+                    }
 				}else{
 	 				sw=1;
 					menError('Error..!', ' </B>EL CODIGO DE SOCIO NO ES VALIDO</B>..!');
@@ -2788,7 +2817,6 @@ $(document).ready(function () {
 				menError('Error..!', 'La </B>CEDULA</B> no debe exceder los 15 Caracteres..!');
 				$('#m_ci').focus();	
  			}
- 			
  			return sw;
  		}
  		

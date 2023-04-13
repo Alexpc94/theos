@@ -35,9 +35,9 @@ public class PersonasManager {
 	}
 
 	public List<Personal> listarPersonal(int xact1, int xact2, int xactivos) {
-		String xsql = "  select  codper,codigoper,nombre,ap,am,estado,fingreso,fnac,genero,ecivil,newcodigoper,email,cicli,cliente,max(cedula) as cedula, max(nomsocio) as nomsocio,max(codes) as codes, max(activo) as activo,max(mesini) as mesini,max(anioini) as anioini  "
+		String xsql = "  select  codper,codigoper,nombre,ap,am,estado,fingreso,fnac,genero,ecivil,newcodigoper,telefono,email,cicli,cliente,max(cedula) as cedula, max(nomsocio) as nomsocio,max(codes) as codes, max(activo) as activo,max(mesini) as mesini,max(anioini) as anioini  "
 				+ "	from (  "
-				+ " 	 select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.estado,p.fnac,p.fingreso,p.genero,p.ecivil,p.email,p.newcodigoper,df.ci as cicli,df.cliente,dat2.cedula as cedula,0 as codes, '-' as nomsocio, p.activo,p.mesini,p.anioini  "
+				+ " 	 select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.estado,p.fnac,p.fingreso,p.genero,p.ecivil,p.email,p.newcodigoper,p.telefono,df.ci as cicli,df.cliente,dat2.cedula as cedula,0 as codes, '-' as nomsocio, p.activo,p.mesini,p.anioini  "
 				+ "	 from datosfac df, personal p ,(  "
 				+ " 		select pp.codper, '-' as cedula "
 				+ "	 	from personal pp  "
@@ -49,7 +49,7 @@ public class PersonasManager {
 				+ "		  ) as dat2  "
 				+ "	 where p.codper=dat2.codper and p.codper=df.codper "
 				+ "  UNION ALL 				"
-				+ "	   select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.estado,p.fnac,p.fingreso,p.genero,p.ecivil,p.email,p.newcodigoper,df.ci as cicli,df.cliente,'-' as cedula,dat2.codes,dat2.nombre as nomsocio, p.activo,p.mesini,p.anioini  "
+				+ "	   select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.estado,p.fnac,p.fingreso,p.genero,p.ecivil,p.email,p.newcodigoper,p.telefono,df.ci as cicli,df.cliente,'-' as cedula,dat2.codes,dat2.nombre as nomsocio, p.activo,p.mesini,p.anioini  "
 				+ "	   from datosfac df, personal p, (   "
 				+ "		  select e.codper,e.codes, s.nombre   "
 				+ "		  from personal p, estado e, estadosoc s   "
@@ -62,7 +62,7 @@ public class PersonasManager {
 				+ "	  where p.codper=dat2.codper and p.codper=df.codper  "
 				+ " ) as datos "
 				+ " where activo between ? and ? and estado=1 "
-				+ " group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14  "
+				+ " group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15  "
 				+ " order by 4,5,3,2 ";
 
 		// + " where estado between "+xest1+" and "+xest2+" order by nombre ";
@@ -84,6 +84,7 @@ public class PersonasManager {
 						per.setEmail(rs.getString("email"));
 						per.setEcivil(rs.getString("ecivil"));
 						per.setNewcodigoper(rs.getString("newcodigoper"));
+						per.setTelef(rs.getString("telefono"));
 						per.setCicli(rs.getString("cicli"));
 						per.setCliente(rs.getString("cliente"));
 						per.setNomsocio(rs.getString("nomsocio"));
@@ -120,10 +121,10 @@ public class PersonasManager {
 	}
 
 	public String setModPersonal(String ci, int codper, String nombre, String ap, String am, String email,
-			String ecivil, String genero, Date fechaNac, Date fechaIng, int xconyuge, int xcodigoper) {
-		return this.jdbcTemplate.queryForObject("select modPersona(?,?,?,?,?,?,?,?,?,?,?,?)", String.class,
+			String ecivil, String genero, Date fechaNac, Date fechaIng, int xconyuge, int xcodigoper,String xnewcodigoper, String telefono) {
+		return this.jdbcTemplate.queryForObject("select modPersona(?,?,?,?,?,?,?,?,?,?,?,?,?,?)", String.class,
 				new Object[] { ci, codper, nombre, ap, am, email, ecivil, genero, fechaNac, fechaIng, xconyuge,
-						xcodigoper });
+						xcodigoper,xnewcodigoper,telefono });
 	}
 
 	public String setModFacPersonal(String ci, int codper, String nombre) {
