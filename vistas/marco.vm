@@ -175,7 +175,7 @@
                 Usuario Conectado:<span>${xusuario}</span>
               </td>
               <td>
-                Copyright &copy; Theos - 2017
+                Copyright &copy; Theos - 2017 v1.1.11-0
               </td>
               
               #if (${xalertas} == '1')
