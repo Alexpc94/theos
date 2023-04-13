@@ -534,17 +534,18 @@ System.out.println("llego xcodes"+xcodes );
 			if (op.equals("modPersonal")){				
 				String ci=request.getParameter("m_ci");
 				String xcodigoper=request.getParameter("m_codigoper");
+				String xnewcodigoper=request.getParameter("m_newcodigoper");
 				String codper=request.getParameter("m_codper");
 				String nombre=request.getParameter("m_nombre");
 				String ap=request.getParameter("m_ap");
 				String am=request.getParameter("m_am");			
 				String email=request.getParameter("m_email");
-				
+				String telefono=request.getParameter("m_telef");
 				String genero=request.getParameter("m_genero");
 				String ecivil=request.getParameter("m_ecivil");
 				String fechanac=request.getParameter("m_fechanac");
 				String fechaing=request.getParameter("m_fechaing");
-				
+				System.out.println(" newcodigoper ="+xnewcodigoper+" telefono "+telefono);
 //				System.out.println(" llego ="+ci+" "+codper+" "+nombre+" "+ap+" "+am+" "+telef+" "+email+" "+direc+" "+areas+" "+ecivil);
 				if (ci == null) {ci="-";}
 				if (ci.equals("")){ci="-";}
@@ -555,7 +556,7 @@ System.out.println("llego xcodes"+xcodes );
 
 //				System.out.println(" llego ="+ci+" "+codper+" "+nombre+" "+ap+" "+am+" email="+email+"ecivil "+ecivil+"genero "+genero+"fecha "+fechanac+"estsocio ");
 				
-				String error = this.personasManager.setModPersonal(ci,Integer.parseInt(codper),nombre.toUpperCase(),ap.toUpperCase(),am.toUpperCase(),email,ecivil.toUpperCase(),genero.toUpperCase(),fechaNac,fechaIng,1,Integer.parseInt(xcodigoper));//el uno es por conyuge
+				String error = this.personasManager.setModPersonal(ci,Integer.parseInt(codper),nombre.toUpperCase(),ap.toUpperCase(),am.toUpperCase(),email,ecivil.toUpperCase(),genero.toUpperCase(),fechaNac,fechaIng,1,Integer.parseInt(xcodigoper),xnewcodigoper.toUpperCase(),telefono);//el uno es por conyuge
 				
 //				System.out.println(" error ="+error);
 				
@@ -876,10 +877,11 @@ System.out.println("llego xcodes"+xcodes );
 				DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 				Date fechaNac = dateformat.parse(fechanac);
 				Date fechaIng = dateformat.parse(fechaing);
-
+				String newcodigoper="0";
+				String telefono="";
 //				System.out.println(" llego ="+ci+" "+codper+" "+nombre+" "+ap+" "+am+" email="+email+"ecivil "+ecivil+"genero "+genero+"fecha "+fechanac+"estsocio ");
 				
-				String error = this.personasManager.setModPersonal(ci,Integer.parseInt(codper),nombre.toUpperCase(),ap.toUpperCase(),am.toUpperCase(),email,ecivil.toUpperCase(),genero.toUpperCase(),fechaNac,fechaIng,Integer.parseInt(xconyuge),Integer.parseInt(xcodigoper));
+				String error = this.personasManager.setModPersonal(ci,Integer.parseInt(codper),nombre.toUpperCase(),ap.toUpperCase(),am.toUpperCase(),email,ecivil.toUpperCase(),genero.toUpperCase(),fechaNac,fechaIng,Integer.parseInt(xconyuge),Integer.parseInt(xcodigoper),newcodigoper.toUpperCase(),telefono);
 				
 //				System.out.println(" error ="+error);
 				

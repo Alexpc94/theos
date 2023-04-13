@@ -43,7 +43,7 @@
                                            	<td class="text-center ancho-icono">
 	                                           	#if (${reg.estado}==1)
 	                                           		#if (${PM}=="M")
-	                                           			<a  href="javascript:void(0)"  onclick="javascript:modificarPersona('${reg.codper}','${reg.nombre}','${reg.ap}','${reg.getDatosAm()}','${reg.getDatosEmail()}','${reg.codes}','${reg.cedula}','${reg.ecivil}','${reg.genero}','${reg.getFecharegFormat()}','${reg.getFechaNregFormat()}','${reg.codigoper}')">
+	                                           			<a  href="javascript:void(0)"  onclick="javascript:modificarPersona('${reg.codper}','${reg.nombre}','${reg.ap}','${reg.getDatosAm()}','${reg.getDatosEmail()}','${reg.codes}','${reg.cedula}','${reg.ecivil}','${reg.genero}','${reg.getFecharegFormat()}','${reg.getFechaNregFormat()}','${reg.codigoper}','${reg.newcodigoper}','${reg.getDatosTelef()}')">
 		                                           			<img src="images/img-sis/mod.png" style="width:25px;" data-toggle="tooltip" title="Tarija  <b>javascript:eliminarPersona</b>('${reg.codper}','${reg.getDatosPersona()}')">
 		                                				</a>
 	                                				#else
