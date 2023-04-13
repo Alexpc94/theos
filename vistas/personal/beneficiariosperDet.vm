@@ -60,7 +60,7 @@
                               <td>${reg.getDatosGenero()}</td>
                               <td>${reg.getFecharegFormat()}</td>
                               <td class="text-center ancho-icono">
-                                        #if (${reg.benef}==1)
+                                        #if (${reg.benef_estado}==1)
                                          <img src="images/img-sis/hand_up.png" id="btn-modificar" style="width:25px;">
                                         #else	
                                          <img src="images/img-sis/hand_down.png" style="width:25px;">
