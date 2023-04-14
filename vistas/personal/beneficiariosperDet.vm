@@ -11,10 +11,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>CODIGO :<b style="color:blue;">${xcodigoper}</b> </td>
+                            <td>COD ACCCION :<b style="color:blue;">${xnewcodigoper}</b> </td>
                             <input type="hidden" id="beneficiario_codper" value="${xcodper}">
                             <input type="hidden" id="beneficiario_codigoper" value="${xcodigoper}">
-                            <td>NOMBRE : ${xnombre} </td><input type="hidden" id="beneficiario_name" value="${xnombre}">
+                            <input type="hidden" id="beneficiario_newcodigoper" value="${xnewcodigoper}">
+                            <td>SOCIO : ${xnombre} </td><input type="hidden" id="beneficiario_name" value="${xnombre}">
                             <td class="right">
                          	  	<!-- BOTON TO PRINT -->
 	                                    <button class="pull-right" id="print2">

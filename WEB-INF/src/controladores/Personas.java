@@ -430,12 +430,14 @@ System.out.println("llego xcodes"+xcodes );
 		String xcodper=request.getParameter("xcodper");
 		String xnombre=request.getParameter("xnombre");
 		String xcodigoper=request.getParameter("xcodigoper");
+		String xnewcodigoper=request.getParameter("xnewcodigoper");
 		
 		//recupera los bebeficiarios de la base de datos
 		List<?> lispersonal_beneficiarios = this.personasManager.listarPersonal_beneficiarios(Integer.parseInt(xcodper));
 		model.addAttribute("xPersonal_beneficiarios", lispersonal_beneficiarios);
 		model.addAttribute("xcodper", xcodper );
 		model.addAttribute("xcodigoper", xcodigoper );
+		model.addAttribute("xnewcodigoper", xnewcodigoper );
 		model.addAttribute("xnombre", xnombre );
 		return "personal/beneficiariosperDet";	
 	}
