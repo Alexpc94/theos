@@ -246,7 +246,7 @@
                                             	</A>
                                             </td>
                                         	<td class="text-center ancho-icono">
-                                            	<a  href="javascript:void(0)" onclick="javascript:llamarBeneficiario('${reg.codper}','${reg.getDatosPersona()}','${reg.codigoper}')">
+                                            	<a  href="javascript:void(0)" onclick="javascript:llamarBeneficiario('${reg.codper}','${reg.getDatosPersona()}','${reg.codigoper}','${reg.newcodigoper}')">
                                             		<input type="radio" name="beneficiario_sel" />
                                             	</A>
                                             </td>
@@ -2015,8 +2015,8 @@ function habilitarPersona(xcodper, xnombres){
 }
 
 //MODIFICAR DATOS DE LOS BENEFICIARIOS
-function llamarBeneficiario(xcodper, xnombres, xcodigoper){
-	jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+function llamarBeneficiario(xcodper, xnombres, xcodigoper,xnewcodigoper){
+	jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper},
 				function(data){$('#detalle-personal').html(data);}
 	);
 }
@@ -3427,7 +3427,7 @@ $(document).ready(function () {
 			var xnombres= $("#beneficiario_name").val();
  			var xcodper= $("#beneficiario_codper").val();
  			var xcodigoper= $("#beneficiario_codigoper").val();
- 			
+ 			var xnewcodigoper= $("#beneficiario_newcodigoper").val();
 	 			$.when(	
 	 	 				jQuery.post('personaServices.html',$('#dellBform').serialize(), 	 						
 	 	 						function(data){		 	 					
@@ -3448,7 +3448,7 @@ $(document).ready(function () {
 	 	 				        } //end of function (data)
 	 	 				) //END of first ajax
 				).then(function() {	
-			 	 		jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+			 	 		jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper},
 									function(data){$('#detalle-personal').html(data);}
 						);
 				});
@@ -3462,7 +3462,7 @@ $(document).ready(function () {
 			var xnombres= $("#beneficiario_name").val();
  			var xcodper= $("#beneficiario_codper").val();
  			var xcodigoper= $("#beneficiario_codigoper").val();
- 			
+ 			var xnewcodigoper= $("#beneficiario_newcodigoper").val();
 	 			$.when(	
 	 	 				jQuery.post('personaServices.html',$('#habBform').serialize(), 	 						
 	 	 						function(data){		 	 					
@@ -3479,7 +3479,7 @@ $(document).ready(function () {
 	 	 				        } //end of function (data)
 	 	 				) //END of first ajax
 				).then(function() {	
-			 	 		jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+			 	 		jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper},
 									function(data){$('#detalle-personal').html(data);}
 						);
 				});
@@ -3491,7 +3491,7 @@ $(document).ready(function () {
  			var xnombres= $("#beneficiario_name").val();
  			var xcodper= $("#beneficiario_codper").val();
  			var xcodigoper= $("#beneficiario_codigoper").val();
- 			
+ 			var xnewcodigoper= $("#beneficiario_newcodigoper").val();
  			$("#Ab_codper").val(xcodper);
  			if (validarDatos_addB() == 0) {
 	 			if(confirm('¿Seguro de Guardar Al Beneficiario?')){ 				
@@ -3517,7 +3517,7 @@ $(document).ready(function () {
 			 	 				) //END of first ajax
 							).then(function() {	
 			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
-								jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+								jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper},
 				 	 						function(data){	$('#detalle-personal').html(data);
 				 	 			});
 							});						
@@ -3530,7 +3530,7 @@ $(document).ready(function () {
  			var xnombres= $("#beneficiario_name").val();
  			var xcodper= $("#beneficiario_codper").val();
  			var xcodigoper= $("#beneficiario_codigoper").val();
- 			
+ 			var xnewcodigoper= $("#beneficiario_newcodigoper").val();
  				if (validarDatos_modB() == 0) {
  					if(confirm('¿Seguro de Modificar Datos de Beneficiario?')){ 				
 	 						$.when(	
@@ -3550,7 +3550,7 @@ $(document).ready(function () {
 				 	 				) //END of first ajax
 							).then(function() {	
 				 	 		//		alert(xcodpadre+" -a ver- "+xestado);
-									jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper},
+									jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper},
 					 	 						function(data){	$('#detalle-personal').html(data);
 					 	 			});
 							});
