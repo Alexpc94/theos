@@ -179,9 +179,10 @@
               </td>
               
               #if (${xalertas} == '1')
-	              <td>
-	                Alerta:<img id="alertar" src="images/img-sis/warning.gif" style="width:25px;" title="Hacer click para ver..">
-	              </td>
+                <td>
+                    <img id="alertar" src="images/img-sis/warning.gif" style="width:28px;" title="Hacer click para ver.."><br>Beneficiarios Mayores 
+                </td>
+                  
               #end  
               <td>
                 Fecha:<span>${xfecha}</span> &nbsp;&nbsp;  - &nbsp;&nbsp; <span><a href="/theos/index.html"><img src="images/taskbar/group.png" alt="User" /> Desconectase</a></span>

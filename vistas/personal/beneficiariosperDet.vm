@@ -18,7 +18,7 @@
                             <td>SOCIO : ${xnombre} </td><input type="hidden" id="beneficiario_name" value="${xnombre}">
                             <td class="right">
                          	  	<!-- BOTON TO PRINT -->
-	                                    <button class="pull-right" id="print2">
+	                                    <button class="pull-right" id="print2" title="Formulario de Datos de Socio">
 	                                        <img src="images/img-sis/print.png" style="width:25px; height:25px;">
 	                                    </button>
 	                                              	

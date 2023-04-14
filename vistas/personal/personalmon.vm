@@ -100,15 +100,15 @@
 	                                        <img src="images/img-sis/add_2.png" style="width:30px; height:30px;">
 	                                    </button>
 	                                    #else
-	                                    <button class="pull-right" data-toggle="modal">
+	                                    <button class="pull-right" data-toggle="modal" >
 	                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
 	                                    </button>
 	                                	#end
 	                                    <!-- BOTON TO PRINT -->
-	                                    <button class="pull-right" id="print">
+	                                    <button class="pull-right" id="print" title="Reporte lista de socios">
 	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
 	                                    </button>
-	                                    <button class="pull-right" id="print1">
+	                                    <button class="pull-right" id="print1" title="Reporte lista de socios (.xls)">
 	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
 	                                    </button>
 	                                	
