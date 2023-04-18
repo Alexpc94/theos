@@ -10,7 +10,7 @@
                          <thead>
                              <tr>
                                  <th class="text-center ancho-icono">#</th>
-                                 <th class="col-sm-0 text-center">Cod. Accion</th>
+                                 <th class="col-sm-0 text-center">Accion PADRE</th>
                                  <th class="col-sm-0 text-center">Socio PADRE</th>
                                  <th class="col-sm-0 text-center">HIJO</th>
                                  <th class="col-sm-0 text-center">Fnac.</th>
@@ -22,7 +22,7 @@
 							#foreach($reg in $xlistaMayores)
                               <tr class="gradeU">
                                  <td class="text-center">${con}</td>
-                                 <td>${reg.codigoper}</td>
+                                 <td>${reg.newcodigoper}</td>
                                  <td>${reg.getDatosPersona2()}</td>
                                  <td>${reg.getDatosPersona()}</td>
                                  <td>${reg.getFecharnacFormat()}</td>
@@ -58,7 +58,7 @@
 							#foreach($reg in $xlistaVarios)
                            <tr class="gradeU">
 		                        <td class="text-center">${con}</td>
-		                        <td>${reg.codigoper}</td>
+		                        <td>${reg.newcodigoper}</td>
 		                        <td>${reg.getDatosPersona()}</td>
 		                        <td>${reg.estsocio}</td>
 		                        <td>${reg.getFecharnacFormat()}</td>

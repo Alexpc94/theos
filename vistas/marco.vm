@@ -165,25 +165,78 @@
     </div>
     <!-- End Modals LISTA SOCIOS -->
 
-       
+
+<!--  LISTA DE CUMPLEAÑOS -->
+    <div class="panel-body">
+        <div class="modal fade" id="birth-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <br><br><br>
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabl">Socios que cumplen años hoy</h4>
+                    </div>
+                    <div class="modal-body">
+     <!-- MODAL-BODY -->
+     <!-- aqui tamaño de tablas  -->               
+     <!-- /. ROW  -->              
+     <div  class="row">
+     
+         <!-- aqui tamaño de tablas  -->               
+         <div class="col-md-12">
+             <!-- Advanced Tables -->
+             <div  class="panel panel-default">
+                 <div >
+                     <div class="espacio-small"></div>
+                     <div class="table-responsive">
+    <div id="birthlist">
+
+    </div>                    
+                     </div>                 
+                 </div>
+             </div>
+             <!--End Advanced Tables -->
+
+         </div>
+         <input type="HIDDEN" id="selected-row" value="0">
+     </div>
+     <!--End Advanced Tables -->            
+     <!-- MODAL-BODY -->                
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modals LISTA CUMPLEAÑOS -->       
     <!-- Footer -->
     <footer>
         <table class="table-uno table-bordered-uno taskbar-pie ">
           <tbody>
             <tr>
-              <td>
+              <td width="25%">
                 Usuario Conectado:<span>${xusuario}</span>
               </td>
-              <td>
+              <td width="40%">
                 Copyright &copy; Theos - 2017 v1.1.11
               </td>
               
               #if (${xalertas} == '1')
-	              <td>
-	                Alerta:<img id="alertar" src="images/img-sis/warning.gif" style="width:25px;" title="Hacer click para ver..">
-	              </td>
+                <td width="5%">
+                    <div id="alertar">
+                        <img  src="images/img-sis/warning.gif" style="width:23px;" title="Hacer click para ver.."><br>Beneficiarios Mayores
+                    </div>
+                    
+                </td>
               #end  
-              <td>
+                <td width="5%">
+                    <div id="birth">
+                        <img  src="images/img-sis/warning.gif" style="width:23px;" title="Hacer click para ver.."><br>Socios en cumpleaños    
+                    </div>
+                </td>
+              <td width="25%">
                 Fecha:<span>${xfecha}</span> &nbsp;&nbsp;  - &nbsp;&nbsp; <span><a href="/theos/index.html"><img src="images/taskbar/group.png" alt="User" /> Desconectase</a></span>
               </td>
             </tr>
@@ -217,4 +270,14 @@ $("#alertar").click(function(){
 
          
     });
+//LISTA DE CUMPLEAÑOS
+$("#birth").click(function(){
+    //alert("todo bien");
+    $('#birth-Modal').modal('show');  
+
+    jQuery.post('birthlist_2.html',{},
+            function(data){$('#birthlist').html(data);}
+    );
+
+})
 </script>

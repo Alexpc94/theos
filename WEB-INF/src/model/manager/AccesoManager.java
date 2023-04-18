@@ -29,7 +29,7 @@ public class AccesoManager {
 		String xsql=" 	select  pp.codigoper,pp.nombre as nombre2,pp.ap as ap2,pp.am as am2, "
 				+"			p.conyuge,p.nombre,p.ap,p.am,	"
 				+"			p.fnac,   "
-				+"			extract(year from age(CURRENT_DATE,p.fnac)) as anio  "
+				+"			extract(year from age(CURRENT_DATE,p.fnac)) as anio,pp.newcodigoper  "
 				+"		from personal p, personal pp  "
 				+"		where p.benef=1 and p.benef_estado=1 and p.conyuge=0 and extract(year from age(p.fnac))>=21 and  "
 				+"		      p.padre=pp.codper and pp.activo=1 "
@@ -49,6 +49,33 @@ public class AccesoManager {
 			        	est.setAm(rs.getString("am"));
 			        	est.setFechanac(rs.getDate("fnac"));
 			        	est.setAnio(rs.getInt("anio"));
+			        	est.setNewcodigoper(rs.getString("newcodigoper"));
+			        	return est;
+			        }
+			    },new Object[] {});
+		return est;		
+	}
+	
+	public List<Personal> listarCumpleanios(){
+		String xsql=" 	SELECT p.newcodigoper, p.nombre, p.ap, p.am,p.telefono, p.fnac, "
+				+"			DATE_PART('year', AGE(NOW(), p.fnac)) AS anio "
+				+"			FROM personal p ,estado e "
+				+"			WHERE p.codper = e.codper "
+				+"				AND p.activo = 1 AND p.benef = 0 AND p.estado = 1 AND e.sw = 1 "
+				+"				AND DATE_PART('day', NOW()) = DATE_PART('day', p.fnac) "
+				+"		    	AND DATE_PART('month', NOW()) = DATE_PART('month', p.fnac) ";
+				List est = this.jdbcTemplate.query(
+			    xsql,
+			    new RowMapper() {
+			        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			        	Personal est = new Personal();
+			        	est.setNewcodigoper(rs.getString("newcodigoper"));
+			        	est.setNombre(rs.getString("nombre"));
+			        	est.setAp(rs.getString("ap"));
+			        	est.setAm(rs.getString("am"));
+			        	est.setTelef(rs.getString("telefono"));
+			        	est.setFechanac(rs.getDate("fnac"));
+			        	est.setAnio(rs.getInt("anio"));
 			        	return est;
 			        }
 			    },new Object[] {});
@@ -56,21 +83,21 @@ public class AccesoManager {
 	}
 
 	public List<Personal> listarAlertaVarios(){
-		String xsql=" 	select  p.codigoper,p.codper,p.nombre,p.ap,p.am,s.nombre as estsocio,	"
+		String xsql=" 	select  p.codigoper,p.codper,p.nombre,p.ap,p.am,s.nombre as estsocio,p.newcodigoper,	"
 				+"			p.fnac, "
 				+"			extract(year from age(CURRENT_DATE,p.fnac)) as anio, e.codes_real, 'Socio MENOR pero su estado actual NO Coincide' as obs  "
 				+"		from personal p, estado e, estadosoc s  "
 				+"		where p.activo=1 and extract(year from age(p.fnac))>=0 and extract(year from age(p.fnac))<21 and  "
 				+"		      p.codper=e.codper and e.sw=1 and e.codes_real <> 200 and e.codes_real=s.codes  "
 				+"		UNION ALL  "
-				+"		select  p.codigoper,p.codper,p.nombre,p.ap,p.am,s.nombre as estsocio,   "	
+				+"		select  p.codigoper,p.codper,p.nombre,p.ap,p.am,s.nombre as estsocio,p.newcodigoper,   "	
 				+"			p.fnac,  "
 				+"			extract(year from age(CURRENT_DATE,p.fnac)) as anio, e.codes_real, 'Socio JOVEN pero su Estado Actual NO Coincide' as obs  "
 				+"		from personal p, estado e, estadosoc s   "
 				+"		where p.activo=1 and extract(year from age(p.fnac))>=21 and extract(year from age(p.fnac))<25 and   "
 				+"		      p.codper=e.codper and e.sw=1 and e.codes_real <> 400 and e.codes_real=s.codes   "
 				+"		UNION ALL   "
-				+"		select  p.codigoper,p.codper,p.nombre,p.ap,p.am,s.nombre as estsocio,   "	
+				+"		select  p.codigoper,p.codper,p.nombre,p.ap,p.am,s.nombre as estsocio,p.newcodigoper,   "	
 				+"			p.fnac,   "
 				+"			extract(year from age(CURRENT_DATE,p.fnac)) as anio, e.codes_real, 'Socio MAYOR (activo/emerito) pero su Estado Actual NO Coincide' as obs  "
 				+"		from personal p, estado e, estadosoc s   "
@@ -88,6 +115,7 @@ public class AccesoManager {
 			        	est.setAp(rs.getString("ap"));
 			        	est.setAm(rs.getString("am"));
 			        	est.setEstsocio(rs.getString("estsocio"));
+			        	est.setNewcodigoper(rs.getString("newcodigoper"));
 			        	est.setFechanac(rs.getDate("fnac"));
 			        	est.setAnio(rs.getInt("anio"));
 			        	est.setObs(rs.getString("obs"));
