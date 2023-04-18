@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -976,7 +977,11 @@ System.out.println("llego xcodes"+xcodes );
 				DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 				Date xfechaAct = dateformat.parse(xfecha);
 				//public String setActivarSocio(int xcodper,Date xfecha,int xmes,int xanio,String xlogin){
-				String error = this.personasManager.setActivarSocio(Integer.parseInt(xcodper),xfechaAct,0,0,xlogin,2);
+				LocalDate fechaActual = LocalDate.now();
+		        int mes = fechaActual.getMonthValue();
+		        int anio = fechaActual.getYear();
+		        //System.out.println(mes+" "+ anio);
+				String error = this.personasManager.setActivarSocio(Integer.parseInt(xcodper),xfechaAct,mes,anio,xlogin,2);
 
 				//enviando a un  JSON  -- es decir se devuelve al AJAX
 				JsonObject object = new JsonObject();
