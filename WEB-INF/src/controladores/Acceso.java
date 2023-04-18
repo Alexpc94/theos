@@ -54,7 +54,7 @@ public class Acceso {
 		String xclave=request.getParameter("xclave");
 		
 		String xres = this.accesoManager.getLogin(xuser,xclave);
-		System.out.println(xres);
+		//System.out.println(xres);
 		//System.out.println("xuser="+xuser+" xclave="+xclave+" cant="+xcant);
 		if (!xres.equals("0")){
 			// Debo sesionar usuarios, roles, privilegios
