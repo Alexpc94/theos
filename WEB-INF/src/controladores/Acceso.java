@@ -54,7 +54,7 @@ public class Acceso {
 		String xclave=request.getParameter("xclave");
 		
 		String xres = this.accesoManager.getLogin(xuser,xclave);
-		
+		System.out.println(xres);
 		//System.out.println("xuser="+xuser+" xclave="+xclave+" cant="+xcant);
 		if (!xres.equals("0")){
 			// Debo sesionar usuarios, roles, privilegios
@@ -95,13 +95,18 @@ public class Acceso {
 	
 	@RequestMapping({"listaAlertas_2.html"})
 	public String listaAlertas_2(Model model,HttpServletRequest request,HttpServletResponse response)  throws IOException  {
-//System.out.println("action="+xaction+" row="+xrow+" xdatos="+xdatos);		
 		List<?> xlistaMayores = this.accesoManager.listarMayores21();
 		List<?> xlistaVarios = this.accesoManager.listarAlertaVarios();
 		model.addAttribute("xlistaMayores", xlistaMayores);
 		model.addAttribute("xlistaVarios", xlistaVarios);
-		
 		return "acceso/listaAlertas";	
+	}
+	
+	@RequestMapping({"birthlist_2.html"})
+	public String birthlist_2(Model model,HttpServletRequest request,HttpServletResponse response)  throws IOException  {
+		List<?> xlistaCumpleanios = this.accesoManager.listarCumpleanios();
+		model.addAttribute("xlistaCumpleanios", xlistaCumpleanios);
+		return "acceso/listaCumpleaños";	
 	}
 	
 	@RequestMapping("repo_benef_mayores_02.html")
