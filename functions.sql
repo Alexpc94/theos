@@ -109,3 +109,58 @@ $BODY$
 ALTER FUNCTION public.modpersona(text, integer, text, text, text, text, text, text, date, date, integer, integer, text, text)
   OWNER TO postgres;
   
+  
+  -- Function: public.activar_socio(integer, date, integer, integer, text, integer)
+
+-- DROP FUNCTION public.activar_socio(integer, date, integer, integer, text, integer);
+
+CREATE OR REPLACE FUNCTION public.activar_socio(
+    xcodper integer,
+    xfecha date,
+    xmes integer,
+    xanio integer,
+    xlogin text,
+    xop integer)
+  RETURNS text AS
+$BODY$
+	DECLARE
+		xtransfer int;
+		xsw int;
+	BEGIN	
+		xsw=0;
+		if ($6 = 1) then
+			--SI EL SOCIO HIZO TRANFERENCIA
+			select p.transfer into xtransfer
+			from personal p
+			where p.codper=$1;
+		
+			if (xtransfer=0) then
+				insert into activosper(codper,fecha,mesini,anioini,login,obs)
+				values($1,$2,$3,$4,$5,'ACTIVA SOCIO');
+
+				update personal
+				set activo=1,activosw=1,mesini=$3,anioini=$4
+				where codper=$1;
+			else 
+				xsw='2';
+			end if;
+		end if;
+		if ($6 = 2) then
+			insert into activosper(codper,fecha,mesini,anioini,login,obs)
+				values($1,$2,$3,$4,$5,'DESACTIVAR SOCIO');
+			
+			update personal
+			set activo=0,activosw=0,mesini=0,anioini=0
+			where codper=$1;
+		end if;
+		
+        RETURN xsw;
+		EXCEPTION
+			when others then 
+			return '1';
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION public.activar_socio(integer, date, integer, integer, text, integer)
+  OWNER TO postgres;
