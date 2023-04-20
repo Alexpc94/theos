@@ -466,9 +466,18 @@ public class Personal {
 	}
 
 	public String getConyugeFormat() {
-		String res = "hijo";
+		String res = "";
+		if (this.conyuge == 0) {
+			res = "hijo";
+		}
 		if (this.conyuge == 1) {
 			res = "conyuge";
+		}
+		if (this.conyuge == 2) {
+			res = "familiar";
+		}
+		if (this.conyuge == 3) {
+			res = "otros";
 		}
 		return res;
 	}

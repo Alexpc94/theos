@@ -15,7 +15,8 @@
                             <input type="hidden" id="beneficiario_codper" value="${xcodper}">
                             <input type="hidden" id="beneficiario_codigoper" value="${xcodigoper}">
                             <input type="hidden" id="beneficiario_newcodigoper" value="${xnewcodigoper}">
-                            <td>SOCIO : ${xnombre} </td><input type="hidden" id="beneficiario_name" value="${xnombre}">
+                            <input type="hidden" id="estado_civil" value="${xecivil}">
+                            <td>SOCIO :${xecivil} ${xnombre} </td><input type="hidden" id="beneficiario_name" value="${xnombre}">
                             <td class="right">
                          	  	<!-- BOTON TO PRINT -->
 	                                    <button class="pull-right" id="print2" title="Formulario de Datos de Socio">
@@ -24,7 +25,7 @@
 	                                              	
                             </td>
                             <td align="right">
-                            	<button class="pull-right" data-toggle="modal" onclick="javascript:adicionarNuevoBeneficiario()">
+                            	<button class="pull-right" data-toggle="modal" onclick="javascript:adicionarNuevoBeneficiario('${xecivil}')">
 	                                 <img src="images/img-sis/add_2.png" style="width:25px; height:25px;">
 	                            </button>
                             </td>
@@ -69,12 +70,12 @@
                               </td>
                               
                               <td>
-                               	#if (${reg.benef}==1)
+                               	#if (${reg.benef_estado}==1)
                               		<a  href="javascript:void(0)" onclick="javascript:modificarBeneficiario('${reg.codper}','${reg.nombre}','${reg.ap}','${reg.getDatosAm()}','${reg.getDatosEmail()}','${reg.cedula}','${reg.ecivil}','${reg.genero}','${reg.getFecharegFormat()}','${reg.getFechaNregFormat()}','${reg.conyuge}','${reg.codigoper}')">
                               	       <img src="images/img-sis/mod.png" style="width:25px;" title="Modificar Beneficiario..">
                               	  </a>
                               	  #else
-	                               		<img src="images/img-sis/nomod.png" style="width:25px;">
+	                               		<img src="images/img-sis/nomod.png" style="width:25px;" title="Beneficiario Eliminado..">
 	                              #end  
                               </td>
                                <td class="text-center ancho-icono">

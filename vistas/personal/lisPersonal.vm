@@ -111,7 +111,7 @@
                                             	</A>
                                             </td>
                                         	<td class="text-center ancho-icono">
-                                            	<a  href="javascript:void(0)" onclick="javascript:llamarBeneficiario('${reg.codper}','${reg.getDatosPersona()}','${reg.codigoper}','${reg.newcodigoper}')">
+                                            	<a  href="javascript:void(0)" onclick="javascript:llamarBeneficiario('${reg.codper}','${reg.getDatosPersona()}','${reg.codigoper}','${reg.newcodigoper}','${reg.ecivil}')">
                                             		<input type="radio" name="beneficiario_sel" />
                                             	</A>
                                             </td>
