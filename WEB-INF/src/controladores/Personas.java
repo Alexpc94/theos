@@ -432,6 +432,7 @@ System.out.println("llego xcodes"+xcodes );
 		String xnombre=request.getParameter("xnombre");
 		String xcodigoper=request.getParameter("xcodigoper");
 		String xnewcodigoper=request.getParameter("xnewcodigoper");
+		String xecivil=request.getParameter("xecivil");
 		
 		//recupera los bebeficiarios de la base de datos
 		List<?> lispersonal_beneficiarios = this.personasManager.listarPersonal_beneficiarios(Integer.parseInt(xcodper));
@@ -440,6 +441,7 @@ System.out.println("llego xcodes"+xcodes );
 		model.addAttribute("xcodigoper", xcodigoper );
 		model.addAttribute("xnewcodigoper", xnewcodigoper );
 		model.addAttribute("xnombre", xnombre );
+		model.addAttribute("xecivil", xecivil );
 		return "personal/beneficiariosperDet";	
 	}
 	
@@ -825,7 +827,7 @@ System.out.println("llego xcodes"+xcodes );
 			if (op.equals("addBeneficiario")){				
 				String ci=request.getParameter("ab_ci");
 				String codigoper=request.getParameter("ab_codigoper");
-				String xconyuge=request.getParameter("ab_conyuge"); //CONYUGE
+				//String xconyuge=request.getParameter("ab_conyuge"); //CONYUGE
 				String nombre=request.getParameter("ab_nombre");
 				String ap=request.getParameter("ab_ap");
 				String am=request.getParameter("ab_am");
@@ -836,6 +838,9 @@ System.out.println("llego xcodes"+xcodes );
 				String fnac=request.getParameter("ab_fnac");
 				String fing=request.getParameter("ab_fing");
 				String padrecodper=request.getParameter("Ab_codper");
+				String tipobenef=request.getParameter("ab_tipobenef");
+				
+				//System.out.println(padrecodper+" "+tipobenef );
 				int benef=1;
 				if (ci == null) {ci="-";}
 				if (ci.equals("")){ci="-";}
@@ -846,7 +851,7 @@ System.out.println("llego xcodes"+xcodes );
 				
 //System.out.println(" llego ="+ci+" nombre="+nombre+" ap="+ap+" am="+am+" telf="+telef+" email="+email+" direc="+direc+" areas="+areas+" ecivil="+ecivil+" fnac="+fechaNac);
 //System.out.println(" llego ="+ci+" "+nombre+" "+ap+" "+am+" "+email+" "+ecivil+" "+genero+" "+fnac+" "+fing+" padrecodper"+padrecodper);		
-				String error = this.personasManager.setAddBeneficiario(ci,Integer.parseInt(codigoper),nombre.toUpperCase(),ap.toUpperCase(),am.toUpperCase(),email,ecivil.toUpperCase(),genero.toUpperCase(),fechaNac,fechaIng,Integer.parseInt(padrecodper),benef,Integer.parseInt(xconyuge));		
+				String error = this.personasManager.setAddBeneficiario(ci,Integer.parseInt(codigoper),nombre.toUpperCase(),ap.toUpperCase(),am.toUpperCase(),email,ecivil.toUpperCase(),genero.toUpperCase(),fechaNac,fechaIng,Integer.parseInt(padrecodper),benef,Integer.parseInt(tipobenef));		
 //System.out.println(" error ="+error);							
 				//enviando a un  JSON  -- es decir se devuelve al AJAX
 				JsonObject object = new JsonObject();
@@ -872,11 +877,11 @@ System.out.println("llego xcodes"+xcodes );
 				String ecivil=request.getParameter("mb_ecivil");
 				String fechanac=request.getParameter("mb_fechanac");
 				String fechaing=request.getParameter("mb_fechaing");
-				
+				String tipobenef=request.getParameter("mb_tipobenef");
 //				System.out.println(" llego ="+ci+" "+codper+" "+nombre+" "+ap+" "+am+" "+telef+" "+email+" "+direc+" "+areas+" "+ecivil);
 				if (ci == null) {ci="-";}
 				if (ci.equals("")){ci="-";}
-				
+//				System.out.println(tipobenef );
 				DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 				Date fechaNac = dateformat.parse(fechanac);
 				Date fechaIng = dateformat.parse(fechaing);
@@ -884,7 +889,7 @@ System.out.println("llego xcodes"+xcodes );
 				String telefono="";
 //				System.out.println(" llego ="+ci+" "+codper+" "+nombre+" "+ap+" "+am+" email="+email+"ecivil "+ecivil+"genero "+genero+"fecha "+fechanac+"estsocio ");
 				
-				String error = this.personasManager.setModPersonal(ci,Integer.parseInt(codper),nombre.toUpperCase(),ap.toUpperCase(),am.toUpperCase(),email,ecivil.toUpperCase(),genero.toUpperCase(),fechaNac,fechaIng,Integer.parseInt(xconyuge),Integer.parseInt(xcodigoper),newcodigoper.toUpperCase(),telefono);
+				String error = this.personasManager.setModPersonal(ci,Integer.parseInt(codper),nombre.toUpperCase(),ap.toUpperCase(),am.toUpperCase(),email,ecivil.toUpperCase(),genero.toUpperCase(),fechaNac,fechaIng,Integer.parseInt(tipobenef),Integer.parseInt(xcodigoper),newcodigoper.toUpperCase(),telefono);
 				
 //				System.out.println(" error ="+error);
 				

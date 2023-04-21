@@ -129,13 +129,13 @@
                      <form class="form-horizontal" action="generalServices.html" method="POST" id="modform">
                          
                             	<input type="hidden" name="m_codg" id="m_codg">
-                       <div class="form-group">
+                        <div class="form-group">
                             <label class="control-label col-xs-4">
                             <span style="color:red;font-size:18px;">*</span>Mes ::</label>
                             <div class="col-xs-4">
 	                            <select class="form-control" name="m_mes" id="m_mes">
 		                        	<option value="1">ENERO</option>
-		                        	<option value="2">FEBREO</option>
+		                        	<option value="2">FEBRERO</option>
 		                        	<option value="3">MARZO</option>
 		                        	<option value="4">ABRIL</option>
 		                        	<option value="5">MAYO</option>

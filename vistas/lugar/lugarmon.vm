@@ -52,7 +52,7 @@
 	                                					#if (${dpto.codd} == ${ActivoID})
 									             			#set($sel="SELECTED")
 									             		#end 
-	                               					 	<option id="$dpto.codd" value="$dpto.codd" ${sel}>$dpto.nombre $dpto.codd </option>
+	                               					 	<option id="$dpto.codd" value="$dpto.codd" ${sel}>$dpto.nombre </option>
 													#end
 													#if (${ActivoID}==(-1))													
 														<option id="-1" value="-1" SELECTED>TODOS </option>

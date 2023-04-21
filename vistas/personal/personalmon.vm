@@ -246,7 +246,7 @@
                                             	</A>
                                             </td>
                                         	<td class="text-center ancho-icono">
-                                            	<a  href="javascript:void(0)" onclick="javascript:llamarBeneficiario('${reg.codper}','${reg.getDatosPersona()}','${reg.codigoper}','${reg.newcodigoper}')">
+                                            	<a  href="javascript:void(0)" onclick="javascript:llamarBeneficiario('${reg.codper}','${reg.getDatosPersona()}','${reg.codigoper}','${reg.newcodigoper}','${reg.ecivil}')">
                                             		<input type="radio" name="beneficiario_sel" />
                                             	</A>
                                             </td>
@@ -1615,8 +1615,32 @@
                                 <input type="email" class="form-control" name="ab_email" id="ab_email" placeholder="Email.." required>
                         	</div>
                         </div>
-                   		
-			            <div class="form-group">
+
+                   		<div class="form-group" id="ab_soltero">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Tipo Beneficiario ::</label>
+                            <div class="col-xs-6">
+                                <select class="form-control" name="ab_tipobenef" id="ab_tipobenef">
+                                    <option value="0">Hijo</option>
+                                    <option value="1">Cónyuge</option>
+                                    <option value="2">Familiar</option>
+                                    <option value="3">otros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="ab_casado">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Tipo Beneficiario ::</label>
+                            <div class="col-xs-6">
+                                <select class="form-control" name="ab_tipobenef" id="ab_tipobenef">
+                                    <option value="0">Hijo</option>
+                                    <option value="1">Cónyuge</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
                         	<label class="control-label col-xs-4">
                         	<span style="color:red;font-size:18px;">*</span>E. Civil:</label>
                         		<div class="col-xs-2">
@@ -1644,6 +1668,7 @@
                         			</label>
                         		</div>
                         </div>
+<!--
                         <div class="form-group">
 	                    	<label class="control-label col-xs-4">
 	                    	<span style="color:red;font-size:18px;">*</span>Cónyuge:</label>
@@ -1658,6 +1683,7 @@
 	                    			</label>
 	                    		</div>
 	                    </div>
+-->
                         <input type="HIDDEN" name="opcion" value="${opAddB}" >
                     </form>
                 </div>
@@ -1748,6 +1774,30 @@
                         	</div>
                         </div>
                    		
+                        <div class="form-group" id="mb_soltero">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Tipo Beneficiario ::</label>
+                            <div class="col-xs-6">
+                                <select class="form-control" name="mb_tipobenef" id="mb_tipobenef">
+                                    <option value="0">Hijo</option>
+                                    <option value="1">Cónyuge</option>
+                                    <option value="2">Familiar</option>
+                                    <option value="3">otros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="mb_casado">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Tipo Beneficiario ::</label>
+                            <div class="col-xs-6">
+                                <select class="form-control" name="mb_tipobenef" id="mb_tipobenef">
+                                    <option value="0">Hijo</option>
+                                    <option value="1">Cónyuge</option>
+                                </select>
+                            </div>
+                        </div>
+
 			            <div class="form-group">
                         	<label class="control-label col-xs-4">
                         	<span style="color:red;font-size:18px;">*</span>E. Civil:</label>
@@ -1777,6 +1827,7 @@
                         			</label>
                         		</div>
                         </div>
+<!--
                         <div class="form-group">
 	                    	<label class="control-label col-xs-4">
 	                    	<span style="color:red;font-size:18px;">*</span>Cónyuge:</label>
@@ -1791,6 +1842,7 @@
 	                    			</label>
 	                    		</div>
 	                    </div>
+-->
                         <input type="hidden" name="opcion" value="${opModB}" >
                     </form>
                 </div>
@@ -2015,8 +2067,8 @@ function habilitarPersona(xcodper, xnombres){
 }
 
 //MODIFICAR DATOS DE LOS BENEFICIARIOS
-function llamarBeneficiario(xcodper, xnombres, xcodigoper,xnewcodigoper){
-	jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper},
+function llamarBeneficiario(xcodper, xnombres, xcodigoper,xnewcodigoper,xecivil){
+	jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper,xecivil:xecivil},
 				function(data){$('#detalle-personal').html(data);}
 	);
 }
@@ -2031,7 +2083,7 @@ function habilitarBeneficiario(xcodper,xnombres){
 	$('#habModal-beneficiario').modal('show');
 }
 
-function modificarBeneficiario(xcodper, xnombre, xap,xam,xemail,xcedula,xecivil,xgenero,xfechanac,xfechaing,xconyuge,xcodigoper){
+function modificarBeneficiario(xcodper, xnombre, xap,xam,xemail,xcedula,xecivil,xgenero,xfechanac,xfechaing,xconyuge,xcodigoper,xecivil){
 	$('#mb_codper').val(xcodper);
 	$('#mb_codigoper').val(xcodigoper);
 	$('#mb_nombre').val(xnombre);
@@ -2039,6 +2091,7 @@ function modificarBeneficiario(xcodper, xnombre, xap,xam,xemail,xcedula,xecivil,
 	$('#mb_am').val(xam);
 	$('#mb_email').val(xemail);
 	$('#mb_ci').val(xcedula);
+    $('#mb_tipobenef').val(xconyuge);
 	if(xecivil=='C'){
 		$('#mb_cas').prop('checked', true);
 	}else{
@@ -2051,12 +2104,13 @@ function modificarBeneficiario(xcodper, xnombre, xap,xam,xemail,xcedula,xecivil,
 		$('#mb_fem').prop('checked', true);
 	}
 
-	if(xconyuge=='1'){
-		$('#mb_conyuge_si').prop('checked', true);
-	}else{
-		$('#mb_conyuge_no').prop('checked', true);
-	}
-	
+    $("#mb_soltero").hide();
+    $("#mb_casado").hide();
+	if (xecivil =='S') {
+        $('#mb_soltero').show();
+    }else{
+        $('#mb_casado').show();    
+    }
 	$('#mb_fechanac').val(xfechanac);
 	$('#mb_fechaing').val(xfechaing);
 	$('#modModal-beneficiario').modal('show');
@@ -2244,16 +2298,26 @@ function AsignarTrabPersona(xcodper){
 }			
 		
 //ADICIONAR BENEFICIARIO
-function adicionarNuevoBeneficiario(){
+function adicionarNuevoBeneficiario(xecivil){
+    $('#ab_ecivil').val(xecivil);
 	$("#ab_ci").val("");
 	$("#ab_nombre").val("");
 	$("#ab_ap").val("");
 	$("#ab_am").val("");
 	$("#ab_fing").val("");
 	$("#ab_email").val("");
+    $("#ab_soltero").hide();
+    $("#ab_casado").hide();
+    if (xecivil =='S') {
+        $('#ab_soltero').show();
+    }else{
+        $('#ab_casado').show();    
+    }
+
 	$('#myModal-beneficiario').modal('show');		
 }	
-		
+
+
 $(document).ready(function () {
 
     	$("#a_fnac").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
@@ -3428,6 +3492,7 @@ $(document).ready(function () {
  			var xcodper= $("#beneficiario_codper").val();
  			var xcodigoper= $("#beneficiario_codigoper").val();
  			var xnewcodigoper= $("#beneficiario_newcodigoper").val();
+            var xecivil= $("#estado_civil").val();
 	 			$.when(	
 	 	 				jQuery.post('personaServices.html',$('#dellBform').serialize(), 	 						
 	 	 						function(data){		 	 					
@@ -3448,7 +3513,7 @@ $(document).ready(function () {
 	 	 				        } //end of function (data)
 	 	 				) //END of first ajax
 				).then(function() {	
-			 	 		jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper},
+			 	 		jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper,xecivil:xecivil},
 									function(data){$('#detalle-personal').html(data);}
 						);
 				});
@@ -3463,6 +3528,7 @@ $(document).ready(function () {
  			var xcodper= $("#beneficiario_codper").val();
  			var xcodigoper= $("#beneficiario_codigoper").val();
  			var xnewcodigoper= $("#beneficiario_newcodigoper").val();
+            var xecivil= $("#estado_civil").val();
 	 			$.when(	
 	 	 				jQuery.post('personaServices.html',$('#habBform').serialize(), 	 						
 	 	 						function(data){		 	 					
@@ -3479,7 +3545,7 @@ $(document).ready(function () {
 	 	 				        } //end of function (data)
 	 	 				) //END of first ajax
 				).then(function() {	
-			 	 		jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper},
+			 	 		jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper,xecivil:xecivil},
 									function(data){$('#detalle-personal').html(data);}
 						);
 				});
@@ -3492,6 +3558,7 @@ $(document).ready(function () {
  			var xcodper= $("#beneficiario_codper").val();
  			var xcodigoper= $("#beneficiario_codigoper").val();
  			var xnewcodigoper= $("#beneficiario_newcodigoper").val();
+            var xecivil= $("#estado_civil").val();
  			$("#Ab_codper").val(xcodper);
  			if (validarDatos_addB() == 0) {
 	 			if(confirm('¿Seguro de Guardar Al Beneficiario?')){ 				
@@ -3517,7 +3584,7 @@ $(document).ready(function () {
 			 	 				) //END of first ajax
 							).then(function() {	
 			 	 		//		alert(xcodpadre+" -a ver- "+xestado);
-								jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper},
+								jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper,xecivil:xecivil},
 				 	 						function(data){	$('#detalle-personal').html(data);
 				 	 			});
 							});						
@@ -3531,6 +3598,7 @@ $(document).ready(function () {
  			var xcodper= $("#beneficiario_codper").val();
  			var xcodigoper= $("#beneficiario_codigoper").val();
  			var xnewcodigoper= $("#beneficiario_newcodigoper").val();
+            var xecivil= $("#estado_civil").val();
  				if (validarDatos_modB() == 0) {
  					if(confirm('¿Seguro de Modificar Datos de Beneficiario?')){ 				
 	 						$.when(	
@@ -3550,7 +3618,7 @@ $(document).ready(function () {
 				 	 				) //END of first ajax
 							).then(function() {	
 				 	 		//		alert(xcodpadre+" -a ver- "+xestado);
-									jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper},
+									jQuery.post('detalle_beneficiario12.html',{xcodper:xcodper,xnombre:xnombres,xcodigoper:xcodigoper,xnewcodigoper:xnewcodigoper,xecivil:xecivil},
 					 	 						function(data){	$('#detalle-personal').html(data);
 					 	 			});
 							});
@@ -3605,13 +3673,7 @@ $(document).ready(function () {
 								if ((ap.length < 31)&&(am.length < 31)){																	
 										if (validaFechaDDMMAAAA(xfnac)){
 											if (validaFechaDDMMAAAA(xfing)){
-												if (!isNaN($('input[name=ab_conyuge]:checked').val())){  //valida si conyuge
-													sw=0;	
-												}else{
-													sw=1;
-										 			menError('Error..!', '</B>DEBE SELECCIONAR EL DATO CONYUGE</B>');
-										 			$('#ab_conyuge').focus();
-												}		
+												sw=0;	
 											}else{
 												sw=1;
 									 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
@@ -3703,18 +3765,12 @@ $(document).ready(function () {
 								if ((ap.length < 31)&&(am.length < 31)){
 									if (validaFechaDDMMAAAA(xfechanac)){
 										if (validaFechaDDMMAAAA(xfechaing)){
-											if (!isNaN($('input[name=mb_conyuge]:checked').val())){  //valida si conyuge
-												sw=0;	
-											}else{
-												sw=1;
-									 			menError('Error..!', '</B>DEBE SELECCIONAR EL DATO CONYUGE</B>');
-									 			$('#ab_conyuge').focus();
-											}	
+											sw=0;	
 										}else{
 											sw=1;
 								 			menError('Error..!', 'La </B>LA FECHA DE INGRESO</B> debe ser dia/mes/año..!');
 								 			$('#mb_fechaing').focus();
-									}		
+									   }		
 									}else{
 										sw=1;
 								 		menError('Error..!', 'La </B>LA FECHA DE NACIMIENTO</B> debe ser dia/mes/año..!');
