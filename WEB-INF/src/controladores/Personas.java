@@ -881,7 +881,7 @@ System.out.println("llego xcodes"+xcodes );
 //				System.out.println(" llego ="+ci+" "+codper+" "+nombre+" "+ap+" "+am+" "+telef+" "+email+" "+direc+" "+areas+" "+ecivil);
 				if (ci == null) {ci="-";}
 				if (ci.equals("")){ci="-";}
-				System.out.println(tipobenef );
+//				System.out.println(tipobenef );
 				DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 				Date fechaNac = dateformat.parse(fechanac);
 				Date fechaIng = dateformat.parse(fechaing);

@@ -16,7 +16,7 @@
                             <input type="hidden" id="beneficiario_codigoper" value="${xcodigoper}">
                             <input type="hidden" id="beneficiario_newcodigoper" value="${xnewcodigoper}">
                             <input type="hidden" id="estado_civil" value="${xecivil}">
-                            <td>SOCIO :${xecivil} ${xnombre} </td><input type="hidden" id="beneficiario_name" value="${xnombre}">
+                            <td>SOCIO : ${xnombre} </td><input type="hidden" id="beneficiario_name" value="${xnombre}">
                             <td class="right">
                          	  	<!-- BOTON TO PRINT -->
 	                                    <button class="pull-right" id="print2" title="Formulario de Datos de Socio">
