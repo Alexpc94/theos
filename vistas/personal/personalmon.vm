@@ -1640,8 +1640,6 @@
                             </div>
                         </div>
                         
-                        <input type="text" name="ab_ecivil" id="ab_ecivil">
-                        
                         <div class="form-group">
                         	<label class="control-label col-xs-4">
                         	<span style="color:red;font-size:18px;">*</span>E. Civil:</label>
@@ -1776,7 +1774,7 @@
                         	</div>
                         </div>
                    		
-                        <div class="form-group">
+                        <div class="form-group" id="mb_soltero">
                             <label class="control-label col-xs-4">
                             <span style="color:red;font-size:18px;">*</span>Tipo Beneficiario ::</label>
                             <div class="col-xs-6">
@@ -1785,6 +1783,17 @@
                                     <option value="1">Cónyuge</option>
                                     <option value="2">Familiar</option>
                                     <option value="3">otros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="mb_casado">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Tipo Beneficiario ::</label>
+                            <div class="col-xs-6">
+                                <select class="form-control" name="mb_tipobenef" id="mb_tipobenef">
+                                    <option value="0">Hijo</option>
+                                    <option value="1">Cónyuge</option>
                                 </select>
                             </div>
                         </div>
@@ -2074,7 +2083,7 @@ function habilitarBeneficiario(xcodper,xnombres){
 	$('#habModal-beneficiario').modal('show');
 }
 
-function modificarBeneficiario(xcodper, xnombre, xap,xam,xemail,xcedula,xecivil,xgenero,xfechanac,xfechaing,xconyuge,xcodigoper){
+function modificarBeneficiario(xcodper, xnombre, xap,xam,xemail,xcedula,xecivil,xgenero,xfechanac,xfechaing,xconyuge,xcodigoper,xecivil){
 	$('#mb_codper').val(xcodper);
 	$('#mb_codigoper').val(xcodigoper);
 	$('#mb_nombre').val(xnombre);
@@ -2094,7 +2103,14 @@ function modificarBeneficiario(xcodper, xnombre, xap,xam,xemail,xcedula,xecivil,
 	}else{
 		$('#mb_fem').prop('checked', true);
 	}
-	
+
+    $("#mb_soltero").hide();
+    $("#mb_casado").hide();
+	if (xecivil =='S') {
+        $('#mb_soltero').show();
+    }else{
+        $('#mb_casado').show();    
+    }
 	$('#mb_fechanac').val(xfechanac);
 	$('#mb_fechaing').val(xfechaing);
 	$('#modModal-beneficiario').modal('show');

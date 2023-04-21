@@ -71,7 +71,7 @@
                               
                               <td>
                                	#if (${reg.benef_estado}==1)
-                              		<a  href="javascript:void(0)" onclick="javascript:modificarBeneficiario('${reg.codper}','${reg.nombre}','${reg.ap}','${reg.getDatosAm()}','${reg.getDatosEmail()}','${reg.cedula}','${reg.ecivil}','${reg.genero}','${reg.getFecharegFormat()}','${reg.getFechaNregFormat()}','${reg.conyuge}','${reg.codigoper}')">
+                              		<a  href="javascript:void(0)" onclick="javascript:modificarBeneficiario('${reg.codper}','${reg.nombre}','${reg.ap}','${reg.getDatosAm()}','${reg.getDatosEmail()}','${reg.cedula}','${reg.ecivil}','${reg.genero}','${reg.getFecharegFormat()}','${reg.getFechaNregFormat()}','${reg.conyuge}','${reg.codigoper}','${xecivil}')">
                               	       <img src="images/img-sis/mod.png" style="width:25px;" title="Modificar Beneficiario..">
                               	  </a>
                               	  #else
