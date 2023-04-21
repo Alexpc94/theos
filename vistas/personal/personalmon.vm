@@ -1615,7 +1615,8 @@
                                 <input type="email" class="form-control" name="ab_email" id="ab_email" placeholder="Email.." required>
                         	</div>
                         </div>
-                   		<div class="form-group">
+
+                   		<div class="form-group" id="ab_soltero">
                             <label class="control-label col-xs-4">
                             <span style="color:red;font-size:18px;">*</span>Tipo Beneficiario ::</label>
                             <div class="col-xs-6">
@@ -1627,8 +1628,20 @@
                                 </select>
                             </div>
                         </div>
-                        <input type="hidden" name="ab_ecivil" id="ab_ecivil">
 
+                        <div class="form-group" id="ab_casado">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Tipo Beneficiario ::</label>
+                            <div class="col-xs-6">
+                                <select class="form-control" name="ab_tipobenef" id="ab_tipobenef">
+                                    <option value="0">Hijo</option>
+                                    <option value="1">Cónyuge</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <input type="text" name="ab_ecivil" id="ab_ecivil">
+                        
                         <div class="form-group">
                         	<label class="control-label col-xs-4">
                         	<span style="color:red;font-size:18px;">*</span>E. Civil:</label>
@@ -2277,9 +2290,18 @@ function adicionarNuevoBeneficiario(xecivil){
 	$("#ab_am").val("");
 	$("#ab_fing").val("");
 	$("#ab_email").val("");
+    $("#ab_soltero").hide();
+    $("#ab_casado").hide();
+    if (xecivil =='S') {
+        $('#ab_soltero').show();
+    }else{
+        $('#ab_casado').show();    
+    }
+
 	$('#myModal-beneficiario').modal('show');		
 }	
-		
+
+
 $(document).ready(function () {
 
     	$("#a_fnac").datepicker("option", "dateFormat", "dd/mm/yy" ).val();
