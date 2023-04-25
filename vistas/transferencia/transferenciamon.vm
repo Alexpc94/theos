@@ -69,10 +69,7 @@
 				                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
 				                                    </button>
 			                                    #end
-			                                    <!-- BOTON TO PRINT -->
-			                                    <button class="pull-right" id="print">
-			                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
-			                                    </button>			                                  
+			                                    			                                  
 	                               </div>
   </div>
 </div>									    
@@ -252,21 +249,14 @@
 
 //LLAMADA ADICIONAR NUEVA TRANSFERENCIA     OAM
 $("#myModal-btn").click(function(){	
-		
 	listaSociosAntiguos();
-	
 	listaSociosNuevos();
-	
-	
-	
 	$('#myModal').modal('show');
-	
 	$('#myModal').modal().on('shown', function(){
 	    $('body').css('overflow', 'hidden');
 	}).on('hidden', function(){
 	    $('body').css('overflow', 'auto');
 	})
-	
 });
 
 function listaSociosAntiguos(){  

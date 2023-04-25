@@ -60,11 +60,12 @@
 		                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
 		                                    </button>
 	                                	#end
-	                                    <!-- BOTON TO PRINT -->
+
+	                                    <!-- BOTON TO PRINT 
 	                                    <button class="pull-right" id="print">
 	                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
 	                                    </button>
-	                                
+	                                	-->
 	                                   
 	                                <form id="paramform" action="Tcambiomon.html" method="POST">  
 
