@@ -179,6 +179,37 @@
 	                            <input type="HIDDEN" name="a_nuevosocio_val" id="a_nuevosocio_val" >
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Monto Acción::</label>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name="a_monto" id="a_monto" placeholder="Monto Acción.." required>
+                            </div>                          
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Interés::</label>
+                            <div class="col-xs-3">                          
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="a_interes" id="a_interes" placeholder="Interés..">
+                                    <span class="input-group-addon"> % </span>
+                                </div><!-- /input-group -->
+                            </div>    
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Monto Total::</label>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name="a_montot" id="a_montotal" placeholder="Monto a Pagar.." disabled>
+                                <input type="HIDDEN" name="a_montot" id="a_montot" placeholder="Interes a Pagar.." >
+                            </div>                          
+                        </div>   
+                        <div class="form-group">                                    
+                        <label class="control-label col-xs-4"> </label>
+                            <div class="col-xs-3">                                                          
+                                <button type="button" class="btn btn-warning" id="generar_costos">Generar Interes a Pagar</button>
+                            </div> 
+                        </div>
                     	<div class="form-group">
 	                    	<label class="control-label col-xs-4">Observ.::</label>
 	                    	<div class="col-xs-8">
@@ -351,6 +382,10 @@ function habilitarDpto(xcodd, xnombres){
 }
 //////////zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz	
 $(document).ready(function () {
+    //Butons ACEPTAR   
+    $("#generar_costos").click(function(){
+        var xsw=validarCalculos();
+    });
     	 $('#dataTables-example').dataTable();
     	 $("#a_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
     	 $("#a_fecha2").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
@@ -384,7 +419,7 @@ $(document).ready(function () {
        //Butons ACEPTAR  OAM
  		$("#btnAcept_add").click(function(){
  			var xestado=$('input[name=estado]:checked').val();
- 			
+ 			if (validarCalculos() == 0) {
  			if (validarDatos_add() == 0) {
 	 			if(confirm('¿Seguro de Guardar LA TRANSFERENCIA ?')){ 				
 		 				//$("#addform").submit(); //envia los datos a destino FORM.
@@ -411,9 +446,10 @@ $(document).ready(function () {
 				 	 			});
 						});
 	 			}
- 			}
+ 			}}
         });	
        
+
  		//Butons ELIMINAR  OAM
  		$("#btnAcept_del").click(function(){
  			var xestado=$('input[name=estado]:checked').val();
@@ -450,7 +486,30 @@ $(document).ready(function () {
  			window.open('dptosReportes01.html?xest='+xestado,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
         });	
  
- 		//valida datos para opcion adiciona  OAM			
+ 		//VALIDAR BOTON GENERAR
+        function validarCalculos(){
+            var sw=0;
+            var xmonto=$('#a_monto').val();
+            var xinteres=$('#a_interes').val();
+            if ((/^([0-9])*[.]?[0-9]*$/.test(xmonto))&&(xmonto != '')&&(parseFloat(xmonto) > 0)){
+                if ((/^([0-9])*[.]?[0-9]*$/.test(xinteres))&&(xinteres != '')){
+                    var zmontotal=parseFloat((xmonto * (xinteres / 100)));
+                    $("#a_montot").val(zmontotal);
+                    $("#a_montotal").val(zmontotal);                
+                    sw=0;
+                }else{
+                    sw=1;
+                    menError('Error..!', '<B>EL INTERES PUEDE SER CERO PERO NO VACIO</B>..!');
+                    $('#a_interes').focus();
+                }
+            }else{
+                sw=1;
+                menError('Error..!', '<B>EL DATO -MONTO ACCION- NO ES VALIDO</B>..!');
+                $('#a_monto').focus();
+            }
+            return sw;
+        }
+        //valida datos para opcion adiciona  OAM			
  		function validarDatos_add(){
  			var sw=0;
  			
