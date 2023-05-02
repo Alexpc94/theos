@@ -69,10 +69,7 @@
 				                                        <img src="images/img-sis/noadd_2.png" style="width:30px; height:30px;">
 				                                    </button>
 			                                    #end
-			                                    <!-- BOTON TO PRINT -->
-			                                    <button class="pull-right" id="print">
-			                                        <img src="images/img-sis/print.png" style="width:30px; height:30px;">
-			                                    </button>			                                  
+			                                    			                                  
 	                               </div>
   </div>
 </div>									    
@@ -89,7 +86,8 @@
                                             <th class="text-center ancho-icono">#</th>
                                             <th class="col-sm-0 text-center">Fecha Transac.</th>
                                             <th class="col-sm-0 text-center">Socio Antiguo</th>
-                                            <th class="col-sm-0 text-center">Socio Tranferencia</th>                                            
+                                            <th class="col-sm-0 text-center">Socio Tranferencia</th>
+                                            <th class="col-sm-0 text-center">Monto Interes</th>                                            
                                             <th class="col-sm-0 text-center" width="40%">Observación</th>
                                             <th class="col-sm-0 text-center">EST</th>
                                             <th class="col-sm-0">DEL</th>
@@ -103,6 +101,7 @@
                                             <td>${reg.getFechaFormat()}</td>
                                             <td>${reg.getDatosPersona()}</td>
                                             <td>${reg.getDatosPersona_2()}</td>
+                                            <td class="col-sm-0 text-center">${reg.interes}</td>
                                             <td>${reg.obs}</td>
                                             <td class="text-center ancho-icono">
                                             	#if (${reg.estado}==1)
@@ -182,6 +181,37 @@
 	                            <input type="HIDDEN" name="a_nuevosocio_val" id="a_nuevosocio_val" >
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Monto Acción::</label>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name="a_monto" id="a_monto" placeholder="Monto Acción.." required>
+                            </div>                          
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Interés::</label>
+                            <div class="col-xs-3">                          
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="a_interes" id="a_interes" placeholder="Interés..">
+                                    <span class="input-group-addon"> % </span>
+                                </div><!-- /input-group -->
+                            </div>    
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-4">
+                            <span style="color:red;font-size:18px;">*</span>Monto Total::</label>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" name="a_montot" id="a_montotal" placeholder="Monto a Pagar.." disabled>
+                                <input type="HIDDEN" name="a_montot" id="a_montot" placeholder="Interes a Pagar.." >
+                            </div>                          
+                        </div>   
+                        <div class="form-group">                                    
+                        <label class="control-label col-xs-4"> </label>
+                            <div class="col-xs-3">                                                          
+                                <button type="button" class="btn btn-warning" id="generar_costos">Generar Interes a Pagar</button>
+                            </div> 
+                        </div>
                     	<div class="form-group">
 	                    	<label class="control-label col-xs-4">Observ.::</label>
 	                    	<div class="col-xs-8">
@@ -252,21 +282,14 @@
 
 //LLAMADA ADICIONAR NUEVA TRANSFERENCIA     OAM
 $("#myModal-btn").click(function(){	
-		
 	listaSociosAntiguos();
-	
 	listaSociosNuevos();
-	
-	
-	
 	$('#myModal').modal('show');
-	
 	$('#myModal').modal().on('shown', function(){
 	    $('body').css('overflow', 'hidden');
 	}).on('hidden', function(){
 	    $('body').css('overflow', 'auto');
 	})
-	
 });
 
 function listaSociosAntiguos(){  
@@ -361,6 +384,10 @@ function habilitarDpto(xcodd, xnombres){
 }
 //////////zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz	
 $(document).ready(function () {
+    //Butons ACEPTAR   
+    $("#generar_costos").click(function(){
+        var xsw=validarCalculos();
+    });
     	 $('#dataTables-example').dataTable();
     	 $("#a_fecha").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
     	 $("#a_fecha2").datepicker("option", "dateFormat", "dd/mm/yy" ).datepicker("setDate", ${xfecha});
@@ -379,7 +406,7 @@ $(document).ready(function () {
         $(".paramsChange").change( function() {
            // $("#paramform").submit();
         	var xestado=$('input[name=estado]:checked').val();
-			jQuery.post('listaTraspasocio_det_201.html',{xestado:xestado},
+			jQuery.post('listaTransferencia_det_203.html',{xestado:xestado},
 						function(data){	$('#lisDptos-det').html(data);
 			});
         }); 
@@ -394,7 +421,7 @@ $(document).ready(function () {
        //Butons ACEPTAR  OAM
  		$("#btnAcept_add").click(function(){
  			var xestado=$('input[name=estado]:checked').val();
- 			
+ 			if (validarCalculos() == 0) {
  			if (validarDatos_add() == 0) {
 	 			if(confirm('¿Seguro de Guardar LA TRANSFERENCIA ?')){ 				
 		 				//$("#addform").submit(); //envia los datos a destino FORM.
@@ -421,9 +448,10 @@ $(document).ready(function () {
 				 	 			});
 						});
 	 			}
- 			}
+ 			}}
         });	
        
+
  		//Butons ELIMINAR  OAM
  		$("#btnAcept_del").click(function(){
  			var xestado=$('input[name=estado]:checked').val();
@@ -460,7 +488,30 @@ $(document).ready(function () {
  			window.open('dptosReportes01.html?xest='+xestado,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
         });	
  
- 		//valida datos para opcion adiciona  OAM			
+ 		//VALIDAR BOTON GENERAR
+        function validarCalculos(){
+            var sw=0;
+            var xmonto=$('#a_monto').val();
+            var xinteres=$('#a_interes').val();
+            if ((/^([0-9])*[.]?[0-9]*$/.test(xmonto))&&(xmonto != '')&&(parseFloat(xmonto) > 0)){
+                if ((/^([0-9])*[.]?[0-9]*$/.test(xinteres))&&(xinteres != '')){
+                    var zmontotal=parseFloat((xmonto * (xinteres / 100)));
+                    $("#a_montot").val(zmontotal);
+                    $("#a_montotal").val(zmontotal);                
+                    sw=0;
+                }else{
+                    sw=1;
+                    menError('Error..!', '<B>EL INTERES PUEDE SER CERO PERO NO VACIO</B>..!');
+                    $('#a_interes').focus();
+                }
+            }else{
+                sw=1;
+                menError('Error..!', '<B>EL DATO -MONTO ACCION- NO ES VALIDO</B>..!');
+                $('#a_monto').focus();
+            }
+            return sw;
+        }
+        //valida datos para opcion adiciona  OAM			
  		function validarDatos_add(){
  			var sw=0;
  			

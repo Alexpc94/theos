@@ -164,3 +164,51 @@ $BODY$
   COST 100;
 ALTER FUNCTION public.activar_socio(integer, date, integer, integer, text, integer)
   OWNER TO postgres;
+  
+  -- Function: public.add_transferencia(date, integer, integer, text, text, integer)
+
+-- DROP FUNCTION public.add_transferencia(date, integer, integer, text, text, integer);
+
+CREATE OR REPLACE FUNCTION public.add_transferencia(
+    xfecha date,
+    xcodper_ant integer,
+    xcodper_nue integer,
+    xlogin text,
+    xobser text,
+    xinterespagar integer)
+  RETURNS text AS
+$BODY$
+DECLARE 
+	xaccion integer;
+    BEGIN		
+		--SELECCIONA accion
+		select codigoper into xaccion
+		from personal
+		where codper=$2;
+		
+		insert into transferencias(fecha,codper_padre,codper_hijo,login,obser,accion,interes)
+			values($1,$2,$3,$4,$5,xaccion,$6);
+		
+		--INHABILITA A SOCIO ANTIGUO = transfer=si tranfirio su cuenta
+		update personal
+		set activo=0,transfer=1, codper_transfer=$3
+		where codper=$2;
+		
+		--INHABILITA A SOCIO NUEVO = transfer_sw= si es por tranferecia 
+		update personal
+		set transfer_sw=1, codper_transfer=$2, codigoper=xaccion
+		where codper=$3;
+		
+        RETURN '0';
+		EXCEPTION
+			when unique_violation then 
+			return '1';
+			when others then 
+			return '2';
+    END;
+	$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION public.add_transferencia(date, integer, integer, text, text, integer)
+  OWNER TO postgres;
+  

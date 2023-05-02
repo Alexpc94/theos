@@ -127,7 +127,7 @@ public class Transferencia {
 	}
 	
 	@RequestMapping({"listaTransferencia_det_203.html"})
-	public String listaTraspasocio_det_201(Model model,HttpServletRequest request)  throws IOException  {
+	public String listaTransferencia_det_203(Model model,HttpServletRequest request)  throws IOException  {
 		Jencryption crypt=new Jencryption();
 		String xestado=request.getParameter("xestado");
 		Utilitarios u=new Utilitarios();
@@ -216,10 +216,11 @@ public class Transferencia {
 				String xsocio=request.getParameter("a_socio");
 				String xnuevosocio=request.getParameter("a_nuevosocio");
 				String xobser=request.getParameter("a_obser");
+				String xinterespagar=request.getParameter("a_montot");
 //System.out.println(" SOCIO ANTIGUO ="+xcodper1+" SOCIO NUEVO::"+xcodper2+" xfecha="+xfecha+ " xlogin="+xlogin+" socio="+xsocio+" socio nuevo="+xnuevosocio+" obser="+xobser );
 				DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 				Date fechaTransac = dateformat.parse(xfecha);
-				String error = this.transferenciaManager.setAddTransferencia(fechaTransac,Integer.parseInt(xcodper1),Integer.parseInt(xcodper2),xlogin,xobser);
+				String error = this.transferenciaManager.setAddTransferencia(fechaTransac,Integer.parseInt(xcodper1),Integer.parseInt(xcodper2),xlogin,xobser,Integer.parseInt(xinterespagar));
 				
 //System.out.println(" error ="+error);
 				
