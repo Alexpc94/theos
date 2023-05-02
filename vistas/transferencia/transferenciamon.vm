@@ -86,7 +86,8 @@
                                             <th class="text-center ancho-icono">#</th>
                                             <th class="col-sm-0 text-center">Fecha Transac.</th>
                                             <th class="col-sm-0 text-center">Socio Antiguo</th>
-                                            <th class="col-sm-0 text-center">Socio Tranferencia</th>                                            
+                                            <th class="col-sm-0 text-center">Socio Tranferencia</th>
+                                            <th class="col-sm-0 text-center">Monto Interes</th>                                            
                                             <th class="col-sm-0 text-center" width="40%">Observación</th>
                                             <th class="col-sm-0 text-center">EST</th>
                                             <th class="col-sm-0">DEL</th>
@@ -100,6 +101,7 @@
                                             <td>${reg.getFechaFormat()}</td>
                                             <td>${reg.getDatosPersona()}</td>
                                             <td>${reg.getDatosPersona_2()}</td>
+                                            <td class="col-sm-0 text-center">${reg.interes}</td>
                                             <td>${reg.obs}</td>
                                             <td class="text-center ancho-icono">
                                             	#if (${reg.estado}==1)
@@ -404,7 +406,7 @@ $(document).ready(function () {
         $(".paramsChange").change( function() {
            // $("#paramform").submit();
         	var xestado=$('input[name=estado]:checked').val();
-			jQuery.post('listaTraspasocio_det_201.html',{xestado:xestado},
+			jQuery.post('listaTransferencia_det_203.html',{xestado:xestado},
 						function(data){	$('#lisDptos-det').html(data);
 			});
         }); 

@@ -6,3 +6,6 @@ ADD COLUMN newcodigoper character varying(25) NOT NULL DEFAULT '0';
 -- actestado added
 ALTER TABLE public.personal ADD COLUMN actestado integer NOT NULL DEFAULT 1;
 UPDATE public.personal SET actestado = 0 WHERE codigoper = 0;
+-- interes added in table transferencias
+ALTER TABLE public.transferencias
+ADD COLUMN interes integer NOT NULL DEFAULT 0;

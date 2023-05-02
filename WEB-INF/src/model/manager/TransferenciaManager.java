@@ -38,7 +38,7 @@ public class TransferenciaManager {
 
 	public List<TransferenciaT> listar(int xest1, int xest2){
 		String xsql="	select p.nombre,p.ap,p.am,pp.nombre as nombre2,pp.ap as ap2,pp.am as am2,t.estado,t.fecha,t.login,t.codtra,   "
-				+"		       t.codper_padre,t.codper_hijo,t.obser  "
+				+"		       t.codper_padre,t.codper_hijo,t.obser,t.interes  "
 				+"		from transferencias t, personal p, personal pp  "
 				+"		where 	t.estado between ? and ? and  "
 				+"			    t.codper_padre=p.codper  and  "
@@ -62,6 +62,7 @@ public class TransferenciaManager {
 	                    pro.setLogin(rs.getString("login"));
 	                    pro.setFecha(rs.getDate("fecha"));
 	                    pro.setObs(rs.getString("obser"));
+	                    pro.setInteres(rs.getString("interes"));
 	                    return pro;
 			        }
 			    },new Object[] {xest1,xest2});
@@ -112,8 +113,8 @@ public class TransferenciaManager {
 		return per;	
 	}
 	
-	public String setAddTransferencia(Date xfecha,int xcodper_ant,int xcodper_nue,String xlogin, String xobser){
-		return this.jdbcTemplate.queryForObject("select add_transferencia(?,?,?,?,?)", String.class,new Object[] {xfecha,xcodper_ant,xcodper_nue,xlogin,xobser});
+	public String setAddTransferencia(Date xfecha,int xcodper_ant,int xcodper_nue,String xlogin, String xobser,int xinterespagar){
+		return this.jdbcTemplate.queryForObject("select add_transferencia(?,?,?,?,?,?)", String.class,new Object[] {xfecha,xcodper_ant,xcodper_nue,xlogin,xobser,xinterespagar});
 	}
 	
 	public String setDelTransferencia(int codtra,int codper,int codper2, String xlogin){

@@ -18,6 +18,7 @@ public class TransferenciaT {
 	public int estado;
 	public Date fechareg;
 	public String obs;
+	public String interes;
 	public String nombre;
 	public String ap;
 	public String am;
@@ -121,6 +122,12 @@ public class TransferenciaT {
 	}
 	public void setObs(String obs) {
 		this.obs = obs;
+	}
+	public String getInteres() {
+		return interes;
+	}
+	public void setInteres(String interes) {
+		this.interes = interes;
 	}
 //F O R M A T O S
 	
