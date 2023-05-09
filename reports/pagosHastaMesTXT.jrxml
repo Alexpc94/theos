@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="800" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="869fd817-e32a-4aa3-bd7e-98cfe75e5a44">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.callouts" value="##Mon Apr 30 03:04:54 VET 2012\ncallouts.1.text=\ncallouts.1.bounds=324,-114,150,75"/>
+	<parameter name="responsable" class="java.lang.String"/>
+	<parameter name="mes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xlogin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select p.nombre,p.ap,p.am,x.estsocio
+from personal p, xsaldosocios x
+where p.codper=x.codper and x.login=$P{xlogin}
+order by p.ap,p.am,p.nombre]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="am" class="java.lang.String"/>
+	<field name="estsocio" class="java.lang.String"/>
+	<variable name="toDolar" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="toMonto" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="311" y="0" width="63" height="14" uuid="79331dc1-0e94-4787-9916-caf86535a9a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="0" width="263" height="14" uuid="f3c3ce07-7838-4e97-bae7-3e2a882266b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="48" height="14" uuid="fbeeb1c9-1159-4933-8e8d-5e178cf8e561"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="311" y="0" width="63" height="14" uuid="36674ad0-568c-410e-9f67-6e200c7dc121"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estsocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="0" width="263" height="14" uuid="e7e6d41d-d7ea-4f3d-8c41-26f317a1d00b"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ap}+" "+$F{am}+" "+$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="48" height="14" uuid="55c24ee2-6e3e-4cc5-81ff-405d99b3d181"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

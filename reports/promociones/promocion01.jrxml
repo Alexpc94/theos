@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="promocion01" pageWidth="595" pageHeight="800" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6f35265-636b-477b-95a6-91c755544224">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="xest1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xest2" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="responsable" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	*
+FROM
+     "promocion"
+WHERE
+      ESTADO between $P{xest1} and $P{xest2}order by codpro]]>
+	</queryString>
+	<field name="codpro" class="java.lang.Integer"/>
+	<field name="fechaini" class="java.sql.Date"/>
+	<field name="fechafin" class="java.sql.Date"/>
+	<field name="estado" class="java.lang.Integer"/>
+	<field name="login" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="25" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="409" y="8" width="47" height="16" uuid="2b761717-c509-4d8a-aaec-07bb34f0da99"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="79" width="92" height="16" uuid="4a3a47b9-bdde-42e5-8b4d-da02e9c71be5"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="79" width="139" height="16" uuid="f279a926-6303-4051-a576-ecba95dfab3f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[FECHA INICIO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="7" y="79" width="545" height="1" uuid="7835541b-dfb8-4c36-88ab-8d09849abebb"/>
+			</line>
+			<textField pattern="h.mm a">
+				<reportElement x="468" y="24" width="89" height="14" uuid="595075e3-4521-4c34-8b06-9af75c29e830"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="409" y="24" width="47" height="14" uuid="7e79bdcd-004b-4428-b4a6-dbaef5212f40"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="7" y="50" width="134" height="17" uuid="47ea206b-80ac-4dfc-91b0-6f3b4d488bbf"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CLUB DE TENIS TARIJA"]]></textFieldExpression>
+			</textField>
+			<image isLazy="true">
+				<reportElement x="45" y="8" width="58" height="42" uuid="a314dc0b-86f0-4574-9bba-7ef1f3216baa"/>
+				<imageExpression><![CDATA["../../images/clubtenis.png"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="468" y="8" width="89" height="16" uuid="a0ba65fa-856a-4c26-9c2a-12ffc861a9ab"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="8" y="95" width="544" height="1" uuid="c6230739-479e-426a-a341-30f1b552537e"/>
+			</line>
+			<staticText>
+				<reportElement x="178" y="24" width="220" height="26" uuid="2a82e4ac-eb16-47ba-94d0-d5565ce1e335"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="20" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[LISTA PROMOCIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="79" width="143" height="17" uuid="ac47a02d-04eb-4a55-a76b-42adb9114f9a"/>
+				<text><![CDATA[FECHA LIMITE]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="47" y="0" width="92" height="14" uuid="1e4c0194-2c3b-4ce9-b007-4f2b80004e87"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{codpro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="160" y="0" width="139" height="14" uuid="20146fec-dbe7-4774-9313-d1c62c9a9836"/>
+				<textFieldExpression><![CDATA[$F{fechaini}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="339" y="0" width="143" height="14" uuid="c021e7fc-421e-4bd0-8f4a-8d5cf81f4c4c"/>
+				<textFieldExpression><![CDATA[$F{fechafin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement x="400" y="20" width="127" height="1" uuid="d10b7c30-f1c9-42ce-903d-4d29eff0a6b7"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="432" y="40" width="79" height="14" uuid="15863844-5ec6-4759-a6bc-1e33634a0e47"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Responsable]]></text>
+			</staticText>
+			<line>
+				<reportElement x="16" y="21" width="20" height="1" uuid="527d677d-82ef-495d-919b-e83749f767b3"/>
+			</line>
+			<textField>
+				<reportElement x="16" y="25" width="20" height="20" uuid="fb110243-2b17-4720-a07d-009355689024"/>
+				<textElement textAlignment="Center">
+					<font isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="25" width="156" height="14" uuid="2f6d3829-0a22-4042-90f5-06f08101c005"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="8" y="12" width="533" height="1" uuid="2a18b9a4-1abb-4427-b640-cc32856b2b07"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

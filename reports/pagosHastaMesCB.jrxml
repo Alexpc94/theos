@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pagosHastaMesCB" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="76d329b4-99fd-490a-bbe3-df240a599bdb">
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="responsable" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="estados" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xlogin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select s.nombre as nomest,d3.*,e.codes
+from (
+	select d2.*,dp2.ci as ci2
+	from (
+		select dp.ci,dat1.codper,dat1.codigoper,dat1.nombre,dat1.ap,dat1.am,dat1.fnac,
+				dat1.codper2,dat1.codigoper2,dat1.nombre2,dat1.ap2,dat1.am2,dat1.fnac2,dat1.conyuge,dat1.newcodigoper
+		from (
+			select 	p.codper,p.codigoper,p.nombre, p.ap, p.am,p.fnac,
+					pp.codper as codper2,pp.codigoper as codigoper2,
+					CASE WHEN pp.nombre is null THEN ' -- SIN BENEFICIARIO -- '
+						 ELSE pp.nombre
+					END as nombre2,
+					CASE WHEN pp.ap is null THEN ' '
+						 ELSE pp.ap
+					END as ap2,
+					CASE WHEN pp.am is null THEN ' '
+						 ELSE pp.am
+					END as am2,
+					pp.fnac as fnac2,
+					CASE WHEN pp.conyuge=1 THEN 'Conyuge'
+					     WHEN pp.conyuge=0 THEN 'Hijo'
+					END as conyuge,p.newcodigoper
+			from personal as p left join personal pp on p.codper=pp.padre
+			where  p.activo=1
+		) as dat1 LEFT JOIN datosper dp on dat1.codper=dp.codper
+	) as d2 LEFT JOIN datosper dp2 on d2.codper2=dp2.codper
+) as d3, estado e,estadosoc s, xsaldosocios x
+where (d3.codper=e.codper)and(e.codes=s.codes)and(e.sw=1)and(e.estado=1)
+	and(d3.codper=x.codper)and(x.login=$P{xlogin})
+order by d3.ap,d3.am,d3.nombre]]>
+	</queryString>
+	<field name="nomest" class="java.lang.String"/>
+	<field name="ci" class="java.lang.String"/>
+	<field name="codper" class="java.lang.Integer"/>
+	<field name="codigoper" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="am" class="java.lang.String"/>
+	<field name="fnac" class="java.sql.Date"/>
+	<field name="codper2" class="java.lang.Integer"/>
+	<field name="codigoper2" class="java.lang.Integer"/>
+	<field name="nombre2" class="java.lang.String"/>
+	<field name="ap2" class="java.lang.String"/>
+	<field name="am2" class="java.lang.String"/>
+	<field name="fnac2" class="java.sql.Date"/>
+	<field name="conyuge" class="java.lang.String"/>
+	<field name="newcodigoper" class="java.lang.String"/>
+	<field name="ci2" class="java.lang.String"/>
+	<field name="codes" class="java.lang.Integer"/>
+	<group name="Grupo1">
+		<groupExpression><![CDATA[$F{codper}]]></groupExpression>
+		<groupHeader>
+			<band height="43">
+				<textField>
+					<reportElement x="45" y="8" width="54" height="13" uuid="43b99d06-8c23-4926-8043-f54465441a07"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{newcodigoper}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement x="351" y="8" width="51" height="13" isRemoveLineWhenBlank="true" uuid="209e0a71-d3bc-4696-a153-30bd1b049231"/>
+					<textElement verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fnac}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="413" y="8" width="49" height="13" uuid="3d934541-54c5-4024-b011-7bcee8e2d6d2"/>
+					<textElement verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ci}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="285" y="8" width="58" height="13" uuid="4d3ca305-7daa-4721-9a95-be5184a253fb"/>
+					<textElement verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nomest}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="99" y="8" width="154" height="32" uuid="3e6041ef-896a-4c07-afeb-c988614b8ce8"/>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ap}+" "+$F{am}+" "+$F{nombre}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="3" y="1" width="544" height="1" uuid="6e94a650-e0c1-49d6-8408-0cb000cf2c47"/>
+				</line>
+				<line>
+					<reportElement x="22" y="40" width="518" height="1" uuid="cc766459-5566-4c72-a0af-b30b6d02ca0c"/>
+					<graphicElement>
+						<pen lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement x="16" y="8" width="23" height="13" uuid="fa532452-1743-4e22-ba09-e30e471cbcf8"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{REPORT_COUNT}+".-"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="90" width="17" height="13" uuid="90db10c0-e511-4d82-9f61-a78f5a656504"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="90" width="50" height="13" uuid="e90bd995-793c-4b4f-a3ea-2d348f72dfa2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Nac.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="90" width="49" height="13" uuid="a98f70ae-ffe7-4145-ae6c-24649296e348"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEDULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="99" y="90" width="98" height="13" uuid="9b657d28-0c22-458d-a0d7-74086842506a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S O C I O S]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="506" y="10" width="67" height="11" uuid="d622ad81-8fec-4727-beb3-a0d966fc9b32"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image isLazy="true">
+				<reportElement x="51" y="10" width="58" height="42" uuid="52b165ac-15cf-407e-b3be-068023d9611e"/>
+				<imageExpression><![CDATA["../../images/clubtenis.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="285" y="90" width="61" height="13" uuid="40e7a757-88aa-4cfd-8554-ff119363ec62"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado. Soc.]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="10" y="51" width="134" height="17" uuid="23330029-bae1-48a0-a56d-e6dc41c6adfa"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CLUB DE TENIS TARIJA"]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="506" y="23" width="67" height="11" uuid="e2a375e3-1d35-48d4-a9ae-afe7b510ab33"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="87" width="545" height="1" uuid="8b4d3d9f-1ed9-4f71-8ae2-c9a0d67aef20"/>
+			</line>
+			<staticText>
+				<reportElement x="45" y="90" width="54" height="13" uuid="c2753fd1-7fab-48d0-88fc-4dffe77743a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="49" width="300" height="18" uuid="4026cde2-aef3-45a4-9446-46021b0070c6"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[SOCIOS Y BENEFICIARIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="23" width="67" height="11" uuid="b56d1af0-0e17-4250-b25c-9022d8d068bd"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="90" width="49" height="13" uuid="ba1f2aa5-a39d-493b-967c-427f03365a22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FAMILIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="10" width="67" height="11" uuid="214b4256-3ddf-419c-ad90-e43466dbfd6b"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="68" width="25" height="14" uuid="b4d67f12-699c-4b5c-a591-821aa181a617"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AÑO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="343" y="68" width="45" height="13" uuid="2f37e7cf-ac5e-47f1-a520-2044cd3ca9e6"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="214" y="68" width="25" height="14" uuid="e343e303-8fe8-444b-82ad-b653ed547cec"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MES:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="243" y="68" width="58" height="14" uuid="871bd4d5-dc4c-4ee4-b8bc-aa77c2d4d9b8"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="99" y="0" width="186" height="29" uuid="44242369-7f9e-49db-a7ab-05b90cc55df9"/>
+				<textElement textAlignment="Left">
+					<font size="10" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ap2}+" "+$F{am2}+" "+$F{nombre2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="413" y="0" width="47" height="13" uuid="62de4cdd-8db5-42a4-ad13-b6985f2bc9db"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ci2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="351" y="0" width="52" height="13" isRemoveLineWhenBlank="true" uuid="d88edcb9-fd09-45fc-8736-ef993864081a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fnac2}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="69" y="29" width="478" height="1" uuid="5e333f13-b219-4c0c-bef9-e5296da3bcd1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="470" y="0" width="49" height="13" uuid="0d035513-ebfc-4237-ac8c-16ebf8795a5c"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conyuge}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement x="16" y="7" width="20" height="1" uuid="754be5c1-628d-430c-b202-0596fc459f3f"/>
+			</line>
+			<textField>
+				<reportElement x="398" y="11" width="121" height="14" uuid="8b86e25e-08bc-4ed2-8546-8218bea10e71"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="410" y="23" width="100" height="14" uuid="50fd9530-718a-4532-bc70-9acefdf78eec"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[RESPONSABLE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="16" y="11" width="20" height="14" uuid="a6dd6e4e-f87e-482f-82a6-9600b3b3429c"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="396" y="9" width="127" height="1" uuid="4fb8f634-fe1c-4972-a8fa-ac03bcb9aa93"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

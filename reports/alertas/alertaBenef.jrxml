@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="alertaBenef" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="458efcaa-73d1-440a-b4a2-50416030b68f">
+	<property name="ireport.zoom" value="1.5026296018031553"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="responsable" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  	pp.codigoper,pp.nombre as nombre2,pp.ap as ap2,pp.am as am2,
+	p.conyuge,p.nombre,p.ap,p.am,
+	p.fnac,
+	extract(year from age(CURRENT_DATE,p.fnac)) as anio,pp.newcodigoper
+from personal p, personal pp
+where p.benef=1 and p.benef_estado=1 and p.conyuge=0 and
+      extract(year from age(p.fnac))>=21 and
+      p.padre=pp.codper and pp.activo=1
+order by 3,4,2]]>
+	</queryString>
+	<field name="codigoper" class="java.lang.Integer"/>
+	<field name="nombre2" class="java.lang.String"/>
+	<field name="ap2" class="java.lang.String"/>
+	<field name="am2" class="java.lang.String"/>
+	<field name="conyuge" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="am" class="java.lang.String"/>
+	<field name="fnac" class="java.sql.Date"/>
+	<field name="anio" class="java.lang.Double"/>
+	<field name="newcodigoper" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="33" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="88" splitType="Stretch">
+			<textField pattern="h.mm a">
+				<reportElement x="471" y="26" width="89" height="14" uuid="8be88da6-b67d-46e7-9e81-abb3a539721e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="471" y="10" width="89" height="16" uuid="d800ba6f-eeca-4c20-bfbe-8b912c6083ec"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="419" y="66" width="59" height="14" uuid="572f2fde-73c8-44da-83d9-83fd68b8d9e7"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F. NAC.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="17" width="258" height="21" uuid="8c42ed5a-9a31-4de4-8065-d0f7743b3eb1"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="SansSerif" size="15" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[BENEFICIARIOS MAYORES A 21 AÑÑOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="66" width="46" height="14" uuid="67b6b8fa-f9d1-4bc8-8725-c1a99d063ba0"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="10" width="47" height="16" uuid="a4e2b159-605f-4c77-b433-9ac433f2ab65"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="26" width="54" height="14" uuid="ece01b27-42f6-43d4-bc96-29599600b742"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="4" y="64" width="545" height="1" uuid="72260cc6-9966-4af3-a21a-b2aa93651b21"/>
+			</line>
+			<staticText>
+				<reportElement x="114" y="66" width="113" height="14" uuid="9ec6cfec-851b-408f-8338-b26e8918c8fb"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOCIO PADRE]]></text>
+			</staticText>
+			<image isLazy="true">
+				<reportElement x="44" y="3" width="58" height="42" uuid="64462f18-ecfc-47c0-9fed-12db450b140b"/>
+				<imageExpression><![CDATA["../../images/clubtenis.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement mode="Opaque" x="6" y="45" width="134" height="17" uuid="3f593f91-68e6-4da5-974a-412e9d8629a1"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CLUB DE TENIS TARIJA"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="3" y="83" width="545" height="1" uuid="b406e27f-46c7-427c-b52f-a2d3383df69a"/>
+			</line>
+			<staticText>
+				<reportElement x="498" y="66" width="40" height="14" uuid="8b21609b-77dd-4317-9be3-4ba188ae434a"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="66" width="84" height="14" uuid="02de4608-8ae0-4476-9197-957983ab1623"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BENEFICIARIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="38" width="258" height="21" uuid="7f3a6888-6344-4bc2-af3b-072afc5f5aa5"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="SansSerif" size="13" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[(SOLO HABILITADOS)]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="70" y="1" width="168" height="14" uuid="c8c87513-1742-43ed-af51-d4f57c7d6603"/>
+				<textFieldExpression><![CDATA[$F{ap}+' '+$F{am}+' '+$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="417" y="1" width="79" height="14" uuid="e3ee05bd-f18d-417a-8f7d-e32446ebcb3d"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{fnac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="1" width="37" height="14" uuid="da7abed7-0c7d-4a17-8dd8-cf92281d5292"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{newcodigoper}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="498" y="1" width="40" height="14" uuid="9b639cf7-9723-40c6-b781-9ea0e664e2f6"/>
+				<textFieldExpression><![CDATA[$F{anio}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="21" y="16" width="515" height="1" uuid="6d9b5f73-f82f-4af2-811e-824b717dada4"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="241" y="1" width="168" height="14" uuid="d6995c91-5aee-4278-ae1d-43bc71afcf4d"/>
+				<textFieldExpression><![CDATA[$F{ap2}+' '+$F{am2}+' '+$F{nombre2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="383" y="24" width="156" height="14" uuid="2f636fef-ddc7-438d-965b-1dcf906fbe2a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Responsable]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="8" width="20" height="1" uuid="0ed6d837-42be-43f8-90d6-229082651dec"/>
+			</line>
+			<line>
+				<reportElement x="398" y="7" width="127" height="1" uuid="2b3f1fb3-08af-4d19-879f-a576a63c2ab0"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="383" y="9" width="156" height="14" uuid="bc443ca4-44bf-4d34-93a9-99ed12045188"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="14" y="12" width="20" height="20" uuid="e03d1af0-2fa1-4542-8985-e63a73b0b610"/>
+				<textElement textAlignment="Center">
+					<font isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="1200" pageHeight="595" orientation="Landscape" columnWidth="1160" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="869fd817-e32a-4aa3-bd7e-98cfe75e5a44">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="337"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.callouts" value="##Mon Apr 30 03:04:54 VET 2012\ncallouts.1.text=\ncallouts.1.bounds=324,-114,150,75"/>
+	<parameter name="responsable" class="java.lang.String"/>
+	<parameter name="estados" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pro1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pro2" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pro3" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pro4" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="proa1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="proa2" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="proa3" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="proa4" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select datitos.*,d.zona,d.calle,d.numero,
+       CASE
+	WHEN d.telefono is null THEN '-'
+	ELSE d.telefono
+       END,
+       'B/ '||d.zona||' C/ '||d.calle||' No.'||d.numero as direcc
+from (
+      select *
+      from (
+		select  codper,codigoper,nombre,ap,am,estado,fingreso,fnac,genero,ecivil,email,cicli,newcodigoper,
+		max(cedula) as cedula, max(nomsocio) as nomestado,max(codes) as codes, max(activo) as activo
+		from (
+				 select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.estado,p.fnac,p.fingreso,p.genero,p.ecivil,p.email,df.ci as cicli,p.newcodigoper,df.cliente,dat2.cedula as cedula,0 as codes, '-' as nomsocio, p.activo,p.mesini,p.anioini
+				 from datosfac df, personal p ,(
+					select pp.codper, '-' as cedula
+					from personal pp
+					where (not exists (select * from datosper d where d.codper=pp.codper))and(pp.benef=0)
+					union all
+					select p.codper, ci as cedula
+					from datosper d, personal p
+					where (d.codper=p.codper)and(p.benef=0)
+					  ) as dat2
+				 where p.codper=dat2.codper and p.codper=df.codper
+			  UNION ALL
+				   select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.estado,p.fnac,p.fingreso,p.genero,p.ecivil,p.email,df.ci as cicli,p.newcodigoper,df.cliente,'-' as cedula,dat2.codes,dat2.nombre as nomsocio, p.activo,p.mesini,p.anioini
+				   from datosfac df, personal p, (
+					  select e.codper,e.codes, s.nombre
+					  from personal p, estado e, estadosoc s
+					  where (p.codper=e.codper)and(e.codes=s.codes)and(e.sw=1)and(e.estado=1)and(p.benef=0)
+					  union all
+					  select p.codper,0 as codes, '-' as nombre
+					  from personal p
+					  where (not exists(select * from estado e where e.codper=p.codper and e.estado=1))and(p.benef=0)
+				  ) as dat2
+				  where p.codper=dat2.codper and p.codper=df.codper
+		) as datos
+		where (activo=1)and(estado=1)
+		group by 1,2,3,4,5,6,7,8,9,10,11,12,13
+   	) as da
+	where (da.codes IN ($P{pro1},$P{proa1},$P{pro2},$P{proa2},$P{pro3},$P{proa3},$P{pro4},$P{proa4}))
+) as datitos left join dirdom d on datitos.codper=d.codper
+order by 4,5,3,2]]>
+	</queryString>
+	<field name="codper" class="java.lang.Integer"/>
+	<field name="codigoper" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="am" class="java.lang.String"/>
+	<field name="estado" class="java.lang.Integer"/>
+	<field name="fingreso" class="java.sql.Date"/>
+	<field name="fnac" class="java.sql.Date"/>
+	<field name="genero" class="java.lang.String"/>
+	<field name="ecivil" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="cicli" class="java.lang.String"/>
+	<field name="newcodigoper" class="java.lang.String"/>
+	<field name="cedula" class="java.lang.String"/>
+	<field name="nomestado" class="java.lang.String"/>
+	<field name="codes" class="java.lang.Integer"/>
+	<field name="activo" class="java.lang.Integer"/>
+	<field name="zona" class="java.lang.String"/>
+	<field name="calle" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="direcc" class="java.lang.String"/>
+	<variable name="toDolar" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="toMonto" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="52" y="0" width="279" height="18" uuid="b75e0a60-fbd1-4c54-8c44-63a2cd0e3ff9"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[SOCIOS Y SUS ESTADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="468" y="31" width="88" height="14" uuid="79331dc1-0e94-4787-9916-caf86535a9a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado. Soc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="556" y="31" width="67" height="14" uuid="cbbe3928-f7be-4f90-90e2-a7a6069ee0ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F.Nac.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="88" y="31" width="380" height="14" uuid="f3c3ce07-7838-4e97-bae7-3e2a882266b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="31" width="24" height="14" uuid="fbeeb1c9-1159-4933-8e8d-5e178cf8e561"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="18" width="1076" height="14" uuid="8b266ac7-db7b-4f65-b144-0e6dc393b243"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{estados}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="623" y="31" width="65" height="14" uuid="7fece825-3a7e-41b2-b23d-6586f4828167"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEDULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="31" width="64" height="14" uuid="50aea991-04a9-4ad6-b499-5d189e24b3d3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Acción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="761" y="31" width="315" height="14" uuid="f19b8cb8-1f69-4ed7-a2d5-a287718d1b2a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="688" y="31" width="73" height="14" uuid="6cb54a32-c3b8-4142-adbb-703d27190e2a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEF.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="88" y="0" width="380" height="14" uuid="e7e6d41d-d7ea-4f3d-8c41-26f317a1d00b"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ap}+" "+$F{am}+" "+$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="24" height="14" uuid="55c24ee2-6e3e-4cc5-81ff-405d99b3d181"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="468" y="0" width="88" height="14" uuid="fb0e1c35-8575-4b97-a2d7-9ea79c0a535e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomestado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="556" y="0" width="67" height="14" uuid="04a78245-998b-4436-97d5-f2fa9df7f445"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fnac}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="623" y="0" width="65" height="14" uuid="ff06af7d-aa98-473f-8be4-7e916bee77e6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="24" y="0" width="64" height="14" uuid="72be8d98-7ca9-4ef2-8ddc-f0f6ab6b50e8"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{newcodigoper}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="761" y="0" width="315" height="14" uuid="408fe2fb-4f0c-43a3-af1e-ce2c2dc62921"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direcc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="688" y="0" width="73" height="14" uuid="69c2457b-6f98-4dd0-a0c6-3f5ce30125c4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="7" splitType="Stretch"/>
+	</summary>
+</jasperReport>

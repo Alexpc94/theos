@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="personal01XLS" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9b1306c2-9cb0-4c4a-8262-3a8604f48e3b">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="397"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="xact" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xactivos" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xest1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xest2" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select datitos.*,d.zona,d.calle,d.numero,
+       CASE
+	WHEN d.telefono is null THEN '-'
+	ELSE d.telefono
+       END,
+       'B/ '||d.zona||' C/ '||d.calle||' No.'||d.numero as direcc
+from (
+		select  codper,codigoper,nombre,ap,am,estado,fingreso,fnac,genero,ecivil,email,cicli,cliente,max(cedula) as cedula, max(nomsocio) as nomsocio,max(codes) as codes, max(activo) as activo,max(mesini) as mesini,max(anioini) as anioini,newcodigoper
+		from (
+			 select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.estado,p.fnac,p.fingreso,p.genero,p.ecivil,p.email,df.ci as cicli,df.cliente,dat2.cedula as cedula,0 as codes, '-' as nomsocio, p.activo,p.mesini,p.anioini,p.newcodigoper
+			 from datosfac df, personal p ,(
+				select pp.codper, '-' as cedula
+				from personal pp
+				where (not exists (select * from datosper d where d.codper=pp.codper))and(pp.benef=0)
+				union all
+				select p.codper, ci as cedula
+				from datosper d, personal p
+				where (d.codper=p.codper)and(p.benef=0)
+				  ) as dat2
+			 where p.codper=dat2.codper and p.codper=df.codper
+		  UNION ALL
+			   select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.estado,p.fnac,p.fingreso,p.genero,p.ecivil,p.email,df.ci as cicli,df.cliente,'-' as cedula,dat2.codes,dat2.nombre as nomsocio, p.activo,p.mesini,p.anioini,p.newcodigoper
+			   from datosfac df, personal p, (
+				  select e.codper,e.codes, s.nombre
+				  from personal p, estado e, estadosoc s
+				  where (p.codper=e.codper)and(e.codes=s.codes)and(e.sw=1)and(e.estado=1)and(p.benef=0)
+				  union all
+				  select p.codper,0 as codes, '-' as nombre
+				  from personal p
+				  where (not exists(select * from estado e where e.codper=p.codper and e.estado=1))and(p.benef=0)
+			  ) as dat2
+			  where p.codper=dat2.codper and p.codper=df.codper
+		) as datos
+		where (activo between $P{xest1} and $P{xest2}) and estado=1
+		group by 1,2,3,4,5,6,7,8,9,10,11,12,13,20
+	) as datitos left join dirdom d on datitos.codper=d.codper
+order by 4,5,3,2]]>
+	</queryString>
+	<field name="codper" class="java.lang.Integer"/>
+	<field name="codigoper" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="am" class="java.lang.String"/>
+	<field name="estado" class="java.lang.Integer"/>
+	<field name="fingreso" class="java.sql.Date"/>
+	<field name="fnac" class="java.sql.Date"/>
+	<field name="genero" class="java.lang.String"/>
+	<field name="ecivil" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="cicli" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="cedula" class="java.lang.String"/>
+	<field name="nomsocio" class="java.lang.String"/>
+	<field name="codes" class="java.lang.Integer"/>
+	<field name="activo" class="java.lang.Integer"/>
+	<field name="mesini" class="java.lang.Integer"/>
+	<field name="anioini" class="java.lang.Integer"/>
+	<field name="newcodigoper" class="java.lang.String"/>
+	<field name="zona" class="java.lang.String"/>
+	<field name="calle" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="direcc" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="19" width="48" height="14" uuid="e782295d-e08f-4e66-a719-e1218528b04f"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="19" width="249" height="14" uuid="0a413352-3c4f-4ee6-995b-b8f74c202d5f"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE SOCIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="19" width="55" height="14" uuid="3734bc51-dc69-4878-a4d1-9acc9f80832a"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[T. SOCIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="19" width="56" height="14" uuid="02a6e0c4-baa2-44a9-a0f9-02c0476c7e9f"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEDULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="19" width="65" height="14" uuid="75abe95b-9803-436e-8888-4e7e86479af9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F. NAC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="528" y="19" width="74" height="14" uuid="c34434e7-a420-4e97-b019-3906227d4c34"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="602" y="19" width="400" height="14" uuid="eea8afce-d6b0-429b-b212-fd3a47f75ed9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="19" width="55" height="14" uuid="17d342aa-9d34-48ae-9de9-23db797e2991"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="407" height="19" uuid="86b05794-a018-4063-8d4c-825bc15ea095"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[LISTA DE SOCIOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="407" y="0" width="211" height="19" uuid="e641d38d-a98a-4828-b6f2-08a5ac8372bc"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA['"'+$P{xactivos}+'"']]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="103" y="0" width="249" height="14" uuid="d31c50d5-9899-4235-aa2d-582101d87cbf"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ap}+' '+$F{am}+' '+$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="48" y="0" width="55" height="14" uuid="6af7341b-7cad-45e5-a790-2960c42be1ab"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{newcodigoper}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="463" y="0" width="65" height="14" uuid="c239e784-9fa0-46e1-b119-2a133b8dc036"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fnac}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="602" y="0" width="400" height="14" uuid="9579001c-3d67-4b0d-91a8-2664583cc711"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direcc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="48" height="14" uuid="7eec88d0-28ff-4625-838b-26400493a4c7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="352" y="0" width="55" height="14" uuid="e521076b-43b4-4c0f-a8ed-b8c05215e05c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomsocio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="528" y="0" width="74" height="14" uuid="80965027-9069-4f19-bd83-e3948b37ba24"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="0" width="56" height="14" uuid="9e98db5b-273d-4932-8784-4c5a72b1419a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

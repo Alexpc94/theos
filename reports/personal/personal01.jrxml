@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="personal01" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="458efcaa-73d1-440a-b4a2-50416030b68f">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="142"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="xest1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xest2" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="responsable" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xact" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xactivos" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select datitos.*,d.zona,d.calle,d.numero,
+       CASE
+	WHEN d.telefono is null THEN '-'
+	ELSE d.telefono
+       END,
+       'B/ '||d.zona||' C/ '||d.calle||' No.'||d.numero as direcc
+from (
+		select  codper,codigoper,nombre,ap,am,estado,fingreso,fnac,genero,ecivil,email,cicli,cliente,max(cedula) as cedula, max(nomsocio) as nomsocio,max(codes) as codes, max(activo) as activo,max(mesini) as mesini,max(anioini) as anioini,newcodigoper
+		from (
+			 select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.estado,p.fnac,p.fingreso,p.genero,p.ecivil,p.email,df.ci as cicli,df.cliente,dat2.cedula as cedula,0 as codes, '-' as nomsocio, p.activo,p.mesini,p.anioini,p.newcodigoper
+			 from datosfac df, personal p ,(
+				select pp.codper, '-' as cedula
+				from personal pp
+				where (not exists (select * from datosper d where d.codper=pp.codper))and(pp.benef=0)
+				union all
+				select p.codper, ci as cedula
+				from datosper d, personal p
+				where (d.codper=p.codper)and(p.benef=0)
+				  ) as dat2
+			 where p.codper=dat2.codper and p.codper=df.codper
+		  UNION ALL
+			   select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.estado,p.fnac,p.fingreso,p.genero,p.ecivil,p.email,df.ci as cicli,df.cliente,'-' as cedula,dat2.codes,dat2.nombre as nomsocio, p.activo,p.mesini,p.anioini,p.newcodigoper
+			   from datosfac df, personal p, (
+				  select e.codper,e.codes, s.nombre
+				  from personal p, estado e, estadosoc s
+				  where (p.codper=e.codper)and(e.codes=s.codes)and(e.sw=1)and(e.estado=1)and(p.benef=0)
+				  union all
+				  select p.codper,0 as codes, '-' as nombre
+				  from personal p
+				  where (not exists(select * from estado e where e.codper=p.codper and e.estado=1))and(p.benef=0)
+			  ) as dat2
+			  where p.codper=dat2.codper and p.codper=df.codper
+		) as datos
+		where (activo between $P{xest1} and $P{xest2}) and estado=1
+		group by 1,2,3,4,5,6,7,8,9,10,11,12,13,20
+	) as datitos left join dirdom d on datitos.codper=d.codper
+order by 4,5,3,2]]>
+	</queryString>
+	<field name="codper" class="java.lang.Integer"/>
+	<field name="codigoper" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="am" class="java.lang.String"/>
+	<field name="estado" class="java.lang.Integer"/>
+	<field name="fingreso" class="java.sql.Date"/>
+	<field name="fnac" class="java.sql.Date"/>
+	<field name="genero" class="java.lang.String"/>
+	<field name="ecivil" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="cicli" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="cedula" class="java.lang.String"/>
+	<field name="nomsocio" class="java.lang.String"/>
+	<field name="codes" class="java.lang.Integer"/>
+	<field name="activo" class="java.lang.Integer"/>
+	<field name="mesini" class="java.lang.Integer"/>
+	<field name="anioini" class="java.lang.Integer"/>
+	<field name="newcodigoper" class="java.lang.String"/>
+	<field name="zona" class="java.lang.String"/>
+	<field name="calle" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="direcc" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="33" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="86" splitType="Stretch">
+			<textField pattern="h.mm a">
+				<reportElement x="471" y="26" width="89" height="14" uuid="8be88da6-b67d-46e7-9e81-abb3a539721e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="471" y="10" width="89" height="16" uuid="d800ba6f-eeca-4c20-bfbe-8b912c6083ec"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="253" y="71" width="51" height="13" uuid="572f2fde-73c8-44da-83d9-83fd68b8d9e7"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEDULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="154" y="26" width="258" height="21" uuid="8c42ed5a-9a31-4de4-8065-d0f7743b3eb1"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[L I S T A   S O C I O S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="71" width="50" height="13" uuid="67b6b8fa-f9d1-4bc8-8725-c1a99d063ba0"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="10" width="47" height="16" uuid="a4e2b159-605f-4c77-b433-9ac433f2ab65"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="26" width="47" height="14" uuid="ece01b27-42f6-43d4-bc96-29599600b742"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="4" y="69" width="551" height="1" uuid="72260cc6-9966-4af3-a21a-b2aa93651b21"/>
+			</line>
+			<staticText>
+				<reportElement x="75" y="71" width="119" height="13" uuid="9ec6cfec-851b-408f-8338-b26e8918c8fb"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DE SOCIO
+]]></text>
+			</staticText>
+			<image isLazy="true">
+				<reportElement x="48" y="10" width="58" height="42" uuid="64462f18-ecfc-47c0-9fed-12db450b140b"/>
+				<imageExpression><![CDATA["../../images/clubtenis.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement mode="Opaque" x="10" y="52" width="134" height="17" uuid="3f593f91-68e6-4da5-974a-412e9d8629a1"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CLUB DE TENIS TARIJA"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="4" y="84" width="551" height="1" uuid="b406e27f-46c7-427c-b52f-a2d3383df69a"/>
+			</line>
+			<staticText>
+				<reportElement x="193" y="71" width="60" height="13" uuid="8b21609b-77dd-4317-9be3-4ba188ae434a"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[T. SOCIO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="154" y="48" width="258" height="15" uuid="e1c1fff4-4f67-4b67-adad-78e944d953e9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{xactivos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="71" width="23" height="13" uuid="56060d7d-7fdf-4692-a23e-47105098dbc1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="71" width="42" height="13" uuid="ab883a64-2529-46b8-bde3-13fb12fa026a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F.NAC.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="71" width="58" height="13" uuid="67c24d4f-22d7-44f4-becf-3d317a0fdc2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEF.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="71" width="148" height="13" uuid="f5719c27-e902-4115-951c-3a5d102589f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="75" y="1" width="119" height="13" uuid="c8c87513-1742-43ed-af51-d4f57c7d6603"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ap}+' '+$F{am}+' '+$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="253" y="1" width="53" height="13" uuid="e3ee05bd-f18d-417a-8f7d-e32446ebcb3d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="26" y="1" width="50" height="13" uuid="da7abed7-0c7d-4a17-8dd8-cf92281d5292"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{newcodigoper}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="1" width="60" height="13" uuid="9b639cf7-9723-40c6-b781-9ea0e664e2f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomsocio}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="7" y="0" width="548" height="1" uuid="6d9b5f73-f82f-4af2-811e-824b717dada4"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="4" y="1" width="23" height="13" uuid="ab360f1a-e687-493e-ab45-f14353b81598"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}+".-"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="306" y="1" width="42" height="13" uuid="a4698180-4451-47dc-8073-f7b30342f030"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fnac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="348" y="1" width="58" height="13" uuid="6420ee4c-1447-4020-b559-718d46f12672"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="406" y="1" width="149" height="13" uuid="12760cac-c44e-4dc1-be7e-46cda45fbe29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direcc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="383" y="28" width="156" height="14" uuid="2f636fef-ddc7-438d-965b-1dcf906fbe2a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Responsable]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="8" width="20" height="1" uuid="0ed6d837-42be-43f8-90d6-229082651dec"/>
+			</line>
+			<line>
+				<reportElement x="398" y="11" width="127" height="1" uuid="2b3f1fb3-08af-4d19-879f-a576a63c2ab0"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="383" y="13" width="156" height="14" uuid="bc443ca4-44bf-4d34-93a9-99ed12045188"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="14" y="12" width="20" height="20" uuid="e03d1af0-2fa1-4542-8985-e63a73b0b610"/>
+				<textElement textAlignment="Center">
+					<font isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="14" splitType="Stretch"/>
+	</summary>
+</jasperReport>

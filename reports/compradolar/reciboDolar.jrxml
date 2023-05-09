@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="368" columnWidth="566" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="19e27a32-ea75-4a14-bf2d-aa0417136630">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.callouts" value="##Mon Apr 30 03:04:54 VET 2012\ncallouts.1.text=\ncallouts.1.bounds=324,-114,150,75"/>
+	<parameter name="codcom" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="responsable" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select codcom,mondol,monbol,tc,fecha,cliente,
+	case(estado)
+         when 0 then '***  A N U L A D O  ***'
+         else ''
+        end as estado
+from compradolar
+where (codcom=$P{codcom})]]>
+	</queryString>
+	<field name="codcom" class="java.lang.String"/>
+	<field name="mondol" class="java.lang.Double"/>
+	<field name="monbol" class="java.lang.Double"/>
+	<field name="tc" class="java.lang.Double"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="26" splitType="Stretch">
+			<textField pattern="">
+				<reportElement x="215" y="6" width="178" height="20" uuid="055acf47-5f61-4f52-9ada-c9942162c02f"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="244" splitType="Stretch">
+			<staticText>
+				<reportElement x="158" y="27" width="291" height="22" uuid="54649e3a-5ccc-426f-8487-484903cf333d"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R E C I B O   C O M P R A   D O L A R]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="67" height="14" uuid="b9a0547b-90e8-4f49-8e62-1254813c2587"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Código:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="15" width="67" height="14" uuid="621e898d-7f2e-448a-bb74-04ee18bfa4f4"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha PAGO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="509" y="0" width="58" height="14" uuid="8acff842-b7c0-4f23-a82c-c47b5f492cca"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codcom}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="509" y="15" width="58" height="14" uuid="90b1a908-374b-440e-9317-df265d3ed0af"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="77" y="87" width="488" height="14" uuid="1cd4f68e-1b7e-45b7-9a84-39b0d923f61a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cliente  ::..............................................................................................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="77" y="116" width="488" height="14" uuid="83761b40-bf20-4e83-b42f-00d1d52984c8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Monto Dolar :: ................................................................ Cambio::......................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="77" y="175" width="488" height="14" uuid="fb49bac4-d6ac-448d-a686-5a7e60b2c7fd"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Por concepto de :: .............................................................................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="77" y="202" width="488" height="14" uuid="23dc5cd8-c09b-4d42-875c-4c40d558ed1d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Obs :: ................................................................................................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="174" width="181" height="14" uuid="a88ca1b3-2f00-46a8-8f98-f219a8e5f8b7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPRA DE DOLAR]]></text>
+			</staticText>
+			<textField pattern="">
+				<reportElement x="179" y="85" width="183" height="14" uuid="08573566-1406-46f2-aa7a-d05123b23dc9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="77" y="145" width="488" height="14" uuid="2c12e402-330f-4269-b669-9e331d1726b5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Monto Bolivianos::...........................................................Factura::......................................................................]]></text>
+			</staticText>
+			<textField pattern="#,###,##0.00">
+				<reportElement x="164" y="115" width="62" height="14" uuid="43c5c8c0-2a32-4189-9704-0514ce626718"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mondol}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,###,##0.00">
+				<reportElement x="362" y="115" width="31" height="14" uuid="c2fa2bf1-4c80-43e6-b217-001c1c180b1a"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,###,##0.00">
+				<reportElement x="164" y="143" width="62" height="14" uuid="57851bf3-2e71-41d6-8123-905de229578b"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monbol}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="5" y="57" width="174" height="18" uuid="f3d42d72-ab71-47b5-8014-bca02b817520"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CLUB DE TENIS TARIJA"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="58" y="0" width="74" height="53" uuid="1fe165c9-a2ba-4151-8546-e634fb16859e"/>
+				<imageExpression><![CDATA["../../images/clubtenis.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnFooter>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="11" width="120" height="14" uuid="234d0515-0b79-4d11-a8ef-b953f605dd79"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[CLIENTE - RECIBI CONFORME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="23" width="152" height="14" uuid="84d4a980-ae11-48d7-aa93-843e4a3c5a04"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<text><![CDATA[ENTREGE CONFORME]]></text>
+			</staticText>
+			<line>
+				<reportElement x="128" y="8" width="141" height="1" uuid="01300042-0f9f-4b66-a842-66b1ece04aa2"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="320" y="8" width="141" height="1" uuid="5c3072d6-9da0-4e68-855f-358e46e0f4e6"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="282" y="10" width="223" height="14" uuid="30a685cc-1e81-4510-85d2-6f11e9aa498a"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<summary>
+		<band height="12" splitType="Stretch"/>
+	</summary>
+</jasperReport>

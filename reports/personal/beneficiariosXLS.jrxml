@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="800" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="869fd817-e32a-4aa3-bd7e-98cfe75e5a44">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.callouts" value="##Mon Apr 30 03:04:54 VET 2012\ncallouts.1.text=\ncallouts.1.bounds=324,-114,150,75"/>
+	<parameter name="responsable" class="java.lang.String"/>
+	<parameter name="filtro1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="filtro2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT s.nombre AS nomest, d3.*, e.codes
+FROM (
+	SELECT d2.*, dp2.ci AS ci2
+	FROM (
+		SELECT dp.ci, dat1.codper, dat1.codigoper, dat1.nombre, dat1.ap, dat1.am, dat1.fnac,
+				dat1.codper2, dat1.codigoper2, dat1.nombre2, dat1.ap2, dat1.am2, dat1.fnac2, dat1.conyuge, dat1.newcodigoper
+		FROM (
+			SELECT p.codper, p.codigoper, p.nombre, p.ap, p.am, p.fnac,
+					pp.codper AS codper2, pp.codigoper AS codigoper2,
+					CASE WHEN pp.nombre IS NULL THEN ' SIN BENEFICIARIO '
+						 ELSE pp.nombre
+					END AS nombre2,
+					CASE WHEN pp.ap IS NULL THEN ' '
+						 ELSE pp.ap
+					END AS ap2,
+					CASE WHEN pp.am IS NULL THEN ' '
+						 ELSE pp.am
+					END AS am2,
+					pp.fnac AS fnac2,
+					CASE WHEN pp.conyuge=1 THEN 'Conyuge'
+					     WHEN pp.conyuge=0 THEN 'Hijo'
+					     WHEN pp.conyuge=2 THEN 'Familiar'
+					     WHEN pp.conyuge=3 THEN 'Otros'
+					END AS conyuge, p.newcodigoper
+			FROM personal AS p LEFT JOIN personal pp ON p.codper=pp.padre
+			WHERE  p.activo=1
+		) AS dat1 LEFT JOIN datosper dp ON dat1.codper=dp.codper
+	) AS d2 LEFT JOIN datosper dp2 ON d2.codper2=dp2.codper
+) AS d3, estado e, estadosoc s
+WHERE (d3.codper=e.codper) AND (e.codes=s.codes) AND (e.sw=1) AND (e.estado=1) AND
+      ((d3.nombre||d3.ap||d3.am||s.nombre) LIKE '%' || $P{filtro1} || '%') AND
+      ((d3.nombre||d3.ap||d3.am||s.nombre) LIKE '%' || $P{filtro2} || '%') AND
+      ($P{filtro1} != '' OR $P{filtro2} != '')
+ORDER BY d3.ap, d3.am, d3.nombre]]>
+	</queryString>
+	<field name="nomest" class="java.lang.String"/>
+	<field name="ci" class="java.lang.String"/>
+	<field name="codper" class="java.lang.Integer"/>
+	<field name="codigoper" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="am" class="java.lang.String"/>
+	<field name="fnac" class="java.sql.Date"/>
+	<field name="codper2" class="java.lang.Integer"/>
+	<field name="codigoper2" class="java.lang.Integer"/>
+	<field name="nombre2" class="java.lang.String"/>
+	<field name="ap2" class="java.lang.String"/>
+	<field name="am2" class="java.lang.String"/>
+	<field name="fnac2" class="java.sql.Date"/>
+	<field name="conyuge" class="java.lang.String"/>
+	<field name="newcodigoper" class="java.lang.String"/>
+	<field name="ci2" class="java.lang.String"/>
+	<field name="codes" class="java.lang.Integer"/>
+	<variable name="toDolar" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="toMonto" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="Grupo1">
+		<groupExpression><![CDATA[$F{codper}]]></groupExpression>
+		<groupHeader>
+			<band height="13">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="74" y="0" width="213" height="13" uuid="a33c74e0-0d86-4832-af74-079cb20e19e0"/>
+					<textElement textAlignment="Left">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ap}+" "+$F{am}+" "+$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="287" y="0" width="65" height="13" uuid="fb0e1c35-8575-4b97-a2d7-9ea79c0a535e"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nomest}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="31" y="0" width="43" height="13" uuid="b1c27779-6e40-49ab-83a1-2cd4782ee9c9"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{newcodigoper}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="31" height="13" uuid="55c24ee2-6e3e-4cc5-81ff-405d99b3d181"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement x="352" y="0" width="60" height="13" isRemoveLineWhenBlank="true" uuid="b000f624-e56f-4164-a1cf-094c2737f167"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fnac}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="412" y="0" width="49" height="13" uuid="99a5bef3-914d-4aab-91c8-2984badcfe0d"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ci}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="3"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="74" y="0" width="213" height="18" uuid="b75e0a60-fbd1-4c54-8c44-63a2cd0e3ff9"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[SOCIOS Y BENEFICIARIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="18" width="65" height="13" uuid="79331dc1-0e94-4787-9916-caf86535a9a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado. Soc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="18" width="60" height="13" uuid="cbbe3928-f7be-4f90-90e2-a7a6069ee0ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F.Nac.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="74" y="18" width="213" height="13" uuid="f3c3ce07-7838-4e97-bae7-3e2a882266b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S O C I O S]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="18" width="31" height="13" uuid="fbeeb1c9-1159-4933-8e8d-5e178cf8e561"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="18" width="49" height="13" uuid="7fece825-3a7e-41b2-b23d-6586f4828167"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEDULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="18" width="43" height="13" uuid="50aea991-04a9-4ad6-b499-5d189e24b3d3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Acción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="461" y="18" width="94" height="13" uuid="4245736d-7089-47e9-b7d9-a78598e02219"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BENEFICIARIO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="74" y="0" width="213" height="13" uuid="e7e6d41d-d7ea-4f3d-8c41-26f317a1d00b"/>
+				<textElement textAlignment="Left">
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ap2}+" "+$F{am2}+" "+$F{nombre2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="352" y="0" width="60" height="13" isRemoveLineWhenBlank="true" uuid="04a78245-998b-4436-97d5-f2fa9df7f445"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fnac2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="412" y="0" width="49" height="13" uuid="ff06af7d-aa98-473f-8be4-7e916bee77e6"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ci2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="461" y="0" width="94" height="13" uuid="f9a9e610-6fab-47b6-bbd8-5e6c88d54e34"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conyuge}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="1" splitType="Stretch"/>
+	</summary>
+</jasperReport>

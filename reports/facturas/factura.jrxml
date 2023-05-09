@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="311" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="19e27a32-ea75-4a14-bf2d-aa0417136630">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="33"/>
+	<property name="ireport.callouts" value="##Mon Apr 30 03:04:54 VET 2012\ncallouts.1.text=\ncallouts.1.bounds=324,-114,150,75"/>
+	<subDataset name="Table Dataset 1" uuid="bce76f06-7b23-42c1-8295-cb94f13314f2"/>
+	<parameter name="pathImg" class="java.lang.String"/>
+	<parameter name="tipo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xcodpag" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT CASE WHEN f.mes=1 THEN 'ENERO'
+            WHEN f.mes=2 THEN 'FEBRERO'
+            WHEN f.mes=3 THEN 'MARZO'
+            WHEN f.mes=4 THEN 'ABRIL'
+            WHEN f.mes=5 THEN 'MAYO'
+            WHEN f.mes=6 THEN 'JUNIO'
+            WHEN f.mes=7 THEN 'JULIO'
+            WHEN f.mes=8 THEN 'AGOSTO'
+            WHEN f.mes=9 THEN 'SEPTIEMBRE'
+	    WHEN f.mes=10 THEN 'OCTUBRE'
+	    WHEN f.mes=11 THEN 'NOVIEMBRE'
+	    WHEN f.mes=12 THEN 'DICIEMBRE'
+       END as mespago,
+       CASE WHEN f.anulado=1 THEN ''
+            WHEN f.anulado=0 THEN 'A N U L A D O'
+       END as xanulado, f.dia,f.anio,f.nrofac,f.fechalimite,f.ley,f.nit,f.autorizacion,f.monto,f.cliente,f.nitcli,f.fecha,f.montotexto, f.codigocontrol,
+       m.codpag,m.detalle1,m.detalle2
+
+    FROM factura f, mpagos m
+    where (f.codpag=$P{xcodpag})and(f.codpag=m.codpag)]]>
+	</queryString>
+	<field name="mespago" class="java.lang.String"/>
+	<field name="xanulado" class="java.lang.String"/>
+	<field name="dia" class="java.lang.Integer"/>
+	<field name="anio" class="java.lang.Integer"/>
+	<field name="nrofac" class="java.lang.Integer"/>
+	<field name="fechalimite" class="java.sql.Date"/>
+	<field name="ley" class="java.lang.String"/>
+	<field name="nit" class="java.lang.String"/>
+	<field name="autorizacion" class="java.lang.String"/>
+	<field name="monto" class="java.lang.Double"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="nitcli" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="montotexto" class="java.lang.String"/>
+	<field name="codigocontrol" class="java.lang.String"/>
+	<field name="codpag" class="java.lang.String"/>
+	<field name="detalle1" class="java.lang.String"/>
+	<field name="detalle2" class="java.lang.String"/>
+	<variable name="xmontot" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{monto}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="12" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="187" splitType="Stretch">
+			<staticText>
+				<reportElement x="410" y="34" width="67" height="11" uuid="307f4515-0b12-4c76-b8a6-e81bec65dd96"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FACTURA No:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="47" width="83" height="11" uuid="ffca2c2b-985a-4507-afb5-7a6dcfc675cf"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[AUTORIZACIÓN No:]]></text>
+			</staticText>
+			<textField pattern="">
+				<reportElement x="483" y="34" width="82" height="11" uuid="0132627a-9dd6-4243-a852-fc36cf856298"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nrofac}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="483" y="47" width="82" height="11" uuid="42e66996-3aad-4dd4-8d00-e5b834338fe4"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{autorizacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="18" y="58" width="162" height="24" uuid="f2988924-9858-4e97-a12a-8f84538cb3fa"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CLUB DE TENIS TARIJA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="98" width="308" height="11" uuid="ced67aff-6f9a-4cfe-84c4-6fd0bbfad0ab"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SEÑOR(A): "+$F{cliente}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="62" y="115" width="500" height="1" uuid="0ab7a4d2-c15f-4578-80e4-a68594f04d45"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="249" y="118" width="67" height="12" uuid="10153e19-dc3d-488f-a21a-a72a86a6abac"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DETALLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="495" y="118" width="46" height="12" uuid="7869c6b9-471e-4eef-9c48-412fa261503a"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<line>
+				<reportElement x="62" y="132" width="500" height="1" uuid="38b25013-6851-4561-ace6-96515679d784"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="446" y="97" width="33" height="12" uuid="ef33d30d-8a51-4522-9775-e7ea250cb670"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[NIT/CI:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="479" y="97" width="73" height="12" uuid="12353341-b7be-4f3e-9705-116f41bb23aa"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nitcli}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="80" width="347" height="13" uuid="d4aa9b78-8b07-4371-8507-25783858381d"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TARIJA, "+$F{dia}+" de "+$F{mespago}+" de "+$F{anio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="352" y="62" width="202" height="15" uuid="7dec8a04-d8db-4948-a874-324d0f53200f"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVICIOS DEL CLUB DE TENIS TARIJA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="406" y="79" width="148" height="14" uuid="1659aa28-0625-4709-82bf-a7aa9956b4fd"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tipo}]]></textFieldExpression>
+			</textField>
+			<image isLazy="true">
+				<reportElement x="77" y="5" width="74" height="53" uuid="bd4c1a95-db35-46e4-8249-bc5295425951"/>
+				<imageExpression><![CDATA["../../images/clubtenis.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="392" y="7" width="85" height="22" uuid="f32a4492-9193-4ca9-aa6c-a8cf35302ec8"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[NIT:]]></text>
+			</staticText>
+			<textField pattern="">
+				<reportElement x="483" y="7" width="101" height="22" uuid="e78f67cb-591b-4600-a5b4-85a98c31ba49"/>
+				<textElement>
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="146" width="336" height="41" uuid="c1cd9f63-812e-4701-b595-32ec86051842"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalle2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,###,##0.00">
+				<reportElement x="491" y="133" width="50" height="11" uuid="2dc46249-3405-496d-bfd3-926fb592f05a"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="141" y="134" width="336" height="11" uuid="17980cfe-6d9e-4b06-94cc-b98003353a47"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MANTENIMIENTO: "+$F{detalle1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="204" y="7" width="174" height="27" uuid="10b92724-1346-4307-bc24-024a80998977"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FACTURA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="19" width="226" height="40" uuid="c0a97e54-0179-4558-aecd-0d14931e11e6"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{xanulado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="491" y="-14" width="101" height="71" uuid="b4c7552b-42be-445b-a2da-90f849e882e4"/>
+				<imageExpression><![CDATA[$P{pathImg}+$F{codigocontrol}+".png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="45" y="40" width="482" height="11" uuid="f3c1464c-bef5-4aed-b9df-c0181329c5e1"/>
+				<textElement>
+					<font fontName="SansSerif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[" ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAIS: EL USO ILÍCITO SERÁ SANCIONADO DE ACUERDO A LEY "]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="10" width="82" height="11" uuid="9288a734-d6e5-4439-adc1-295c01f8a88c"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO CONTROL:]]></text>
+			</staticText>
+			<textField pattern="">
+				<reportElement x="141" y="8" width="190" height="18" uuid="a72ccf80-eaf8-4483-87e8-b0e2517615d5"/>
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigocontrol}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="71" y="27" width="67" height="11" uuid="a2d197f8-d965-4640-b56d-575c70ca15fb"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FECHA LÍMITE:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="141" y="27" width="190" height="11" uuid="4e4bbae5-8a9b-451e-afdc-df5681e7447f"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechalimite}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="45" y="52" width="507" height="20" uuid="6f697c76-3717-48cc-9534-c5e38859584e"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ley}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<line>
+				<reportElement x="62" y="0" width="500" height="1" uuid="a92b70ef-517f-4d73-91f5-d246e48c2a1f"/>
+				<graphicElement>
+					<pen lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField pattern="">
+				<reportElement x="62" y="1" width="354" height="12" uuid="dabdf886-78c1-402e-aeee-5addfe341363"/>
+				<textElement>
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SON: "+$F{montotexto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="1" width="61" height="12" uuid="e3c06b2c-0231-49d3-9e1e-4af65c2a0877"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[***** Total Bs.]]></text>
+			</staticText>
+			<textField pattern="#,###,##0.00">
+				<reportElement x="481" y="1" width="60" height="12" uuid="d9f4d6e5-a2a2-4dd0-a169-231bc745f688"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{xmontot}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

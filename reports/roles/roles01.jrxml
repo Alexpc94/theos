@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="roles01" pageWidth="595" pageHeight="800" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3a07dc2e-b3f3-4140-81d4-dd43df1233b3">
+	<property name="ireport.zoom" value="1.4641000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="xest1" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xest2" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="responsable" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     codr,
+     nombre
+FROM
+     "roles"
+WHERE
+      ESTADO between $P{xest1} and $P{xest2}order by codr]]>
+	</queryString>
+	<field name="codr" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="19" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="411" y="10" width="47" height="16" uuid="e75186a4-64bc-4808-b973-cafbf3b11795"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="h.mm a">
+				<reportElement x="470" y="26" width="89" height="14" uuid="24fa56fa-d1b8-4e0e-9561-ec169f186f17"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image isLazy="true">
+				<reportElement x="47" y="10" width="58" height="42" uuid="aca49ef1-d09b-4cbb-a16d-50058b16d90a"/>
+				<imageExpression><![CDATA["../../images/clubtenis.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="411" y="26" width="47" height="14" uuid="ae3e8471-33bb-4893-bc37-181c6ab167ad"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="470" y="10" width="89" height="16" uuid="55a3516d-8b05-4a47-9735-42e621c441d9"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="9" y="52" width="134" height="17" uuid="1f9f8620-6110-4e43-a2b5-29a895b802ae"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CLUB DE TENIS TARIJA"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="92" y="82" width="102" height="16" uuid="c82f724d-f65c-4e0f-bd18-eb1d29ce4dea"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="82" width="139" height="16" uuid="778e4f7a-4e27-488b-8548-12b03394bd68"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DE ROLES]]></text>
+			</staticText>
+			<line>
+				<reportElement x="9" y="81" width="545" height="1" uuid="47788adb-3f01-480c-96c1-eee2eca3cf8d"/>
+			</line>
+			<line>
+				<reportElement x="10" y="97" width="544" height="1" uuid="1589ec21-a272-4eb8-9266-506e43b76474"/>
+			</line>
+			<staticText>
+				<reportElement x="211" y="26" width="145" height="26" uuid="e8f467f3-4164-451f-abf7-4684cebae346"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="20" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[LISTA ROLES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="409" y="56" width="100" height="20" uuid="95f13f5e-8b23-48a5-841f-2a6bb53b56b7"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="92" y="0" width="100" height="14" uuid="5542033b-0aa9-46de-bcd3-c2f1cb0b2abe"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{codr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="0" width="160" height="14" uuid="e163b22c-3e6d-4d9e-b2e0-5bdfb70e0b4e"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="66" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<line>
+				<reportElement x="27" y="16" width="20" height="1" uuid="c7f35326-8f3b-4330-a5c6-4ca779210bd9"/>
+			</line>
+			<staticText>
+				<reportElement x="443" y="35" width="79" height="14" uuid="93d41e60-4e63-4008-bb65-dd0ab6940e31"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Responsable]]></text>
+			</staticText>
+			<line>
+				<reportElement x="411" y="15" width="127" height="1" uuid="d1982a58-9b4f-46f6-a0d6-deba8f0b5833"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="27" y="20" width="20" height="20" uuid="2a3f6917-184c-4716-be18-a893e68a6601"/>
+				<textElement textAlignment="Center">
+					<font isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="396" y="20" width="156" height="14" uuid="64d3bf21-09ad-45dc-994e-0deacc2d3869"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="46" splitType="Stretch">
+			<line>
+				<reportElement x="19" y="11" width="533" height="1" uuid="78e21720-e16b-4ca8-8861-d78ba7f0ea8b"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
