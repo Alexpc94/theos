@@ -53,28 +53,28 @@ order by p.ap,p.am,p.nombre]]>
 				<text><![CDATA[SOCIOS CON DEUDAS HASTA]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="493" y="0" width="67" height="11" uuid="02ece45a-6844-46e8-8170-0b314164ff7c"/>
+				<reportElement x="493" y="0" width="67" height="13" uuid="02ece45a-6844-46e8-8170-0b314164ff7c"/>
 				<textElement>
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="424" y="0" width="67" height="11" uuid="03c72066-92cb-4122-af8c-ec919f8bbb37"/>
+				<reportElement x="424" y="0" width="67" height="13" uuid="03c72066-92cb-4122-af8c-ec919f8bbb37"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[Fecha:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="424" y="13" width="67" height="11" uuid="0246210a-0311-4db0-8111-f04afc65fec8"/>
+				<reportElement x="424" y="13" width="67" height="13" uuid="0246210a-0311-4db0-8111-f04afc65fec8"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[Hora:]]></text>
 			</staticText>
 			<textField pattern="h.mm a">
-				<reportElement x="493" y="13" width="67" height="11" uuid="279fe15f-87a3-4b6a-8e10-de25dbf758c3"/>
+				<reportElement x="493" y="13" width="67" height="13" uuid="279fe15f-87a3-4b6a-8e10-de25dbf758c3"/>
 				<textElement>
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
@@ -88,7 +88,7 @@ order by p.ap,p.am,p.nombre]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Concepto]]></text>
+				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="329" y="77" width="216" height="14" uuid="1cb95e3d-f3eb-4166-8a5b-a514c23d9d42"/>

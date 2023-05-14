@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sociosPendientePago" pageWidth="595" pageHeight="800" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54dd084c-8fc2-49ef-bd95-2aa8c2b7a8a5">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.layers" value="##Sat May 13 01:09:46 BOT 2023\nlayer.3.id=3\nlayer.2.visible=true\nlayer.1.name=Layer 1\nlayer.0.visible=true\nlayer.2.id=2\nlayer.2.name=Layer 2\nlayer.3.visible=true\nlayer.1.id=1\nlayer.1.visible=true\nlayer.3.name=Layer 3\nlayer.0.id=0\nlayer.0.name=Background"/>
+	<parameter name="anio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="estados" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="responsable" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="xlogin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select p.codigoper,p.nombre,p.ap,p.am,x.saldoant,x.obs,x.estsocio,p.newcodigoper
+from xsaldosocios x, personal p
+where x.login=$P{xlogin} and x.codper=p.codper
+order by p.ap,p.am,p.nombre]]>
+	</queryString>
+	<field name="codigoper" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="am" class="java.lang.String"/>
+	<field name="saldoant" class="java.lang.Double"/>
+	<field name="obs" class="java.lang.String"/>
+	<field name="estsocio" class="java.lang.String"/>
+	<field name="newcodigoper" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="135" splitType="Stretch">
+			<image isLazy="true">
+				<reportElement x="38" y="0" width="58" height="42" uuid="0950695d-e401-4c05-afb8-ed09d7e70b21"/>
+				<imageExpression><![CDATA["../../images/clubtenis.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="424" y="13" width="67" height="13" uuid="7d6d7169-1659-4c6d-ba02-fefe5165c93c"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<textField pattern="h.mm a">
+				<reportElement x="493" y="13" width="67" height="13" uuid="0120f1c8-5efa-495a-8834-580e2e115bf2"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="424" y="0" width="67" height="13" uuid="311a0867-1c46-441d-a94b-cede90cb9974"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="493" y="0" width="67" height="13" uuid="0824ac15-2f0c-462a-9389-a98562b57210"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="136" y="39" width="300" height="18" uuid="34ce2364-321c-4711-80b0-722f7e6fd6a6"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[SOCIOS PENDIENTE PAGO]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="-417" y="51" width="134" height="17" uuid="cc704225-22ec-47b9-b0cf-d031dcfd2415"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="40" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CLUB DE TENIS TARIJA"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="41" width="136" height="18" uuid="bc4d1b09-16a3-4274-93d9-67b9fecefebc"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA["CLUB DE TENIS TARIJA"]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="68" width="191" height="14" uuid="12442123-6b64-4f2e-a735-fa5317438c70"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="82" width="55" height="14" uuid="17660157-3986-4c63-9389-5c114c69ac38"/>
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[GESTION::]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="56" y="82" width="136" height="14" uuid="a0fb58c3-4f6e-48ba-b837-39cc156f511f"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="117" width="545" height="1" uuid="e8509e5c-4935-4bad-9d14-8cd12afbca81"/>
+			</line>
+			<line>
+				<reportElement x="5" y="134" width="544" height="1" uuid="8f07bbfb-a1b0-4ed3-b743-64ffebc52e9c"/>
+			</line>
+			<staticText>
+				<reportElement x="5" y="118" width="17" height="14" uuid="d68abf0f-f1be-41df-81a6-ab2978ce697e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="117" width="43" height="14" uuid="aeff3731-260e-475b-8bc1-ee2bde878068"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="118" width="94" height="14" uuid="1f6cfb57-30ec-4b43-b7f7-2acb70de2e45"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="118" width="56" height="14" uuid="fd1775f5-9825-4c06-b16b-a97d1fc49bfe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<line>
+				<reportElement x="5" y="1" width="544" height="1" uuid="f12bbfc4-14a3-449d-b0e2-70b8852baa32"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="5" y="12" width="23" height="14" uuid="70413fe1-236a-4616-9459-8677a2dd2dd3"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}+".-"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="68" y="12" width="137" height="14" uuid="91dd55ee-e1ef-44bb-b233-b57c42369b3e"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ap}+" "+$F{am}+" "+$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="30" y="12" width="22" height="14" uuid="415ccf41-83a9-41a7-9b1a-64f775786cd8"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{newcodigoper}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="205" y="12" width="64" height="14" uuid="08cbfd50-8984-492e-8b2f-3c3173b6bd01"/>
+				<textElement textAlignment="Left">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estsocio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="269" y="12" width="100" height="14" uuid="82ea6e4b-bc29-4711-b00e-163c1b9cb6ac"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="6"/>
+				</textElement>
+				<text><![CDATA[RESPONSABLE]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="424" y="5" width="121" height="14" uuid="fbaab6a3-5438-4c9b-8812-39b3ce6bf659"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="422" y="3" width="127" height="1" uuid="e84857f6-a972-41b6-a63c-bdde60f1e823"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="436" y="17" width="100" height="14" uuid="d0f720d4-d2ce-473e-81ef-ec1cbb8b009b"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="6"/>
+				</textElement>
+				<text><![CDATA[RESPONSABLE]]></text>
+			</staticText>
+			<line>
+				<reportElement x="22" y="1" width="20" height="1" uuid="c75009bf-c01f-46c6-a103-597c00c29e87"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="22" y="3" width="20" height="13" uuid="b832e837-f6df-4e6b-984d-b863552f1734"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

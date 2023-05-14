@@ -177,6 +177,17 @@
 				                                	Resúmen Deudas por Rango de Mes 
 			                                	</a>			                                 
 				            			  </td>
+		                                </tr>
+		                                <tr>
+		                                  <td scope="row">10.-</td>
+		                                  <td align="left">
+				                                <a  href="javascript:void(0)" onclick="javascript:sociospendientepago()">
+					                                <img src="images/img-sis/print.png"
+			            							style="vertical-align: middle; width: 24px; height: 24px"
+			            							alt="Vista previa" title="Imprimir Socios que Pendientes de Pago.." />
+				                                	Socios Pendiente de Pago
+			                                	</a>			                                 
+				            			  </td>
 		                                </tr>		                                		                                
 			                          </tbody>
 			                        </table>
@@ -624,7 +635,7 @@
 </div>
 <!-- End Modals MYMODAL-SALDOS DEUDORES-->
 
-<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
+<!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 <!--  Modals RESUMEN SALDOS DEUDORES HASTA UN MES DETERMINADO     -->
 <div class="panel-body">
     <div class="modal fade" id="myModal-resumenSaldoDeudorMes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -981,6 +992,74 @@
     </div>
 </div>
 <!-- End Modals MYMODAL-SOCIOS-MENORES-ESTADOS -->
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+<!-- Modal Socios Pendientes De Pago  -->
+<div class="panel-body">
+    <div class="modal fade" id="myModal-sociospendientepago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <br><br><br>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabl">SOCIOS PENDIENTE DE PAGO</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="lugarServices.html" method="POST" id="addform_sd">
+                    	
+						<div class="form-group">
+	                        <label class="control-label col-xs-3">HASTA::</label>
+                           	<div class="col-xs-4">
+	                                <select class="form-control" name="spp_mes2" id="spp_mes2">
+										<option value="1" >ENERO </option>
+										<option value="2" >FEBRERO </option>
+										<option value="3" >MARZO </option>
+										<option value="4" >ABRIL </option>
+										<option value="5" >MAYO </option>
+										<option value="6" >JUNIO </option>
+										<option value="7" >JULIO </option>
+										<option value="8" >AGOSTO </option>
+										<option value="9" >SEPTIEMBRE </option>
+										<option value="10" >OCTUBRE </option>
+										<option value="11" >NOVIEMBRE </option>
+										<option value="12" >DICIEMBRE </option>
+									</select>
+                            </div>                          
+		                    <div class="col-xs-4">                               
+		                    	<input type="text" class="form-control" name="spp_aniofin" id="spp_aniofin" placeholder="Gestión" >
+		                    </div>                            
+		                </div>		            
+		                <div class="form-group">
+		                <label class="control-label col-xs-3">MESES DEUDA::</label>
+		                <div class="col-xs-4">                               
+		                    	<input type="text" class="form-control" name="spp_mesfin" id="spp_mesfin" placeholder="Meses Minimo Deuda" >
+		                    </div>                            
+		                </div>
+			            <div class="form-group">
+	                    		<label class="control-label col-xs-4">Formatos:</label>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="spp_tipodoc" value="P" checked>PDF
+	                    			</label>
+	                    		</div>
+	                    		<div class="col-xs-2">
+	                    			<label class="radio-inline">
+	                    				<input type="radio" name="spp_tipodoc" value="X" >EXCEL
+	                    			</label>
+	                    		</div>
+	                    </div>
+	                    <input type="hidden" id="opSocioPendientePago" value="${opSocioPendientePago}">                       
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <!-- data-dismiss="modal" -->
+                    <button type="button" class="btn btn-default" id="btnCancel_sociopendienteDeudor" >Cancelar</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_sociopendienteDeudor">Generar Reporte</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modals Socios Pendientes De Pago-->
 
      <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
@@ -1054,6 +1133,9 @@ function sociosCBPagosMes(){
 function saldoDeudorMes(){
 	$('#myModal-saldoDeudorMes').modal('show');
 }
+function sociospendientepago(){
+	$('#myModal-sociospendientepago').modal('show');
+}
 
 //RESUMEN SALDOS DEUDORES HASTA MES DETERMINADO   
 function resumenSaldoDeudorMes(){
@@ -1124,10 +1206,12 @@ $(document).ready(function () {
 			$('#myModal-pagosMesCB').modal('hide');
 		});
 		// 
+		$("#btnCancel_sociopendienteDeudor").click(function(){
+			$('#myModal-sociospendientepago').modal('hide');
+		});
 		$("#btnCancel_saldoDeudor").click(function(){
 			$('#myModal-saldoDeudorMes').modal('hide');
 		});
-		
 		// 
 		$("#btnCancel_resumenSaldoDeudor").click(function(){
 			$('#myModal-resumenSaldoDeudorMes').modal('hide');
@@ -1222,7 +1306,19 @@ $(document).ready(function () {
  			} 			
         });
         
-        
+        //Butons REPORTES DE Socio Pendiente Deudor    
+ 		$("#btnAcept_sociopendienteDeudor").click(function(){
+ 			if (valida_sociopendienteDeudor() == 0) {
+ 				var xtipodoc=$('input[name=spp_tipodoc]:checked').val();
+	 			var op=$("#opSocioPendientePago").val();
+	 			
+	 			var mesini=$('#spp_mes2').val();
+	 			var aniofin=$('#spp_aniofin').val();
+	 			var mes=$('#spp_mesfin').val();
+	 			 			
+	 			window.open('reportesServicios103.html?opcion='+op+'&aniofin='+aniofin+'&mesini='+mesini+'&tipodoc='+xtipodoc+'&mes='+mes,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+ 			} 			
+        });
 		//Butons REPORTES DE SALDO DEUDOR  HASTA MES    
  		$("#btnAcept_saldoDeudor").click(function(){
  			if (valida_saldoDeudor() == 0) {
@@ -1439,7 +1535,40 @@ $(document).ready(function () {
 			}			
  			return sw;
  		}	
- 		// 
+ 		
+ 		function valida_sociopendienteDeudor(){
+ 			var sw=0;
+ 			
+ 			var xaniofin=$('#spp_aniofin').val();
+ 			var xaniofin2=$.trim(xaniofin);
+ 			if (xaniofin2 != xaniofin) {
+				$('#spp_aniofin').val(xaniofin2);
+				xaniofin=xaniofin2;
+			}
+ 			 
+ 			var xmes=$('#spp_mesfin').val();
+ 			var xmes2=$.trim(xmes);
+ 			if (xmes2 != xmes) {
+				$('#spp_mesfin').val(xmes2);
+				xmes=xmes2;
+			}
+ 			 			
+ 			if ((!isNaN(xaniofin))&&(xaniofin != '')&&(parseInt(xaniofin) >= 2000)&&(parseInt(xaniofin) < 2040)){ 			 			
+				if ((!isNaN(xmes))&&(xmes != '')&&(parseInt(xmes) >= 0)&&(parseInt(xmes) <= 12)){
+					sw=0;	
+				}else{
+					sw=1;
+		 			menError('Error..!', '<B>MESES DEUDA NO ES VALIDO</B>..[0..12]');
+					$('#spp_mesfin').focus();
+				}
+			}else{
+				sw=1;
+		 		menError('Error..!', '<B>LA FECHA FINAL -HASTA- NO ES VALIDO</B>..[2000..2040]');
+				$('#spp_aniofin').focus();
+			}				
+ 			return sw;
+ 		}
+
 		function valida_saldoDeudor(){
  			var sw=0;
  			

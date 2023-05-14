@@ -97,8 +97,8 @@ public class ReportesSocios {
 			model.addAttribute("opSociosMenores", crypt.encrypt("Socios_Menores"));
 			model.addAttribute("opBeneficiarios", crypt.encrypt("Socios_Beneficiarios"));
 			model.addAttribute("opKardexPagosSocios", crypt.encrypt("Kardex_Pagos_Socios"));
-			
-			model.addAttribute("opListaSocios", crypt.encrypt("lista_Socios"));
+			model.addAttribute("opBeneficiarios", crypt.encrypt("Socios_Beneficiarios"));					
+			model.addAttribute("opSocioPendientePago", crypt.encrypt("Socio_Pendiente_Pago"));
 //			<input type="hidden" name="opcion" id="opcion_json" value="${op_json}" >
 			model.addAttribute("opResSaldoDeudor", crypt.encrypt("Resumen_Saldo_Deudor"));
 			
@@ -345,6 +345,49 @@ String xres = this.reportesSociosManager.setPagosMes(Integer.parseInt(xanio1),In
 					}
 				}
 				
+				//LISTA DE LUGAR JSON     
+				if (op.equals("Socio_Pendiente_Pago")){
+					String xanioini="2000";
+					String xmesini="1";
+					String xanio1=req.getParameter("aniofin");
+					String xmes=req.getParameter("mesini");
+					String xmesdeuda=req.getParameter("mes");
+					String xtipodoc=req.getParameter("tipodoc");
+					String xfinicio="1";//1=SIN  0=CON
+					
+//System.out.println("SALDO DEUDOR ----> XANIO::"+xanio1+" xmes::"+xmes+" xtipodoc::"+xtipodoc+" anioini="+xanioini+" xmesini="+xmesini+" xfinicio="+xfinicio);	
+//'&anioini='+anioini+'&mesini='+mesini
+
+					
+					String[] xmeses={"ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"};
+					
+					String xparam="";
+					if (xfinicio.equals("1")){
+						xmesini="1";xanioini="1900";
+						int index = (Integer.parseInt(xmes) - 1 - Integer.parseInt(xmesdeuda) + 12) % 12;
+						xparam = "DEBEN PAGAR HASTA::" + xmeses[index];
+					}else{
+xparam=" SALDOS  DESDE::"+xmeses[Integer.parseInt(xmesini)-1]+"/"+String.valueOf(xanioini)+"  HASTA::"+xmeses[Integer.parseInt(xmes)-1]+"/"+String.valueOf(xanio1);
+					}
+
+					String xres = this.reportesSociosManager.setSaldoDeudor(Integer.parseInt(xanioini),Integer.parseInt(xmesini),Integer.parseInt(xanio1),Integer.parseInt(xmes),xlogin);
+					
+					Map<String,Object> params = new HashMap<>();
+					params.put("anio", xanio1);
+					params.put("mes", xparam);// xmeses[Integer.parseInt(xmes)-1]);
+					params.put("mesdeuda", xmesdeuda);
+					params.put("responsable", xusuario);
+					params.put("xlogin", xlogin);
+//					params.put("estados", xest[xpro1]+","+xest[xpro2]+","+xest[xpro3]+","+xest[xpro4]);
+//					System.out.println(xanio1+" "+ xparam +" "+ xmesdeuda +" "+ xusuario);
+					//llamada a la clase GenerarReportes
+					GenerarReportes rep=new GenerarReportes();
+					if (xtipodoc.equals("P")){
+						String xsal=rep.generadorReportes(res, req, this.dataSource.getConnection(), params, "reports/sociosPendientePago.jasper", "sociosPendientePago");
+					}else{
+						rep.generadorReportesToExcel(res, req, this.dataSource.getConnection(), params, "reports/sociosPendientePagoXLS.jasper", "sociosPendientePago");						
+					}
+				}
 				//LISTA DE LUGAR JSON     
 				if (op.equals("Saldo_Deudor")){
 					String xanioini=req.getParameter("anioini");
