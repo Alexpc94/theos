@@ -20,9 +20,9 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select p.codigoper,p.nombre,p.ap,p.am,x.saldoant,x.obs,x.estsocio,p.newcodigoper
+		<![CDATA[select p.codigoper,p.nombre,p.ap,p.am,x.saldoant,x.obs,x.estsocio,p.newcodigoper, x.total
 from xsaldosocios x, personal p
-where x.login=$P{xlogin} and x.codper=p.codper
+where x.login=$P{xlogin} and x.codper=p.codper and x.total > 0
 order by p.ap,p.am,p.nombre]]>
 	</queryString>
 	<field name="codigoper" class="java.lang.Integer"/>
@@ -33,6 +33,7 @@ order by p.ap,p.am,p.nombre]]>
 	<field name="obs" class="java.lang.String"/>
 	<field name="estsocio" class="java.lang.String"/>
 	<field name="newcodigoper" class="java.lang.String"/>
+	<field name="total" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -136,18 +137,25 @@ order by p.ap,p.am,p.nombre]]>
 				<text><![CDATA[ACCION]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="81" y="118" width="94" height="14" uuid="1f6cfb57-30ec-4b43-b7f7-2acb70de2e45"/>
+				<reportElement x="122" y="118" width="94" height="14" uuid="1f6cfb57-30ec-4b43-b7f7-2acb70de2e45"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cliente]]></text>
+				<text><![CDATA[CLIENTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="195" y="118" width="56" height="14" uuid="fd1775f5-9825-4c06-b16b-a97d1fc49bfe"/>
+				<reportElement x="294" y="118" width="56" height="14" uuid="fd1775f5-9825-4c06-b16b-a97d1fc49bfe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="118" width="56" height="14" uuid="98f7f0cb-e0f4-41d1-b8e0-5727f4b54b2d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MESES]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -155,7 +163,7 @@ order by p.ap,p.am,p.nombre]]>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="32" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<line>
 				<reportElement x="5" y="1" width="544" height="1" uuid="f12bbfc4-14a3-449d-b0e2-70b8852baa32"/>
 				<graphicElement>
@@ -163,40 +171,40 @@ order by p.ap,p.am,p.nombre]]>
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="5" y="12" width="23" height="14" uuid="70413fe1-236a-4616-9459-8677a2dd2dd3"/>
+				<reportElement x="5" y="5" width="23" height="14" uuid="70413fe1-236a-4616-9459-8677a2dd2dd3"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}+".-"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="68" y="12" width="137" height="14" uuid="91dd55ee-e1ef-44bb-b233-b57c42369b3e"/>
+				<reportElement x="96" y="5" width="208" height="14" uuid="91dd55ee-e1ef-44bb-b233-b57c42369b3e"/>
 				<textElement textAlignment="Left">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ap}+" "+$F{am}+" "+$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="30" y="12" width="22" height="14" uuid="415ccf41-83a9-41a7-9b1a-64f775786cd8"/>
+				<reportElement x="30" y="5" width="49" height="14" uuid="415ccf41-83a9-41a7-9b1a-64f775786cd8"/>
 				<textElement textAlignment="Left">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{newcodigoper}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="205" y="12" width="64" height="14" uuid="08cbfd50-8984-492e-8b2f-3c3173b6bd01"/>
+				<reportElement x="304" y="5" width="64" height="14" uuid="08cbfd50-8984-492e-8b2f-3c3173b6bd01"/>
 				<textElement textAlignment="Left">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{estsocio}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="269" y="12" width="100" height="14" uuid="82ea6e4b-bc29-4711-b00e-163c1b9cb6ac"/>
-				<textElement textAlignment="Center">
-					<font fontName="SansSerif" size="6"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="380" y="5" width="64" height="14" uuid="e290609e-bc83-4f5f-bb90-7fcfb54aaa49"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
 				</textElement>
-				<text><![CDATA[RESPONSABLE]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
