@@ -211,275 +211,151 @@ DECLARE
   COST 100;
 ALTER FUNCTION public.add_transferencia(date, integer, integer, text, text, integer)
   OWNER TO postgres;
-**********************************************************
+  
+  
+  -- Function: public.add_transferencia(date, integer, integer, text, text, integer)
 
-  *************************************************
--- Function: public.login(text, text)
+-- DROP FUNCTION public.add_transferencia(date, integer, integer, text, text, integer);
 
--- DROP FUNCTION public.login(text, text);
-
-CREATE OR REPLACE FUNCTION public.login(
+CREATE OR REPLACE FUNCTION public.add_transferencia(
+    xfecha date,
+    xcodper_ant integer,
+    xcodper_nue integer,
     xlogin text,
-    xclave text)
+    xobser text,
+    xinterespagar integer)
   RETURNS text AS
 $BODY$
-	DECLARE 
-		xcant int;
-		xcont int;
-		xcontalert int;
-		xcumple int;
-		xres text;
-		xnom text;
-		xap text;
-		xam text;
-		miFila RECORD;
-		xroles text;
-		xmenus text;
-		xprocesos text;
-		xpriv text;
-		xalertas text;
-		xalertas2 text;
-    BEGIN
-		xcant:=0; xcont:=0; xroles:=''; xmenus:=''; xprocesos:=''; xpriv:='';
-		select count(*) into xcant from usuarios where (login=$1)and(clave=$2);
-		if (xcant > 0) then
-			xcont:=1; --INICIALIZA BANDERA
-			--sacando datos del usuario
-			select p.nombre,p.ap,p.am into xnom,xap,xam
-			from usuarios u, personalsis p
-			where u.codper=p.codper and u.login=$1;
-			--verificando si usuario no tiene AM.
-			if (xap  is null) then
-				xap='';
-			end if;
-			if (xam  is null) then
-				xam='';
-			end if;
-			
-			--SACANDO LOS ROLES
-			FOR miFila in 
-					select r.codr, r.nombre
-					from usurol ur, roles r
-					where ur.login=$1 and ur.codr=r.codr LOOP
-				if (xcont > 1) then
-						xroles:=xroles||'@';
-				end if;
-				xroles:=xroles||miFila.codr||'@'||mifila.nombre;
-				xcont:=2;
-			END LOOP;
-			if (xcont = 1) then
-				xroles:='-';
-			end if;
-			
-			xcont:=1; --INICIALIZA BANDERA
-			
-			--SACANDO LOS MENUS
-			FOR miFila in 
-					select rm.codr,m.codm, m.nombre
-					from usurol ur, roles r, rolmen rm, menus m
-					where ur.login=$1 and ur.codr=r.codr and
-						  r.codr=rm.codr and rm.codm=m.codm	
-					order by 1,2 LOOP
-				if (xcont > 1) then
-						xmenus:=xmenus||'@';
-				end if;
-				xmenus:=xmenus||miFila.codr||'@'||miFila.codm||'@'||mifila.nombre;
-				xcont:=2;
-			END LOOP;
-			if (xcont = 1) then
-				xmenus:='-';
-			end if;
-			
-			xcont:=1; --INICIALIZA BANDERA
-			
-			--SACANDO PROCESOS
-			FOR miFila in 
-				select rm.codr,m.codm,p.codp,p.nombre,p.link,p.help
-				from usurol ur, roles r, rolmen rm, menus m, menpro mp, procesos p
-				where ur.login=$1 and ur.codr=r.codr and
-					  r.codr=rm.codr and rm.codm=m.codm	and
-					  m.codm=mp.codm and mp.codp=p.codp
-				order by 1,2,3 LOOP
-				if (xcont > 1) then
-						xprocesos:=xprocesos||'@';
-				end if;
-				xprocesos:=xprocesos||miFila.codr||'@'||miFila.codm||'@'||miFila.codp||'@'||mifila.nombre||'@'||mifila.link||'@'||mifila.help;
-				xcont:=2;
-			END LOOP;
-			if (xcont = 1) then
-				xprocesos:='-';
-			end if;
-			
-			xcont:=1; --INICIALIZA BANDERA	
-			--SACANDO PRIVILEGIOS
-			FOR miFila in 
-				select DISTINCT mv.opcion, mv.codp2, mv.codm2
-				from usurol ur, roles r, rolmen rm, menus m, menpro mp, mepriv mv
-				where ur.login=$1 and ur.codr=r.codr and
-					  r.codr=rm.codr and rm.codm=m.codm	and
-					  m.codm=mp.codm and 
-					  mp.codp=mv.codp2 and mp.codm=mv.codm2
-				order by mv.codm2 LOOP
-				if (xcont > 1) then
-						xpriv:=xpriv||'@';
-				end if;
-				xpriv:=xpriv||miFila.codm2||'@'||miFila.codp2||'@'||miFila.opcion;
-				xcont:=2;
-			END LOOP;
-			if (xcont = 1) then
-				xpriv:='-';
-			end if;
-			
-			--VERIFICAR PARA LAS ALERTAS  xcontalert
-			select count(*) into xcontalert
-			from  (
-				select  p.codigoper
-				from personal p, estado e, estadosoc s
-				where p.activo=1 and extract(year from age(p.fnac))>=0 and extract(year from age(p.fnac))<21 and
-					  p.codper=e.codper and e.sw=1 and e.codes_real <> 200 and e.codes_real=s.codes
-				UNION ALL
-				select  p.codigoper
-				from personal p, estado e, estadosoc s
-				where p.activo=1 and extract(year from age(p.fnac))>=21 and extract(year from age(p.fnac))<25 and
-					  p.codper=e.codper and e.sw=1 and e.codes_real <> 400 and e.codes_real=s.codes
-				UNION ALL
-				select  p.codigoper
-				from personal p, estado e, estadosoc s
-				where p.activo=1 and extract(year from age(p.fnac))>25 and
-					  p.codper=e.codper and e.sw=1 and e.codes_real <> 100 and e.codes_real <> 300 and e.codes_real=s.codes
-				UNION ALL
-				select  pp.codigoper
-				from personal p, personal pp  
-				where p.benef=1 and p.benef_estado=1 and p.conyuge=0 and extract(year from age(p.fnac))>=21 and  
-					  p.padre=pp.codper and pp.activo=1 
-			) as datos;
-			if (xcontalert is null) then xcontalert=0; end if;
-			if (xcontalert > 0) then 
-				xalertas='1';
-			else
-				xalertas='0';
-			end if;	
-			
-			--VERIFICAR PARA LAS ALERTAS CUMPLEAÑOS xcontalert
-			SELECT count(*) into xcumple
-			FROM personal p ,estado e 
-			WHERE p.codper = e.codper 
-			AND p.activo = 1 AND p.benef = 0 AND p.estado = 1 AND e.sw = 1 
-			AND DATE_PART('day', NOW()) = DATE_PART('day', p.fnac) 
-			AND DATE_PART('month', NOW()) = DATE_PART('month', p.fnac);
-			
-			if (xcumple is null) then xcumple=0; end if;
-			if (xcumple > 0) then 
-				xalertas2='1';
-			else
-				xalertas2='0';
-			end if;	
-			
-			xres:=xnom||' '||xap||' '||xam||'>'||xroles||'>'||xmenus||'>'||xprocesos||'>'||xpriv||'>'||xalertas||'>'||xalertas2;
-		else 
-			--cuando no existe el usuario
-			xres:='0';
-		end if;
+DECLARE 
+	xaccion integer;
+	xnewaccion text;
+    BEGIN		
+		--SELECCIONA accion
+		select codigoper into xaccion
+		from personal
+		where codper=$2;
 		
-        RETURN xres;
+		select newcodigoper into xnewaccion 
+		from personal
+		where codper=$2;
+		insert into transferencias(fecha,codper_padre,codper_hijo,login,obser,accion,interes)
+			values($1,$2,$3,$4,$5,xnewaccion,$6);
+		
+		--INHABILITA A SOCIO ANTIGUO = transfer=si tranfirio su cuenta
+		update personal
+		set activo=0,transfer=1, codper_transfer=$3
+		where codper=$2;
+		
+		--INHABILITA A SOCIO NUEVO = transfer_sw= si es por tranferecia 
+		update personal
+		set transfer_sw=1, codper_transfer=$2, codigoper=xaccion, newcodigoper=xnewaccion 
+		where codper=$3;
+		
+        RETURN '0';
+		EXCEPTION
+			when unique_violation then 
+			return '1';
+			when others then 
+			return '2';
     END;
 	$BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION public.login(text, text)
+ALTER FUNCTION public.add_transferencia(date, integer, integer, text, text, integer)
   OWNER TO postgres;
+  -- Function: public.add_transferencia(date, integer, integer, text, text, integer)
 
-**************************************************
-CREATE OR REPLACE FUNCTION xgen_saldo_pendiente_pago(
-    xanioini integer,
-    xmesini integer,
-    xanio integer,
-    xmes integer,
+-- DROP FUNCTION public.add_transferencia(date, integer, integer, text, text, integer);
+
+CREATE OR REPLACE FUNCTION public.add_transferencia(
+    xfecha date,
+    xcodper_ant integer,
+    xcodper_nue integer,
     xlogin text,
-	xmesdeuda integer)
+    xobser text,
+    xinterespagar integer)
   RETURNS text AS
 $BODY$
 DECLARE 
-	xsocios RECORD;
-	xboletas RECORD;
-	ksw integer;
-	ktotal float;
-	kanio integer;
-	kmes integer;
-	kobs text;
-	xsalant float;
-	xcant integer;
-BEGIN
-		--INICIALIZA
-		delete from xsaldosocios where login=$5;
+	xaccion integer;
+	xnewaccion text;
+    BEGIN		
+		--SELECCIONA accion
+		select codigoper into xaccion
+		from personal
+		where codper=$2;
 		
-		--ANALIZA BOLETA PARA UN SOCIO
-		FOR xsocios in 
-			select p.codper, p.nombre,p.ap,p.am, s.nombre as estsoc
-			from personal p, estado e, estadosoc s
-			where p.benef=0 and p.activo=1 and p.estado=1 and p.codper=e.codper and e.sw=1 and e.codes=s.codes
-		LOOP
-			--SALDO ANTERIOR
-			select sum(b.saldo) into xsalant
-			from estado e, boletas b
-			where e.codper=xsocios.codper and e.codestado=b.codestado and b.estado=1 and b.saldo>0 and 
-				  ((b.anio * 12)+b.mes)>=(($1 * 12)+$2) and ((b.anio * 12)+b.mes)<=(($3 * 12)+$4);
-			if (xsalant is null) then xsalant=0; end if; 
+		select newcodigoper into xnewaccion 
+		from personal
+		where codper=$2;
+		insert into transferencias(fecha,codper_padre,codper_hijo,login,obser,accion,interes)
+			values($1,$2,$3,$4,$5,xnewaccion,$6);
+		
+		--INHABILITA A SOCIO ANTIGUO = transfer=si tranfirio su cuenta
+		update personal
+		set activo=0,transfer=1, codper_transfer=$3
+		where codper=$2;
+		
+		--INHABILITA A SOCIO NUEVO = transfer_sw= si es por tranferecia 
+		update personal
+		set transfer_sw=1, codper_transfer=$2, codigoper=xaccion, newcodigoper=xnewaccion 
+		where codper=$3;
+		
+        RETURN '0';
+		EXCEPTION
+			when unique_violation then 
+			return '1';
+			when others then 
+			return '2';
+    END;
+	$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION public.add_transferencia(date, integer, integer, text, text, integer)
+  OWNER TO postgres;
+  
+  
+  -- Function: public.deltransferencia(integer, integer, integer, text)
+
+-- DROP FUNCTION public.deltransferencia(integer, integer, integer, text);
+
+CREATE OR REPLACE FUNCTION public.deltransferencia(
+    xcodtra integer,
+    xcodper_ant integer,
+    xcodper_nue integer,
+    xlogin text)
+  RETURNS text AS
+$BODY$
+	DECLARE
+		xsaldo int;
+		
+	BEGIN
+		--SELECCIONA si tiene saldo o no
+		select sum(b.saldo) into xsaldo
+		from estado e, boletas b
+		where e.codper=$3 and e.estado=1 and e.codestado=b.codestado and b.estado=1 and
+			  b.saldo>0;
+		
+		if (xsaldo is null) then xsaldo=0;  end if;
+		if ((xsaldo = 0)) then
+			update transferencias
+			set estado=0, logindel=$4
+			where codtra=$1;
+					
+			--INHABILITA A SOCIO ANTIGUO = transfer=si tranfirio su cuenta
+			update personal
+			set activo=1,transfer=0, codper_transfer=0
+			where codper=$2;
 			
-			ksw=0;
-			ktotal=0;
-			kanio=0;
-			kmes=0;
-			kobs='';
-			xcant=0;
-			if (xsalant > 0) then
-						insert into xsaldosocios(login,codper,estsocio,saldoant,saldo,total,obs)
-						values($5,xsocios.codper,xsocios.estsoc,xsalant,0,0,'');
-						
-						--LISTA BOLETAS PARA SOMETERLO MES A MES
-						FOR xboletas in 
-							select e.codper,b.mes,b.anio,b.monto,b.saldo
-							from estado e, boletas b
-							where e.codper=xsocios.codper and e.codestado=b.codestado and b.estado=1 and b.saldo>0 and 
-								 ((b.anio * 12)+b.mes)>=(($1 * 12)+$2) and ((b.anio * 12)+b.mes)<=(($3 * 12)+$4)
-							order by b.anio,b.mes
-						LOOP
-							if (ksw=0) then
-								kanio=xboletas.anio;
-								ktotal=xboletas.saldo;
-								kmes=xboletas.mes;
-								ksw=1;
-								kobs=cast(kmes as varchar);
-								xcant=xcant + 1;
-							else 
-								kmes=kmes + 1;
-								if ((kanio=xboletas.anio)and(kmes=xboletas.mes))	then
-									ktotal=ktotal + xboletas.saldo;	
-									kobs=kobs ||','|| cast(xboletas.mes as varchar);										
-									xcant=xcant + 1;
-								else
-									kobs=kobs ||'..'|| cast(kanio as varchar)||'=('||cast(ktotal as varchar)||')';
-									--INICIALIZA
-									kanio=xboletas.anio;
-									ktotal=xboletas.saldo;
-									kmes=xboletas.mes;
-									kobs=kobs||'..'||cast(kmes as varchar);
-									xcant=xcant + 1;
-								end if;
-							end if;							
-						END LOOP;  --loope FOR
-				if (ksw=1) then 	
-					if ((xcant - xmesdeuda) > 0) then
-						kobs=kobs ||'..'|| cast(kanio as varchar)||'=('||cast(ktotal as varchar)||')';
-						update xsaldosocios 
-						set saldoant=xsalant, obs=kobs, total=xcant
-						where codper=xsocios.codper and login=$5;
-					end if;
-				end if;
-			end if;	
-		END LOOP;  --loop SOCIO
-				
-        RETURN  '0';
+			--INHABILITA A SOCIO NUEVO = transfer_sw= si es por tranferecia 
+			update personal
+			set transfer_sw=0, codper_transfer=0, codigoper=0, newcodigoper=0, activo=0
+			where codper=$3;
+		else 
+			xsaldo='xxx';
+		end if;
+		
+        RETURN 0;
 		EXCEPTION
 			when others then 
 			return '1';
@@ -487,6 +363,73 @@ BEGIN
 	$BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION public.xgen_saldo_deudor(integer, integer, integer, integer, text)
+ALTER FUNCTION public.deltransferencia(integer, integer, integer, text)
   OWNER TO postgres;
-***************************************************
+  
+  
+-- Function: public.addaccion(date, text, integer, double precision, text, integer, integer, text, integer, double precision, double precision, double precision)
+
+-- DROP FUNCTION public.addaccion(date, text, integer, double precision, text, integer, integer, text, integer, double precision, double precision, double precision);
+
+CREATE OR REPLACE FUNCTION public.addaccion(
+    xfecha date,
+    xnro text,
+    xcodper integer,
+    xmonto double precision,
+    xobser text,
+    xmesactiv integer,
+    xanioactiv integer,
+    xlogin text,
+    xnrocuota integer,
+    xinteres double precision,
+    xcuota double precision,
+    xmontotal double precision)
+  RETURNS text AS
+$BODY$
+	DECLARE 
+		xaccion int;
+		xges text;
+		xcodigo text;
+		xnroaccion int;
+		xsw int;
+BEGIN		
+		--OBTENCION DE DATOS PARA LA FACTURA
+		select accion_id,ges,nroaccion into 
+				xaccion,xges,xnroaccion
+		from general 
+		where codg=1;
+		
+		xaccion=xaccion + 1;
+		xcodigo=to_char(xaccion, '00000')||xges;
+		xcodigo=trim(xcodigo);
+		
+		select count(*) into xsw
+		from personal
+		where newcodigoper=$2 and codper<>$3;
+		
+		if (xsw is null) then xsw=0; end if;
+		if (xsw > 0) then  xsw='xxx'; end if;
+		
+		insert into accion(coda,fecha,nro,monto,saldo,obs,mesactiv,anioactiv,codper,login,cantcuota,interes,cuota,montotal) 
+			values(xcodigo,$1,$2,$4,$12,$5,0,0,$3,$8,$9,$10,$11,$12);		
+		
+		update personal
+		set newcodigoper=$2
+		where codper=$3;
+		
+		--ACTULIZA TABLA GENERAL
+		update general set accion_id=xaccion where codg=1;
+		
+        RETURN '0';
+		EXCEPTION
+			when unique_violation then 
+			return '1';
+			when others then 
+			return '2';
+    END;
+	$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION public.addaccion(date, text, integer, double precision, text, integer, integer, text, integer, double precision, double precision, double precision)
+  OWNER TO postgres;
+  

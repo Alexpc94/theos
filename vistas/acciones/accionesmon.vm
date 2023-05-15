@@ -884,7 +884,7 @@ $(document).ready(function () {
 */ 			
  			
  			if (validaFechaDDMMAAAA(xfecha)){
- 				if ((!isNaN(xnro))&&(xnro != '')&&(parseFloat(xnro) > 0)){
+ 				if (xnro != ''){
  					if (xcodper != ''){
 		 					if ((/^([0-9])*[.]?[0-9]*$/.test(xmonto))&&(xmonto != '')&&(parseFloat(xmonto) > 0)){
 		 						sw=0;

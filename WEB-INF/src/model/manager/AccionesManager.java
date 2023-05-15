@@ -50,7 +50,7 @@ public class AccionesManager {
 			        	Accion est = new Accion();
 			        	est.setCoda(rs.getString("coda"));
 			        	est.setCodper(rs.getInt("codper"));
-			        	est.setNro(rs.getInt("nro"));
+			        	est.setNro(rs.getString("nro"));
 			        	est.setMonto(rs.getFloat("monto"));
 			        	est.setMontotal(rs.getFloat("montotal"));
 			        	est.setSaldo(rs.getFloat("saldo"));
@@ -70,7 +70,7 @@ public class AccionesManager {
 	}
 	
 	public List<Personal> listarSocios(int xest1, int xest2){
-		String xsql=" 	select p.codper,p.codigoper,p.nombre,p.ap,p.am   "
+		String xsql=" 	select p.codper,p.codigoper,p.nombre,p.ap,p.am,p.newcodigoper   "
 				+"		from personal p  "
 				+"		where   p.estado=1 and p.activo=0 and p.benef_estado=1 and   "
 				+"				NOT EXISTS (  "
@@ -89,6 +89,7 @@ public class AccionesManager {
 			        	est.setNombre(rs.getString("nombre"));
 			        	est.setAp(rs.getString("ap"));
 			        	est.setAm(rs.getString("am"));
+			        	est.setNewcodigoper(rs.getString("newcodigoper"));
 			        return est;
 			        }
 			    },new Object[] {});
@@ -119,7 +120,7 @@ public class AccionesManager {
 			        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 			        	Accion per = new Accion();
 			        	per.setCoda(rs.getString("coda"));
-			        	per.setNro(rs.getInt("nro"));
+			        	per.setNro(rs.getString("nro"));
 			        	per.setObs(rs.getString("obs"));
 			        	per.setFecha(rs.getDate("fecha"));
 			        	per.setMonto(rs.getFloat("monto"));
@@ -136,7 +137,7 @@ public class AccionesManager {
 		return per;		
 	}
 	
-	public String setAddAccion(Date fecha,int xnro,int xcodper,float xmonto,String xobser,int xmesactiv,int xanioactiv,String xlogin,int xnrocuota,float xinteres,float xcuota,float xmontotal){
+	public String setAddAccion(Date fecha,String xnro,int xcodper,float xmonto,String xobser,int xmesactiv,int xanioactiv,String xlogin,int xnrocuota,float xinteres,float xcuota,float xmontotal){
 		return this.jdbcTemplate.queryForObject("select addAccion(?,?,?,?,?,?,?,?,?,?,?,?)", String.class,new Object[] {fecha,xnro,xcodper,xmonto,xobser,xmesactiv,xanioactiv,xlogin,xnrocuota,xinteres,xcuota,xmontotal});
 	}
 	

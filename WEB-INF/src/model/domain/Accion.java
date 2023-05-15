@@ -10,7 +10,7 @@ public class Accion {
 	Utilitarios u=new Utilitarios();
 	
 	public String coda;
-	public int nro;
+	public String nro;
 	public float monto;
 	public float saldo;
 	public String obs;
@@ -69,10 +69,10 @@ public class Accion {
 	public void setCoda(String coda) {
 		this.coda = coda;
 	}
-	public int getNro() {
+	public String getNro() {
 		return nro;
 	}
-	public void setNro(int nro) {
+	public void setNro(String nro) {
 		this.nro = nro;
 	}
 	public float getMonto() {
