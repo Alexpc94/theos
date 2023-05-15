@@ -43,8 +43,6 @@ public class Acceso {
 		session.removeAttribute("s_procesos");
 		session.removeAttribute("s_rolActivoID");
 		session.removeAttribute("s_menuActivo");
-		
-
 		return "/acceso/acceso";
 	}
 	
@@ -63,8 +61,10 @@ public class Acceso {
 			parts = xres.split(">");
 //System.out.println("tamaño del Vector..!->"+parts.length);	
 			//completa los nulos
-			for (int i=parts.length; i<5;i++)
-				parts[i]="-";
+			for (int i=0; i<5;i++){
+				//parts[i]="-";
+				//System.out.println(i+" -> "+parts[i]);
+			}	
 //System.out.println("otro tamaño del Vector..!->"+parts.length);				
 			String xusuario = parts[0]; // usuario
 			String xroles = parts[1]; // roles
@@ -72,6 +72,8 @@ public class Acceso {
 			String xprocesos = parts[3]; // procesos
 			String xprivilegios = parts[4]; // privilegios
 			String xalertas = parts[5]; // alertas, si es que existen datos para alertar
+			String xalertas2 = parts[6]; // alertas para cumpleaños
+			System.out.println(" xalertas cumple -> "+xalertas2+ " part_6:"+parts[6]);
 //System.out.println(" privs="+xprivilegios);			
 			HttpSession session=request.getSession(true);
 			session.setAttribute("s_login", xuser );
@@ -81,6 +83,7 @@ public class Acceso {
 			session.setAttribute("s_procesos", xprocesos );
 			session.setAttribute("s_privilegios", xprivilegios );
 			session.setAttribute("s_alertas", xalertas );
+			session.setAttribute("s_alertas2", xalertas2 );//alerta de cumpleaños puede retronar 0 o 1
 //System.out.println("LLEGO HASTA AQUI..!");			
 			//source: Usuarios
 			response.sendRedirect("index2.html");

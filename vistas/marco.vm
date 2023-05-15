@@ -227,15 +227,17 @@
                 <td width="5%">
                     <div id="alertar">
                         <img  src="images/img-sis/warning.gif" style="width:23px;" title="Hacer click para ver.."><br>Beneficiarios Mayores
-                    </div>
-                    
+                        ${xalertas}
+                    </div>                    
                 </td>
-              #end  
+              #end
+              #if (${xalertas2} == '1')  
                 <td width="5%">
                     <div id="birth">
                         <img  src="images/img-sis/warning.gif" style="width:23px;" title="Hacer click para ver.."><br>Socios en cumpleaños    
                     </div>
                 </td>
+  			  #end
               <td width="25%">
                 Fecha:<span>${xfecha}</span> &nbsp;&nbsp;  - &nbsp;&nbsp; <span><a href="/theos/index.html"><img src="images/taskbar/group.png" alt="User" /> Desconectase</a></span>
               </td>

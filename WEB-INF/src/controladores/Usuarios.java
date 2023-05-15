@@ -52,7 +52,11 @@ import utils.Utilitarios;
 			String xmenus=(String) session.getAttribute("s_menus");
 			String xprocesos=(String) session.getAttribute("s_procesos");
 			String xalertas=(String) session.getAttribute("s_alertas");
-						
+			String xalertas2=(String) session.getAttribute("s_alertas2"); //es de cumpleaños
+			if (xalertas2==null)	{
+				System.out.println("es nulo;");
+//				xalertas2="1";
+			}
 			//System.out.println("wwwwusuario::"+xusuario);
 			//System.out.println("roles::"+xroles);
 			//System.out.println("menus::"+xmenus);
@@ -138,7 +142,8 @@ import utils.Utilitarios;
 			model.addAttribute("xusuario", xusuario );
 			model.addAttribute("xfecha", xfecha );
 			model.addAttribute("xalertas", xalertas );
-			
+			model.addAttribute("xalertas2", xalertas2 );
+		
 			model.addAttribute("file1", comodoTpl+"/usuarios/listaUs.vm" );		
 			return "marco";
 		}

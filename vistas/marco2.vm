@@ -112,7 +112,7 @@
 		        Usuario Conectado:<span>${xusuario}</span>
 		      </td>
 		      <td>
-		        Copyright &copy; Theos - 2017
+		        Copyright &copy; Theos - 2017 v1.1.11-2
 		      </td>
 		      <td>
 		        Fecha:<span>dd/mm/aaaa</span>   -  <span><a href="/theos/index.html"><img src="images/taskbar/group.png" alt="User" /> Desconectase</a></span>
