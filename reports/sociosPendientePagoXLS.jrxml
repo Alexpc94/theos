@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sociosPendientePagoXLS" pageWidth="1417" pageHeight="842" columnWidth="1377" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6bd9c7bd-9351-403e-900c-4b51ba367ff3">
 	<property name="ireport.zoom" value="2.1435888100000016"/>
-	<property name="ireport.x" value="193"/>
+	<property name="ireport.x" value="418"/>
 	<property name="ireport.y" value="10"/>
 	<parameter name="anio" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -19,9 +19,9 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select p.codigoper,p.nombre,p.ap,p.am,x.saldoant,x.obs,x.estsocio,p.newcodigoper
+		<![CDATA[select p.codigoper,p.nombre,p.ap,p.am,x.saldoant,x.obs,x.estsocio,p.newcodigoper, x.total
 from xsaldosocios x, personal p
-where x.login=$P{xlogin} and x.codper=p.codper
+where x.login=$P{xlogin} and x.codper=p.codper and x.total > 0
 order by p.ap,p.am,p.nombre]]>
 	</queryString>
 	<field name="codigoper" class="java.lang.Integer"/>
@@ -32,6 +32,7 @@ order by p.ap,p.am,p.nombre]]>
 	<field name="obs" class="java.lang.String"/>
 	<field name="estsocio" class="java.lang.String"/>
 	<field name="newcodigoper" class="java.lang.String"/>
+	<field name="total" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -93,6 +94,13 @@ order by p.ap,p.am,p.nombre]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="389" y="52" width="94" height="14" uuid="a883145c-5f92-47d2-886a-aa369aa21057"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MESES]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -130,6 +138,13 @@ order by p.ap,p.am,p.nombre]]>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{estsocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="10" width="94" height="14" uuid="b0dea9af-6cf8-4327-beeb-afec8fe6eea9"/>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

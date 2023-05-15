@@ -675,8 +675,12 @@ System.out.println("XANIO fin::"+xanio1+" xmes::"+xmes1+" xtipodoc::"+xtipodoc+"
 
 					
 					String[] xmeses={"ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"};
+					int xresmes=Integer.parseInt(xmes1);
+					int xresanio =Integer.parseInt(xanio1);
+					if ((xresmes - Integer.parseInt(xmesDeuda)) < 1) { xresmes=xresmes + 12; xresanio=xresanio - 1; }
+					xresmes=xresmes - Integer.parseInt(xmesDeuda);
 					
-					String xparam="DEBEN PAGAR HASTA "+xmeses[Integer.parseInt(xmesDeuda) - 1];
+					String xparam="DEBEN PAGAR HASTA "+xmeses[xresmes - 1];
 //					if (xfinicio.equals("1")){
 					
 					//xparam=" SALDOS TOTALES HASTA::"+xmeses[Integer.parseInt(xmes)-1]+"/"+String.valueOf(xanio1);
@@ -689,7 +693,7 @@ String xres = this.reportesSociosManager.setSaldoDeudor222(Integer.parseInt(xani
 //(int gestionini, int mesini,int gestion1, int mes,String xlogin){
 			
 					Map<String,Object> params = new HashMap<>();
-					params.put("anio", xanio1);
+					params.put("anio", String.valueOf(xresanio));
 					params.put("mes", xparam);// xmeses[Integer.parseInt(xmes)-1]);
 					params.put("responsable", xusuario);
 					params.put("xlogin", xlogin);
@@ -698,9 +702,9 @@ String xres = this.reportesSociosManager.setSaldoDeudor222(Integer.parseInt(xani
 					//llamada a la clase GenerarReportes
 					GenerarReportes rep=new GenerarReportes();
 					if (xtipodoc.equals("P")){
-						String xsal=rep.generadorReportes(res, req, this.dataSource.getConnection(), params, "reports/deudasHastaMes.jasper", "deudasHastaMes");
+						String xsal=rep.generadorReportes(res, req, this.dataSource.getConnection(), params, "reports/sociosPendientePago.jasper", "deudasHastaMes");
 					}else{
-						rep.generadorReportesToExcel(res, req, this.dataSource.getConnection(), params, "reports/deudasHastaMesXLS.jasper", "deudasHastaMes");						
+						rep.generadorReportesToExcel(res, req, this.dataSource.getConnection(), params, "reports/sociosPendientePagoXLS.jasper", "deudasHastaMes");						
 					}
 
 				}
