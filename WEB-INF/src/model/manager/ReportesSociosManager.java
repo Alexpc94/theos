@@ -72,6 +72,9 @@ public class ReportesSociosManager {
 	public String setSaldoDeudor(int gestionini, int mesini,int gestion1, int mes,String xlogin){
 		return this.jdbcTemplate.queryForObject("select xgen_saldo_deudor(?,?,?,?,?)", String.class,new Object[] {gestionini, mesini,gestion1, mes,xlogin});
 	}
+	public String setSaldoDeudor222(int gestionini, int mesini,int gestion1, int mes,String xlogin, int xmesDeuda){
+		return this.jdbcTemplate.queryForObject("select xgen_saldo_pendiente_pago(?,?,?,?,?,?)", String.class,new Object[] {gestionini, mesini,gestion1, mes,xlogin, xmesDeuda});
+	}
 }
 	
 	

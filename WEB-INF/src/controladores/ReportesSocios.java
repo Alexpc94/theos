@@ -101,6 +101,7 @@ public class ReportesSocios {
 			model.addAttribute("opSocioPendientePago", crypt.encrypt("Socio_Pendiente_Pago"));
 //			<input type="hidden" name="opcion" id="opcion_json" value="${op_json}" >
 			model.addAttribute("opResSaldoDeudor", crypt.encrypt("Resumen_Saldo_Deudor"));
+			model.addAttribute("opResSocPen", crypt.encrypt("Resumen_Socio_Pendiente")); //OPCION 10
 			
 			model.addAttribute("xfechaini",xfecha);
 			model.addAttribute("xfechafin",xfecha);
@@ -151,6 +152,7 @@ public class ReportesSocios {
 		  return "marco";	
 	  }
 	
+	  //OPCION 
 	  @RequestMapping("reportesServicios103.html")
 	  public void reportesServicios103(Model model,HttpServletResponse res, HttpServletRequest req) throws JRException, IOException, SQLException, DocumentException, ParseException {
 		  Jencryption crypt=new Jencryption();
@@ -652,15 +654,57 @@ String xparam=" SALDOS  DESDE::"+xmeses[Integer.parseInt(xmesini)-1]+"/"+String.
 
 					//llamada a la clase GenerarReportes					
 					GenerarReportes rep=new GenerarReportes();
-					String xsal=rep.generadorReportes(res, req, this.dataSource.getConnection(), params, "reports/personal/kardexPagosSocios.jasper", "kardexPagosSocios");
-					
-/*					else{
-						rep.generadorReportesToExcel(res, req, this.dataSource.getConnection(), params, "reports/personal/beneficiariosXLS.jasper", "beneficiarios");						
-					}
-*/					
+					String xsal=rep.generadorReportes(res, req, this.dataSource.getConnection(), params, "reports/personal/kardexPagosSocios.jasper", "kardexPagosSocios");								
 				}
 				
-///////////////////////////////////////////////////////////////////////////////////////				
+				//SOCIOS PENDIENTES DE PAGO     
+				if (op.equals("Resumen_Socio_Pendiente")){
+					
+					String xanio1=req.getParameter("aniofin"); //GESTION
+					String xmes1=req.getParameter("mesini"); //MESES
+					String xanioini=xanio1;//gestion incio
+					String xmesini="1"; //MES incio
+					String xmesDeuda=req.getParameter("mes"); //MESES DEUDA
+					String xtipodoc=req.getParameter("tipodoc");
+					//String xfinicio=req.getParameter("xfinicio");//1=SIN  0=CON
+					//xmesini="1";
+					xanioini="1900";
+					System.out.println("SOCIOS PENDIENTES DE PAGO");
+System.out.println("XANIO fin::"+xanio1+" xmes::"+xmes1+" xtipodoc::"+xtipodoc+" anioini="+xanioini+" xmesini="+xmesini+" mes deuda="+xmesDeuda);	
+//'&anioini='+anioini+'&mesini='+mesini
+
+					
+					String[] xmeses={"ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"};
+					
+					String xparam="DEBEN PAGAR HASTA "+xmeses[Integer.parseInt(xmesDeuda) - 1];
+//					if (xfinicio.equals("1")){
+					
+					//xparam=" SALDOS TOTALES HASTA::"+xmeses[Integer.parseInt(xmes)-1]+"/"+String.valueOf(xanio1);
+//					}else{
+//xparam=" SALDOS  DESDE::"+xmeses[Integer.parseInt(xmesini)-1]+"/"+String.valueOf(xanioini)+"  HASTA::"+xmeses[Integer.parseInt(xmes)-1]+"/"+String.valueOf(xanio1);
+//					}
+
+//					String xres = this.reportesSociosManager.s-(Integer.parseInt(xanioini),Integer.parseInt(xmesini),Integer.parseInt(xanio1),Integer.parseInt(xmes),xlogin);
+String xres = this.reportesSociosManager.setSaldoDeudor222(Integer.parseInt(xanioini),Integer.parseInt(xmesini),Integer.parseInt(xanio1),Integer.parseInt(xmes1),xlogin,Integer.parseInt(xmesDeuda));
+//(int gestionini, int mesini,int gestion1, int mes,String xlogin){
+			
+					Map<String,Object> params = new HashMap<>();
+					params.put("anio", xanio1);
+					params.put("mes", xparam);// xmeses[Integer.parseInt(xmes)-1]);
+					params.put("responsable", xusuario);
+					params.put("xlogin", xlogin);
+//					params.put("estados", xest[xpro1]+","+xest[xpro2]+","+xest[xpro3]+","+xest[xpro4]);
+
+					//llamada a la clase GenerarReportes
+					GenerarReportes rep=new GenerarReportes();
+					if (xtipodoc.equals("P")){
+						String xsal=rep.generadorReportes(res, req, this.dataSource.getConnection(), params, "reports/deudasHastaMes.jasper", "deudasHastaMes");
+					}else{
+						rep.generadorReportesToExcel(res, req, this.dataSource.getConnection(), params, "reports/deudasHastaMesXLS.jasper", "deudasHastaMes");						
+					}
+
+				}
+///////////////////////////////////////////////////////////////////////////////////////	
 			}	 
 	  }
 }

@@ -1047,13 +1047,13 @@
 	                    			</label>
 	                    		</div>
 	                    </div>
-	                    <input type="hidden" id="opSocioPendientePago" value="${opSocioPendientePago}">                       
+	                    <input type="hidden" id="opSocioPendientePago" value="${opResSocPen}">                       
                     </form>
                 </div>
                 <div class="modal-footer">
                 <!-- data-dismiss="modal" -->
                     <button type="button" class="btn btn-default" id="btnCancel_sociopendienteDeudor" >Cancelar</button>
-                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_sociopendienteDeudor">Generar Reporte</button>
+                    <button type="button" class="btn btn-primary boton-add" id="btnAcept_sociopendienteDeudor222">Generar Reporte</button>
                 </div>
             </div>
         </div>
@@ -1133,6 +1133,8 @@ function sociosCBPagosMes(){
 function saldoDeudorMes(){
 	$('#myModal-saldoDeudorMes').modal('show');
 }
+
+//SOCIOS PENDIENTES DE PAGO OAM
 function sociospendientepago(){
 	$('#myModal-sociospendientepago').modal('show');
 }
@@ -1319,6 +1321,21 @@ $(document).ready(function () {
 	 			window.open('reportesServicios103.html?opcion='+op+'&aniofin='+aniofin+'&mesini='+mesini+'&tipodoc='+xtipodoc+'&mes='+mes,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
  			} 			
         });
+        
+        //Butons REPORTES DE Socio Pendiente Deudor OAM    
+ 		$("#btnAcept_sociopendienteDeudor222").click(function(){
+ 			if (valida_sociopendienteDeudor() == 0) {
+ 				var xtipodoc=$('input[name=spp_tipodoc]:checked').val();
+	 			var op=$("#opSocioPendientePago").val();
+	 			
+	 			var mesini=$('#spp_mes2').val();
+	 			var aniofin=$('#spp_aniofin').val();
+	 			var mes=$('#spp_mesfin').val();
+	 			 			
+	 			window.open('reportesServicios103.html?opcion='+op+'&aniofin='+aniofin+'&mesini='+mesini+'&tipodoc='+xtipodoc+'&mes='+mes,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=825,height=550,directories=no,location=no');
+ 			} 			
+        });
+        
 		//Butons REPORTES DE SALDO DEUDOR  HASTA MES    
  		$("#btnAcept_saldoDeudor").click(function(){
  			if (valida_saldoDeudor() == 0) {
@@ -1337,7 +1354,7 @@ $(document).ready(function () {
  			} 			
         });
         
-        //Butons RESUMEN SALDO DEUDOR  HASTA MES  OAM    
+        //Butons RESUMEN SALDO DEUDOR  HASTA MES    
  		$("#btnAcept_resumenSaldoDeudor").click(function(){ 			
  			if (valida_resumenSaldoDeudor() == 0) { 				
  				var xtipodoc=$('input[name=resda_tipodoc]:checked').val();
