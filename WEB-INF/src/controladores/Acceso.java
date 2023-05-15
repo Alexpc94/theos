@@ -112,6 +112,13 @@ public class Acceso {
 		return "acceso/listaCumpleaños";	
 	}
 	
+	@RequestMapping({"accion_2.html"})
+	public String accion_2(Model model,HttpServletRequest request,HttpServletResponse response)  throws IOException  {
+		List<?> lisAcciones = this.accesoManager.listarSociosMon();
+		model.addAttribute("xAcciones", lisAcciones);
+		return "acceso/listaAccion";	
+	}
+	
 	@RequestMapping("repo_benef_mayores_02.html")
 	public void repo_benef_mayores_02(HttpServletResponse res, HttpServletRequest req) throws JRException, IOException, SQLException {
 		HttpSession session=req.getSession(true);

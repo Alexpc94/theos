@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import model.domain.Accion;
 import model.domain.Personal;
 
 //@Service indica que la clase es un bean de la capa de negocio
@@ -81,7 +82,46 @@ public class AccesoManager {
 			    },new Object[] {});
 		return est;		
 	}
-
+	
+	public List<Personal> listarSociosMon(){
+		String xsql=" 	SELECT x.coda, x.codper, x.nro, x.monto, x.montotal, x.saldo, x.obs, x.fecha, x.estado, x.login,  "
+				+"			    y.nombre AS estadosoc, x.contador, p.nombre, p.ap, p.am   "
+				+"		FROM accion x   "
+				+"					LEFT JOIN (   "
+				+"					SELECT a.codper, b.nombre  "
+				+"					FROM estado a   "
+				+"					  LEFT JOIN estadosoc b ON a.codes = b.codes  "
+				+"		WHERE a.sw = 1   "
+				+"		) y ON x.codper = y.codper	"
+				+"		JOIN personal p ON x.codper = p.codper	"
+				+"		WHERE x.estado = 1 AND x.saldo = 0 AND y.nombre IS NULL	"
+				+"		order by x.fecha DESC, x.contador DESC  ";
+				List est = this.jdbcTemplate.query(
+			    xsql,
+			    new RowMapper() {
+			        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			        	Accion est = new Accion();
+			        	est.setCoda(rs.getString("coda"));
+			        	est.setCodper(rs.getInt("codper"));
+			        	est.setNro(rs.getString("nro"));
+			        	est.setMonto(rs.getFloat("monto"));
+			        	est.setMontotal(rs.getFloat("montotal"));
+			        	est.setSaldo(rs.getFloat("saldo"));
+			        	est.setObs(rs.getString("obs"));
+			        	est.setFecha(rs.getDate("fecha"));
+			        	est.setEstado(rs.getInt("estado"));
+			        	est.setLogin(rs.getString("login"));
+			        	est.setEstadosoc(rs.getString("estadosoc"));
+			        	est.setContador(rs.getInt("contador"));			        	
+			        	est.setNombre(rs.getString("nombre"));
+			        	est.setAp(rs.getString("ap"));
+			        	est.setAm(rs.getString("am"));
+			        return est;
+			        }
+			    },new Object[] {});
+		return est;		
+	}
+	
 	public List<Personal> listarAlertaVarios(){
 		String xsql=" 	select  p.codigoper,p.codper,p.nombre,p.ap,p.am,s.nombre as estsocio,p.newcodigoper,	"
 				+"			p.fnac, "
