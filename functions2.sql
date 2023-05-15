@@ -1,6 +1,6 @@
 *************************************************
 ************************************************
--- DROP FUNCTION public.login(text, text);
+*********************************
 
 CREATE OR REPLACE FUNCTION public.login(
     xlogin text,
