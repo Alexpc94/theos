@@ -252,7 +252,7 @@ public class Acciones {
 //System.out.println(" llego login="+xlogin+" fecha="+xfecha+" SW="+xsw+" nro="+xnro+" xcodper="+xcodper+" xmonto="+xmonto+" obser="+xobser);
 //System.out.println(" xinteres="+xinteres+" xnrocuota="+xnrocuota+" xcuota="+xcuota+" xmontot="+xmontot);
 				//setAddAccion(Date fecha,int xnro,int xcodper,float xmonto,String xobser,int xmesactiv,int xanioactiv,String xlogin){
-				String error = this.accionesManager.setAddAccion(xfecha,Integer.parseInt(xnro),Integer.parseInt(xcodper),Float.parseFloat(xmonto),xobser,1,1,xlogin,Integer.parseInt(xnrocuota),Float.parseFloat(xinteres),Float.parseFloat(xcuota),Float.parseFloat(xmontot));
+				String error = this.accionesManager.setAddAccion(xfecha,xnro.toUpperCase(),Integer.parseInt(xcodper),Float.parseFloat(xmonto),xobser,1,1,xlogin,Integer.parseInt(xnrocuota),Float.parseFloat(xinteres),Float.parseFloat(xcuota),Float.parseFloat(xmontot));
 				
 				System.out.println(" error ="+error);
 				

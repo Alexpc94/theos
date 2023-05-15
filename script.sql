@@ -9,3 +9,9 @@ UPDATE public.personal SET actestado = 0 WHERE codigoper = 0;
 -- interes added in table transferencias
 ALTER TABLE public.transferencias
 ADD COLUMN interes integer NOT NULL DEFAULT 0;
+-- accion changed "int to string"
+ALTER TABLE public.transferencias 
+ALTER COLUMN accion TYPE VARCHAR(30);
+-- nro changed "int to string"
+ALTER TABLE public.accion 
+ALTER COLUMN nro TYPE varchar(20);
