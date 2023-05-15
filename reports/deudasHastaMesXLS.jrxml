@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="1417" pageHeight="595" orientation="Landscape" columnWidth="1377" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="869fd817-e32a-4aa3-bd7e-98cfe75e5a44">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.357947691000002"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.callouts" value="##Mon Apr 30 03:04:54 VET 2012\ncallouts.1.text=\ncallouts.1.bounds=324,-114,150,75"/>
@@ -41,79 +41,79 @@ order by p.ap,p.am,p.nombre]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="50" splitType="Stretch">
+		<band height="57" splitType="Stretch">
 			<staticText>
-				<reportElement x="81" y="0" width="204" height="14" uuid="b75e0a60-fbd1-4c54-8c44-63a2cd0e3ff9"/>
+				<reportElement x="32" y="0" width="347" height="14" uuid="b75e0a60-fbd1-4c54-8c44-63a2cd0e3ff9"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="9" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[SOCIOS CON DEUDAS HASTA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="32" y="24" width="49" height="14" uuid="a111f69e-11aa-4f15-bfc1-2d8725e35477"/>
+				<reportElement x="32" y="28" width="49" height="14" uuid="a111f69e-11aa-4f15-bfc1-2d8725e35477"/>
 				<textElement>
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AÑO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="32" y="12" width="49" height="14" uuid="f13e3da5-b305-434c-8d86-9882338bf5ee"/>
+				<reportElement x="32" y="14" width="49" height="14" uuid="f13e3da5-b305-434c-8d86-9882338bf5ee"/>
 				<textElement>
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MES:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="81" y="12" width="204" height="14" uuid="f63cd025-f96f-4794-8f18-4256725cdb33"/>
+				<reportElement x="81" y="14" width="298" height="14" uuid="f63cd025-f96f-4794-8f18-4256725cdb33"/>
 				<textElement>
 					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="24" width="204" height="14" uuid="21b2e23e-5c4b-48be-bb97-b527edba8ea1"/>
+				<reportElement x="81" y="28" width="298" height="14" uuid="21b2e23e-5c4b-48be-bb97-b527edba8ea1"/>
 				<textElement>
 					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="285" y="36" width="94" height="14" uuid="79331dc1-0e94-4787-9916-caf86535a9a8"/>
+				<reportElement x="285" y="42" width="94" height="14" uuid="79331dc1-0e94-4787-9916-caf86535a9a8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ESTADO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="449" y="36" width="928" height="14" uuid="1cb95e3d-f3eb-4166-8a5b-a514c23d9d42"/>
+				<reportElement x="449" y="42" width="928" height="14" uuid="1cb95e3d-f3eb-4166-8a5b-a514c23d9d42"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DEUDAS HASTA LA FECHA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="81" y="36" width="204" height="14" uuid="f3c3ce07-7838-4e97-bae7-3e2a882266b3"/>
+				<reportElement x="81" y="42" width="204" height="14" uuid="f3c3ce07-7838-4e97-bae7-3e2a882266b3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SOCIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="36" width="32" height="14" uuid="fbeeb1c9-1159-4933-8e8d-5e178cf8e561"/>
+				<reportElement x="0" y="42" width="32" height="14" uuid="fbeeb1c9-1159-4933-8e8d-5e178cf8e561"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[No.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="32" y="36" width="49" height="14" uuid="1f759ad1-8795-4b4b-ab0f-ec1491a8bff7"/>
+				<reportElement x="32" y="42" width="49" height="14" uuid="1f759ad1-8795-4b4b-ab0f-ec1491a8bff7"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ACCION]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="379" y="36" width="70" height="14" uuid="9508e975-3051-4d17-919a-b793cb2501e5"/>
+				<reportElement x="379" y="42" width="70" height="14" uuid="9508e975-3051-4d17-919a-b793cb2501e5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
@@ -122,7 +122,7 @@ order by p.ap,p.am,p.nombre]]>
 		</band>
 	</title>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="18" splitType="Stretch">
 			<textField>
 				<reportElement x="285" y="2" width="94" height="14" uuid="36674ad0-568c-410e-9f67-6e200c7dc121"/>
 				<textElement textAlignment="Left">
