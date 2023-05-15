@@ -210,7 +210,52 @@
             </div>
         </div>
     </div>
-    <!-- End Modals LISTA CUMPLEAÑOS -->       
+    <!-- End Modals LISTA CUMPLEAÑOS -->
+    <!--  LISTA DE ACCION -->
+    <div class="panel-body">
+        <div class="modal fade" id="accion-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+            <br><br><br>
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabl">Socios Listos Para Activacion de Accion</h4>
+                    </div>
+                    <div class="modal-body">
+     <!-- MODAL-BODY -->
+     <!-- aqui tamaño de tablas  -->               
+     <!-- /. ROW  -->              
+     <div  class="row">
+     
+         <!-- aqui tamaño de tablas  -->               
+         <div class="col-md-12">
+             <!-- Advanced Tables -->
+             <div  class="panel panel-default">
+                 <div >
+                     <div class="espacio-small"></div>
+                     <div class="table-responsive">
+    <div id="accionlist">
+
+    </div>                    
+                     </div>                 
+                 </div>
+             </div>
+             <!--End Advanced Tables -->
+
+         </div>
+         <input type="HIDDEN" id="selected-row" value="0">
+     </div>
+     <!--End Advanced Tables -->            
+     <!-- MODAL-BODY -->                
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modals LISTA ACCION -->       
     <!-- Footer -->
     <footer>
         <table class="table-uno table-bordered-uno taskbar-pie ">
@@ -219,26 +264,29 @@
               <td width="25%">
                 Usuario Conectado:<span>${xusuario}</span>
               </td>
-              <td width="40%">
+              <td width="38%">
                 Copyright &copy; Theos - 2017 v1.1.11
               </td>
               
               #if (${xalertas} == '1')
                 <td width="5%">
-                    <div id="alertar">
-                        <img  src="images/img-sis/warning.gif" style="width:23px;" title="Hacer click para ver.."><br>Beneficiarios Mayores
-                        ${xalertas}
+                    <div id="alertar" style="font-size: 9px;">
+                        <img  src="images/img-sis/warning.gif" style="width:18px;" title="Hacer click para ver.."><br>Beneficiarios Mayores
+                        
                     </div>                    
                 </td>
               #end
-              #if (${xalertas2} == '1')  
                 <td width="5%">
-                    <div id="birth">
-                        <img  src="images/img-sis/warning.gif" style="width:23px;" title="Hacer click para ver.."><br>Socios en cumpleaños    
+                    <div id="birth" style="font-size: 9px;">
+                        <img  src="images/img-sis/warning.gif" style="width:18px;" title="Hacer click para ver.."><br>Socios en cumpleaños    
                     </div>
                 </td>
-  			  #end
-              <td width="25%">
+  			    <td width="5%">
+                    <div id="accion" style="font-size: 9px;">
+                        <img  src="images/img-sis/warning.gif" style="width:18px;" title="Hacer click para ver.."><br>Activacion accion    
+                    </div>
+                </td>
+              <td width="22%">
                 Fecha:<span>${xfecha}</span> &nbsp;&nbsp;  - &nbsp;&nbsp; <span><a href="/theos/index.html"><img src="images/taskbar/group.png" alt="User" /> Desconectase</a></span>
               </td>
             </tr>
@@ -265,6 +313,7 @@ $("#alertar").click(function(){
     $(document).ready(function(){
     	 $('#dataTablesMenus-example_otro').dataTable();
     	 $('#dataTablesMenus-example_dos').dataTable();
+         $('#dataTablesMenus-example_accion').dataTable();
     	  
         $(".rolesChange").change( function() {
             $("#indexform").submit();
@@ -279,6 +328,16 @@ $("#birth").click(function(){
 
     jQuery.post('birthlist_2.html',{},
             function(data){$('#birthlist').html(data);}
+    );
+
+})
+//LISTA DE SOCIOS
+$("#accion").click(function(){
+    //alert("todo bien");
+    $('#accion-Modal').modal('show');  
+
+    jQuery.post('accion_2.html',{},
+            function(data){$('#accionlist').html(data);}
     );
 
 })
